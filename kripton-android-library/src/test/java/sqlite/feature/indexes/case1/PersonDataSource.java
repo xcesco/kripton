@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 /**
  * The Interface PersonDataSource.
  */
-@BindDataSource(daoSet= { PersonDAO.class }, fileName = "person.db", log=true)
+@BindDataSource(daoSet= { PersonDAO.class }, fileName = "FeatureIndex2.db", log=true)
 public interface PersonDataSource {
 
 }

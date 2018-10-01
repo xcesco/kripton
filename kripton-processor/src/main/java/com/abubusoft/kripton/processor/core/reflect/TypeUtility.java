@@ -341,28 +341,6 @@ public abstract class TypeUtility {
 		return isNullable(property.getPropertyType().getTypeName());
 	}
 
-	/**
-	 * Check if method parameter is nullable. Moreover, check nullable status of method param and property are compatible.
-	 *
-	 * @param method
-	 *            the method
-	 * @param methodParam
-	 *            the method param
-	 * @param property
-	 *            the property
-	 * @return true is method param is nullable
-	 */
-	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeName> methodParam,
-			ModelProperty property) {
-		if (!isNullable(property) && isNullable(methodParam.value1)) {
-			// ASSERT: property is not nullable but method yes, so we throw an
-			// exception
-			throw (new InvalidMethodSignException(method,
-					String.format("property '%s' is NOT nullable but method parameter '%s' is nullable  ",
-							property.getName(), methodParam.value0)));
-		}
-		return isNullable(methodParam.value1);
-	}
 
 	/**
 	 * Check if type if compatibility.
@@ -490,13 +468,13 @@ public abstract class TypeUtility {
 	 *            the type name
 	 * @return true, if is array
 	 */
-	public static boolean isArrayOfType(TypeName typeName, TypeName elementTypeName) {
-		if (typeName instanceof ArrayTypeName && isEquals(((ArrayTypeName) typeName).componentType, elementTypeName)) {
-			return true;
-		}
-
-		return false;
-	}
+//	public static boolean isArrayOfType(TypeName typeName, TypeName elementTypeName) {
+//		if (typeName instanceof ArrayTypeName && isEquals(((ArrayTypeName) typeName).componentType, elementTypeName)) {
+//			return true;
+//		}
+//
+//		return false;
+//	}
 
 	/**
 	 * Type name.
@@ -555,7 +533,7 @@ public abstract class TypeUtility {
 		String clazz = clazzName.toString();
 		int index = clazz.lastIndexOf(".");
 		if (index > 0) {
-			return clazz.substring(index + 1);
+			clazz=clazz.substring(index + 1);
 		}
 		return clazz;
 	}
@@ -778,28 +756,6 @@ public abstract class TypeUtility {
 		}
 	}
 
-	public static boolean isAssignable(TypeName typeName, TypeName assignableTypeName) {
-		try {
-			Class<?> assignableClazz = Class.forName(assignableTypeName.toString());
-			return isAssignable(typeName, assignableClazz);
-		} catch (ClassNotFoundException e) {
-			return false;
-		}
-
-	}
-
-	/**
-	 * Checks if is equals.
-	 *
-	 * @param clazz1
-	 *            the clazz 1
-	 * @param clazz2
-	 *            the clazz 2
-	 * @return true, if is equals
-	 */
-	public static boolean isEquals(Class<?> clazz1, String clazz2) {
-		return ClassName.get(clazz1).equals(typeName(clazz2));
-	}
 
 	/**
 	 * Extract package name.

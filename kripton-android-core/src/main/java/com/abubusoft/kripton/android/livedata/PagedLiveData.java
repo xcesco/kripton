@@ -6,7 +6,16 @@ package com.abubusoft.kripton.android.livedata;
 import com.abubusoft.kripton.android.PageRequest;
 
 /**
- * The paged version of KriptonLiveData.
+ * <p>
+ * The paged version of KriptonLiveData. A paged live data allows to move in the dataset with three parameters:
+ * </p>
+ * <ul>
+ * <li><strong>page</strong>: current page.</li>
+ * <li><strong>pageSize</strong>: is the number of elements retrieved from datasource. It is also used to define iteraction with</li>
+ * <li><strong>offset</strong>: it is an alternative to page as navigation system. It rapresents the distance from the first row. If you mix <code>offset</code> and
+ * <code>nextPage</code>, the behaviour will be strange (but not wrong). Just remember that <code>nextPage</code> and <code>previousPage</code> work with pages and not with
+ * <code>offset</code>.</li>
+ * </ul>
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  * @param <T>
@@ -33,7 +42,7 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest 
 		private int originalOffset;
 		private int originalPage;
 		private int originalPageSize;
-		
+
 		private int offset;
 		private int page;
 		private int pageSize;
@@ -42,10 +51,10 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest 
 			originalOffset = pageRequest.getOffset();
 			originalPage = pageRequest.getPage();
 			originalPageSize = pageRequest.getPageSize();
-			
-			offset=originalOffset;
-			page=originalPage;
-			pageSize=originalPageSize;
+
+			offset = originalOffset;
+			page = originalPage;
+			pageSize = originalPageSize;
 		}
 
 		/**
