@@ -12,10 +12,7 @@ public interface DaoCity {
 	
 	@BindSqlInsert
 	long insert(City bean);
-
-	/*@BindSqlSelect(where="id in (:{args})")
-	List<City> selectAll(@BindSqlParam(spread=true) List<String> args);*/
-	
+		
 	@BindSqlSelect(where="id in (:{dummy})")
 	List<City> selectAll2(@BindSqlParam("dummy") List<Long> args);
 }

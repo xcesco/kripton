@@ -79,7 +79,7 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 
 		liveData.createPageRequestBuilder().pageSize(41).offset(11).apply();
 		liveData.setOffset(liveData.getOffset() + 100);
-		
+
 		liveData.setPage(1);
 		liveData.nextPage();
 		liveData.previousPage();

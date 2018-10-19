@@ -51,7 +51,8 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 			dao.deleteAll();
 
 			for (int i = 0; i < 100; i++) {
-				dao.insertOne(UUID.randomUUID().toString(), String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
+				dao.insertOne(UUID.randomUUID().toString(), String.format("name%03d", i),
+						String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
 
 			PagedResult<Person> result = dao.select();
@@ -85,7 +86,8 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 			dao.deleteAll();
 
 			for (int i = 0; i < 100; i++) {
-				dao.insertOne(UUID.randomUUID().toString(), String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
+				dao.insertOne(UUID.randomUUID().toString(), String.format("name%03d", i),
+						String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
 
 			PagedResult<Person> result = dao.select();
@@ -114,9 +116,7 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 					Logger.info(item.toString());
 				}
 				assertTrue(result.getList().size() == 0);
-				assertTrue(!result.hasNext());
-				// assertTrue(result.list().get(0).name.equals(String.format("name%03d",
-				// i * 10)));
+				assertTrue(!result.hasNext());				
 			}
 
 			{
@@ -128,10 +128,8 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 				Logger.info("---------------");
 				for (Person item : result.getList()) {
 					Logger.info(item.toString());
-				}
-				//assertTrue(result.getList().size() == 0);
-				//assertTrue(!result.hasNext());
-				assertTrue(result.getList().get(0).getName().equals(String.format("name%03d",  0 * 10)));
+				}			
+				assertTrue(result.getList().get(0).getName().equals(String.format("name%03d", 0 * 10)));
 			}
 
 		}
