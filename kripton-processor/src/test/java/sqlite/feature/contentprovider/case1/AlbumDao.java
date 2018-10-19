@@ -15,8 +15,12 @@
  ******************************************************************************/
 package sqlite.feature.contentprovider.case1;
 
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+
+import java.util.List;
 
 /**
  * The Interface AlbumDao.
@@ -24,5 +28,9 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 @BindContentProviderPath(path = "albums")
 @BindDao(Album.class)
 public interface AlbumDao extends BaseDao<Album> {
+
+    @BindContentProviderEntry(path = ":{id}")
+    @BindSqlSelect(where = "id=:{id}")
+    List<Album> select(long id);
 
 }

@@ -39,8 +39,8 @@ public interface BaseDao<E> {
 	 * @param id the id
 	 * @return the e
 	 */
-	@BindContentProviderEntry(path = "${id}")
-	@BindSqlSelect(where = "id=${id}")
+	@BindContentProviderEntry(path = ":{id}")
+	@BindSqlSelect(where = "id=:{id}")
 	E selectById(long id);
 
 	/**
