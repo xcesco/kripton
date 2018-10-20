@@ -61,6 +61,7 @@ import sqlite.kripton111.TestCompile111;
 import sqlite.kripton186.Test186Suite;
 import sqlite.kripton205.Test205Suite;
 import sqlite.kripton209.Test209Suite;
+import sqlite.kripton296.Test296;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;
@@ -160,7 +161,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			Test84Suite.class,
 			Test93Suite.class,
 			Test96Suite.class,
-			TestQuickstartSuite.class, 
+			TestQuickstartSuite.class,
+			Test296.class,
 			TestDao01.class, 
 			Test03.class, 
 			Test04.class,
