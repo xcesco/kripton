@@ -6,10 +6,16 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2b62de5f47d4be3b87a4a4e69810ca6)](https://www.codacy.com/app/abubusoft/kripton?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xcesco/kripton&amp;utm_campaign=Badge_Grade)
 [![Project Stats](https://www.openhub.net/p/kripton-persistence-library/widgets/project_thin_badge.gif)](https://www.openhub.net/p/kripton-persistence-library)
 
+<img width="128px" src="https://github.com/xcesco/wikis/blob/master/kripton/jetbrains-variant-3.png">
+
+<a href="https://www.jetbrains.com/?from=KritponPersistenceLibrary">Thanks to JetBrains for support Kripton Persistence Library project!</a>
+
+
+
 # Kripton Persistence Library
 Kripton is a java library, for Android platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface.
 
-<img src="https://github.com/xcesco/wikis/blob/master/kripton/overview4.0.png">
+<img src="https://github.com/xcesco/wikis/blob/master/kripton/overview5.0.png">
 
 To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection and with just few lines of code.
 
@@ -258,10 +264,10 @@ You can use Kritpon Annotation Processor and Kripton Persistence Library via gra
 
 ```
 // annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:4.0.0"
+annotationProcessor "com.abubusoft:kripton-processor:5.0.0"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-implements "com.abubusoft:kripton-android-library:4.0.0"
+implements "com.abubusoft:kripton-android-library:5.0.0"
 ```
 
 or via maven
@@ -272,7 +278,7 @@ or via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>4.0.0</version>
+    <version>5.0.0</version>
   </dependency>
   ...
 </dependencies>
@@ -291,7 +297,7 @@ or via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>4.0.0</version>
+		    <version>5.0.0</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
@@ -304,7 +310,7 @@ or via maven
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
 
-Kritpon requires at minimum Java 7 or Android 3.0.
+Kritpon requires at minimum Java 8 or Android 3.0.
 
 ![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
 
@@ -318,11 +324,6 @@ mvn clean install -Prelease
 
 # Supported platforms
 There are two supported platforms: the android environment and generic Java environment. For each platform there is a version of library. Android platform already include a json library and xml parser library. Java JDK does not include a json library and have different xml parser libraries.
-
-# Donate
-If you like Kripton and you want to support its development, please donate!
-
-<a href='https://pledgie.com/campaigns/33279'><img alt='Click here to lend your support to: Support Kripton Persistence Library and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/33279.png?skin_name=chrome' border='0' ></a>
 
 # License
 
