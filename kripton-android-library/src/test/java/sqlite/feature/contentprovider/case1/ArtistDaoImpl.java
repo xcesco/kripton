@@ -65,7 +65,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name FROM artist WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM artist WHERE id=:{id}</pre>
    *
    * <h2>Mapped class:</h2>
    * {@link Artist}
@@ -139,10 +139,10 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    * <pre>content://com.abubusoft.kripton.example/artists/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name FROM Artist WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM Artist WHERE id=:{id}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name FROM artist WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM artist WHERE id=:{id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
