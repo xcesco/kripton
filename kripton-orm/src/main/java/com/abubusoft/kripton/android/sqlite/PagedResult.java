@@ -35,13 +35,6 @@ import com.abubusoft.kripton.android.PageRequest;
  */
 public abstract class PagedResult<E> implements PageRequest {
 
-	/**
-	 * Instantiates a new paginated result.
-	 */
-	protected PagedResult() {
-		list=new ArrayList<>();
-	}
-
 	/** The first row. */
 	protected int firstRow;
 
@@ -51,11 +44,39 @@ public abstract class PagedResult<E> implements PageRequest {
 	/** The page size. */
 	protected int pageSize;
 
-	public void setPageSize(int pageSize) {
-		if (pageSize > 0 &&  this.pageSize!=pageSize) {
-			this.pageSize = pageSize;
-			//execute();
-		}		
+	/**
+	 * number of total element extracted by the query
+	 */
+	protected int totalCount = -1;
+
+	/**
+	 * Instantiates a new paginated result.
+	 */
+	protected PagedResult() {
+		list = new ArrayList<>();
+	}
+
+	/**
+	 * execute method
+	 * 
+	 * @return result
+	 */
+	public abstract List<E> execute();
+
+	@Override
+	public void firstPage() {
+		setPage(0);
+
+		execute();
+	}
+
+	/**
+	 * List.
+	 *
+	 * @return the list
+	 */
+	public List<E> getList() {
+		return list;
 	}
 
 	/**
@@ -65,6 +86,39 @@ public abstract class PagedResult<E> implements PageRequest {
 	 */
 	public int getOffset() {
 		return firstRow;
+	}
+
+	/**
+	 * Get current Page
+	 * 
+	 * @return 0-based number of current page
+	 */
+	@Override
+	public int getPage() {
+		return firstRow / pageSize;
+	}
+
+	/**
+	 * Page size.
+	 *
+	 * @return the int
+	 */
+	@Override
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	/**
+	 * Checks for next.
+	 *
+	 * @return true, if successful
+	 */
+	public boolean hasNext() {
+		return list.size() > 0;
 	}
 
 	/**
@@ -79,11 +133,27 @@ public abstract class PagedResult<E> implements PageRequest {
 		execute();
 	}
 
+	/**
+	 * Previous page.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
-	public void firstPage() {
-		setPage(0);
-		
-		execute();
+	public void previousPage() {
+		firstRow -= pageSize;
+
+		if (firstRow < 0) {
+			firstRow = 0;
+		} else {
+			execute();
+		}
+	}
+
+	@Override
+	public void setOffset(int offset) {
+		if (this.firstRow != offset && offset >= 0) {
+			this.firstRow = offset;
+		}
 	}
 
 	/**
@@ -104,71 +174,10 @@ public abstract class PagedResult<E> implements PageRequest {
 
 	}
 
-	/**
-	 * Get current Page
-	 * 
-	 * @return 0-based number of current page
-	 */
-	@Override
-	public int getPage() {
-		return firstRow / pageSize;
-	}
-
-	/**
-	 * Previous page.
-	 *
-	 * @return true, if successful
-	 */
-	@Override
-	public void previousPage() {
-		firstRow -= pageSize;
-
-		if (firstRow < 0) {
-			firstRow = 0;
-		} else {
-			execute();
-		}
-	}
-
-	/**
-	 * Checks for next.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean hasNext() {
-		return list.size() > 0;
-	}
-
-	/**
-	 * List.
-	 *
-	 * @return the list
-	 */
-	public List<E> getList() {
-		return list;
-	}
-
-	/**
-	 * execute method
-	 * 
-	 * @return result
-	 */
-	public abstract List<E> execute();
-
-	/**
-	 * Page size.
-	 *
-	 * @return the int
-	 */
-	@Override
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	@Override
-	public void setOffset(int offset) {
-		if (this.firstRow!=offset && offset>=0) { 
-			this.firstRow=offset;			
+	public void setPageSize(int pageSize) {
+		if (pageSize > 0 && this.pageSize != pageSize) {
+			this.pageSize = pageSize;
+			// execute();
 		}
 	}
 }

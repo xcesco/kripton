@@ -16,18 +16,42 @@ public abstract class PagedLiveData<T> extends KriptonXLiveData<T> {
 
 	private final PageRequest pageRequest;
 
-	private KriptonXPagedLiveDataHandlerImpl<T> backed;
+	private KriptonXPagedLiveDataHandlerImpl<T> handler;
 
-	public PagedLiveData(PageRequest pageRequest, KriptonXPagedLiveDataHandlerImpl<T> backed) {
+	public PagedLiveData(PageRequest pageRequest, KriptonXPagedLiveDataHandlerImpl<T> handler) {
 		this.pageRequest = pageRequest;
-		this.backed = backed;
+		this.handler = handler;
 	}
 
 	public void setPage(Integer currentPage) {
 		if (pageRequest.getPage() != currentPage) {
 			pageRequest.setPage(currentPage);
-			backed.invalidate();
+			handler.invalidate();
 		}
+	}
+
+	/**
+	 * Move to a specific offset with page size.
+	 * 
+	 * @param offset
+	 * @param limit
+	 */
+	public void moveTo(int offset, int limit) {
+		boolean change = false;
+		if (pageRequest.getOffset() != offset) {
+			pageRequest.setOffset(offset);
+			change = true;
+		}
+
+		if (pageRequest.getPageSize() != limit) {
+			pageRequest.setPageSize(limit);
+			change = true;
+		}
+
+		if (change) {
+			handler.invalidate();
+		}
+
 	}
 
 	public int getPage() {
@@ -40,18 +64,18 @@ public abstract class PagedLiveData<T> extends KriptonXLiveData<T> {
 
 	public void moveToNextPage() {
 		pageRequest.setPage(pageRequest.getPage() + 1);
-		backed.invalidate();
+		handler.invalidate();
 	}
 
 	public void moveToPreviousPage() {
 		pageRequest.setPage(pageRequest.getPage() - 1);
-		backed.invalidate();
+		handler.invalidate();
 	}
 
 	public void moveToFirstPage() {
 		if (pageRequest.getPage() != 0) {
 			pageRequest.setPage(0);
-			backed.invalidate();
+			handler.invalidate();
 		}
 	}
 
