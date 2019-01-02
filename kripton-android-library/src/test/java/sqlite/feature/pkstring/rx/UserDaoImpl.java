@@ -271,6 +271,78 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
+   * </dl>
+   *
+   * @param paginatedResult
+   * 	handler of paginated result
+   * @return total row count
+   */
+  private int selectPagedTotalCount(PaginatedResult7 paginatedResult) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT count(*) FROM users");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sqlWhereStatement="";
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+      int _result=-1;
+
+      if (_cursor.moveToFirst()) {
+        _result=_cursor.getInt(0);
+      }
+      // log section for select BEGIN
+      if (_context.isLogEnabled()) {
+        // manage log
+        Logger.info("Total elements found: ", _result);
+
+        // log for where parameters -- BEGIN
+        int _whereParamCounter=0;
+        for (String _whereParamItem: _contentValues.whereArgs()) {
+          Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+        }
+        // log for where parameters -- END
+        // log section for select END
+      }
+      return _result;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
    * <h2>Live data</h2>
    * <p>This method open a connection internally.</p>
    *

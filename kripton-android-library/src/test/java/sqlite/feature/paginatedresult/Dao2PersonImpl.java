@@ -181,6 +181,86 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
   }
 
   /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
+   * </dl>
+   *
+   * <h2>Method's parameters and associated dynamic parts:</h2>
+   * <dl>
+   * <dt>pageSize</dt>is part of limit statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_PAGE_SIZE}</dd>
+   * </dl>
+   *
+   * @param pageSize
+   * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @param paginatedResult
+   * 	handler of paginated result
+   * @return total row count
+   */
+  private int selectTotalCount(int pageSize, PaginatedResult3 paginatedResult) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT count(*) FROM person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    String _sqlWhereStatement="";
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+      int _result=-1;
+
+      if (_cursor.moveToFirst()) {
+        _result=_cursor.getInt(0);
+      }
+      // log section for select BEGIN
+      if (_context.isLogEnabled()) {
+        // manage log
+        Logger.info("Total elements found: ", _result);
+
+        // log for where parameters -- BEGIN
+        int _whereParamCounter=0;
+        for (String _whereParamItem: _contentValues.whereArgs()) {
+          Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+        }
+        // log for where parameters -- END
+        // log section for select END
+      }
+      return _result;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (:name, :surname, :birthCity, :birthDay)</pre>
    *
