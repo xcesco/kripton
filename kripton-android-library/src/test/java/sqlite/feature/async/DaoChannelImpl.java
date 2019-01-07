@@ -1372,16 +1372,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
-      // log section BEGIN
-      if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",_cursor.getCount());
-      }
-      // log section END
-      // common part generation - END
-      // Specialized part - SelectRawHelper - BEGIN
-      return _cursor;
+    Cursor _cursor = database().rawQuery(_sql, _sqlArgs);
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+      Logger.info("Rows found: %s",_cursor.getCount());
     }
+    // log section END
+    // common part generation - END
+    // Specialized part - SelectRawHelper - BEGIN
+    return _cursor;
     // Specialized part - SelectRawHelper - END
   }
 
@@ -1882,16 +1881,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
-      // log section BEGIN
-      if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",_cursor.getCount());
-      }
-      // log section END
-      // common part generation - END
-      // Specialized part - SelectRawHelper - BEGIN
-      return _cursor;
+    Cursor _cursor = database().rawQuery(_sql, _sqlArgs);
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+      Logger.info("Rows found: %s",_cursor.getCount());
     }
+    // log section END
+    // common part generation - END
+    // Specialized part - SelectRawHelper - BEGIN
+    return _cursor;
     // Specialized part - SelectRawHelper - END
   }
 

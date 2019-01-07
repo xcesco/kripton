@@ -242,6 +242,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 
 	public void generateTotalSpecializedPart(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
+		methodBuilder.addComment("manage query for total count eements");
 		methodBuilder.addStatement("int _result=-1");
 
 		methodBuilder.addCode("\n");
@@ -297,6 +298,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 
 		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
 				.returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
+		executeBuilder.addComment("Executor builder - BEGIN");
 
 		ClassName daoFactoryClassName = BindDaoFactoryBuilder.generateDaoFactoryClassName(method.getParent().getParent());
 		MethodSpec.Builder executeWithDaoFactortBuilder = MethodSpec.methodBuilder("execute").addParameter(daoFactoryClassName, "daoFactory").addModifiers(Modifier.PUBLIC)
@@ -346,6 +348,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			executeBuilder.addCode(separator + "this);\n");
 			executeBuilder.addStatement("return list");
 		}
+		executeBuilder.addComment("Executor builder - END");
 
 		typeBuilder.addMethod(executeBuilder.build());
 

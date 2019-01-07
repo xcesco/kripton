@@ -471,8 +471,10 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
     }
 
     public List<Person> execute() {
+      // Executor builder - BEGIN
       list=Dao2PersonImpl.this.select(this.pageSize, this);
       return list;
+      // Executor builder - END
     }
 
     public List<Person> execute(BindPerson2DaoFactory daoFactory) {

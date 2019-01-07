@@ -511,8 +511,10 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
     }
 
     public List<Person> execute() {
+      // Executor builder - BEGIN
       list=Dao4PersonImpl.this.select(value, this.pageSize, this);
       return list;
+      // Executor builder - END
     }
 
     public List<Person> execute(BindPerson4DaoFactory daoFactory) {
