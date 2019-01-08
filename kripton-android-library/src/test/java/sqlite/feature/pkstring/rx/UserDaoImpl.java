@@ -319,6 +319,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log section END
       // common part generation - END
       // Specialized part II - SelectPaginatedResultHelper - BEGIN
+      // manage query for total count eements
       int _result=-1;
 
       if (_cursor.moveToFirst()) {
@@ -720,8 +721,10 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
 
     public List<User> execute() {
+      // Executor builder - BEGIN
       list=UserDaoImpl.this.selectPaged(this);
       return list;
+      // Executor builder - END
     }
 
     public List<User> execute(BindUserDaoFactory daoFactory) {

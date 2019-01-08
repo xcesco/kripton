@@ -215,6 +215,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
       // log section END
       // common part generation - END
       // Specialized part II - SelectPaginatedResultHelper - BEGIN
+      // manage query for total count eements
       int _result=-1;
 
       if (_cursor.moveToFirst()) {

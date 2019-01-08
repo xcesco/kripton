@@ -231,6 +231,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log section END
       // common part generation - END
       // Specialized part II - SelectPaginatedResultHelper - BEGIN
+      // manage query for total count eements
       int _result=-1;
 
       if (_cursor.moveToFirst()) {
@@ -485,8 +486,10 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
 
     public List<Person> execute() {
+      // Executor builder - BEGIN
       list=DaoPersonImpl.this.select(this);
       return list;
+      // Executor builder - END
     }
 
     public List<Person> execute(BindAppDaoFactory daoFactory) {
