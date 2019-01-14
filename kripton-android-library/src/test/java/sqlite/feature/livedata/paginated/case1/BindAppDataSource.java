@@ -1,4 +1,4 @@
-package sqlite.feature.many2many.err3;
+package sqlite.feature.livedata.paginated.case1;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -13,34 +13,30 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
-import sqlite.feature.many2many.CityTable;
-import sqlite.feature.many2many.PersonTable;
 
 /**
  * <p>
- * Implementation of the PersonCirtyErr3DataSource datasource.
+ * Implementation of the AppDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see PersonCirtyErr3DataSource
- * @see BindPersonCirtyErr3DaoFactory
- * @see PersonErr3Dao
- * @see PersonErr3DaoImpl
+ * @see AppDataSource
+ * @see BindAppDaoFactory
+ * @see DaoPerson
+ * @see DaoPersonImpl
  * @see Person
- * @see CityErr3Dao
- * @see CityErr3DaoImpl
- * @see City
- * @see PersonCityErr1Dao
- * @see PersonCityErr1DaoImpl
- * @see PersonCityErr3
+ * @see DaoGroup
+ * @see DaoGroupImpl
+ * @see Group
  */
-public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements BindPersonCirtyErr3DaoFactory, PersonCirtyErr3DataSource {
+public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static volatile BindPersonCirtyErr3DataSource instance;
+  static volatile BindAppDataSource instance;
 
   /**
    * <p>Mutex to manage multithread access to instance</p>
@@ -48,62 +44,47 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   private static final Object mutex = new Object();
 
   /**
-   * Unique identifier for Dao PersonErr3Dao
+   * Unique identifier for Dao DaoPerson
    */
-  public static final int PERSON_ERR3_DAO_UID = 0;
+  public static final int DAO_PERSON_UID = 0;
 
   /**
-   * Unique identifier for Dao CityErr3Dao
+   * Unique identifier for Dao DaoGroup
    */
-  public static final int CITY_ERR3_DAO_UID = 1;
-
-  /**
-   * Unique identifier for Dao PersonCityErr1Dao
-   */
-  public static final int PERSON_CITY_ERR1_DAO_UID = 2;
+  public static final int DAO_GROUP_UID = 1;
 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonCityErr3Table(), new CityTable(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable(), new GroupTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonErr3DaoImpl personErr3Dao = new PersonErr3DaoImpl(this);
+  protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected CityErr3DaoImpl cityErr3Dao = new CityErr3DaoImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected PersonCityErr1DaoImpl personCityErr1Dao = new PersonCityErr1DaoImpl(this);
+  protected DaoGroupImpl daoGroup = new DaoGroupImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
    */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  protected BindPersonCirtyErr3DataSource(DataSourceOptions options) {
-    super("person.db", 1, options);
+  protected BindAppDataSource(DataSourceOptions options) {
+    super("app.db", 1, options);
   }
 
   @Override
-  public PersonErr3DaoImpl getPersonErr3Dao() {
-    return personErr3Dao;
+  public DaoPersonImpl getDaoPerson() {
+    return daoPerson;
   }
 
   @Override
-  public CityErr3DaoImpl getCityErr3Dao() {
-    return cityErr3Dao;
-  }
-
-  @Override
-  public PersonCityErr1DaoImpl getPersonCityErr1Dao() {
-    return personCityErr1Dao;
+  public DaoGroupImpl getDaoGroup() {
+    return daoGroup;
   }
 
   /**
@@ -266,8 +247,8 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindPersonCirtyErr3DataSource getInstance() {
-    BindPersonCirtyErr3DataSource result=instance;
+  public static BindAppDataSource getInstance() {
+    BindAppDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
         result=instance;
@@ -276,7 +257,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
           	.inMemory(false)
           	.log(true)
           	.build();
-          instance=result=new BindPersonCirtyErr3DataSource(options);
+          instance=result=new BindAppDataSource(options);
           try {
             instance.openWritableDatabase();
             instance.close();
@@ -294,8 +275,8 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindPersonCirtyErr3DataSource open() {
-    BindPersonCirtyErr3DataSource instance=getInstance();
+  public static BindAppDataSource open() {
+    BindAppDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -304,8 +285,8 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindPersonCirtyErr3DataSource openReadOnly() {
-    BindPersonCirtyErr3DataSource instance=getInstance();
+  public static BindAppDataSource openReadOnly() {
+    BindAppDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -327,22 +308,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     // log section create END
     // log section create BEGIN
     if (this.logEnabled) {
+      Logger.info("DDL: %s",GroupTable.CREATE_TABLE_SQL);
+    }
+    // log section create END
+    database.execSQL(GroupTable.CREATE_TABLE_SQL);
+    // log section create BEGIN
+    if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
     // log section create END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section create BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-    }
-    // log section create END
-    database.execSQL(CityTable.CREATE_TABLE_SQL);
-    // log section create BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);
-    }
-    // log section create END
-    database.execSQL(PersonCityErr3Table.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -383,22 +358,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
+        Logger.info("DDL: %s",GroupTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(GroupTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(CityTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonCityErr3Table.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -418,21 +387,20 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   }
 
   public void clearCompiledStatements() {
-    PersonErr3DaoImpl.clearCompiledStatements();
-    CityErr3DaoImpl.clearCompiledStatements();
-    PersonCityErr1DaoImpl.clearCompiledStatements();
+    DaoPersonImpl.clearCompiledStatements();
+    DaoGroupImpl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static BindPersonCirtyErr3DataSource build(DataSourceOptions options) {
-    BindPersonCirtyErr3DataSource result=instance;
+  public static BindAppDataSource build(DataSourceOptions options) {
+    BindAppDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
         result=instance;
         if (result==null) {
-          instance=result=new BindPersonCirtyErr3DataSource(options);
+          instance=result=new BindAppDataSource(options);
           try {
             instance.openWritableDatabase();
             instance.close();
@@ -448,11 +416,11 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
             e.printStackTrace();
           }
         } else {
-          throw new KriptonRuntimeException("Datasource BindPersonCirtyErr3DataSource is already builded");
+          throw new KriptonRuntimeException("Datasource BindAppDataSource is already builded");
         }
       }
     } else {
-      throw new KriptonRuntimeException("Datasource BindPersonCirtyErr3DataSource is already builded");
+      throw new KriptonRuntimeException("Datasource BindAppDataSource is already builded");
     }
     return result;
   }
@@ -467,7 +435,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindPersonCirtyErr3DaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindAppDaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
@@ -477,7 +445,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindPersonCirtyErr3DaoFactory daoFactory);
+    TransactionResult onExecute(BindAppDaoFactory daoFactory);
   }
 
   /**
@@ -490,53 +458,40 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindPersonCirtyErr3DaoFactory daoFactory);
+    T onExecute(BindAppDaoFactory daoFactory);
   }
 
-  class DataSourceSingleThread implements BindPersonCirtyErr3DaoFactory {
+  class DataSourceSingleThread implements BindAppDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    protected PersonErr3DaoImpl _personErr3Dao;
+    protected DaoPersonImpl _daoPerson;
 
-    protected CityErr3DaoImpl _cityErr3Dao;
-
-    protected PersonCityErr1DaoImpl _personCityErr1Dao;
+    protected DaoGroupImpl _daoGroup;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInSessionImpl(BindPersonCirtyErr3DataSource.this);
+      _context=new SQLContextInSessionImpl(BindAppDataSource.this);
     }
 
     /**
      *
-     * retrieve dao PersonErr3Dao
+     * retrieve dao DaoPerson
      */
-    public PersonErr3DaoImpl getPersonErr3Dao() {
-      if (_personErr3Dao==null) {
-        _personErr3Dao=new PersonErr3DaoImpl(this);
+    public DaoPersonImpl getDaoPerson() {
+      if (_daoPerson==null) {
+        _daoPerson=new DaoPersonImpl(this);
       }
-      return _personErr3Dao;
+      return _daoPerson;
     }
 
     /**
      *
-     * retrieve dao CityErr3Dao
+     * retrieve dao DaoGroup
      */
-    public CityErr3DaoImpl getCityErr3Dao() {
-      if (_cityErr3Dao==null) {
-        _cityErr3Dao=new CityErr3DaoImpl(this);
+    public DaoGroupImpl getDaoGroup() {
+      if (_daoGroup==null) {
+        _daoGroup=new DaoGroupImpl(this);
       }
-      return _cityErr3Dao;
-    }
-
-    /**
-     *
-     * retrieve dao PersonCityErr1Dao
-     */
-    public PersonCityErr1DaoImpl getPersonCityErr1Dao() {
-      if (_personCityErr1Dao==null) {
-        _personCityErr1Dao=new PersonCityErr1DaoImpl(this);
-      }
-      return _personCityErr1Dao;
+      return _daoGroup;
     }
 
     @Override
@@ -545,12 +500,22 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     }
 
     protected void onSessionOpened() {
+      // support for live data
+      _context.onSessionOpened();
     }
 
     protected void onSessionClear() {
+      // support for live data
+      _context.onSessionOpened();
     }
 
     protected void onSessionClosed() {
+      // support for live data
+      Set<Integer> daosWithEvents=_context.onSessionClosed();
+      if (_daoPerson!=null && daosWithEvents.contains(DAO_PERSON_UID)) {
+        _daoPerson.invalidateLiveData();
+      }
+      // "_daoGroup" has no live data
     }
 
     public DataSourceSingleThread bindToThread() {

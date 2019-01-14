@@ -13,27 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.livedata;
+package sqlite.feature.livedata.paginated.case1;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import base.BaseAndroidTest;
-import sqlite.feature.livedata.paginated.case1.TestPagedLiveDataCase1Runtime;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 /**
- * The Class TestRuntimeMany2ManySuite.
+ * The Interface App0DataSource.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestFeatureLiveDataRuntime.class,
-		TestFeaturePagedLiveDataRuntime.class,
-		TestLiveDataRuntime.class,
-		TestPagedLiveDataCase1Runtime.class
-		 })
-//@formatter:on
-public class TestRuntimeLiveDataSuite extends BaseAndroidTest {
+@BindDataSource(fileName="app.db", version=1, daoSet={DaoPerson.class, DaoGroup.class})
+public interface AppDataSource {
 
 }

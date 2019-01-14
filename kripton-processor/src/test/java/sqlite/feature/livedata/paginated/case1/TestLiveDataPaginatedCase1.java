@@ -13,29 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.livedata;
+package sqlite.feature.livedata.paginated.case1;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
-import sqlite.feature.livedata.paginated.TestLiveDataPaginated;
-import sqlite.feature.livedata.paginated.case1.TestLiveDataPaginatedCase1;
+import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
- * The Class TestLiveDataSuite.
+ * The Class TestLiveDataCompile.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestLiveDataCompile.class,
-		TestLiveDataCompile2.class,
-		TestLiveDataCompile3.class,
-		TestLiveDataPaginated.class,
-		TestLiveDataPaginatedCase1.class
-		 })
-//@formatter:on
-public class TestLiveDataSuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class TestLiveDataPaginatedCase1 extends AbstractBindSQLiteProcessorTest {
+
+	@Test
+	public void testOK() throws Throwable {
+		buildDataSourceProcessorTest(GroupedPerson.class, Person.class, DaoPerson.class, Group.class, DaoGroup.class, AppDataSource.class);
+	}
 
 }
