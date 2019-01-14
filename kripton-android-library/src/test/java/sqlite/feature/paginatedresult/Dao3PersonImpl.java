@@ -190,30 +190,6 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  /**
-   * <h2>Select SQL:</h2>
-   *
-   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE id>${value} ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
-   *
-   * <h2>Mapped class:</h2>
-   * {@link Person}
-   *
-   * <h2>Projected columns:</h2>
-   * <dl>
-   * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
-   * </dl>
-   *
-   * <h2>Query's parameters:</h2>
-   * <dl>
-   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>
-   *
-   * @param value
-   * 	is binded to <code>:value</code>
-   * @param paginatedResult
-   * 	handler of paginated result
-   * @return total row count
-   */
   private int selectTotalCount(long value, PaginatedResult4 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();

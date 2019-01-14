@@ -59,7 +59,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public PagedResult<Person> select() {
-    final PaginatedResult6 paginatedResult=new PaginatedResult6();
+    final PaginatedResult8 paginatedResult=new PaginatedResult8();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -86,7 +86,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> select(PaginatedResult6 paginatedResult) {
+  private List<Person> select(PaginatedResult8 paginatedResult) {
     // total count - BEGIN
     paginatedResult.setTotalCount(this.selectTotalCount(paginatedResult));
     // total count - END
@@ -184,24 +184,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  /**
-   * <h2>Select SQL:</h2>
-   *
-   * <pre>SELECT pk, birth_city, birth_day, name, surname FROM person ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
-   *
-   * <h2>Mapped class:</h2>
-   * {@link Person}
-   *
-   * <h2>Projected columns:</h2>
-   * <dl>
-   * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
-   * </dl>
-   *
-   * @param paginatedResult
-   * 	handler of paginated result
-   * @return total row count
-   */
-  private int selectTotalCount(PaginatedResult6 paginatedResult) {
+  private int selectTotalCount(PaginatedResult8 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -483,8 +466,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult6 extends PagedResult<Person> {
-    PaginatedResult6() {
+  public class PaginatedResult8 extends PagedResult<Person> {
+    PaginatedResult8() {
       this.pageSize=10;
     }
 

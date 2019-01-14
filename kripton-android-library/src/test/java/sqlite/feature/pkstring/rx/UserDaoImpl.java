@@ -169,7 +169,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * @return paginated result.
    */
   protected PagedResult<User> selectPagedForLiveData() {
-    final PaginatedResult7 paginatedResult=new PaginatedResult7();
+    final PaginatedResult9 paginatedResult=new PaginatedResult9();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -193,7 +193,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * 	handler of paginated result
    * @return result list
    */
-  private List<User> selectPaged(PaginatedResult7 paginatedResult) {
+  private List<User> selectPaged(PaginatedResult9 paginatedResult) {
     // total count - BEGIN
     paginatedResult.setTotalCount(this.selectPagedTotalCount(paginatedResult));
     // total count - END
@@ -273,24 +273,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  /**
-   * <h2>Select SQL:</h2>
-   *
-   * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
-   *
-   * <h2>Mapped class:</h2>
-   * {@link User}
-   *
-   * <h2>Projected columns:</h2>
-   * <dl>
-   * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
-   * </dl>
-   *
-   * @param paginatedResult
-   * 	handler of paginated result
-   * @return total row count
-   */
-  private int selectPagedTotalCount(PaginatedResult7 paginatedResult) {
+  private int selectPagedTotalCount(PaginatedResult9 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -718,8 +701,8 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
   }
 
-  public class PaginatedResult7 extends PagedResult<User> {
-    PaginatedResult7() {
+  public class PaginatedResult9 extends PagedResult<User> {
+    PaginatedResult9() {
       this.pageSize=20;
     }
 

@@ -168,23 +168,6 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  /**
-   * <h2>Select SQL:</h2>
-   *
-   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
-   *
-   * <h2>Mapped class:</h2>
-   * {@link Person}
-   *
-   * <h2>Projected columns:</h2>
-   * <dl>
-   * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
-   * </dl>
-   *
-   * @param paginatedResult
-   * 	handler of paginated result
-   * @return total row count
-   */
   private int selectTotalCount(PaginatedResult2 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
