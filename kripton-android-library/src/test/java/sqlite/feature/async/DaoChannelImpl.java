@@ -69,72 +69,72 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, name, owner_uid, uid, update_time FROM channel";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, name, owner_uid, uid, update_time FROM channel";
 
   /**
    * SQL definition for method selectRaw1
    */
-  private static final String SELECT_RAW1_SQL4 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW1_SQL2 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectRaw2
    */
-  private static final String SELECT_RAW2_SQL6 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW2_SQL3 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectRaw3
    */
-  private static final String SELECT_RAW3_SQL8 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW3_SQL4 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectRaw4
    */
-  private static final String SELECT_RAW4_SQL10 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW4_SQL5 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectRaw5
    */
-  private static final String SELECT_RAW5_SQL12 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW5_SQL6 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectBean1
    */
-  private static final String SELECT_BEAN1_SQL14 = "SELECT count(*) FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN1_SQL7 = "SELECT count(*) FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectBean2
    */
-  private static final String SELECT_BEAN2_SQL16 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN2_SQL8 = "SELECT update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectBean3
    */
-  private static final String SELECT_BEAN3_SQL18 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN3_SQL9 = "SELECT update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectBean4
    */
-  private static final String SELECT_BEAN4_SQL20 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN4_SQL10 = "SELECT update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectBean5
    */
-  private static final String SELECT_BEAN5_SQL22 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN5_SQL11 = "SELECT update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectBean6
    */
-  private static final String SELECT_BEAN6_SQL24 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN6_SQL12 = "SELECT update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectBean7
    */
-  private static final String SELECT_BEAN7_SQL26 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN7_SQL13 = "SELECT update_time FROM channel WHERE update_time=?";
 
   /**
    * SQL definition for method selectBean8
    */
-  private static final String SELECT_BEAN8_SQL28 = "SELECT update_time FROM channel WHERE update_time=?";
+  private static final String SELECT_BEAN8_SQL14 = "SELECT update_time FROM channel WHERE update_time=?";
 
   public DaoChannelImpl(BindDummy01DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -1182,7 +1182,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -1268,7 +1268,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_RAW1_SQL4;
+    String _sql=SELECT_RAW1_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1355,7 +1355,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_RAW2_SQL6;
+    String _sql=SELECT_RAW2_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1416,7 +1416,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_RAW3_SQL8;
+    String _sql=SELECT_RAW3_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1506,7 +1506,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_RAW4_SQL10;
+    String _sql=SELECT_RAW4_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1574,7 +1574,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_RAW5_SQL12;
+    String _sql=SELECT_RAW5_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(updateTimeA));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1657,7 +1657,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN1_SQL14;
+    String _sql=SELECT_BEAN1_SQL7;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1722,7 +1722,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN2_SQL16;
+    String _sql=SELECT_BEAN2_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1800,7 +1800,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN3_SQL18;
+    String _sql=SELECT_BEAN3_SQL9;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1864,7 +1864,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN4_SQL20;
+    String _sql=SELECT_BEAN4_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1920,7 +1920,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN5_SQL22;
+    String _sql=SELECT_BEAN5_SQL11;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1989,7 +1989,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN6_SQL24;
+    String _sql=SELECT_BEAN6_SQL12;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -2064,7 +2064,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN7_SQL26;
+    String _sql=SELECT_BEAN7_SQL13;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -2139,7 +2139,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN8_SQL28;
+    String _sql=SELECT_BEAN8_SQL14;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(value.getUpdateTime()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

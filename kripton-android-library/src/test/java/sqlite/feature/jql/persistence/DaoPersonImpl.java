@@ -25,7 +25,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL10 = "SELECT _id, image, name FROM person";
+  private static final String SELECT_ALL_SQL5 = "SELECT _id, image, name FROM person";
 
   private static SQLiteStatement insertBeanPreparedStatement0;
 
@@ -55,7 +55,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL10;
+    String _sql=SELECT_ALL_SQL5;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

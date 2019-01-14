@@ -916,7 +916,7 @@ public abstract class JQLBuilder {
 			}
 		});
 
-		if (pageSize > 0 || StringUtils.hasText(pageDynamicName.value0)) {
+		if (pageSize > 0 || StringUtils.hasText(pageDynamicName.value0) || method.isPagedLiveData()) {
 			builder.append(" " + LIMIT_KEYWORD + " ");
 
 			if (pageSize > 0) {

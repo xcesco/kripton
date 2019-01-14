@@ -38,22 +38,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL2 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63";
 
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL4 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ?";
+  private static final String SELECT_ONE_SQL2 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ?";
 
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL6 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ?";
+  private static final String SELECT_ONE_SQL3 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ?";
 
   /**
    * SQL definition for method selectList
    */
-  private static final String SELECT_LIST_SQL8 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ?";
+  private static final String SELECT_LIST_SQL4 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ?";
 
   private static SQLiteStatement updateOnePreparedStatement0;
 
@@ -64,7 +64,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL10 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
+  private static final String SELECT_ONE_SQL5 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
 
   private static SQLiteStatement deletePreparedStatement3;
 
@@ -75,22 +75,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL12 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
+  private static final String SELECT_ONE_SQL6 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
 
   /**
    * SQL definition for method selectCursorOne
    */
-  private static final String SELECT_CURSOR_ONE_SQL14 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
+  private static final String SELECT_CURSOR_ONE_SQL7 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
 
   /**
    * SQL definition for method selectListenerOne
    */
-  private static final String SELECT_LISTENER_ONE_SQL16 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
+  private static final String SELECT_LISTENER_ONE_SQL8 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
 
   /**
    * SQL definition for method selectCursorListenerOne
    */
-  private static final String SELECT_CURSOR_LISTENER_ONE_SQL18 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
+  private static final String SELECT_CURSOR_LISTENER_ONE_SQL9 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
 
   private static SQLiteStatement deletePreparedStatement6;
 
@@ -99,12 +99,12 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * SQL definition for method selectMapEnumByteOne
    */
-  private static final String SELECT_MAP_ENUM_BYTE_ONE_SQL20 = "SELECT value_map_enum_byte FROM bean63";
+  private static final String SELECT_MAP_ENUM_BYTE_ONE_SQL10 = "SELECT value_map_enum_byte FROM bean63";
 
   /**
    * SQL definition for method selectMapEnumByteOneString
    */
-  private static final String SELECT_MAP_ENUM_BYTE_ONE_STRING_SQL22 = "SELECT value_map_enum_byte FROM bean63";
+  private static final String SELECT_MAP_ENUM_BYTE_ONE_STRING_SQL11 = "SELECT value_map_enum_byte FROM bean63";
 
   public BeanDaoImpl(BindBeanDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -133,7 +133,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL2;
+    String _sql=SELECT_ONE_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -211,7 +211,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL4;
+    String _sql=SELECT_ONE_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -297,7 +297,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL6;
+    String _sql=SELECT_ONE_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -364,7 +364,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_LIST_SQL8;
+    String _sql=SELECT_LIST_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -657,7 +657,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL10;
+    String _sql=SELECT_ONE_SQL5;
     // add where arguments
     _contentValues.addWhereArgs((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -911,7 +911,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL12;
+    String _sql=SELECT_ONE_SQL6;
     // add where arguments
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -989,7 +989,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_CURSOR_ONE_SQL14;
+    String _sql=SELECT_CURSOR_ONE_SQL7;
     // add where arguments
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1050,7 +1050,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_LISTENER_ONE_SQL16;
+    String _sql=SELECT_LISTENER_ONE_SQL8;
     // add where arguments
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1137,7 +1137,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_CURSOR_LISTENER_ONE_SQL18;
+    String _sql=SELECT_CURSOR_LISTENER_ONE_SQL9;
     // add where arguments
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1303,7 +1303,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_MAP_ENUM_BYTE_ONE_SQL20;
+    String _sql=SELECT_MAP_ENUM_BYTE_ONE_SQL10;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -1370,7 +1370,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_MAP_ENUM_BYTE_ONE_STRING_SQL22;
+    String _sql=SELECT_MAP_ENUM_BYTE_ONE_STRING_SQL11;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

@@ -22,7 +22,7 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
   /**
    * SQL definition for method selectByBean
    */
-  private static final String SELECT_BY_BEAN_SQL2 = "SELECT id, name, surname FROM bean205 WHERE name like ? || '%'";
+  private static final String SELECT_BY_BEAN_SQL1 = "SELECT id, name, surname FROM bean205 WHERE name like ? || '%'";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -59,7 +59,7 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_BEAN_SQL2;
+    String _sql=SELECT_BY_BEAN_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

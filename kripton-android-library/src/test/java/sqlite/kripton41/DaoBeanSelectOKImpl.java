@@ -19,7 +19,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
   /**
    * SQL definition for method selectDistance
    */
-  private static final String SELECT_DISTANCE_SQL2 = "SELECT count(*) FROM bean01 WHERE id=? and value=?";
+  private static final String SELECT_DISTANCE_SQL1 = "SELECT count(*) FROM bean01 WHERE id=? and value=?";
 
   public DaoBeanSelectOKImpl(BindDummy02DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -55,7 +55,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_DISTANCE_SQL2;
+    String _sql=SELECT_DISTANCE_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs(String.valueOf(value));

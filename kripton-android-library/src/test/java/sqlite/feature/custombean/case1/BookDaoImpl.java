@@ -34,47 +34,47 @@ public class BookDaoImpl extends Dao implements BookDao {
   /**
    * SQL definition for method loadBookById
    */
-  private static final String LOAD_BOOK_BY_ID_SQL2 = "SELECT id, title FROM book WHERE id = ?";
+  private static final String LOAD_BOOK_BY_ID_SQL1 = "SELECT id, title FROM book WHERE id = ?";
 
   /**
    * SQL definition for method findBooksBorrowedByName
    */
-  private static final String FIND_BOOKS_BORROWED_BY_NAME_SQL4 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ?";
+  private static final String FIND_BOOKS_BORROWED_BY_NAME_SQL2 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ?";
 
   /**
    * SQL definition for method findBooksBorrowedByNameAfter
    */
-  private static final String FIND_BOOKS_BORROWED_BY_NAME_AFTER_SQL6 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
+  private static final String FIND_BOOKS_BORROWED_BY_NAME_AFTER_SQL3 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
 
   /**
    * SQL definition for method findBooksBorrowedByNameSync
    */
-  private static final String FIND_BOOKS_BORROWED_BY_NAME_SYNC_SQL8 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ?";
+  private static final String FIND_BOOKS_BORROWED_BY_NAME_SYNC_SQL4 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ?";
 
   /**
    * SQL definition for method findBooksBorrowedByUser
    */
-  private static final String FIND_BOOKS_BORROWED_BY_USER_SQL10 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE ? ";
+  private static final String FIND_BOOKS_BORROWED_BY_USER_SQL5 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE ? ";
 
   /**
    * SQL definition for method findBooksBorrowedByUserAfter
    */
-  private static final String FIND_BOOKS_BORROWED_BY_USER_AFTER_SQL12 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE ? AND loan.end_time > ? ";
+  private static final String FIND_BOOKS_BORROWED_BY_USER_AFTER_SQL6 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE ? AND loan.end_time > ? ";
 
   /**
    * SQL definition for method findBooksBorrowedByUserSync
    */
-  private static final String FIND_BOOKS_BORROWED_BY_USER_SYNC_SQL14 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id = ? ";
+  private static final String FIND_BOOKS_BORROWED_BY_USER_SYNC_SQL7 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id = ? ";
 
   /**
    * SQL definition for method findAllBooks
    */
-  private static final String FIND_ALL_BOOKS_SQL16 = "SELECT id, title FROM book";
+  private static final String FIND_ALL_BOOKS_SQL8 = "SELECT id, title FROM book";
 
   /**
    * SQL definition for method findAllBooksSync
    */
-  private static final String FIND_ALL_BOOKS_SYNC_SQL18 = "SELECT id, title FROM book";
+  private static final String FIND_ALL_BOOKS_SYNC_SQL9 = "SELECT id, title FROM book";
 
   private static SQLiteStatement insertBookPreparedStatement0;
 
@@ -116,7 +116,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LOAD_BOOK_BY_ID_SQL2;
+    String _sql=LOAD_BOOK_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -187,7 +187,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_BOOKS_BORROWED_BY_NAME_SQL4;
+    String _sql=FIND_BOOKS_BORROWED_BY_NAME_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((userName==null?"":userName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -312,7 +312,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_BOOKS_BORROWED_BY_NAME_AFTER_SQL6;
+    String _sql=FIND_BOOKS_BORROWED_BY_NAME_AFTER_SQL3;
     // add where arguments
     _contentValues.addWhereArgs((userName==null?"":userName));
     _contentValues.addWhereArgs((after==null?"":DateUtils.write(after)));
@@ -440,7 +440,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_BOOKS_BORROWED_BY_NAME_SYNC_SQL8;
+    String _sql=FIND_BOOKS_BORROWED_BY_NAME_SYNC_SQL4;
     // add where arguments
     _contentValues.addWhereArgs((userName==null?"":userName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -517,7 +517,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_BOOKS_BORROWED_BY_USER_SQL10;
+    String _sql=FIND_BOOKS_BORROWED_BY_USER_SQL5;
     // add where arguments
     _contentValues.addWhereArgs((userId==null?"":userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -642,7 +642,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_BOOKS_BORROWED_BY_USER_AFTER_SQL12;
+    String _sql=FIND_BOOKS_BORROWED_BY_USER_AFTER_SQL6;
     // add where arguments
     _contentValues.addWhereArgs((userId==null?"":userId));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(DateTimeMillisecondsTypeAdapter.class, after));
@@ -769,7 +769,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_BOOKS_BORROWED_BY_USER_SYNC_SQL14;
+    String _sql=FIND_BOOKS_BORROWED_BY_USER_SYNC_SQL7;
     // add where arguments
     _contentValues.addWhereArgs((userId==null?"":userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -839,7 +839,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_ALL_BOOKS_SQL16;
+    String _sql=FIND_ALL_BOOKS_SQL8;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -947,7 +947,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_ALL_BOOKS_SYNC_SQL18;
+    String _sql=FIND_ALL_BOOKS_SYNC_SQL9;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

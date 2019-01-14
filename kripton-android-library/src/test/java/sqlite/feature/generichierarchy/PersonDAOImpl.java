@@ -25,7 +25,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person WHERE id=?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person WHERE id=?";
 
   private static SQLiteStatement insertThread1PreparedStatement0;
 
@@ -36,12 +36,12 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL4 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
+  private static final String SELECT_ONE_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
 
   /**
    * SQL definition for method selectTwo
    */
-  private static final String SELECT_TWO_SQL6 = "select * from person order by name";
+  private static final String SELECT_TWO_SQL3 = "select * from person order by name";
 
   public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -78,7 +78,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL2;
+    String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -345,7 +345,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL4;
+    String _sql=SELECT_ONE_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -424,7 +424,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_TWO_SQL6;
+    String _sql=SELECT_TWO_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

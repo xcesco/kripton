@@ -26,7 +26,7 @@ public class DaoRssImpl extends Dao implements DaoRss {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL2 = "SELECT id, uid, version FROM rss_feed WHERE uid=?";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, uid, version FROM rss_feed WHERE uid=?";
 
   private BindRssDaoFactory daoFactory;
 
@@ -140,7 +140,7 @@ public class DaoRssImpl extends Dao implements DaoRss {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL2;
+    String _sql=SELECT_ONE_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((uid==null?"":uid));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

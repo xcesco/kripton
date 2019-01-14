@@ -42,6 +42,9 @@ public interface DaoPerson {
 
 	@BindSqlSelect(where = "name like ${name} || '%'")
 	PagedLiveData<List<Person>> selectPaged(String name);
+	
+	@BindSqlSelect(pageSize=30)
+	PagedLiveData<List<Person>> selectAll();
 
 	// @BindSqlSelect(where = "name=${name}", pageSize = 20)
 	// PaginatedResult<Person> selectPagein(String name);

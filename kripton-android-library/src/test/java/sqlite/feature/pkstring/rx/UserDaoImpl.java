@@ -194,6 +194,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    * @return result list
    */
   private List<User> selectPaged(PaginatedResult7 paginatedResult) {
+    // total count - BEGIN
+    paginatedResult.setTotalCount(this.selectPagedTotalCount(paginatedResult));
+    // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -328,7 +331,6 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log section for select BEGIN
       if (_context.isLogEnabled()) {
         // manage log
-        Logger.info("Total elements found: ", _result);
 
         // log for where parameters -- BEGIN
         int _whereParamCounter=0;
@@ -336,6 +338,7 @@ public class UserDaoImpl extends Dao implements UserDao {
           Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
         }
         // log for where parameters -- END
+        Logger.info("Total elements found: %s", _result);
         // log section for select END
       }
       return _result;

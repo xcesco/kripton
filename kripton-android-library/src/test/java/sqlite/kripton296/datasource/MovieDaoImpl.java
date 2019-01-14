@@ -32,7 +32,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
   /**
    * SQL definition for method findMovieByTitle
    */
-  private static final String FIND_MOVIE_BY_TITLE_SQL8 = "SELECT id, director_id, title FROM movie WHERE title = ? LIMIT 1";
+  private static final String FIND_MOVIE_BY_TITLE_SQL4 = "SELECT id, director_id, title FROM movie WHERE title = ? LIMIT 1";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -45,7 +45,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
   /**
    * SQL definition for method getAllMovies
    */
-  private static final String GET_ALL_MOVIES_SQL10 = "select movie.title title, director.full_name full_name from movie, director where director.did=movie.director_id order By title ASC";
+  private static final String GET_ALL_MOVIES_SQL5 = "select movie.title title, director.full_name full_name from movie, director where director.did=movie.director_id order By title ASC";
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
@@ -82,7 +82,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_MOVIE_BY_TITLE_SQL8;
+    String _sql=FIND_MOVIE_BY_TITLE_SQL4;
     // add where arguments
     _contentValues.addWhereArgs((title==null?"":title));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -388,7 +388,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_ALL_MOVIES_SQL10;
+    String _sql=GET_ALL_MOVIES_SQL5;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

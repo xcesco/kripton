@@ -27,12 +27,12 @@ public class TodoDaoImpl extends Dao implements TodoDao {
   /**
    * SQL definition for method selectByUserId
    */
-  private static final String SELECT_BY_USER_ID_SQL14 = "SELECT id, completed, title, user_id FROM todo WHERE user_id = ?";
+  private static final String SELECT_BY_USER_ID_SQL7 = "SELECT id, completed, title, user_id FROM todo WHERE user_id = ?";
 
   /**
    * SQL definition for method selectOneByUserId
    */
-  private static final String SELECT_ONE_BY_USER_ID_SQL16 = "SELECT id, completed, title, user_id FROM todo WHERE id = ?";
+  private static final String SELECT_ONE_BY_USER_ID_SQL8 = "SELECT id, completed, title, user_id FROM todo WHERE id = ?";
 
   public TodoDaoImpl(BindQuickStartDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -142,7 +142,7 @@ public class TodoDaoImpl extends Dao implements TodoDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_USER_ID_SQL14;
+    String _sql=SELECT_BY_USER_ID_SQL7;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -226,7 +226,7 @@ public class TodoDaoImpl extends Dao implements TodoDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_BY_USER_ID_SQL16;
+    String _sql=SELECT_ONE_BY_USER_ID_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

@@ -24,17 +24,17 @@ public class UserDaoImpl extends Dao implements UserDao {
   /**
    * SQL definition for method loadAllUsers
    */
-  private static final String LOAD_ALL_USERS_SQL26 = "SELECT id, age, last_name, name FROM user";
+  private static final String LOAD_ALL_USERS_SQL13 = "SELECT id, age, last_name, name FROM user";
 
   /**
    * SQL definition for method loadUserById
    */
-  private static final String LOAD_USER_BY_ID_SQL28 = "SELECT id, age, last_name, name FROM user WHERE id = ?";
+  private static final String LOAD_USER_BY_ID_SQL14 = "SELECT id, age, last_name, name FROM user WHERE id = ?";
 
   /**
    * SQL definition for method findUserByNameAndLastName
    */
-  private static final String FIND_USER_BY_NAME_AND_LAST_NAME_SQL30 = "SELECT id, age, last_name, name FROM user WHERE name = ? and last_name = ?";
+  private static final String FIND_USER_BY_NAME_AND_LAST_NAME_SQL15 = "SELECT id, age, last_name, name FROM user WHERE name = ? and last_name = ?";
 
   private static SQLiteStatement insertUserPreparedStatement0;
 
@@ -49,12 +49,12 @@ public class UserDaoImpl extends Dao implements UserDao {
   /**
    * SQL definition for method findUsersYoungerThan
    */
-  private static final String FIND_USERS_YOUNGER_THAN_SQL32 = "SELECT id, age, last_name, name FROM user WHERE age = ?";
+  private static final String FIND_USERS_YOUNGER_THAN_SQL16 = "SELECT id, age, last_name, name FROM user WHERE age = ?";
 
   /**
    * SQL definition for method findUsersYoungerThanSolution
    */
-  private static final String FIND_USERS_YOUNGER_THAN_SOLUTION_SQL34 = "SELECT id, age, last_name, name FROM user WHERE age < ?";
+  private static final String FIND_USERS_YOUNGER_THAN_SOLUTION_SQL17 = "SELECT id, age, last_name, name FROM user WHERE age < ?";
 
   private static SQLiteStatement deleteAllPreparedStatement5;
 
@@ -85,7 +85,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LOAD_ALL_USERS_SQL26;
+    String _sql=LOAD_ALL_USERS_SQL13;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -168,7 +168,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LOAD_USER_BY_ID_SQL28;
+    String _sql=LOAD_USER_BY_ID_SQL14;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -249,7 +249,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_USER_BY_NAME_AND_LAST_NAME_SQL30;
+    String _sql=FIND_USER_BY_NAME_AND_LAST_NAME_SQL15;
     // add where arguments
     _contentValues.addWhereArgs((firstName==null?"":firstName));
     _contentValues.addWhereArgs((lastName==null?"":lastName));
@@ -600,7 +600,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_USERS_YOUNGER_THAN_SQL32;
+    String _sql=FIND_USERS_YOUNGER_THAN_SQL16;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(age));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -684,7 +684,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_USERS_YOUNGER_THAN_SOLUTION_SQL34;
+    String _sql=FIND_USERS_YOUNGER_THAN_SOLUTION_SQL17;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(age));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

@@ -33,12 +33,12 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL2 = "SELECT id, column_bean FROM bean84_b WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, column_bean FROM bean84_b WHERE id = ?";
 
   /**
    * SQL definition for method selectByBean
    */
-  private static final String SELECT_BY_BEAN_SQL4 = "SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?";
+  private static final String SELECT_BY_BEAN_SQL2 = "SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -82,7 +82,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL2;
+    String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(param1));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -154,7 +154,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_BEAN_SQL4;
+    String _sql=SELECT_BY_BEAN_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

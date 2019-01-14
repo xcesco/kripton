@@ -31,12 +31,12 @@ public class DirectorDaoImpl extends Dao implements DirectorDao {
   /**
    * SQL definition for method findDirectorById
    */
-  private static final String FIND_DIRECTOR_BY_ID_SQL2 = "SELECT did, full_name FROM director WHERE did = ? LIMIT 1";
+  private static final String FIND_DIRECTOR_BY_ID_SQL1 = "SELECT did, full_name FROM director WHERE did = ? LIMIT 1";
 
   /**
    * SQL definition for method findDirectorByName
    */
-  private static final String FIND_DIRECTOR_BY_NAME_SQL4 = "SELECT did, full_name FROM director WHERE full_name = ? LIMIT 1";
+  private static final String FIND_DIRECTOR_BY_NAME_SQL2 = "SELECT did, full_name FROM director WHERE full_name = ? LIMIT 1";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -49,7 +49,7 @@ public class DirectorDaoImpl extends Dao implements DirectorDao {
   /**
    * SQL definition for method getAllDirectors
    */
-  private static final String GET_ALL_DIRECTORS_SQL6 = "SELECT did, full_name FROM director ORDER BY full_name ASC";
+  private static final String GET_ALL_DIRECTORS_SQL3 = "SELECT did, full_name FROM director ORDER BY full_name ASC";
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
@@ -85,7 +85,7 @@ public class DirectorDaoImpl extends Dao implements DirectorDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_DIRECTOR_BY_ID_SQL2;
+    String _sql=FIND_DIRECTOR_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -157,7 +157,7 @@ public class DirectorDaoImpl extends Dao implements DirectorDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_DIRECTOR_BY_NAME_SQL4;
+    String _sql=FIND_DIRECTOR_BY_NAME_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((fullName==null?"":fullName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -455,7 +455,7 @@ public class DirectorDaoImpl extends Dao implements DirectorDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_ALL_DIRECTORS_SQL6;
+    String _sql=GET_ALL_DIRECTORS_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

@@ -28,7 +28,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   /**
    * SQL definition for method selectByChannel
    */
-  private static final String SELECT_BY_CHANNEL_SQL2 = "SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE channel_id = ?";
+  private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE channel_id = ?";
 
   private static SQLiteStatement updateByIdPreparedStatement0;
 
@@ -37,7 +37,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   /**
    * SQL definition for method selectByUid
    */
-  private static final String SELECT_BY_UID_SQL4 = "SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE uid = ?";
+  private static final String SELECT_BY_UID_SQL2 = "SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE uid = ?";
 
   public DaoMessageImpl(BindWhisperDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -79,7 +79,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_CHANNEL_SQL2;
+    String _sql=SELECT_BY_CHANNEL_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(channelId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -344,7 +344,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_UID_SQL4;
+    String _sql=SELECT_BY_UID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((uid==null?"":uid));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

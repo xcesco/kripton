@@ -21,7 +21,7 @@ public class Bean8DaoImpl extends Dao implements Bean8Dao {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, ignore2 FROM bean8";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, ignore2 FROM bean8";
 
   public Bean8DaoImpl(BindBean8DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -48,7 +48,7 @@ public class Bean8DaoImpl extends Dao implements Bean8Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

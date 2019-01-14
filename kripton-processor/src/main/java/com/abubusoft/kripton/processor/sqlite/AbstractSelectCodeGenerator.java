@@ -327,27 +327,19 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.ALL, null, generateSqlField, false);
 	}
 
+
 	/**
-	 * Generate common part.
-	 *
 	 * @param method
-	 *            the method
 	 * @param classBuilder
-	 *            the class builder
 	 * @param methodBuilder
-	 *            the method builder
 	 * @param fieldList
-	 *            the field list
-	 * @param mapFields
-	 *            the map fields
 	 * @param generationType
-	 *            the generation type
 	 * @param forcedReturnType
-	 *            the forced return type
+	 * @param generateSqlField
+	 * 	    if true, it will generate
 	 * @param countQuery
-	 *            if true, query if for total count
+	 * 		if true, the query is a total count query
 	 * @param javadocParts
-	 *            the javadoc parts
 	 */
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, GenerationType generationType,
 			TypeName forcedReturnType, boolean generateSqlField, boolean countQuery, JavadocPart... javadocParts) {
@@ -474,8 +466,10 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			generateMethodSignature(method, methodBuilder, returnTypeName);
 		}
 
-		// generate javadoc
-		JavadocUtility.generateJavaDocForSelect(methodBuilder, paramNames, method, annotation, fieldList, selectType, javadocParts);
+		if (!countQuery) {
+			// generate javadoc
+			JavadocUtility.generateJavaDocForSelect(methodBuilder, paramNames, method, annotation, fieldList, selectType, javadocParts);
+		}
 
 		methodBuilder.addComment("common part generation - BEGIN");
 
@@ -495,20 +489,30 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				methodBuilder.addStatement("String _sql=_sqlBuilder.toString()");
 			} else {
 				String sqlName = "";
-				CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLName());
-				if (generateSqlField) {
-					sqlName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLName());
+				sqlName=CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLName());
+				if (countQuery) {
 					String sql = SqlSelectBuilder.convertJQL2SQL(method, true);
-
+										
+					sql="SELECT COUNT(*) FROM ("+sql+")";					
+					
+					// add static sql definition
+					classBuilder.addField(FieldSpec.builder(String.class, sqlName, Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).initializer("$S", sql)
+							.addJavadoc("SQL definition for method $L\n", method.getName()).build());
+				} else if (generateSqlField) {
+					//sqlName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLName());
+					String sql = SqlSelectBuilder.convertJQL2SQL(method, true);
+					
 					// add static sql definition
 					classBuilder.addField(FieldSpec.builder(String.class, sqlName, Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).initializer("$S", sql)
 							.addJavadoc("SQL definition for method $L\n", method.getName()).build());
 				} else {
-					sqlName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLNameWithCurrentCounter());
+					sqlName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLNameWithCurrentCounter());									
 				}
 
 				methodBuilder.addComment("query SQL is statically defined");
-				methodBuilder.addStatement("String _sql=$L", sqlName);
+								
+				methodBuilder.addStatement("String _sql=$L", sqlName);					
+				
 			}
 
 			// build where condition (common for every type of select)

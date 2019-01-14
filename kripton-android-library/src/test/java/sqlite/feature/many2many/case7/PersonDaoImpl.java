@@ -26,7 +26,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   /**
    * SQL definition for method listPersons
    */
-  private static final String LIST_PERSONS_SQL4 = "SELECT id, name FROM person";
+  private static final String LIST_PERSONS_SQL2 = "SELECT id, name FROM person";
 
   public PersonDaoImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -121,7 +121,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LIST_PERSONS_SQL4;
+    String _sql=LIST_PERSONS_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

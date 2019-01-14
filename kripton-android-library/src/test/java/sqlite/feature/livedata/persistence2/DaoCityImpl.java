@@ -21,7 +21,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL6 = "SELECT id FROM city";
+  private static final String SELECT_ALL_SQL3 = "SELECT id FROM city";
 
   public DaoCityImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -47,7 +47,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL6;
+    String _sql=SELECT_ALL_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

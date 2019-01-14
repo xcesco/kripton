@@ -53,6 +53,8 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 		log("Main thread" + KriptonTaskExecutor.getInstance().isMainThread());
 
 		final PagedLiveData<List<Person>> liveData = ds.getDaoPerson().selectPaged("Manero");
+		liveData.setPageSize(20);
+		
 		liveData.observeForever(t -> {
 			log("--> Page %s -- size %s", liveData.getPage(), t.size());
 		});
@@ -77,13 +79,13 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 			return TransactionResult.COMMIT;
 		});
 
-		liveData.createPageRequestBuilder().pageSize(41).offset(11).apply();
-		liveData.setOffset(liveData.getOffset() + 100);
+		/*liveData.createPageRequestBuilder().pageSize(42).offset(11).apply();
+		liveData.setOffset(liveData.getOffset() + 100);*/
 
 		liveData.setPage(1);
 		liveData.nextPage();
 		liveData.previousPage();
-		liveData.nextPage();
+		/*liveData.nextPage();*/
 
 		Thread.sleep(1000);
 

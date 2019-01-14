@@ -948,7 +948,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @return true, if successful
 	 */
 	public boolean hasDynamicParts() {
-		return hasDynamicOrderByConditions() || hasDynamicPageSizeConditions() || hasDynamicWhereConditions() || this.jql.hasDynamicParts();
+		return hasDynamicOrderByConditions() || hasDynamicPageSizeConditions() || hasDynamicWhereConditions() || this.jql.hasDynamicParts() || isPagedLiveData();
 
 	}
 

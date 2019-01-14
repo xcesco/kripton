@@ -27,7 +27,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * SQL definition for method select
    */
-  private static final String SELECT_SQL2 = "SELECT id, name, surname FROM person WHERE name=?";
+  private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -68,7 +68,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_SQL2;
+    String _sql=SELECT_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

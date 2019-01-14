@@ -26,12 +26,12 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
   /**
    * SQL definition for method getAllDevices
    */
-  private static final String GET_ALL_DEVICES_SQL2 = "SELECT id, name FROM device";
+  private static final String GET_ALL_DEVICES_SQL1 = "SELECT id, name FROM device";
 
   /**
    * SQL definition for method getUserDevices
    */
-  private static final String GET_USER_DEVICES_SQL4 = "select * from device inner join user_2_device on device.id = user_2_device.device_id  where user_2_device.user_id = ?";
+  private static final String GET_USER_DEVICES_SQL2 = "select * from device inner join user_2_device on device.id = user_2_device.device_id  where user_2_device.user_id = ?";
 
   public DeviceDaoImpl(BindApp2DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -126,7 +126,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_ALL_DEVICES_SQL2;
+    String _sql=GET_ALL_DEVICES_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -203,7 +203,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_USER_DEVICES_SQL4;
+    String _sql=GET_USER_DEVICES_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((userId==null?"":String.valueOf(userId)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

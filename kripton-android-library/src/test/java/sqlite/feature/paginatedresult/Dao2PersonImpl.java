@@ -31,7 +31,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
 
   private static SQLiteStatement deleteAllPreparedStatement1;
 
@@ -102,6 +102,9 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
    * @return result list
    */
   private List<Person> select(int pageSize, PaginatedResult3 paginatedResult) {
+    // total count - BEGIN
+    paginatedResult.setTotalCount(this.selectTotalCount(pageSize, paginatedResult));
+    // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -246,7 +249,6 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
       // log section for select BEGIN
       if (_context.isLogEnabled()) {
         // manage log
-        Logger.info("Total elements found: ", _result);
 
         // log for where parameters -- BEGIN
         int _whereParamCounter=0;
@@ -254,6 +256,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
           Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
         }
         // log for where parameters -- END
+        Logger.info("Total elements found: %s", _result);
         // log section for select END
       }
       return _result;
@@ -362,7 +365,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

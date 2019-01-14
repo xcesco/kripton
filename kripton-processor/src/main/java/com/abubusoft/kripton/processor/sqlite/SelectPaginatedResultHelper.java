@@ -46,6 +46,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -88,12 +89,16 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 				classBuilder.addMethod(methodBuilder.build());
 			}
 		}
+		
+		String selectTotalCountMethodName=method.getName() + "TotalCount";
 
 		// generate paged result method
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addModifiers(Modifier.PRIVATE);
 			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(method.getEntity().getElement())),
 					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
+			
+			generateTotalCountUsage(method, methodBuilder, "paginatedResult", selectTotalCountMethodName);
 
 			generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_METHOD_SIGN, null, false, false,
 					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"), JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
@@ -110,7 +115,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			Set<JQLProjection> countfields = new HashSet<>();
 			countfields.add(JQLProjection.ProjectionBuilder.create().expression("count(*)").build());
 
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName() + "TotalCount").addModifiers(Modifier.PRIVATE);
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(selectTotalCountMethodName).addModifiers(Modifier.PRIVATE);
 			generateMethodSignature(method, methodBuilder, TypeName.INT, ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
 
 			generateCommonPart(method, classBuilder, methodBuilder, countfields, GenerationType.NO_METHOD_SIGN, TypeName.INT, false, true,
@@ -123,6 +128,19 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			classBuilder.addMethod(methodBuilder.build());
 		}
 
+	}
+
+	private void generateTotalCountUsage(SQLiteModelMethod method, Builder methodBuilder, String paginatedResultName, String selectTotalCountMethodName) {
+		methodBuilder.addComment("total count - BEGIN");
+		methodBuilder.addCode(paginatedResultName+".setTotalCount(this."+selectTotalCountMethodName+"(");
+		
+		method.getParameters().forEach(p -> {
+			methodBuilder.addCode(p.value0+", ");
+		});
+		methodBuilder.addCode(paginatedResultName+"));\n");		
+		
+		methodBuilder.addComment("total count - END");
+		
 	}
 
 	public static void createPagedResult(SQLiteModelMethod method, String pagedResultName, MethodSpec.Builder methodBuilder) {
@@ -256,12 +274,14 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			// generate log section - BEGIN
 			methodBuilder.addComment("log section for select BEGIN");
 			methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
+			
 			// manage log
 			methodBuilder.addComment("manage log");
-			methodBuilder.addStatement("$T.info($S, _result)", Logger.class, "Total elements found: ");
 
 			// log for where parames
 			SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
+			
+			methodBuilder.addStatement("$T.info($S, _result)", Logger.class, "Total elements found: %s");
 
 			// generate log section - END
 

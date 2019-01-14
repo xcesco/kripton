@@ -28,12 +28,12 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   /**
    * SQL definition for method selectByChannel
    */
-  private static final String SELECT_BY_CHANNEL_SQL2 = "SELECT id, author, channel_id, comments, description, guid, link, title FROM article WHERE channel_id=?";
+  private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, author, channel_id, comments, description, guid, link, title FROM article WHERE channel_id=?";
 
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL4 = "SELECT id, author, channel_id, comments, description, guid, link, title FROM article";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, author, channel_id, comments, description, guid, link, title FROM article";
 
   public DaoArticleImpl(BindRssDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -156,7 +156,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_CHANNEL_SQL2;
+    String _sql=SELECT_BY_CHANNEL_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(channelId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -245,7 +245,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL4;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

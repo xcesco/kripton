@@ -24,17 +24,17 @@ public class DaoBeanA_3Impl extends Dao implements DaoBeanA_3 {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT pk, value_string2 FROM bean_a_3";
+  private static final String SELECT_ALL_SQL1 = "SELECT pk, value_string2 FROM bean_a_3";
 
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL4 = "SELECT pk, value_string2 FROM bean_a_3 WHERE pk=?";
+  private static final String SELECT_BY_ID_SQL2 = "SELECT pk, value_string2 FROM bean_a_3 WHERE pk=?";
 
   /**
    * SQL definition for method selectByString
    */
-  private static final String SELECT_BY_STRING_SQL6 = "SELECT pk FROM bean_a_3 WHERE value_string2=?";
+  private static final String SELECT_BY_STRING_SQL3 = "SELECT pk FROM bean_a_3 WHERE value_string2=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -65,7 +65,7 @@ public class DaoBeanA_3Impl extends Dao implements DaoBeanA_3 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -142,7 +142,7 @@ public class DaoBeanA_3Impl extends Dao implements DaoBeanA_3 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL4;
+    String _sql=SELECT_BY_ID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -219,7 +219,7 @@ public class DaoBeanA_3Impl extends Dao implements DaoBeanA_3 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_STRING_SQL6;
+    String _sql=SELECT_BY_STRING_SQL3;
     // add where arguments
     _contentValues.addWhereArgs((value==null?"":value));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

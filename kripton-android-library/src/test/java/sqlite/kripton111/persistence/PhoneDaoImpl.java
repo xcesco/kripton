@@ -29,19 +29,19 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL2 = "SELECT id, action_type, contact_id, contact_name, country_code, number FROM phone_number WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, action_type, contact_id, contact_name, country_code, number FROM phone_number WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
   /**
    * SQL definition for method selectByNumber
    */
-  private static final String SELECT_BY_NUMBER_SQL4 = "SELECT id, action_type, contact_id, contact_name, country_code, number FROM phone_number WHERE number = ?";
+  private static final String SELECT_BY_NUMBER_SQL2 = "SELECT id, action_type, contact_id, contact_name, country_code, number FROM phone_number WHERE number = ?";
 
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL6 = "SELECT id, action_type, contact_id, contact_name, country_code, number FROM phone_number ORDER BY contact_name, number";
+  private static final String SELECT_ALL_SQL3 = "SELECT id, action_type, contact_id, contact_name, country_code, number FROM phone_number ORDER BY contact_name, number";
 
   public PhoneDaoImpl(BindXenoDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -158,7 +158,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL2;
+    String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -286,7 +286,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_NUMBER_SQL4;
+    String _sql=SELECT_BY_NUMBER_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((number==null?"":number));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -363,7 +363,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL6;
+    String _sql=SELECT_ALL_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

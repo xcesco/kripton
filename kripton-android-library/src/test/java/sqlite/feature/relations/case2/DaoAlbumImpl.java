@@ -21,7 +21,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   /**
    * SQL definition for method selectAlbums
    */
-  private static final String SELECT_ALBUMS_SQL2 = "SELECT id, name FROM album";
+  private static final String SELECT_ALBUMS_SQL1 = "SELECT id, name FROM album";
 
   public DaoAlbumImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -48,7 +48,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALBUMS_SQL2;
+    String _sql=SELECT_ALBUMS_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

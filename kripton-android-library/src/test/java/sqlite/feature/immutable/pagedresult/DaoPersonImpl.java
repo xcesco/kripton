@@ -30,7 +30,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT pk, birth_city, birth_day, name, surname FROM person ORDER BY name";
+  private static final String SELECT_ALL_SQL1 = "SELECT pk, birth_city, birth_day, name, surname FROM person ORDER BY name";
 
   private static SQLiteStatement deleteAllPreparedStatement1;
 
@@ -87,6 +87,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * @return result list
    */
   private List<Person> select(PaginatedResult6 paginatedResult) {
+    // total count - BEGIN
+    paginatedResult.setTotalCount(this.selectTotalCount(paginatedResult));
+    // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -240,7 +243,6 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log section for select BEGIN
       if (_context.isLogEnabled()) {
         // manage log
-        Logger.info("Total elements found: ", _result);
 
         // log for where parameters -- BEGIN
         int _whereParamCounter=0;
@@ -248,6 +250,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
           Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
         }
         // log for where parameters -- END
+        Logger.info("Total elements found: %s", _result);
         // log section for select END
       }
       return _result;
@@ -360,7 +363,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

@@ -24,12 +24,12 @@ public class Bean64ADaoImpl extends Dao implements Bean64ADao {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_a";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_a";
 
   /**
    * SQL definition for method selectList
    */
-  private static final String SELECT_LIST_SQL4 = "SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_a WHERE id=?";
+  private static final String SELECT_LIST_SQL2 = "SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_a WHERE id=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -60,7 +60,7 @@ public class Bean64ADaoImpl extends Dao implements Bean64ADao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -143,7 +143,7 @@ public class Bean64ADaoImpl extends Dao implements Bean64ADao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_LIST_SQL4;
+    String _sql=SELECT_LIST_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

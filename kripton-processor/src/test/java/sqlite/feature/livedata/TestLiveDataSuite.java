@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
+import sqlite.feature.livedata.paginated.TestLiveDataPaginated;
 
 /**
  * The Class TestLiveDataSuite.
@@ -30,6 +31,7 @@ import base.BaseProcessorTest;
 		TestLiveDataCompile.class,
 		TestLiveDataCompile2.class,
 		TestLiveDataCompile3.class,
+		TestLiveDataPaginated.class
 		 })
 //@formatter:on
 public class TestLiveDataSuite extends BaseProcessorTest {

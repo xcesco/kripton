@@ -112,6 +112,10 @@ public abstract class PagedResult<E> implements PageRequest {
 		return totalCount;
 	}
 
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
 	/**
 	 * Checks for next.
 	 *

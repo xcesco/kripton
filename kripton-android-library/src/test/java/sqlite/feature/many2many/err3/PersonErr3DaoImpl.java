@@ -25,14 +25,14 @@ public class PersonErr3DaoImpl extends Dao implements PersonErr3Dao {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, name FROM persons";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, name FROM persons";
 
   private static SQLiteStatement insertPreparedStatement0;
 
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL4 = "SELECT id, name FROM persons WHERE id=?";
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, name FROM persons WHERE id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
@@ -61,7 +61,7 @@ public class PersonErr3DaoImpl extends Dao implements PersonErr3Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -209,7 +209,7 @@ public class PersonErr3DaoImpl extends Dao implements PersonErr3Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL4;
+    String _sql=SELECT_BY_ID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
