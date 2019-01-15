@@ -18,7 +18,7 @@ package com.abubusoft.kripton.android.sqlite;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abubusoft.kripton.android.PageRequest;
+import com.abubusoft.kripton.android.PagedResult;
 
 /**
  * <p>
@@ -33,13 +33,13 @@ import com.abubusoft.kripton.android.PageRequest;
  * @param <E>
  *            the element type
  */
-public abstract class PagedResult<E> implements PageRequest {
+public abstract class PagedResultImpl<E> implements PagedResult {
 
 	/** The first row. */
 	protected int firstRow;
 
 	/** The list. */
-	protected List<E> list;
+	protected volatile List<E> list;
 
 	/** The page size. */
 	protected int pageSize;
@@ -47,12 +47,12 @@ public abstract class PagedResult<E> implements PageRequest {
 	/**
 	 * number of total element extracted by the query
 	 */
-	protected int totalCount = -1;
+	protected volatile int totalCount = -1;
 
 	/**
 	 * Instantiates a new paginated result.
 	 */
-	protected PagedResult() {
+	protected PagedResultImpl() {
 		list = new ArrayList<>();
 	}
 
@@ -108,6 +108,10 @@ public abstract class PagedResult<E> implements PageRequest {
 		return pageSize;
 	}
 
+	/**
+	 * Get Total count
+	 */
+	@Override	
 	public int getTotalCount() {
 		return totalCount;
 	}

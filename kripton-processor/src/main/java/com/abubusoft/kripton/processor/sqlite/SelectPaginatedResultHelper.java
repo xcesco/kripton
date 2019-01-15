@@ -30,7 +30,7 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -311,7 +311,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 		String pagedResultName = "PaginatedResult" + (pagedResultCounter++);
 
 		TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(pagedResultName).addModifiers(Modifier.PUBLIC)
-				.superclass(TypeUtility.parameterizedTypeName(TypeUtility.className(PagedResult.class), entityTypeName));
+				.superclass(TypeUtility.parameterizedTypeName(TypeUtility.className(PagedResultImpl.class), entityTypeName));
 
 		// add fields and define constructor
 		MethodSpec.Builder setupBuilder = MethodSpec.constructorBuilder();

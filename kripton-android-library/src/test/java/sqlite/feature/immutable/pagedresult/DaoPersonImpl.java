@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -58,8 +58,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * @return paginated result.
    */
   @Override
-  public PagedResult<Person> select() {
-    final PaginatedResult8 paginatedResult=new PaginatedResult8();
+  public PagedResultImpl<Person> select() {
+    final PaginatedResult9 paginatedResult=new PaginatedResult9();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -86,7 +86,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> select(PaginatedResult8 paginatedResult) {
+  private List<Person> select(PaginatedResult9 paginatedResult) {
     // total count - BEGIN
     paginatedResult.setTotalCount(this.selectTotalCount(paginatedResult));
     // total count - END
@@ -184,7 +184,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  private int selectTotalCount(PaginatedResult8 paginatedResult) {
+  private int selectTotalCount(PaginatedResult9 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -466,8 +466,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult8 extends PagedResult<Person> {
-    PaginatedResult8() {
+  public class PaginatedResult9 extends PagedResultImpl<Person> {
+    PaginatedResult9() {
       this.pageSize=10;
     }
 

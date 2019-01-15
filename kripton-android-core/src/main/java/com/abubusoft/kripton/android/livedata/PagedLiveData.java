@@ -4,6 +4,7 @@
 package com.abubusoft.kripton.android.livedata;
 
 import com.abubusoft.kripton.android.PageRequest;
+import com.abubusoft.kripton.android.PagedResult;
 
 /**
  * <p>
@@ -21,7 +22,7 @@ import com.abubusoft.kripton.android.PageRequest;
  * @param <T>
  *            the generic type
  */
-public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest {
+public class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult {
 
 	/**
 	 * Allows to create a builder for a page request. This builder is usefully when you need to modify different parameter of page request and you want to make only a page request.
@@ -48,9 +49,9 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest 
 		private int pageSize;
 
 		private PageRequestBuilder() {
-			originalOffset = pageRequest.getOffset();
-			originalPage = pageRequest.getPage();
-			originalPageSize = pageRequest.getPageSize();
+			originalOffset = pagedResult.getOffset();
+			originalPage = pagedResult.getPage();
+			originalPageSize = pagedResult.getPageSize();
 
 			offset = originalOffset;
 			page = originalPage;
@@ -97,17 +98,17 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest 
 			boolean changes = false;
 			if (originalOffset != offset) {
 				changes = true;
-				pageRequest.setOffset(offset);
+				pagedResult.setOffset(offset);
 			}
 
 			if (originalPageSize != pageSize) {
 				changes = true;
-				pageRequest.setPageSize(pageSize);
+				pagedResult.setPageSize(pageSize);
 			}
 
 			if (originalPage != page) {
 				changes = true;
-				pageRequest.setPage(page);
+				pagedResult.setPage(page);
 			}
 
 			if (changes) {
@@ -116,43 +117,43 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest 
 		}
 	}
 
-	private final PageRequest pageRequest;
+	private final PagedResult pagedResult;
 
 	private KriptonPagedLiveDataHandlerImpl<T> backed;
 
-	public PagedLiveData(PageRequest pageRequest, KriptonPagedLiveDataHandlerImpl<T> backed) {
-		this.pageRequest = pageRequest;
+	public PagedLiveData(PagedResult pageRequest, KriptonPagedLiveDataHandlerImpl<T> backed) {
+		this.pagedResult = pageRequest;
 		this.backed = backed;
 	}
 
 	@Override
 	public int getPage() {
-		return pageRequest.getPage();
+		return pagedResult.getPage();
 	}
 
 	@Override
 	public int getPageSize() {
-		return pageRequest.getPageSize();
+		return pagedResult.getPageSize();
 	}
 
 	@Override
 	public void setPage(int page) {
-		if (pageRequest.getPage() != page) {
-			pageRequest.setPage(page);
+		if (pagedResult.getPage() != page) {
+			pagedResult.setPage(page);
 			backed.invalidate();
 		}
 	}
 
 	@Override
 	public void nextPage() {
-		pageRequest.setPage(pageRequest.getPage() + 1);
+		pagedResult.setPage(pagedResult.getPage() + 1);
 		backed.invalidate();
 	}
 
 	@Override
 	public void setOffset(int offset) {
-		if (pageRequest.getOffset() != offset && offset >= 0) {
-			this.pageRequest.setOffset(offset);
+		if (pagedResult.getOffset() != offset && offset >= 0) {
+			this.pagedResult.setOffset(offset);
 
 			backed.invalidate();
 		}
@@ -160,31 +161,36 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest 
 
 	@Override
 	public void previousPage() {
-		pageRequest.setPage(pageRequest.getPage() - 1);
+		pagedResult.setPage(pagedResult.getPage() - 1);
 		backed.invalidate();
 	}
 
 	@Override
 	public void firstPage() {
-		if (pageRequest.getPage() != 0) {
-			pageRequest.setPage(0);
+		if (pagedResult.getPage() != 0) {
+			pagedResult.setPage(0);
 			backed.invalidate();
 		}
 	}
 
 	@Override
 	public int getOffset() {
-		return pageRequest.getOffset();
+		return pagedResult.getOffset();
 	}
 
 	@Override
 	public void setPageSize(int pageSize) {
-		if (pageRequest.getPageSize() != pageSize && pageSize > 0) {
-			this.pageRequest.setPageSize(pageSize);
+		if (pagedResult.getPageSize() != pageSize && pageSize > 0) {
+			this.pagedResult.setPageSize(pageSize);
 
 			backed.invalidate();
 		}
 
+	}
+
+	@Override
+	public int getTotalCount() {
+		return pagedResult.getTotalCount();
 	}
 
 }

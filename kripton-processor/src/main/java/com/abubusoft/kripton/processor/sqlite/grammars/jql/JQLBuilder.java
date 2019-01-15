@@ -637,6 +637,12 @@ public abstract class JQLBuilder {
 				return null;
 			}
 		});
+		
+		if (method.isPagedLiveData()) {
+			// if is a paged live data, it must have pagination
+			dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET, "");
+			dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE, "");			
+		}
 
 		result.operationType = JQLType.SELECT;
 		result.dynamicReplace = dynamicReplace;

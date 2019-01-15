@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,7 +36,7 @@ public interface Err1PersonDAO {
 	 * @return the paginated result
 	 */
 	@BindSqlSelect(orderBy="typeName", pageSize=20)
-	PagedResult<Err1Person> selectPagedStatic1();
+	PagedResultImpl<Err1Person> selectPagedStatic1();
 	
 	/**
 	 * Select paged static 2.
@@ -45,7 +45,7 @@ public interface Err1PersonDAO {
 	 * @return the paginated result
 	 */
 	@BindSqlSelect(orderBy="typeName")
-	PagedResult<Err1Person> selectPagedStatic2(@BindSqlPageSize String pageSize);
+	PagedResultImpl<Err1Person> selectPagedStatic2(@BindSqlPageSize String pageSize);
 	
 	
 	/**

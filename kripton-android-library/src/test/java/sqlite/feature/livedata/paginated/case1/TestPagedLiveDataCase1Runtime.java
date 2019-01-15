@@ -25,8 +25,10 @@ import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
 import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.common.One;
 
 import base.BaseAndroidTest;
+import org.junit.Assert;
 
 
 /**
@@ -47,6 +49,11 @@ public class TestPagedLiveDataCase1Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRun() throws InterruptedException {
+		int[] checkPageNumbers={0, 0, 1, 1, 2, 1, 1, 4};
+		int[] checkTotalCount={0, 100, 100, 101, 101, 101, 101, 101};
+		int[] checkPageSize={30, 30 , 30, 30, 30, 30, 20, 15};
+		One<Integer> checkCounter=new One<>(0);
+		
 		BindAppDataSource ds = BindAppDataSource.getInstance();// .build(DataSourceOptions.builder().inMemory(false).build());
 
 		log("Main thread" + KriptonTaskExecutor.getInstance().isMainThread());
@@ -54,21 +61,24 @@ public class TestPagedLiveDataCase1Runtime extends BaseAndroidTest {
 		Group group = new Group();
 		group.name="DummyGorup";
 		
-		ds.execute(tx -> {
-			
+		// insert elements
+		ds.execute(tx -> {			
 			ds.getDaoGroup().insert(group);
 			return TransactionResult.COMMIT;
 		});
 
-
-
+		// check 0
 		PagedLiveData<List<GroupedPerson>> liveData = ds.getDaoPerson().selectAll();
-		
-		
-		liveData.observeForever(t -> {
-			log("--> Page %s -- size %s", liveData.getPage(), t.size());
+		liveData.observeForever(t -> {						
+			log("=========================> Page %s -- pageSize %s -- Total %s", liveData.getPage(), liveData.getPageSize(), liveData.getTotalCount());
+			
+			Assert.assertEquals(checkPageNumbers[checkCounter.value0] , liveData.getPage());
+			Assert.assertEquals(checkPageSize[checkCounter.value0] , liveData.getPageSize());
+			Assert.assertEquals(checkTotalCount[checkCounter.value0] , liveData.getTotalCount());
+			checkCounter.value0++;
 		});
 
+		// check 1
 		ds.execute(daoFactory -> {
 			for (int i = 0; i < 100; i++) {
 				Person person = new Person();
@@ -80,8 +90,10 @@ public class TestPagedLiveDataCase1Runtime extends BaseAndroidTest {
 			return TransactionResult.COMMIT;
 		});
 
+		// check 2
 		liveData.nextPage();
 
+		// check 3
 		ds.execute(daoFactory -> {
 			Person person = new Person();
 			person.name = "Manero";
@@ -90,14 +102,21 @@ public class TestPagedLiveDataCase1Runtime extends BaseAndroidTest {
 			daoFactory.getDaoPerson().insert(person);
 			return TransactionResult.COMMIT;
 		});
-
-		/*liveData.createPageRequestBuilder().pageSize(42).offset(11).apply();
-		liveData.setOffset(liveData.getOffset() + 100);*/
-
+		
+		// none
 		liveData.setPage(1);
+				
+		// check 4
 		liveData.nextPage();
+		
+		// check 5
 		liveData.previousPage();
-		/*liveData.nextPage();*/
+		
+		// check 6
+		liveData.setPageSize(20);
+		
+		// check 7
+		liveData.createPageRequestBuilder().page(4).pageSize(15).apply();
 		
 		Thread.sleep(1000);
 
