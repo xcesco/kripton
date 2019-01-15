@@ -3,7 +3,6 @@
  */
 package com.abubusoft.kripton.android.livedata;
 
-import com.abubusoft.kripton.android.PageRequest;
 import com.abubusoft.kripton.android.PagedResult;
 
 /**
