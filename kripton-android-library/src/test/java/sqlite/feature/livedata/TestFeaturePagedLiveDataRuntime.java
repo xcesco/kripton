@@ -56,7 +56,7 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 		liveData.setPageSize(20);
 		
 		liveData.observeForever(t -> {
-			log("--> Page %s -- size %s", liveData.getPage(), t.size());
+			log("--> Page %s -- size %s", liveData.getPageNumber(), t.size());
 		});
 
 		ds.execute(daoFactory -> {

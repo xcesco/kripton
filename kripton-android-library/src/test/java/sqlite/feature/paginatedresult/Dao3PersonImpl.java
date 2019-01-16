@@ -102,7 +102,7 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
    */
   private List<Person> select(long value, PaginatedResult4 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectTotalCount(value, paginatedResult));
+    paginatedResult.setTotalElements(this.selectTotalCount(value, paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();

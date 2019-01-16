@@ -88,7 +88,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    */
   private List<Person> select(PaginatedResult2 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectTotalCount(paginatedResult));
+    paginatedResult.setTotalElements(this.selectTotalCount(paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();

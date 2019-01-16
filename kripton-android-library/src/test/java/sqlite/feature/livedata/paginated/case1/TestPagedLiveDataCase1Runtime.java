@@ -70,11 +70,11 @@ public class TestPagedLiveDataCase1Runtime extends BaseAndroidTest {
 		// check 0
 		PagedLiveData<List<GroupedPerson>> liveData = ds.getDaoPerson().selectAll();
 		liveData.observeForever(t -> {						
-			log("=========================> Page %s -- pageSize %s -- Total %s", liveData.getPage(), liveData.getPageSize(), liveData.getTotalCount());
+			log("=========================> Page %s -- pageSize %s -- Total %s", liveData.getPageNumber(), liveData.getPageSize(), liveData.getTotalElements());
 			
-			Assert.assertEquals(checkPageNumbers[checkCounter.value0] , liveData.getPage());
+			Assert.assertEquals(checkPageNumbers[checkCounter.value0] , liveData.getPageNumber());
 			Assert.assertEquals(checkPageSize[checkCounter.value0] , liveData.getPageSize());
-			Assert.assertEquals(checkTotalCount[checkCounter.value0] , liveData.getTotalCount());
+			Assert.assertEquals(checkTotalCount[checkCounter.value0] , liveData.getTotalElements());
 			checkCounter.value0++;
 		});
 

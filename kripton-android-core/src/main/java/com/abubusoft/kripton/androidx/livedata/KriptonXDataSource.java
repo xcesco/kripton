@@ -80,7 +80,10 @@ public class KriptonXDataSource<T> extends PositionalDataSource<T> {
 	private List<T> loadRange(int startPosition, int loadCount) {
 		/* private void loadRange(int startPosition, int loadCount) { */
 		// note: find interprets loadCount 0 as no limit
-		query.moveTo(startPosition, loadCount);
+		//query.moveTo(startPosition, loadCount);
+		
+		query.createPageRequestBuilder().offset(startPosition).pageSize(loadCount).apply();
+		
 		return null;
 	}
 

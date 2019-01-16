@@ -114,9 +114,7 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 					Logger.info(item.toString());
 				}
 				assertTrue(result.getList().size() == 0);
-				assertTrue(!result.hasNext());
-				// assertTrue(result.list().get(0).name.equals(String.format("name%03d",
-				// i * 10)));
+				assertTrue(!result.hasNext());				
 			}
 
 			{

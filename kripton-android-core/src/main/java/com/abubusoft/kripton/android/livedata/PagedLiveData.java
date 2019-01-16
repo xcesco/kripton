@@ -10,9 +10,10 @@ import com.abubusoft.kripton.android.PagedResult;
  * The paged version of KriptonLiveData. A paged live data allows to move in the dataset with three parameters:
  * </p>
  * <ul>
- * <li><strong>page</strong>: current page.</li>
+ * <li><strong>pageNumber</strong>: current page.</li>
  * <li><strong>pageSize</strong>: is the number of elements retrieved from datasource. It is also used to define iteraction with</li>
  * <li><strong>offset</strong>: it is an alternative to page as navigation system. It rapresents the distance from the first row. If you mix <code>offset</code> and
+ * <li><strong>totalElements</strong>: total number of elements</li>
  * <code>nextPage</code>, the behaviour will be strange (but not wrong). Just remember that <code>nextPage</code> and <code>previousPage</code> work with pages and not with
  * <code>offset</code>.</li>
  * </ul>
@@ -49,7 +50,7 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult 
 
 		private PageRequestBuilder() {
 			originalOffset = pagedResult.getOffset();
-			originalPage = pagedResult.getPage();
+			originalPage = pagedResult.getPageNumber();
 			originalPageSize = pagedResult.getPageSize();
 
 			offset = originalOffset;
@@ -111,23 +112,23 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult 
 			}
 
 			if (changes) {
-				backed.invalidate();
+				handler.invalidate();
 			}
 		}
 	}
 
 	private final PagedResult pagedResult;
 
-	private KriptonPagedLiveDataHandlerImpl<T> backed;
+	private KriptonPagedLiveDataHandlerImpl<T> handler;
 
-	public PagedLiveData(PagedResult pageRequest, KriptonPagedLiveDataHandlerImpl<T> backed) {
+	public PagedLiveData(PagedResult pageRequest, KriptonPagedLiveDataHandlerImpl<T> handler) {
 		this.pagedResult = pageRequest;
-		this.backed = backed;
+		this.handler = handler;
 	}
 
 	@Override
-	public int getPage() {
-		return pagedResult.getPage();
+	public int getPageNumber() {
+		return pagedResult.getPageNumber();
 	}
 
 	@Override
@@ -137,16 +138,16 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult 
 
 	@Override
 	public void setPage(int page) {
-		if (pagedResult.getPage() != page) {
+		if (pagedResult.getPageNumber() != page) {
 			pagedResult.setPage(page);
-			backed.invalidate();
+			handler.invalidate();
 		}
 	}
 
 	@Override
-	public void nextPage() {
-		pagedResult.setPage(pagedResult.getPage() + 1);
-		backed.invalidate();
+	public void nextPage() {		
+		pagedResult.setPage(pagedResult.getPageNumber() + 1);
+		handler.invalidate();		
 	}
 
 	@Override
@@ -154,21 +155,21 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult 
 		if (pagedResult.getOffset() != offset && offset >= 0) {
 			this.pagedResult.setOffset(offset);
 
-			backed.invalidate();
+			handler.invalidate();
 		}
 	}
 
 	@Override
 	public void previousPage() {
-		pagedResult.setPage(pagedResult.getPage() - 1);
-		backed.invalidate();
+		pagedResult.setPage(pagedResult.getPageNumber() - 1);
+		handler.invalidate();
 	}
 
 	@Override
 	public void firstPage() {
-		if (pagedResult.getPage() != 0) {
+		if (pagedResult.getPageNumber() != 0) {
 			pagedResult.setPage(0);
-			backed.invalidate();
+			handler.invalidate();
 		}
 	}
 
@@ -182,14 +183,43 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult 
 		if (pagedResult.getPageSize() != pageSize && pageSize > 0) {
 			this.pagedResult.setPageSize(pageSize);
 
-			backed.invalidate();
+			handler.invalidate();
 		}
-
 	}
 
 	@Override
-	public int getTotalCount() {
-		return pagedResult.getTotalCount();
+	public int getTotalElements() {
+		return pagedResult.getTotalElements();
+	}
+
+	@Override
+	public void lastPage() {
+		setPage(getTotalElements()/getPageSize());		
+	}
+
+	@Override
+	public int getTotalPages() {
+		return pagedResult.getTotalPages();
+	}
+
+	@Override
+	public boolean isLast() {
+		return pagedResult.isLast();
+	}
+
+	@Override
+	public boolean isFirst() {
+		return pagedResult.isFirst();
+	}
+
+	@Override
+	public boolean hasNext() {
+		return pagedResult.hasNext();
+	}
+
+	@Override
+	public boolean hasPrevious() {
+		return pagedResult.hasPrevious();
 	}
 
 }

@@ -195,7 +195,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   private List<User> selectPaged(PaginatedResult10 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectPagedTotalCount(paginatedResult));
+    paginatedResult.setTotalElements(this.selectPagedTotalCount(paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();

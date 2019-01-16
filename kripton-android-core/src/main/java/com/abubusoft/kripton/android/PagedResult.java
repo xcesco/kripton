@@ -3,10 +3,25 @@ package com.abubusoft.kripton.android;
 public interface PagedResult extends PageRequest {
 
 	/**
-	 * Total elements.
-	 * 
-	 * @return
-	 * 	total elements
+	 * Returns the total amount of elements.
+	 *
+	 * @return the total amount of elements
 	 */
-	int getTotalCount();
+	int getTotalElements();
+	
+	/**
+	 * Returns the number of total pages.
+	 *
+	 * @return the number of total pages
+	 */
+	int getTotalPages();
+	
+	boolean isLast();
+	
+	public boolean isFirst();
+	
+	boolean hasNext();
+	
+	boolean hasPrevious();
+		
 }

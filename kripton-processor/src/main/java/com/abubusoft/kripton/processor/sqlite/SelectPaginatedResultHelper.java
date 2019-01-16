@@ -132,7 +132,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 
 	private void generateTotalCountUsage(SQLiteModelMethod method, Builder methodBuilder, String paginatedResultName, String selectTotalCountMethodName) {
 		methodBuilder.addComment("total count - BEGIN");
-		methodBuilder.addCode(paginatedResultName+".setTotalCount(this."+selectTotalCountMethodName+"(");
+		methodBuilder.addCode(paginatedResultName+".setTotalElements(this."+selectTotalCountMethodName+"(");
 		
 		method.getParameters().forEach(p -> {
 			methodBuilder.addCode(p.value0+", ");

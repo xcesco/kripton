@@ -70,7 +70,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   private List<Person> selectPaged(String name, PaginatedResult6 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectPagedTotalCount(name, paginatedResult));
+    paginatedResult.setTotalElements(this.selectPagedTotalCount(name, paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
@@ -280,7 +280,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   private List<Person> selectAll(PaginatedResult7 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectAllTotalCount(paginatedResult));
+    paginatedResult.setTotalElements(this.selectAllTotalCount(paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();

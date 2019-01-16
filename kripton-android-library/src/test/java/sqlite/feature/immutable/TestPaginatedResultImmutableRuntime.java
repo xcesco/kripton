@@ -56,23 +56,58 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 			}
 
 			PagedResultImpl<Person> result = dao.select();
-
-			int i = 0;
-
-			result.firstPage();
-			while (result.hasNext()) {
+			result.execute();
+			
+			for (int i = 0; i < result.getTotalPages(); i++) {
+				result.setPage(i);
+				result.execute();
+			
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
 				for (Person item : result.getList()) {
-					Logger.info(item.toString());
+					Logger.info(item.getName());
 				}
 
 				assertTrue(result.getList().get(0).getName().equals(String.format("name%03d", i * 10)));
+			
+			} 
+													
+		}
 
-				i++;
-				result.nextPage();
+	}
+	
+	/**
+	 * Test run.
+	 */
+	@Test
+	public void testRunNextPage() {
+		try (BindAppDataSource dataSource = BindAppDataSource.open(); DaoPersonImpl dao = dataSource.getDaoPerson()) {
+			dao.deleteAll();
+
+			for (int i = 0; i < 100; i++) {
+				dao.insertOne(UUID.randomUUID().toString(), String.format("name%03d", i),
+						String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
+
+			PagedResultImpl<Person> result = dao.select();						
+			int i=0;		
+			
+			while (result.hasNext()) {
+				result.nextPage();
+				Logger.info("---------------");
+				Logger.info("\tPage " + i);
+				Logger.info("---------------");
+				for (Person item : result.getList()) {
+					Logger.info(item.getName());
+				}
+
+				assertTrue(result.getList().get(0).getName().equals(String.format("name%03d", i * 10)));
+				i++;
+			}					
+			
+			assertTrue(10==i);
+								
 		}
 
 	}
@@ -116,7 +151,7 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 					Logger.info(item.toString());
 				}
 				assertTrue(result.getList().size() == 0);
-				assertTrue(!result.hasNext());				
+				assertTrue(!result.hasNext());
 			}
 
 			{
@@ -128,7 +163,7 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 				Logger.info("---------------");
 				for (Person item : result.getList()) {
 					Logger.info(item.toString());
-				}			
+				}
 				assertTrue(result.getList().get(0).getName().equals(String.format("name%03d", 0 * 10)));
 			}
 
