@@ -53,9 +53,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
-import com.abubusoft.kripton.android.sqlite.NoCursorFactory;
-import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
-import com.abubusoft.kripton.android.sqlite.NoDatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
@@ -102,8 +99,8 @@ import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
-import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -123,6 +120,7 @@ import com.squareup.javapoet.TypeName;
  * The Class BindDataSourceSubProcessor.
  */
 public class BindDataSourceSubProcessor extends BaseProcessor {
+
 
 	private static BindDataSourceSubProcessor instance;
 
@@ -1246,9 +1244,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema,
 				BindDataSource.class, AnnotationAttributeType.DAO_SET);
 
-		String configCursorFactory = NoCursorFactory.class.getName();
-		String configDatabaseErrorHandler = NoDatabaseErrorHandler.class.getName();
-		String configDatabaseLifecycleHandler = NoDatabaseLifecycleHandler.class.getName();
+		String configCursorFactory = ReferredClasses.NO_CURSOR_FACTORY_CLASS_NAME;
+		String configDatabaseErrorHandler = ReferredClasses.NO_DATABASE_ERROR_HANDLER_CLASS_NAME;
+		String configDatabaseLifecycleHandler = ReferredClasses.NO_DATABASE_LIFECYCLE_HANDLER_CLASS_NAME;
 		boolean configInMemory = false;
 		boolean configLogEnabled = true;
 		String configPopulatorClass = NoPopulator.class.getName();

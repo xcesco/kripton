@@ -40,8 +40,8 @@ public abstract class KriptonOptions {
 					KriptonProcessor.info("param " + KriptonOptions.ANDROID_X_OPTIONS + " = <unset>");
 				}
 
-				KriptonProcessor.info("\tjetpack live data support is " + (androidx.lifecycle.LiveData.class
-						.equals(KriptonLiveDataManager.getInstance().getLiveDataClazz().getName().toString())
+				KriptonProcessor.info("\tjetpack live data support is " + ("androidx.lifecycle.LiveData"
+						.equals(KriptonLiveDataManager.getInstance().getLiveDataClazz().toString())
 								? "enabled" : "disabled"));
 			}
 			{

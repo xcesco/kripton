@@ -61,8 +61,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-import android.database.Cursor;
-
 /**
  * The Class AbstractSelectCodeGenerator.
  */
@@ -271,7 +269,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			separator = ", ";
 		}
 
-		Class<?> handlerClass = KriptonLiveDataManager.getInstance().getLiveDataHandlerClazz();
+		ClassName handlerClass = KriptonLiveDataManager.getInstance().getLiveDataHandlerClazz();
 		if (pagedLiveData) {
 			handlerClass = KriptonLiveDataManager.getInstance().getPagedLiveDataHandlerClazz();
 
@@ -283,11 +281,11 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 			// return
 			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder("paginatedResult")
-					.addSuperinterface(ParameterizedTypeName.get(ClassName.get(handlerClass), method.getReturnClass())).addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class)
+					.addSuperinterface(ParameterizedTypeName.get(handlerClass, method.getReturnClass())).addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class)
 							.addModifiers(Modifier.PROTECTED).returns(method.getReturnClass()).addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build());
 			TypeSpec liveDataBuilder = liveDataBuilderBuilder.build();
 
-			methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(handlerClass), method.getReturnClass()), liveDataBuilder);
+			methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(handlerClass, method.getReturnClass()), liveDataBuilder);
 		} else {
 			TypeSpec batchBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(batchClazz, method.getReturnClass()))
 					.addMethod(MethodSpec.methodBuilder("onExecute").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
@@ -295,12 +293,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 							.addStatement("return daoFactory.get$L().$L($L)", daoDefinition.getName(), method.getName() + LIVE_DATA_PREFIX, buffer.toString()).build())
 					.build();
 
-			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(ClassName.get(handlerClass), method.getReturnClass()))
+			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(handlerClass, method.getReturnClass()))
 					.addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class).addModifiers(Modifier.PROTECTED).returns(method.getReturnClass())
 							.addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build());
 			TypeSpec liveDataBuilder = liveDataBuilderBuilder.build();
 
-			methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(handlerClass), method.getReturnClass()), liveDataBuilder);
+			methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(handlerClass, method.getReturnClass()), liveDataBuilder);
 		}
 
 		methodBuilder.addStatement("registryLiveData(builder)");
@@ -621,10 +619,11 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				methodBuilder.addComment("log section for select END");
 			}
 
+			ClassName cursorClass=ClassName.bestGuess("android.database.Cursor");
 			if (generationType.generateCloseableCursor) {
-				methodBuilder.beginControlFlow("try ($T _cursor = database().rawQuery(_sql, _sqlArgs))", Cursor.class);
+				methodBuilder.beginControlFlow("try ($T _cursor = database().rawQuery(_sql, _sqlArgs))", cursorClass);
 			} else {
-				methodBuilder.addStatement("$T _cursor = database().rawQuery(_sql, _sqlArgs)", Cursor.class);
+				methodBuilder.addStatement("$T _cursor = database().rawQuery(_sql, _sqlArgs)", cursorClass);
 			}
 
 			if (daoDefinition.isLogEnabled()) {

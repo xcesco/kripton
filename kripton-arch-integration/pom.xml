@@ -15,10 +15,6 @@
 	<name>Kripton Arch Integration</name>
 	<description>Kripton Arch Integration Library</description>
 	
-	<properties>
-		<androidx.version>1.0.0-alpha1</androidx.version>
-	</properties>
-	
 	<dependencies>	
 						
 			

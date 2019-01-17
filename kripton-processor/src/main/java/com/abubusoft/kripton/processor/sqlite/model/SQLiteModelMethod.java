@@ -513,16 +513,16 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		if (returnTypeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
 			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
-			Class<?> wrapperClazz;
-			try {
-				wrapperClazz = Class.forName(returnParameterizedClassName.toString());
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				throw (new KriptonRuntimeException(e));
-			}
-
-			String wrapperName = wrapperClazz.getName();
-			if (KriptonLiveDataManager.getInstance().isLiveData(wrapperName)) {
+//			Class<?> wrapperClazz;
+//			try {
+//				wrapperClazz = Class.forName(returnParameterizedClassName.toString());
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//				throw (new KriptonRuntimeException(e));
+//			}
+//
+//			String wrapperName = wrapperClazz.getName();
+			if (KriptonLiveDataManager.getInstance().isLiveData(returnParameterizedClassName.toString())) {
 				result = true;
 			}
 		}

@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import java.lang.annotation.Annotation;
 
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
