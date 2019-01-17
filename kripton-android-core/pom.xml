@@ -69,7 +69,7 @@
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-core</artifactId>
-			<version>${project.version}</version>
+			<version>${kripton.version}</version>
 		</dependency>
 		
 		<dependency>
