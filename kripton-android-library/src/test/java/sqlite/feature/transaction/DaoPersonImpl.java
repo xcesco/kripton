@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.lang.ref.WeakReference;
@@ -455,7 +455,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult0 extends PagedResult<Person> {
+  public class PaginatedResult0 extends PagedResultImpl<Person> {
     String name;
 
     PaginatedResult0(String name) {

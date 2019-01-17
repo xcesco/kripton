@@ -11,7 +11,7 @@ import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -168,8 +168,8 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * @return paginated result.
    */
-  protected PagedResult<User> selectPagedForLiveData() {
-    final PaginatedResult9 paginatedResult=new PaginatedResult9();
+  protected PagedResultImpl<User> selectPagedForLiveData() {
+    final PaginatedResult10 paginatedResult=new PaginatedResult10();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -193,9 +193,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    * 	handler of paginated result
    * @return result list
    */
-  private List<User> selectPaged(PaginatedResult9 paginatedResult) {
+  private List<User> selectPaged(PaginatedResult10 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectPagedTotalCount(paginatedResult));
+    paginatedResult.setTotalElements(this.selectPagedTotalCount(paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
@@ -273,7 +273,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  private int selectPagedTotalCount(PaginatedResult9 paginatedResult) {
+  private int selectPagedTotalCount(PaginatedResult10 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -349,15 +349,15 @@ public class UserDaoImpl extends Dao implements UserDao {
    * @return paginated result.
    */
   @Override
-  public LiveData<PagedResult<User>> selectPaged() {
+  public LiveData<PagedResultImpl<User>> selectPaged() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<PagedResult<User>> builder=new KriptonLiveDataHandlerImpl<PagedResult<User>>() {
+    final KriptonLiveDataHandlerImpl<PagedResultImpl<User>> builder=new KriptonLiveDataHandlerImpl<PagedResultImpl<User>>() {
       @Override
-      protected PagedResult<User> compute() {
-        return BindUserDataSource.getInstance().executeBatch(new BindUserDataSource.Batch<PagedResult<User>>() {
+      protected PagedResultImpl<User> compute() {
+        return BindUserDataSource.getInstance().executeBatch(new BindUserDataSource.Batch<PagedResultImpl<User>>() {
           @Override
-          public PagedResult<User> onExecute(BindUserDaoFactory daoFactory) {
+          public PagedResultImpl<User> onExecute(BindUserDaoFactory daoFactory) {
             return daoFactory.getUserDao().selectPagedForLiveData();
           }
         });
@@ -701,8 +701,8 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
   }
 
-  public class PaginatedResult9 extends PagedResult<User> {
-    PaginatedResult9() {
+  public class PaginatedResult10 extends PagedResultImpl<User> {
+    PaginatedResult10() {
       this.pageSize=20;
     }
 

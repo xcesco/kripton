@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
@@ -56,7 +56,7 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 		liveData.setPageSize(20);
 		
 		liveData.observeForever(t -> {
-			log("--> Page %s -- size %s", liveData.getPage(), t.size());
+			log("--> Page %s -- size %s", liveData.getPageNumber(), t.size());
 		});
 
 		ds.execute(daoFactory -> {

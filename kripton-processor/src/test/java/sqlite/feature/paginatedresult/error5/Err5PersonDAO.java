@@ -17,7 +17,7 @@ package sqlite.feature.paginatedresult.error5;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
 import sqlite.feature.paginatedresult.error4.Err4Person;
 import sqlite.feature.paginatedresult.model.Person;
@@ -34,6 +34,6 @@ public interface Err5PersonDAO {
 	 * @return the paginated result
 	 */
 	@BindSqlSelect
-	PagedResult<Err4Person> selectPagedStatic1();
+	PagedResultImpl<Err4Person> selectPagedStatic1();
 
 }

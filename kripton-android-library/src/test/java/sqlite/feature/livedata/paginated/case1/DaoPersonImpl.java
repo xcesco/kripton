@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.lang.ref.WeakReference;
@@ -56,9 +56,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	handler of paginated result
    * @return result list
    */
-  private List<GroupedPerson> selectAll(PaginatedResult0 paginatedResult) {
+  private List<GroupedPerson> selectAll(PaginatedResult8 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectAllTotalCount(paginatedResult));
+    paginatedResult.setTotalElements(this.selectAllTotalCount(paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
@@ -67,6 +67,16 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT "+paginatedResult.getPageSize();
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+paginatedResult.getOffset();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -116,7 +126,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  private int selectAllTotalCount(PaginatedResult0 paginatedResult) {
+  private int selectAllTotalCount(PaginatedResult8 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -195,7 +205,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   public PagedLiveData<List<GroupedPerson>> selectAll() {
     // common part generation - BEGIN
     // common part generation - END
-    final PaginatedResult0 paginatedResult=new PaginatedResult0();
+    final PaginatedResult8 paginatedResult=new PaginatedResult8();
     final KriptonPagedLiveDataHandlerImpl<List<GroupedPerson>> builder=new KriptonPagedLiveDataHandlerImpl<List<GroupedPerson>>(paginatedResult) {
       @Override
       protected List<GroupedPerson> compute() {
@@ -389,8 +399,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult0 extends PagedResult<GroupedPerson> {
-    PaginatedResult0() {
+  public class PaginatedResult8 extends PagedResultImpl<GroupedPerson> {
+    PaginatedResult8() {
       this.pageSize=30;
     }
 

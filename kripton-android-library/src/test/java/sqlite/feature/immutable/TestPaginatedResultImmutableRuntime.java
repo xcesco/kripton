@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
@@ -26,7 +26,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
 import base.BaseAndroidTest;
 import sqlite.feature.immutable.pagedresult.BindAppDataSource;
@@ -55,24 +55,59 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 						String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
 
-			PagedResult<Person> result = dao.select();
-
-			int i = 0;
-
-			result.firstPage();
-			while (result.hasNext()) {
+			PagedResultImpl<Person> result = dao.select();
+			result.execute();
+			
+			for (int i = 0; i < result.getTotalPages(); i++) {
+				result.setPage(i);
+				result.execute();
+			
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
 				for (Person item : result.getList()) {
-					Logger.info(item.toString());
+					Logger.info(item.getName());
 				}
 
 				assertTrue(result.getList().get(0).getName().equals(String.format("name%03d", i * 10)));
+			
+			} 
+													
+		}
 
-				i++;
-				result.nextPage();
+	}
+	
+	/**
+	 * Test run.
+	 */
+	@Test
+	public void testRunNextPage() {
+		try (BindAppDataSource dataSource = BindAppDataSource.open(); DaoPersonImpl dao = dataSource.getDaoPerson()) {
+			dao.deleteAll();
+
+			for (int i = 0; i < 100; i++) {
+				dao.insertOne(UUID.randomUUID().toString(), String.format("name%03d", i),
+						String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
+
+			PagedResultImpl<Person> result = dao.select();						
+			int i=0;		
+			
+			while (result.hasNext()) {
+				result.nextPage();
+				Logger.info("---------------");
+				Logger.info("\tPage " + i);
+				Logger.info("---------------");
+				for (Person item : result.getList()) {
+					Logger.info(item.getName());
+				}
+
+				assertTrue(result.getList().get(0).getName().equals(String.format("name%03d", i * 10)));
+				i++;
+			}					
+			
+			assertTrue(10==i);
+								
 		}
 
 	}
@@ -90,7 +125,7 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 						String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
 
-			PagedResult<Person> result = dao.select();
+			PagedResultImpl<Person> result = dao.select();
 
 			{
 				int i = 5;
@@ -116,7 +151,7 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 					Logger.info(item.toString());
 				}
 				assertTrue(result.getList().size() == 0);
-				assertTrue(!result.hasNext());				
+				assertTrue(!result.hasNext());
 			}
 
 			{
@@ -128,7 +163,7 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 				Logger.info("---------------");
 				for (Person item : result.getList()) {
 					Logger.info(item.toString());
-				}			
+				}
 				assertTrue(result.getList().get(0).getName().equals(String.format("name%03d", 0 * 10)));
 			}
 

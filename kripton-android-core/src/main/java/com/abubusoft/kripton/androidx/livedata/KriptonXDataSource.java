@@ -35,7 +35,7 @@ public class KriptonXDataSource<T> extends PositionalDataSource<T> {
 
 	public KriptonXDataSource(PagedLiveData<T> query) {
 		this.query = query;
-
+		
 		observer = new Observer<T>() {
 
 			@Override
@@ -54,7 +54,7 @@ public class KriptonXDataSource<T> extends PositionalDataSource<T> {
 	public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback<T> callback) {
 		// note: limiting to int should be fine for Android apps
 		// TODO ripristinare query.count();
-		int totalCount = 0;// query.count();
+		int totalCount = query.getTotalElements();
 		if (totalCount == 0) {
 			callback.onResult(Collections.<T>emptyList(), 0, 0);
 			return;
@@ -80,7 +80,10 @@ public class KriptonXDataSource<T> extends PositionalDataSource<T> {
 	private List<T> loadRange(int startPosition, int loadCount) {
 		/* private void loadRange(int startPosition, int loadCount) { */
 		// note: find interprets loadCount 0 as no limit
-		query.moveTo(startPosition, loadCount);
+		//query.moveTo(startPosition, loadCount);
+		
+		query.createPageRequestBuilder().offset(startPosition).pageSize(loadCount).apply();
+		
 		return null;
 	}
 

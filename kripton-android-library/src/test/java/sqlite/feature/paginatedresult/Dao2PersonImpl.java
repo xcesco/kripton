@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -66,7 +66,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
    * @return paginated result.
    */
   @Override
-  public PagedResult<Person> select(int pageSize) {
+  public PagedResultImpl<Person> select(int pageSize) {
     final PaginatedResult3 paginatedResult=new PaginatedResult3(pageSize);
     // common part generation - BEGIN
     // common part generation - END
@@ -103,7 +103,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
    */
   private List<Person> select(int pageSize, PaginatedResult3 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectTotalCount(pageSize, paginatedResult));
+    paginatedResult.setTotalElements(this.selectTotalCount(pageSize, paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
@@ -445,7 +445,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
     }
   }
 
-  public class PaginatedResult3 extends PagedResult<Person> {
+  public class PaginatedResult3 extends PagedResultImpl<Person> {
     PaginatedResult3(int pageSize) {
       this.pageSize=pageSize;
     }

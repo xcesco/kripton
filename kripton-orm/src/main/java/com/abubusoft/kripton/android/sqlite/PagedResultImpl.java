@@ -18,7 +18,7 @@ package com.abubusoft.kripton.android.sqlite;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abubusoft.kripton.android.PageRequest;
+import com.abubusoft.kripton.android.PagedResult;
 
 /**
  * <p>
@@ -33,13 +33,23 @@ import com.abubusoft.kripton.android.PageRequest;
  * @param <E>
  *            the element type
  */
-public abstract class PagedResult<E> implements PageRequest {
+/**
+ * @author xcesco
+ *
+ * @param <E>
+ */
+public abstract class PagedResultImpl<E> implements PagedResult {
+
+	/**
+	 * if false, paged result does not contains valid paged result
+	 */
+	protected boolean paged;
 
 	/** The first row. */
-	protected int firstRow;
+	protected int offset;
 
 	/** The list. */
-	protected List<E> list;
+	protected volatile List<E> list;
 
 	/** The page size. */
 	protected int pageSize;
@@ -47,13 +57,13 @@ public abstract class PagedResult<E> implements PageRequest {
 	/**
 	 * number of total element extracted by the query
 	 */
-	protected int totalCount = -1;
+	protected volatile int totalElements = 0;
 
 	/**
 	 * Instantiates a new paginated result.
 	 */
-	protected PagedResult() {
-		list = new ArrayList<>();
+	protected PagedResultImpl() {
+		reset();
 	}
 
 	/**
@@ -85,7 +95,7 @@ public abstract class PagedResult<E> implements PageRequest {
 	 * @return the int
 	 */
 	public int getOffset() {
-		return firstRow;
+		return offset;
 	}
 
 	/**
@@ -94,8 +104,11 @@ public abstract class PagedResult<E> implements PageRequest {
 	 * @return 0-based number of current page
 	 */
 	@Override
-	public int getPage() {
-		return firstRow / pageSize;
+	public int getPageNumber() {
+		if (!paged)
+			return 0;
+
+		return offset / pageSize;
 	}
 
 	/**
@@ -108,21 +121,25 @@ public abstract class PagedResult<E> implements PageRequest {
 		return pageSize;
 	}
 
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
+	/**
+	 * Get Total count
+	 */
+	@Override
+	public int getTotalElements() {
+		return totalElements;
 	}
 
 	/**
-	 * Checks for next.
-	 *
-	 * @return true, if successful
+	 * Has previous pages
+	 * 
+	 * @return
 	 */
-	public boolean hasNext() {
-		return list.size() > 0;
+	public boolean hasPrevious() {
+		return !paged || (offset > 0 && totalElements > 0);
+	}
+
+	public void setTotalElements(int value) {
+		this.totalElements = value;
 	}
 
 	/**
@@ -132,9 +149,14 @@ public abstract class PagedResult<E> implements PageRequest {
 	 */
 	@Override
 	public void nextPage() {
-		firstRow += pageSize;
+		if (!paged) {			
+			this.firstPage();
+			paged = true;
+		} else if (!isLast()) {
+			offset = (getPageNumber() + 1) * pageSize;
 
-		execute();
+			execute();
+		}
 	}
 
 	/**
@@ -144,19 +166,17 @@ public abstract class PagedResult<E> implements PageRequest {
 	 */
 	@Override
 	public void previousPage() {
-		firstRow -= pageSize;
+		if (!isFirst()) {
+			offset = (getPageNumber() - 1) * pageSize;
 
-		if (firstRow < 0) {
-			firstRow = 0;
-		} else {
 			execute();
 		}
 	}
 
 	@Override
 	public void setOffset(int offset) {
-		if (this.firstRow != offset && offset >= 0) {
-			this.firstRow = offset;
+		if (this.offset != offset && offset >= 0) {
+			this.offset = offset;
 		}
 	}
 
@@ -168,20 +188,61 @@ public abstract class PagedResult<E> implements PageRequest {
 	 * @return true, if successful
 	 */
 	@Override
-	public void setPage(int page) {
-		firstRow = pageSize * page;
+	public void setPage(int page) {					
+		offset = pageSize * page;
 
-		if (firstRow < 0) {
-			firstRow = 0;
-			list = new ArrayList<>();
-		}
+		// check to stay in the range
+		/*if (offset < 0) {
+			offset = 0;
+		}*/
+		
+		/*if (paged && offset > pageSize * (getTotalPages() - 1)) {
+			offset = pageSize * (getTotalPages() - 1);
+		}*/
+		
+		paged=true;
+	}
 
+	@Override
+	public int getTotalPages() {
+		return (int) Math.ceil((double) getTotalElements() / (double) getPageSize());
+	}
+
+	@Override
+	public boolean isLast() {
+		return !hasNext();
+	}
+
+	@Override
+	public boolean isFirst() {
+		return getPageNumber() > 0;
+	}
+
+	@Override
+	public void lastPage() {
+		setPage(getTotalPages() - 1);
+
+		execute();
+	}
+
+	@Override
+	public boolean hasNext() {
+		return !paged || (getPageNumber() < getTotalPages() - 1);
 	}
 
 	public void setPageSize(int pageSize) {
 		if (pageSize > 0 && this.pageSize != pageSize) {
 			this.pageSize = pageSize;
-			// execute();
 		}
+	}
+
+	/**
+	 * Reset
+	 */
+	public void reset() {
+		this.paged = false;
+		this.totalElements = -1;
+		this.list=new ArrayList<>();
+
 	}
 }

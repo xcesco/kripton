@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -70,7 +70,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   private List<Person> selectPaged(String name, PaginatedResult6 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectPagedTotalCount(name, paginatedResult));
+    paginatedResult.setTotalElements(this.selectPagedTotalCount(name, paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
@@ -280,7 +280,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   private List<Person> selectAll(PaginatedResult7 paginatedResult) {
     // total count - BEGIN
-    paginatedResult.setTotalCount(this.selectAllTotalCount(paginatedResult));
+    paginatedResult.setTotalElements(this.selectAllTotalCount(paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
@@ -632,7 +632,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult6 extends PagedResult<Person> {
+  public class PaginatedResult6 extends PagedResultImpl<Person> {
     String name;
 
     PaginatedResult6(String name) {
@@ -652,7 +652,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult7 extends PagedResult<Person> {
+  public class PaginatedResult7 extends PagedResultImpl<Person> {
     PaginatedResult7() {
       this.pageSize=30;
     }
