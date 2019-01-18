@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
@@ -42,6 +42,9 @@ public interface DaoPerson {
 
 	@BindSqlSelect(where = "name like ${name} || '%'")
 	PagedLiveData<List<Person>> selectPaged(String name);
+	
+	@BindSqlSelect(pageSize=30)
+	PagedLiveData<List<Person>> selectAll();
 
 	// @BindSqlSelect(where = "name=${name}", pageSize = 20)
 	// PaginatedResult<Person> selectPagein(String name);

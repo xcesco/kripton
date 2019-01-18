@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
@@ -19,6 +19,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseAndroidTest;
+import sqlite.feature.livedata.paginated.case1.TestPagedLiveDataCase1Runtime;
+import sqlite.feature.livedata.paginated.case2.TestPagedLiveDataCase2Runtime;
 
 /**
  * The Class TestRuntimeMany2ManySuite.
@@ -29,7 +31,9 @@ import base.BaseAndroidTest;
 		{ 
 		TestFeatureLiveDataRuntime.class,
 		TestFeaturePagedLiveDataRuntime.class,
-		TestLiveDataRuntime.class
+		TestLiveDataRuntime.class,
+		TestPagedLiveDataCase1Runtime.class,
+		TestPagedLiveDataCase2Runtime.class
 		 })
 //@formatter:on
 public class TestRuntimeLiveDataSuite extends BaseAndroidTest {

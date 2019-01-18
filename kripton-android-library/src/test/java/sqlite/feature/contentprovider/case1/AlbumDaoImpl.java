@@ -35,14 +35,14 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL6 = "SELECT id, artist_id, name FROM album WHERE id=?";
+  private static final String SELECT_BY_ID_SQL3 = "SELECT id, artist_id, name FROM album WHERE id=?";
 
   private static final Set<String> selectById0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "artist_id", "name");
 
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL8 = "SELECT id, artist_id, name FROM album";
+  private static final String SELECT_ALL_SQL4 = "SELECT id, artist_id, name FROM album";
 
   private static final Set<String> selectAll1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "artist_id", "name");
 
@@ -65,7 +65,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, artist_id, name FROM album WHERE id=${id}</pre>
+   * <pre>SELECT id, artist_id, name FROM album WHERE id=:{id}</pre>
    *
    * <h2>Mapped class:</h2>
    * {@link Album}
@@ -91,7 +91,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL6;
+    String _sql=SELECT_BY_ID_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -142,10 +142,10 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    * <pre>content://com.abubusoft.kripton.example/albums/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, artistId, name FROM Album WHERE id=${id}</pre>
+   * <pre>SELECT id, artistId, name FROM Album WHERE id=:{id}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, artist_id, name FROM album WHERE id=${id}</pre>
+   * <pre>SELECT id, artist_id, name FROM album WHERE id=:{id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -235,7 +235,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL8;
+    String _sql=SELECT_ALL_SQL4;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

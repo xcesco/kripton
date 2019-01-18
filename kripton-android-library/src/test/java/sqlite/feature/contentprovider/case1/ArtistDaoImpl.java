@@ -35,14 +35,14 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL2 = "SELECT id, name FROM artist WHERE id=?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, name FROM artist WHERE id=?";
 
   private static final Set<String> selectById0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL4 = "SELECT id, name FROM artist";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, name FROM artist";
 
   private static final Set<String> selectAll1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
@@ -65,7 +65,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name FROM artist WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM artist WHERE id=:{id}</pre>
    *
    * <h2>Mapped class:</h2>
    * {@link Artist}
@@ -90,7 +90,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL2;
+    String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -139,10 +139,10 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    * <pre>content://com.abubusoft.kripton.example/artists/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name FROM Artist WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM Artist WHERE id=:{id}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name FROM artist WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM artist WHERE id=:{id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -231,7 +231,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL4;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

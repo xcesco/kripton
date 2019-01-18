@@ -62,7 +62,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   /**
    * SQL definition for method selectBean
    */
-  private static final String SELECT_BEAN_SQL2 = "SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person";
+  private static final String SELECT_BEAN_SQL1 = "SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person";
 
   private static final Set<String> selectBean12ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "birth_city", "birth_day", "city", "name", "surname", "value");
 
@@ -1603,7 +1603,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN_SQL2;
+    String _sql=SELECT_BEAN_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {

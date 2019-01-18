@@ -29,12 +29,12 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * SQL definition for method selectBySurnameWithAdapter
    */
-  private static final String SELECT_BY_SURNAME_WITH_ADAPTER_SQL2 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=?";
+  private static final String SELECT_BY_SURNAME_WITH_ADAPTER_SQL1 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=?";
 
   /**
    * SQL definition for method selectBySurname
    */
-  private static final String SELECT_BY_SURNAME_SQL4 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=?";
+  private static final String SELECT_BY_SURNAME_SQL2 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=?";
 
   private static SQLiteStatement deleteCompactBeanPreparedStatement0;
 
@@ -47,27 +47,27 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * SQL definition for method selectCompactBean
    */
-  private static final String SELECT_COMPACT_BEAN_SQL6 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=?  and type=?";
+  private static final String SELECT_COMPACT_BEAN_SQL3 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=?  and type=?";
 
   /**
    * SQL definition for method selectJQLBeanListener
    */
-  private static final String SELECT_J_Q_L_BEAN_LISTENER_SQL8 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=? and password=? and type=?";
+  private static final String SELECT_J_Q_L_BEAN_LISTENER_SQL4 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=? and password=? and type=?";
 
   /**
    * SQL definition for method selecJQLBean
    */
-  private static final String SELEC_J_Q_L_BEAN_SQL10 = "SELECT birth_day, password, type FROM contact WHERE id=? and password=? and type=?";
+  private static final String SELEC_J_Q_L_BEAN_SQL5 = "SELECT birth_day, password, type FROM contact WHERE id=? and password=? and type=?";
 
   /**
    * SQL definition for method selectJQLRaw
    */
-  private static final String SELECT_J_Q_L_RAW_SQL12 = "SELECT * FROM contact WHERE password=? and type=?";
+  private static final String SELECT_J_Q_L_RAW_SQL6 = "SELECT * FROM contact WHERE password=? and type=?";
 
   /**
    * SQL definition for method selectCompactRaw
    */
-  private static final String SELECT_COMPACT_RAW_SQL14 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE password=? and type=?";
+  private static final String SELECT_COMPACT_RAW_SQL7 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE password=? and type=?";
 
   private static SQLiteStatement updateCompactBeanPreparedStatement4;
 
@@ -124,7 +124,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_SURNAME_WITH_ADAPTER_SQL2;
+    String _sql=SELECT_BY_SURNAME_WITH_ADAPTER_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -220,7 +220,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_SURNAME_SQL4;
+    String _sql=SELECT_BY_SURNAME_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((dummy==null?"":dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -496,7 +496,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_COMPACT_BEAN_SQL6;
+    String _sql=SELECT_COMPACT_BEAN_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
@@ -596,7 +596,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_J_Q_L_BEAN_LISTENER_SQL8;
+    String _sql=SELECT_J_Q_L_BEAN_LISTENER_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
@@ -696,7 +696,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELEC_J_Q_L_BEAN_SQL10;
+    String _sql=SELEC_J_Q_L_BEAN_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
@@ -789,7 +789,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_J_Q_L_RAW_SQL12;
+    String _sql=SELECT_J_Q_L_RAW_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
@@ -889,7 +889,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_COMPACT_RAW_SQL14;
+    String _sql=SELECT_COMPACT_RAW_SQL7;
     // add where arguments
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));

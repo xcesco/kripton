@@ -34,14 +34,11 @@ import javax.lang.model.element.TypeElement;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindTransaction;
-import com.abubusoft.kripton.android.sqlite.NoCursorFactory;
-import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
-import com.abubusoft.kripton.android.sqlite.NoDatabaseLifecycleHandler;
-import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.KriptonOptions;
+import com.abubusoft.kripton.processor.ReferredClasses;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -281,11 +278,11 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		this.configInMemory = configInMemory;
 		this.configUpdateTasks = valueVisitor.getTasks();
 
-		this.configCursorFactoryClazz = fillClazz(configCursorFactoryClass, NoCursorFactory.class);
-		this.configDatabaseErrorHandlerClazz = fillClazz(configDatabaseErrorHandlerClass, NoDatabaseErrorHandler.class);
+		this.configCursorFactoryClazz = fillClazz(configCursorFactoryClass, ReferredClasses.NO_CURSOR_FACTORY_CLASS_NAME);
+		this.configDatabaseErrorHandlerClazz = fillClazz(configDatabaseErrorHandlerClass, ReferredClasses.NO_DATABASE_ERROR_HANDLER_CLASS_NAME);
 		this.configDatabaseLifecycleHandlerClazz = fillClazz(configDatabaseLifecycleHandlerClass,
-				NoDatabaseLifecycleHandler.class);
-		this.configPopulatorClazz = fillClazz(configPopulatorClass, NoPopulator.class);
+				ReferredClasses.NO_DATABASE_LIFECYCLE_HANDLER_CLASS_NAME);
+		this.configPopulatorClazz = fillClazz(configPopulatorClass, ReferredClasses.NO_POPULATOR_CLASS_NAME);
 
 		// methods
 		// create method for dao
@@ -337,8 +334,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	 *            the clazz
 	 * @return the string
 	 */
-	private String fillClazz(String configClazz, Class<?> clazz) {
-		if (!clazz.getName().equals(configClazz)) {
+	private String fillClazz(String configClazz, String clazz) {
+		if (!clazz.equals(configClazz)) {
 			return configClazz;
 		} else {
 			return null;

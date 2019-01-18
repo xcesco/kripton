@@ -27,24 +27,24 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL12 = "SELECT id, area, calling_code, code, name, region FROM country WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL6 = "SELECT id, area, calling_code, code, name, region FROM country WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL14 = "SELECT id, area, calling_code, code, name, region FROM country ORDER BY name asc";
+  private static final String SELECT_ALL_SQL7 = "SELECT id, area, calling_code, code, name, region FROM country ORDER BY name asc";
 
   /**
    * SQL definition for method selectByCallingCode
    */
-  private static final String SELECT_BY_CALLING_CODE_SQL16 = "SELECT id, area, calling_code, code, name, region FROM country WHERE calling_code = ?";
+  private static final String SELECT_BY_CALLING_CODE_SQL8 = "SELECT id, area, calling_code, code, name, region FROM country WHERE calling_code = ?";
 
   /**
    * SQL definition for method selectByCountry
    */
-  private static final String SELECT_BY_COUNTRY_SQL18 = "SELECT id, area, calling_code, code, name, region FROM country WHERE code = ?";
+  private static final String SELECT_BY_COUNTRY_SQL9 = "SELECT id, area, calling_code, code, name, region FROM country WHERE code = ?";
 
   public CountryDaoImpl(BindXenoDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -161,7 +161,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL12;
+    String _sql=SELECT_BY_ID_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -282,7 +282,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL14;
+    String _sql=SELECT_ALL_SQL7;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -371,7 +371,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_CALLING_CODE_SQL16;
+    String _sql=SELECT_BY_CALLING_CODE_SQL8;
     // add where arguments
     _contentValues.addWhereArgs((callingCode==null?"":callingCode));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -455,7 +455,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_COUNTRY_SQL18;
+    String _sql=SELECT_BY_COUNTRY_SQL9;
     // add where arguments
     _contentValues.addWhereArgs((code==null?"":code));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

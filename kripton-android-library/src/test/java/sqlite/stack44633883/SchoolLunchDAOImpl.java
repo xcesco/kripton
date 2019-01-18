@@ -24,12 +24,12 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
   /**
    * SQL definition for method get1
    */
-  private static final String GET1_SQL2 = "SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED";
+  private static final String GET1_SQL1 = "SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED";
 
   /**
    * SQL definition for method getAll
    */
-  private static final String GET_ALL_SQL4 = "SELECT lunch_id, contains_meat, fresh, fruits FROM SchoolLunches";
+  private static final String GET_ALL_SQL2 = "SELECT lunch_id, contains_meat, fresh, fruits FROM SchoolLunches";
 
   private static SQLiteStatement insertAllPreparedStatement0;
 
@@ -62,7 +62,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET1_SQL2;
+    String _sql=GET1_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -138,7 +138,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_ALL_SQL4;
+    String _sql=GET_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

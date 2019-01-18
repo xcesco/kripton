@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
+import sqlite.feature.schema.error1.TestCompileSchemaErr1;
 
 /**
  * The Class TestSchemaSuite.
@@ -27,7 +28,8 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestSchema.class
+		TestSchema.class,
+		TestCompileSchemaErr1.class
 		 })
 //@formatter:on
 public class TestSchemaSuite extends BaseProcessorTest {

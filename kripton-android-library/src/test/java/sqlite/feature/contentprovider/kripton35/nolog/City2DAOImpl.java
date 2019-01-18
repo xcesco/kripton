@@ -31,7 +31,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
   /**
    * SQL definition for method selectCityFromPerson
    */
-  private static final String SELECT_CITY_FROM_PERSON_SQL4 = "select * from city where id = (select id from person where id=? )";
+  private static final String SELECT_CITY_FROM_PERSON_SQL2 = "select * from city where id = (select id from person where id=? )";
 
   private static final Set<String> selectCityFromPerson1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
@@ -143,7 +143,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_CITY_FROM_PERSON_SQL4;
+    String _sql=SELECT_CITY_FROM_PERSON_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

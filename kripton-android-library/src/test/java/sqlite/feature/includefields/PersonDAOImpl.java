@@ -25,12 +25,12 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * SQL definition for method selectIncludeOne
    */
-  private static final String SELECT_INCLUDE_ONE_SQL2 = "SELECT name, id FROM person WHERE type_name=? ORDER BY name";
+  private static final String SELECT_INCLUDE_ONE_SQL1 = "SELECT name, id FROM person WHERE type_name=? ORDER BY name";
 
   /**
    * SQL definition for method selectExcludeOne
    */
-  private static final String SELECT_EXCLUDE_ONE_SQL4 = "SELECT birth_city, birth_day, surname, type_name FROM person ORDER BY name";
+  private static final String SELECT_EXCLUDE_ONE_SQL2 = "SELECT birth_city, birth_day, surname, type_name FROM person ORDER BY name";
 
   private static SQLiteStatement insertIncludeOnePreparedStatement0;
 
@@ -76,7 +76,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_INCLUDE_ONE_SQL2;
+    String _sql=SELECT_INCLUDE_ONE_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(bean.name);
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -149,7 +149,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_EXCLUDE_ONE_SQL4;
+    String _sql=SELECT_EXCLUDE_ONE_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

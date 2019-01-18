@@ -26,12 +26,12 @@ public class UserDaoImpl extends Dao implements UserDao {
   /**
    * SQL definition for method getAllUsers
    */
-  private static final String GET_ALL_USERS_SQL6 = "SELECT id, user_name FROM user";
+  private static final String GET_ALL_USERS_SQL3 = "SELECT id, user_name FROM user";
 
   /**
    * SQL definition for method getUserById
    */
-  private static final String GET_USER_BY_ID_SQL8 = "SELECT id, user_name FROM user WHERE id = ?";
+  private static final String GET_USER_BY_ID_SQL4 = "SELECT id, user_name FROM user WHERE id = ?";
 
   public UserDaoImpl(BindApp2DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -126,7 +126,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_ALL_USERS_SQL6;
+    String _sql=GET_ALL_USERS_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -203,7 +203,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_USER_BY_ID_SQL8;
+    String _sql=GET_USER_BY_ID_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

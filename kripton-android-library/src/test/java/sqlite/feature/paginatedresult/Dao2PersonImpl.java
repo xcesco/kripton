@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -31,7 +31,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
 
   private static SQLiteStatement deleteAllPreparedStatement1;
 
@@ -66,7 +66,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
    * @return paginated result.
    */
   @Override
-  public PagedResult<Person> select(int pageSize) {
+  public PagedResultImpl<Person> select(int pageSize) {
     final PaginatedResult3 paginatedResult=new PaginatedResult3(pageSize);
     // common part generation - BEGIN
     // common part generation - END
@@ -102,6 +102,9 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
    * @return result list
    */
   private List<Person> select(int pageSize, PaginatedResult3 paginatedResult) {
+    // total count - BEGIN
+    paginatedResult.setTotalElements(this.selectTotalCount(pageSize, paginatedResult));
+    // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -176,6 +179,63 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
       }
 
       return resultList;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  private int selectTotalCount(int pageSize, PaginatedResult3 paginatedResult) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT count(*) FROM person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    String _sqlWhereStatement="";
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+      // manage query for total count eements
+      int _result=-1;
+
+      if (_cursor.moveToFirst()) {
+        _result=_cursor.getInt(0);
+      }
+      // log section for select BEGIN
+      if (_context.isLogEnabled()) {
+        // manage log
+
+        // log for where parameters -- BEGIN
+        int _whereParamCounter=0;
+        for (String _whereParamItem: _contentValues.whereArgs()) {
+          Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+        }
+        // log for where parameters -- END
+        Logger.info("Total elements found: %s", _result);
+        // log section for select END
+      }
+      return _result;
     }
     // Specialized part II - SelectPaginatedResultHelper - END
   }
@@ -281,7 +341,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -385,14 +445,16 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
     }
   }
 
-  public class PaginatedResult3 extends PagedResult<Person> {
+  public class PaginatedResult3 extends PagedResultImpl<Person> {
     PaginatedResult3(int pageSize) {
       this.pageSize=pageSize;
     }
 
     public List<Person> execute() {
+      // Executor builder - BEGIN
       list=Dao2PersonImpl.this.select(this.pageSize, this);
       return list;
+      // Executor builder - END
     }
 
     public List<Person> execute(BindPerson2DaoFactory daoFactory) {

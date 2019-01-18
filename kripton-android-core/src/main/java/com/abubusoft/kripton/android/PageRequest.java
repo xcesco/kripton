@@ -17,9 +17,14 @@ package com.abubusoft.kripton.android;
  */
 public interface PageRequest {
 	/**
-	 * Set the navigation to the first page.
+	 * Navigate to the first page.
 	 */
 	void firstPage();
+	
+	/**
+	 * Navigate to last page
+	 */
+	void lastPage();
 
 	/**
 	 * Set the current offset from start of dataset.
@@ -33,7 +38,7 @@ public interface PageRequest {
 	 * 
 	 * @return Current page
 	 */
-	int getPage();
+	int getPageNumber();
 
 	/**
 	 * Page size used to navigate
@@ -70,4 +75,5 @@ public interface PageRequest {
 	 * Set page size
 	 */
 	void setPageSize(int pageSize);
+	
 }

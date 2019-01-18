@@ -25,7 +25,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL20 = "SELECT id, age, name FROM person WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL10 = "SELECT id, age, name FROM person WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
@@ -137,7 +137,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL20;
+    String _sql=SELECT_BY_ID_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

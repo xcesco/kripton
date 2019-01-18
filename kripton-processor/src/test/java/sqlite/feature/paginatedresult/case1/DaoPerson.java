@@ -19,7 +19,7 @@ import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
 // TODO: Auto-generated Javadoc
 /**

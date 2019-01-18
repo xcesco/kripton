@@ -82,7 +82,8 @@ public class BaseProcessorTest {
 	}
 
 	/**
-	 * Test each elements of two collections. It does not matter the collections' kind. Elements are compared by reflection.
+	 * Test each elements of two collections. It does not matter the
+	 * collections' kind. Elements are compared by reflection.
 	 *
 	 * @param collection1
 	 *            the collection 1
@@ -117,8 +118,7 @@ public class BaseProcessorTest {
 
 		// when we run junit test, AnnotationProcessor is always in TEST_MODE
 		BaseProcessor.JUNIT_TEST_MODE = true;
-		System.setProperty("java.util.logging.SimpleFormatter.format",
-				"%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
+		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 	}
 
 	/** The destination path. */
@@ -140,8 +140,7 @@ public class BaseProcessorTest {
 	 * @throws IllegalAccessException
 	 *             the illegal access exception
 	 */
-	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException)
-			throws InstantiationException, IllegalAccessException {
+	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(AssertionError.class);
 		expectedEx.expectMessage(clazzException.getSimpleName());
 	}
@@ -160,8 +159,7 @@ public class BaseProcessorTest {
 	 * @throws IllegalAccessException
 	 *             the illegal access exception
 	 */
-	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException,
-			String containedMessage) throws InstantiationException, IllegalAccessException {
+	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException, String containedMessage) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(AssertionError.class);
 		expectedEx.expectMessage(clazzException.getSimpleName());
 		expectedEx.expectMessage(containedMessage);
@@ -222,7 +220,8 @@ public class BaseProcessorTest {
 
 		/**
 		 * <p>
-		 * Create a file starting with specified folder. Path have to start without "/"
+		 * Create a file starting with specified folder. Path have to start
+		 * without "/"
 		 *
 		 * @param fileNameWithRelativePath
 		 *            the file name with relative path
@@ -278,8 +277,7 @@ public class BaseProcessorTest {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	protected static void writeGeneratedFile(PathSourceType basePath, JavaFileObject javaFileObject)
-			throws IOException {
+	protected static void writeGeneratedFile(PathSourceType basePath, JavaFileObject javaFileObject) throws IOException {
 		PathSourceType pathSourceType = basePath;
 		Path path = Paths.get(pathSourceType.getPath(), javaFileObject.getName().replace("SOURCE_OUTPUT", ""));
 
@@ -369,8 +367,7 @@ public class BaseProcessorTest {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	protected static JavaFileObject getSourceFile(PathSourceType pathSourceType, Class<?> clazz) throws IOException {
-		Path path = Paths.get(pathSourceType.getPath(),
-				clazz.getCanonicalName().replace(".", Character.toString(File.separatorChar)) + ".java");
+		Path path = Paths.get(pathSourceType.getPath(), clazz.getCanonicalName().replace(".", Character.toString(File.separatorChar)) + ".java");
 		byte[] buffer = Files.readAllBytes(path.toAbsolutePath());
 
 		JavaFileObject source = JavaFileObjects.forSourceLines(clazz.getCanonicalName(), new String(buffer));
@@ -402,8 +399,7 @@ public class BaseProcessorTest {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	protected long buildSharedPreferencesProcessorTest(Class<?>... classesToTest)
-			throws InstantiationException, IllegalAccessException, IOException {
+	protected long buildSharedPreferencesProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(KriptonProcessor.class, classesToTest);
 	}
 
@@ -420,8 +416,7 @@ public class BaseProcessorTest {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	protected long buildBindProcessorTest(Class<?>... classesToTest)
-			throws InstantiationException, IllegalAccessException, IOException {
+	protected long buildBindProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(KriptonProcessor.class, classesToTest);
 	}
 
@@ -438,8 +433,7 @@ public class BaseProcessorTest {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	protected long buildDataSourceProcessorTest(Class<?>... classesToTest)
-			throws InstantiationException, IllegalAccessException, IOException {
+	protected long buildDataSourceProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(KriptonProcessor.class, classesToTest);
 	}
 
@@ -454,22 +448,21 @@ public class BaseProcessorTest {
 	 */
 	protected long buildTest(Class<? extends BaseProcessor> processorClazz, Class<?>... classesToTest) {
 		final AtomicLong counter = new AtomicLong(0);
-						
-		Compilation compilation=null;
-		try {			
-			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);	
-			
-			compilation=com.google.testing.compile.Compiler.javac()
-					.withProcessors(processorClazz.newInstance())					
-					.compile(sourcesPhase1);
-									
+
+		Compilation compilation = null;
+		try {
+			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
+
+			compilation = com.google.testing.compile.Compiler.javac().withProcessors(processorClazz.newInstance()).compile(sourcesPhase1);
+
 			ImmutableList<JavaFileObject> generated = compilation.generatedSourceFiles();
 			for (JavaFileObject item : generated) {
 				counter.addAndGet(1);
 				try {
-					//String contentFile = getStringFromInputStream(item.openInputStream());
+					// String contentFile =
+					// getStringFromInputStream(item.openInputStream());
 
-					//mapSet.put(item.getName(), contentFile);
+					// mapSet.put(item.getName(), contentFile);
 
 					switch (testType) {
 					case COMPARE:
@@ -487,10 +480,9 @@ public class BaseProcessorTest {
 						break;
 					}
 
-				} catch (Throwable e) {										
+				} catch (Throwable e) {
 					Assert.fail(e.getMessage());
-					
-					
+
 				}
 			}
 
@@ -513,25 +505,27 @@ public class BaseProcessorTest {
 			}
 
 		} catch (Throwable e) {
-			e.printStackTrace();											
-			
-			if (compilation!=null) {
+			e.printStackTrace();
+
+			if (compilation != null) {
 				try {
 					@SuppressWarnings("unchecked")
-					ImmutableList<JavaFileObject> generatedFiles=(ImmutableList<JavaFileObject>) FieldUtils.readField(compilation, "generatedFiles", true);
-					
-					generatedFiles.stream().filter(action -> action.getKind()==Kind.SOURCE ).forEach(action -> {
-						try {
-							log("\n********************************\n"+action.getName()+"\n"+IOUtils.readText(action.openInputStream()));
-						} catch (IOException e1) {
-							e1.printStackTrace();
+					ImmutableList<JavaFileObject> generatedFiles = (ImmutableList<JavaFileObject>) FieldUtils.readField(compilation, "generatedFiles", true);
+
+					generatedFiles.forEach(action -> {
+						if (action.getKind() == Kind.SOURCE) {
+							try {
+								log("\n********************************\n" + action.getName() + "\n" + IOUtils.readText(action.openInputStream()));
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
 						}
 					});
 				} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
 				}
 			}
-			
+
 			Assert.fail(e.getMessage());
 		}
 		return counter.longValue();

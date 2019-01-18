@@ -18,7 +18,6 @@ package sqlite.kripton63;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -26,38 +25,39 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Bean63.
  */
 @BindType
-@BindSharedPreferences
+// @BindSharedPreferences
 public class Bean63 {
-		
+
 	/** The id. */
 	public long id;
-		
+
 	/** The value. */
 	public String value;
-	
+
 	/** The value map string byte. */
 	public Map<String, Byte> valueMapStringByte;
-	
+
 	/** The value map enum byte. */
 	public HashMap<EnumType, Byte> valueMapEnumByte;
-	
+
 	/*
-	public HashSet<Short> valueShortSet;
-	
-	public LinkedHashSet<Integer> valueIntegerSet;
-	
-	public HashSet<String> valueStringSet;
-	
-	public Set<Character> valueCharacterSet;
-	
-	public HashSet<Float> valueFloatSet;
-	
-	public HashSet<Double> valueDoubleSet;
-	
-	public HashSet<BigDecimal> valueBigDecimalSet;
-	
-	public LinkedHashSet<Bean> valueBeanSet;
-	
-	public HashSet<EnumType> valueEnumTypeSet;*/
-	
+	 * public HashSet<Short> valueShortSet;
+	 * 
+	 * public LinkedHashSet<Integer> valueIntegerSet;
+	 * 
+	 * public HashSet<String> valueStringSet;
+	 * 
+	 * public Set<Character> valueCharacterSet;
+	 * 
+	 * public HashSet<Float> valueFloatSet;
+	 * 
+	 * public HashSet<Double> valueDoubleSet;
+	 * 
+	 * public HashSet<BigDecimal> valueBigDecimalSet;
+	 * 
+	 * public LinkedHashSet<Bean> valueBeanSet;
+	 * 
+	 * public HashSet<EnumType> valueEnumTypeSet;
+	 */
+
 }

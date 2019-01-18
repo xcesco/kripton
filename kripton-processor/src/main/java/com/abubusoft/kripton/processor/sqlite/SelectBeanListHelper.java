@@ -22,9 +22,6 @@ package com.abubusoft.kripton.processor.sqlite;
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;

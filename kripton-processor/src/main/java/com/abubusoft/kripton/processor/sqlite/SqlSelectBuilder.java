@@ -199,7 +199,7 @@ public abstract class SqlSelectBuilder {
 
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
 
-		generateDynamicPartOfQuery(method, methodBuilder, splittedSql);
+		generateDynamicPartOfQuery(method, methodBuilder, splittedSql, false);
 
 		// generate and check columns
 		{
@@ -287,8 +287,10 @@ public abstract class SqlSelectBuilder {
 	 *            the method builder
 	 * @param splittedSql
 	 *            the splitted sql
+	 * @param countQuery
+	 *            true if query is the query count for paged list
 	 */
-	public static void generateDynamicPartOfQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql) {
+	public static void generateDynamicPartOfQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql, boolean countQuery) {
 		final JQL jql = method.jql;
 		if (StringUtils.hasText(splittedSql.sqlGroupStatement)) {
 			methodBuilder.addCode("\n// manage GROUP BY statement\n");
@@ -302,54 +304,56 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlHavingStatement");
 		}
 
-		if (jql.isOrderBy()) {
-			methodBuilder.addComment("generation order - BEGIN");
-			String value = splittedSql.sqlOrderByStatement;
-			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
+		// add order by when the query is not a total count query
+		if (countQuery == false) {
 
-			if (jql.isStaticOrderBy() && !jql.isDynamicOrderBy()) {
-				// case static statement and NO dynamic
+			if (jql.isOrderBy()) {
+				methodBuilder.addComment("generation order - BEGIN");
+				String value = splittedSql.sqlOrderByStatement;
+				String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
 
-				methodBuilder.addStatement("String _sqlOrderByStatement=$S", value);
-			} else if (jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
-				methodBuilder.addStatement("String _sqlOrderByStatement=$S+$T.ifNotEmptyAppend($L, \", \")", value.replace(valueToReplace, ""), StringUtils.class, "_sortOrder");
-			} else if (!jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
-				methodBuilder.addStatement("String _sqlOrderByStatement=$T.ifNotEmptyAppend($L,\" $L \")", StringUtils.class, "_sortOrder", JQLKeywords.ORDER_BY_KEYWORD);
+				if (jql.isStaticOrderBy() && !jql.isDynamicOrderBy()) {
+					// case static statement and NO dynamic
+
+					methodBuilder.addStatement("String _sqlOrderByStatement=$S", value);
+				} else if (jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
+					methodBuilder.addStatement("String _sqlOrderByStatement=$S+$T.ifNotEmptyAppend($L, \", \")", value.replace(valueToReplace, ""), StringUtils.class, "_sortOrder");
+				} else if (!jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
+					methodBuilder.addStatement("String _sqlOrderByStatement=$T.ifNotEmptyAppend($L,\" $L \")", StringUtils.class, "_sortOrder", JQLKeywords.ORDER_BY_KEYWORD);
+				}
+
+				methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOrderByStatement");
+				methodBuilder.addComment("generation order - END");
+				methodBuilder.addCode("\n");
 			}
 
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOrderByStatement");
-			methodBuilder.addComment("generation order - END");
-			methodBuilder.addCode("\n");
-		}
-
-		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE) || jql.annotatedPageSize) {
-			methodBuilder.addComment("generation limit - BEGIN");
-			if (SelectBuilderUtility.detectSelectType(method) != SelectType.PAGED_RESULT && !method.isPagedLiveData()) {
-				methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
-			} else if (jql.annotatedPageSize) {
-				methodBuilder.addStatement("String _sqlLimitStatement=\" LIMIT \"+$L", "paginatedResult.getPageSize()");
-			} else if (jql.hasParamPageSize()) {
-				methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+$L)", SqlUtils.class, "paginatedResult.getPageSize()", "paginatedResult.getPageSize()");
-			}
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlLimitStatement");
-			methodBuilder.addComment("generation limit - END");
-			methodBuilder.addCode("\n");
-		}
-
-		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET) && 
-				(SelectBuilderUtility.detectSelectType(method) == SelectType.PAGED_RESULT
-				|| method.isPagedLiveData()
-				)) {
-			methodBuilder.addComment("generation offset - BEGIN");
-			if (jql.annotatedPageSize) {
-				methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+paginatedResult.getOffset()", SqlUtils.class);
-			} else if (jql.hasParamPageSize()) {
-				methodBuilder.addStatement("String _sqlOffsetStatement=$T.printIf($L>0 && paginatedResult.getOffset()>0, \" OFFSET \"+paginatedResult.getOffset())", SqlUtils.class, jql.paramPageSize);
+			if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE) || jql.annotatedPageSize) {
+				methodBuilder.addComment("generation limit - BEGIN");
+				if (SelectBuilderUtility.detectSelectType(method) != SelectType.PAGED_RESULT && !method.isPagedLiveData()) {
+					methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
+				} else if (jql.annotatedPageSize || method.isPagedLiveData()) {
+					methodBuilder.addStatement("String _sqlLimitStatement=\" LIMIT \"+$L", "paginatedResult.getPageSize()");
+				} else if (jql.hasParamPageSize()) {
+					methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+$L)", SqlUtils.class, "paginatedResult.getPageSize()", "paginatedResult.getPageSize()");
+				}
+				methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlLimitStatement");
+				methodBuilder.addComment("generation limit - END");
+				methodBuilder.addCode("\n");
 			}
 
-			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOffsetStatement");
-			methodBuilder.addComment("generation offset - END");
-			methodBuilder.addCode("\n");
+			if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET) && (SelectBuilderUtility.detectSelectType(method) == SelectType.PAGED_RESULT || method.isPagedLiveData())) {
+				methodBuilder.addComment("generation offset - BEGIN");
+				if (jql.annotatedPageSize || method.isPagedLiveData()) {
+					methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+paginatedResult.getOffset()", SqlUtils.class);
+				} else if (jql.hasParamPageSize()) {
+					methodBuilder.addStatement("String _sqlOffsetStatement=$T.printIf($L>0 && paginatedResult.getOffset()>0, \" OFFSET \"+paginatedResult.getOffset())", SqlUtils.class,
+							jql.paramPageSize);
+				}
+
+				methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOffsetStatement");
+				methodBuilder.addComment("generation offset - END");
+				methodBuilder.addCode("\n");
+			}
 		}
 	}
 

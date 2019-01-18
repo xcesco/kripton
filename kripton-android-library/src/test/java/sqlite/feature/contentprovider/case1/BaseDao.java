@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
@@ -39,8 +39,8 @@ public interface BaseDao<E> {
 	 * @param id the id
 	 * @return the e
 	 */
-	@BindContentProviderEntry(path = "${id}")
-	@BindSqlSelect(where = "id=${id}")
+	@BindContentProviderEntry(path = ":{id}")
+	@BindSqlSelect(where = "id=:{id}")
 	E selectById(long id);
 
 	/**

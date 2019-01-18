@@ -39,7 +39,17 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL2 = "SELECT id, value, value2 FROM bean_bean";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, value, value2 FROM bean_bean";
+
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL2 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
+
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL3 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
 
   /**
    * SQL definition for method selectOne
@@ -47,19 +57,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   private static final String SELECT_ONE_SQL4 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
 
   /**
-   * SQL definition for method selectOne
-   */
-  private static final String SELECT_ONE_SQL6 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
-
-  /**
-   * SQL definition for method selectOne
-   */
-  private static final String SELECT_ONE_SQL8 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
-
-  /**
    * SQL definition for method selectList
    */
-  private static final String SELECT_LIST_SQL10 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
+  private static final String SELECT_LIST_SQL5 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
 
   private static SQLiteStatement updateOnePreparedStatement0;
 
@@ -103,7 +103,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL2;
+    String _sql=SELECT_ONE_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -177,7 +177,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL4;
+    String _sql=SELECT_ONE_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -253,7 +253,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL6;
+    String _sql=SELECT_ONE_SQL3;
     // add where arguments
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -335,7 +335,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL8;
+    String _sql=SELECT_ONE_SQL4;
     // add where arguments
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -401,7 +401,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_LIST_SQL10;
+    String _sql=SELECT_LIST_SQL5;
     // add where arguments
     _contentValues.addWhereArgs((value==null?"":new String(serializer2(value),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

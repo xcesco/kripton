@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
@@ -25,10 +25,14 @@ import com.abubusoft.kripton.android.annotation.BindTransaction;
 public interface AppDataSource {
 
 	
+	/**
+	 * @param daoPerson
+	 * 		is injected by kripton
+	 * @param name
+	 * 		is 
+	 */
 	@BindTransaction
 	static void execute(DaoPerson daoPerson, String name) {
-		daoPerson.insert(new Person(-1, name, "Surname"));
-		
-		//return TransactionResult.COMMIT;
+		daoPerson.insert(new Person(-1, name, "Surname"));		
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
@@ -53,8 +53,10 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 		log("Main thread" + KriptonTaskExecutor.getInstance().isMainThread());
 
 		final PagedLiveData<List<Person>> liveData = ds.getDaoPerson().selectPaged("Manero");
+		liveData.setPageSize(20);
+		
 		liveData.observeForever(t -> {
-			log("--> Page %s -- size %s", liveData.getPage(), t.size());
+			log("--> Page %s -- size %s", liveData.getPageNumber(), t.size());
 		});
 
 		ds.execute(daoFactory -> {
@@ -77,13 +79,13 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 			return TransactionResult.COMMIT;
 		});
 
-		liveData.createPageRequestBuilder().pageSize(41).offset(11).apply();
-		liveData.setOffset(liveData.getOffset() + 100);
-		
+		/*liveData.createPageRequestBuilder().pageSize(42).offset(11).apply();
+		liveData.setOffset(liveData.getOffset() + 100);*/
+
 		liveData.setPage(1);
 		liveData.nextPage();
 		liveData.previousPage();
-		liveData.nextPage();
+		/*liveData.nextPage();*/
 
 		Thread.sleep(1000);
 

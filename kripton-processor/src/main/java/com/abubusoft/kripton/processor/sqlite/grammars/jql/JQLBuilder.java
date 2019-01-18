@@ -637,6 +637,12 @@ public abstract class JQLBuilder {
 				return null;
 			}
 		});
+		
+		if (method.isPagedLiveData()) {
+			// if is a paged live data, it must have pagination
+			dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET, "");
+			dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE, "");			
+		}
 
 		result.operationType = JQLType.SELECT;
 		result.dynamicReplace = dynamicReplace;
@@ -916,7 +922,7 @@ public abstract class JQLBuilder {
 			}
 		});
 
-		if (pageSize > 0 || StringUtils.hasText(pageDynamicName.value0)) {
+		if (pageSize > 0 || StringUtils.hasText(pageDynamicName.value0) || method.isPagedLiveData()) {
 			builder.append(" " + LIMIT_KEYWORD + " ");
 
 			if (pageSize > 0) {

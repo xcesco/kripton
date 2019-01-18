@@ -27,12 +27,12 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like ? || '%' ";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like ? || '%' ";
 
   /**
    * SQL definition for method selecAll
    */
-  private static final String SELEC_ALL_SQL4 = "SELECT id, birth_city, birth_day, name, surname FROM person";
+  private static final String SELEC_ALL_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person";
 
   private static SQLiteStatement insertOnePreparedStatement0;
 
@@ -71,7 +71,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL2;
+    String _sql=SELECT_ONE_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -431,7 +431,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELEC_ALL_SQL4;
+    String _sql=SELEC_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

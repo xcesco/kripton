@@ -27,21 +27,21 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
   /**
    * SQL definition for method selectAllBeans
    */
-  private static final String SELECT_ALL_BEANS_SQL2 = "SELECT id, person_name, person_surname, student FROM person";
+  private static final String SELECT_ALL_BEANS_SQL1 = "SELECT id, person_name, person_surname, student FROM person";
 
   private static final Set<String> selectAllBeans0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   /**
    * SQL definition for method selectAllBeansCount
    */
-  private static final String SELECT_ALL_BEANS_COUNT_SQL4 = "SELECT count(*) FROM person WHERE id=?";
+  private static final String SELECT_ALL_BEANS_COUNT_SQL2 = "SELECT count(*) FROM person WHERE id=?";
 
   private static final Set<String> selectAllBeansCount1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "count(*)");
 
   /**
    * SQL definition for method selectOneBean
    */
-  private static final String SELECT_ONE_BEAN_SQL6 = "SELECT id, person_name, person_surname, student FROM person WHERE id=?";
+  private static final String SELECT_ONE_BEAN_SQL3 = "SELECT id, person_name, person_surname, student FROM person WHERE id=?";
 
   private static final Set<String> selectOneBean2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
@@ -56,14 +56,14 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
   /**
    * SQL definition for method selectWithJQL
    */
-  private static final String SELECT_WITH_J_Q_L_SQL8 = "select * from person where id=?";
+  private static final String SELECT_WITH_J_Q_L_SQL4 = "select * from person where id=?";
 
   private static final Set<String> selectWithJQL7ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   /**
    * SQL definition for method selectWithJQLAndInnerSQL
    */
-  private static final String SELECT_WITH_J_Q_L_AND_INNER_S_Q_L_SQL10 = "select * from person where id=? and id in (select id from person)";
+  private static final String SELECT_WITH_J_Q_L_AND_INNER_S_Q_L_SQL5 = "select * from person where id=? and id in (select id from person)";
 
   private static final Set<String> selectWithJQLAndInnerSQL8ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
@@ -94,7 +94,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_BEANS_SQL2;
+    String _sql=SELECT_ALL_BEANS_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -237,7 +237,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_BEANS_COUNT_SQL4;
+    String _sql=SELECT_ALL_BEANS_COUNT_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -381,7 +381,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_BEAN_SQL6;
+    String _sql=SELECT_ONE_BEAN_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(benza.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1272,7 +1272,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_WITH_J_Q_L_SQL8;
+    String _sql=SELECT_WITH_J_Q_L_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1427,7 +1427,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_WITH_J_Q_L_AND_INNER_S_Q_L_SQL10;
+    String _sql=SELECT_WITH_J_Q_L_AND_INNER_S_Q_L_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

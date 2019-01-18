@@ -28,12 +28,12 @@ public class UserDaoImpl extends Dao implements UserDao {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, address, company, email, name, phone, username, website FROM user ORDER BY username asc";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, address, company, email, name, phone, username, website FROM user ORDER BY username asc";
 
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL4 = "SELECT id, address, company, email, name, phone, username, website FROM user WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, address, company, email, name, phone, username, website FROM user WHERE id = ?";
 
   public UserDaoImpl(BindQuickStartDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -148,7 +148,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -243,7 +243,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL4;
+    String _sql=SELECT_BY_ID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

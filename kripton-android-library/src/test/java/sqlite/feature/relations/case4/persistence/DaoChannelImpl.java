@@ -29,7 +29,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL6 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, title FROM channel";
+  private static final String SELECT_ALL_SQL3 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, title FROM channel";
 
   private BindRssDaoFactory daoFactory;
 
@@ -156,7 +156,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL6;
+    String _sql=SELECT_ALL_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

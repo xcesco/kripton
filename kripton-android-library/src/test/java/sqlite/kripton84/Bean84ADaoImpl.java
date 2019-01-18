@@ -37,17 +37,17 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a";
 
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL4 = "SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a WHERE id=?";
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a WHERE id=?";
 
   /**
    * SQL definition for method selectWhere
    */
-  private static final String SELECT_WHERE_SQL6 = "SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a WHERE column_list_string=? and column_map_integer_string=? and column_array_char=?  and column_array_char_type=?";
+  private static final String SELECT_WHERE_SQL3 = "SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a WHERE column_list_string=? and column_map_integer_string=? and column_array_char=?  and column_array_char_type=?";
 
   private static SQLiteStatement insertAllPreparedStatement0;
 
@@ -92,7 +92,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -199,7 +199,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL4;
+    String _sql=SELECT_BY_ID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(uid));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -317,7 +317,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_WHERE_SQL6;
+    String _sql=SELECT_WHERE_SQL3;
     // add where arguments
     _contentValues.addWhereArgs((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((param2==null?"":new String(serializer2(param2),StandardCharsets.UTF_8)));

@@ -20,14 +20,14 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL2 = "SELECT id, address, city, name, phone, state FROM simple_address_item WHERE id=?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, address, city, name, phone, state FROM simple_address_item WHERE id=?";
 
   private static SQLiteStatement deleteAllPreparedStatement0;
 
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL4 = "SELECT id, address, city, name, phone, state FROM simple_address_item";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, address, city, name, phone, state FROM simple_address_item";
 
   private static SQLiteStatement insertPreparedStatement1;
 
@@ -67,7 +67,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL2;
+    String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -147,7 +147,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL4;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {

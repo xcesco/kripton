@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>5.0.0</version>
+		<version>5.1.0-rc.1</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 
@@ -13,6 +13,30 @@
 	<name>Kripton YAML data format</name>
 	<description>This is jar need to support YAML format.</description>
 	<packaging>jar</packaging>
+
+	<properties>
+		<kripton.version>5.1.0-rc.1</kripton.version>
+
+		<!-- dependencies version -->
+		<jackson.version>2.9.6</jackson.version>
+		<retrofit.version>2.4.0</retrofit.version>
+		<rx.version>2.1.17</rx.version>
+
+		<!-- test version -->
+		<junit.version>4.12</junit.version>
+		<unitils.version>3.4.2</unitils.version>
+		<jsr305.version>3.0.1</jsr305.version>
+		<guava.version>23.0</guava.version>
+		<robolectric.version>3.1.4</robolectric.version>
+
+		<!-- android stub by roboletric -->
+		<roboletricAndroidAll.version>5.0.0_r2-robolectric-0</roboletricAndroidAll.version>
+
+		<!-- processor libraries -->
+		<javapoet.version>1.9.0</javapoet.version>
+		<antlr.version>4.7.1</antlr.version>
+	</properties>
+
 
 	<dependencies>
 		<dependency>

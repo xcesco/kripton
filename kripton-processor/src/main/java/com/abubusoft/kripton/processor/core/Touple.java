@@ -29,14 +29,7 @@ import com.abubusoft.kripton.common.Triple;
  * @param <V3>
  */
 public class Touple<V0, V1, V2, V3> extends Triple<V0, V1, V2> {
-
-	/**
-	 * Instantiates a new triple.
-	 */
-	public Touple() {
-
-	}
-
+	
 	/**
 	 * Instantiates a new triple.
 	 *

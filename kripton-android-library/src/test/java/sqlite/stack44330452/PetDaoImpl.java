@@ -21,7 +21,7 @@ public class PetDaoImpl extends Dao implements PetDao {
   /**
    * SQL definition for method loadPet
    */
-  private static final String LOAD_PET_SQL4 = "SELECT id, name, user_id FROM pet";
+  private static final String LOAD_PET_SQL2 = "SELECT id, name, user_id FROM pet";
 
   public PetDaoImpl(BindPetUserDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -49,7 +49,7 @@ public class PetDaoImpl extends Dao implements PetDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LOAD_PET_SQL4;
+    String _sql=LOAD_PET_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

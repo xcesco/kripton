@@ -25,24 +25,24 @@ public class DaoChildImpl extends Dao implements DaoChild {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT _id, name, parent_id FROM child";
+  private static final String SELECT_ALL_SQL1 = "SELECT _id, name, parent_id FROM child";
 
   private static SQLiteStatement insertBeanPreparedStatement0;
 
   /**
    * SQL definition for method selectByParent
    */
-  private static final String SELECT_BY_PARENT_SQL4 = "select * from child where parent_id in (select _id from person where _id=?)";
+  private static final String SELECT_BY_PARENT_SQL2 = "select * from child where parent_id in (select _id from person where _id=?)";
 
   /**
    * SQL definition for method selectByParent2
    */
-  private static final String SELECT_BY_PARENT2_SQL6 = "select count(*) from child where parent_id in (select _id from person where _id=?)";
+  private static final String SELECT_BY_PARENT2_SQL3 = "select count(*) from child where parent_id in (select _id from person where _id=?)";
 
   /**
    * SQL definition for method selectByParentId
    */
-  private static final String SELECT_BY_PARENT_ID_SQL8 = "SELECT _id, name, parent_id FROM child WHERE parent_id=?";
+  private static final String SELECT_BY_PARENT_ID_SQL4 = "SELECT _id, name, parent_id FROM child WHERE parent_id=?";
 
   private static SQLiteStatement insertByCopy3PreparedStatement1;
 
@@ -76,7 +76,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -228,7 +228,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PARENT_SQL4;
+    String _sql=SELECT_BY_PARENT_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -307,7 +307,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PARENT2_SQL6;
+    String _sql=SELECT_BY_PARENT2_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -373,7 +373,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PARENT_ID_SQL8;
+    String _sql=SELECT_BY_PARENT_ID_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

@@ -30,7 +30,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
 
   public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -137,7 +137,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

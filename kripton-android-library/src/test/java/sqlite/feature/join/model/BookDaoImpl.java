@@ -26,7 +26,7 @@ public class BookDaoImpl extends Dao implements BookDao {
   /**
    * SQL definition for method findBooksBorrowedByUser
    */
-  private static final String FIND_BOOKS_BORROWED_BY_USER_SQL2 = "SELECT * FROM book INNER JOIN loan ON loan.book_id == book.id WHERE loan.user_id == ? ";
+  private static final String FIND_BOOKS_BORROWED_BY_USER_SQL1 = "SELECT * FROM book INNER JOIN loan ON loan.book_id == book.id WHERE loan.user_id == ? ";
 
   public BookDaoImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -128,7 +128,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_BOOKS_BORROWED_BY_USER_SQL2;
+    String _sql=FIND_BOOKS_BORROWED_BY_USER_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

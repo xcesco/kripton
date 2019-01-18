@@ -44,12 +44,12 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   /**
    * SQL definition for method selectAlbums
    */
-  private static final String SELECT_ALBUMS_SQL2 = "SELECT name, year FROM album WHERE name=?";
+  private static final String SELECT_ALBUMS_SQL1 = "SELECT name, year FROM album WHERE name=?";
 
   /**
    * SQL definition for method selectAlbums2
    */
-  private static final String SELECT_ALBUMS2_SQL4 = "SELECT name, year FROM album WHERE name=?";
+  private static final String SELECT_ALBUMS2_SQL2 = "SELECT name, year FROM album WHERE name=?";
 
   public DaoAlbumImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -676,7 +676,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALBUMS_SQL2;
+    String _sql=SELECT_ALBUMS_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -754,7 +754,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALBUMS2_SQL4;
+    String _sql=SELECT_ALBUMS2_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(bean.name);
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

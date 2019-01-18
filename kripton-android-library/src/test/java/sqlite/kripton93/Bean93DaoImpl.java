@@ -24,12 +24,12 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
   /**
    * SQL definition for method selectByBean
    */
-  private static final String SELECT_BY_BEAN_SQL2 = "SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ? || '%'";
+  private static final String SELECT_BY_BEAN_SQL1 = "SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ? || '%'";
 
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL4 = "SELECT id, name, surname, type_name FROM bean93";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, name, surname, type_name FROM bean93";
 
   private static SQLiteStatement insertDefaultPreparedStatement0;
 
@@ -77,7 +77,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_BEAN_SQL2;
+    String _sql=SELECT_BY_BEAN_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -148,7 +148,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL4;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

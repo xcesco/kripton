@@ -18,9 +18,9 @@ import com.abubusoft.kripton.android.Logger;
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
  * <tr><td><pre>content://com.abubusoft.kripton.example/albums</pre></td><td>{@link AlbumDaoImpl#selectAll1ForContentProvider}</td></tr>
- * <tr><td><pre>content://com.abubusoft.kripton.example/albums/${id}</pre></td><td>{@link AlbumDaoImpl#selectById0ForContentProvider}</td></tr>
+ * <tr><td><pre>content://com.abubusoft.kripton.example/albums/:{id}</pre></td><td>{@link AlbumDaoImpl#selectById0ForContentProvider}</td></tr>
  * <tr><td><pre>content://com.abubusoft.kripton.example/artists</pre></td><td>{@link ArtistDaoImpl#selectAll1ForContentProvider}</td></tr>
- * <tr><td><pre>content://com.abubusoft.kripton.example/artists/${id}</pre></td><td>{@link ArtistDaoImpl#selectById0ForContentProvider}</td></tr>
+ * <tr><td><pre>content://com.abubusoft.kripton.example/artists/:{id}</pre></td><td>{@link ArtistDaoImpl#selectById0ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported insert operations</h2>
@@ -143,7 +143,7 @@ public class BindArtistsContentProvider extends ContentProvider {
    * <h2>URI standard</h2>
    * <pre>content://com.abubusoft.kripton.example/albums/#</pre></p>
    * <h2>URI with parameters</h2>
-   * <pre>content://com.abubusoft.kripton.example/albums/${id}</pre>
+   * <pre>content://com.abubusoft.kripton.example/albums/:{id}</pre>
    *
    * <p>Method associated to this URI is {@link AlbumDaoImpl#selectById0ForContentProvider}</p>
    */
@@ -193,7 +193,7 @@ public class BindArtistsContentProvider extends ContentProvider {
    * <h2>URI standard</h2>
    * <pre>content://com.abubusoft.kripton.example/artists/#</pre></p>
    * <h2>URI with parameters</h2>
-   * <pre>content://com.abubusoft.kripton.example/artists/${id}</pre>
+   * <pre>content://com.abubusoft.kripton.example/artists/:{id}</pre>
    *
    * <p>Method associated to this URI is {@link ArtistDaoImpl#selectById0ForContentProvider}</p>
    */
@@ -248,9 +248,9 @@ public class BindArtistsContentProvider extends ContentProvider {
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
    * <tr><td><pre>content://com.abubusoft.kripton.example/albums</pre></td><td>{@link AlbumDaoImpl#selectAll1ForContentProvider}</td></tr>
-   * <tr><td><pre>content://com.abubusoft.kripton.example/albums/${id}</pre></td><td>{@link AlbumDaoImpl#selectById0ForContentProvider}</td></tr>
+   * <tr><td><pre>content://com.abubusoft.kripton.example/albums/:{id}</pre></td><td>{@link AlbumDaoImpl#selectById0ForContentProvider}</td></tr>
    * <tr><td><pre>content://com.abubusoft.kripton.example/artists</pre></td><td>{@link ArtistDaoImpl#selectAll1ForContentProvider}</td></tr>
-   * <tr><td><pre>content://com.abubusoft.kripton.example/artists/${id}</pre></td><td>{@link ArtistDaoImpl#selectById0ForContentProvider}</td></tr>
+   * <tr><td><pre>content://com.abubusoft.kripton.example/artists/:{id}</pre></td><td>{@link ArtistDaoImpl#selectById0ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -265,7 +265,7 @@ public class BindArtistsContentProvider extends ContentProvider {
         break;
       }
       case PATH_ALBUM_2_INDEX: {
-        // URI: content://com.abubusoft.kripton.example/albums/${id}
+        // URI: content://com.abubusoft.kripton.example/albums/:{id}
         returnCursor=dataSource.getAlbumDao().selectById0ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
@@ -275,7 +275,7 @@ public class BindArtistsContentProvider extends ContentProvider {
         break;
       }
       case PATH_ARTIST_4_INDEX: {
-        // URI: content://com.abubusoft.kripton.example/artists/${id}
+        // URI: content://com.abubusoft.kripton.example/artists/:{id}
         returnCursor=dataSource.getArtistDao().selectById0ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }

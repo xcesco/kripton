@@ -320,7 +320,7 @@ public abstract class BindSharedPreferencesBuilder {
 
 	private static void generateMethodAsLiveData(Converter<String, String> converter, TypeName typeName, PrefsProperty property) {
 
-		ParameterizedTypeName liveDataType = ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getLiveDataHandlerClazz()), typeName);
+		ParameterizedTypeName liveDataType = ParameterizedTypeName.get(KriptonLiveDataManager.getInstance().getLiveDataHandlerClazz(), typeName);
 		String className = getBuildPreferenceName(property.getParent());
 
 		// generate compute
@@ -332,7 +332,7 @@ public abstract class BindSharedPreferencesBuilder {
 		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(liveDataType).addMethod(computeBuilder.build()).build();
 
 		MethodSpec ms = MethodSpec.methodBuilder("get" + converter.convert(property.getName()) + "AsLiveData").addModifiers(Modifier.PUBLIC)
-				.returns(ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getMutableLiveDataClazz()), typeName))
+				.returns(ParameterizedTypeName.get(KriptonLiveDataManager.getInstance().getMutableLiveDataClazz(), typeName))
 				.addJavadoc("Obtains an LiveData to <code>$L</code> property\n\n", property.getName()).addJavadoc("@return\nan LiveData to <code>$L</code> property\n", property.getName())
 				.addStatement("$T liveData=$L", liveDataType, liveDataBuilder).addStatement("registryLiveData($S, liveData)", property.getPreferenceKey()).addStatement("return liveData.getLiveData()")
 				.build();

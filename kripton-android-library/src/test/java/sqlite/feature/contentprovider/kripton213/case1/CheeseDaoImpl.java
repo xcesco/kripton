@@ -29,7 +29,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   /**
    * SQL definition for method count
    */
-  private static final String COUNT_SQL2 = "SELECT count(*) FROM cheeses";
+  private static final String COUNT_SQL1 = "SELECT count(*) FROM cheeses";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -38,14 +38,14 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL4 = "SELECT id, name FROM cheeses";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, name FROM cheeses";
 
   private static final Set<String> selectAll1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL6 = "SELECT id, name FROM cheeses WHERE id=?";
+  private static final String SELECT_BY_ID_SQL3 = "SELECT id, name FROM cheeses WHERE id=?";
 
   private static final Set<String> selectById2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
@@ -79,7 +79,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=COUNT_SQL2;
+    String _sql=COUNT_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -251,7 +251,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL4;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -391,7 +391,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL6;
+    String _sql=SELECT_BY_ID_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

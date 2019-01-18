@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
@@ -25,7 +25,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.PagedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
 import base.BaseAndroidTest;
 import sqlite.feature.paginatedresult.model.Person;
@@ -44,14 +44,16 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRun() {
-		try (BindPerson1DataSource dataSource = BindPerson1DataSource.open(); Dao1PersonImpl dao = dataSource.getDao1Person()) {
+		try (BindPerson1DataSource dataSource = BindPerson1DataSource.open();
+				Dao1PersonImpl dao = dataSource.getDao1Person()) {
 			dao.deleteAll();
 
 			for (int i = 0; i < 100; i++) {
-				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
+				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i),
+						String.format("birthCity%03d", i), new Date());
 			}
 
-			PagedResult<Person> result = dao.select();
+			PagedResultImpl<Person> result = dao.select();
 
 			int i = 0;
 			result.firstPage();
@@ -77,14 +79,16 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testGotoPage() {
-		try (BindPerson1DataSource dataSource = BindPerson1DataSource.open(); Dao1PersonImpl dao = dataSource.getDao1Person()) {
+		try (BindPerson1DataSource dataSource = BindPerson1DataSource.open();
+				Dao1PersonImpl dao = dataSource.getDao1Person()) {
 			dao.deleteAll();
 
 			for (int i = 0; i < 100; i++) {
-				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
+				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i),
+						String.format("birthCity%03d", i), new Date());
 			}
 
-			PagedResult<Person> result = dao.select();
+			PagedResultImpl<Person> result = dao.select();
 
 			{
 				int i = 5;
@@ -110,9 +114,7 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 					Logger.info(item.toString());
 				}
 				assertTrue(result.getList().size() == 0);
-				assertTrue(!result.hasNext());
-				// assertTrue(result.list().get(0).name.equals(String.format("name%03d",
-				// i * 10)));
+				assertTrue(!result.hasNext());				
 			}
 
 			{
@@ -125,9 +127,9 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 				for (Person item : result.getList()) {
 					Logger.info(item.toString());
 				}
-				//assertTrue(result.getList().size() == 0);
-				//assertTrue(!result.hasNext());
-				
+				// assertTrue(result.getList().size() == 0);
+				// assertTrue(!result.hasNext());
+
 				// it's the same as invoke page 0
 				assertTrue(result.getList().get(0).name.equals(String.format("name%03d", 0 * 10)));
 			}

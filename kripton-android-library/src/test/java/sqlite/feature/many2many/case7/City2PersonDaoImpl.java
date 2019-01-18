@@ -25,17 +25,17 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL6 = "SELECT id, city_id, person_id FROM city_person WHERE id=?";
+  private static final String SELECT_BY_ID_SQL3 = "SELECT id, city_id, person_id FROM city_person WHERE id=?";
 
   /**
    * SQL definition for method selectByCityId
    */
-  private static final String SELECT_BY_CITY_ID_SQL8 = "SELECT id, city_id, person_id FROM city_person WHERE city_id=?";
+  private static final String SELECT_BY_CITY_ID_SQL4 = "SELECT id, city_id, person_id FROM city_person WHERE city_id=?";
 
   /**
    * SQL definition for method selectByPersonId
    */
-  private static final String SELECT_BY_PERSON_ID_SQL10 = "SELECT id, city_id, person_id FROM city_person WHERE person_id=?";
+  private static final String SELECT_BY_PERSON_ID_SQL5 = "SELECT id, city_id, person_id FROM city_person WHERE person_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -78,7 +78,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL6;
+    String _sql=SELECT_BY_ID_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -165,7 +165,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_CITY_ID_SQL8;
+    String _sql=SELECT_BY_CITY_ID_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(cityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -258,7 +258,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PERSON_ID_SQL10;
+    String _sql=SELECT_BY_PERSON_ID_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

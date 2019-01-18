@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>5.0.0</version>
+		<version>5.1.0-rc.1</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 	
@@ -14,10 +14,6 @@
 	<!-- version of archtype 1.1.0 -->
 	<name>Kripton Arch Integration</name>
 	<description>Kripton Arch Integration Library</description>
-	
-	<properties>
-		<androidx.version>1.0.0-alpha1</androidx.version>
-	</properties>
 	
 	<dependencies>	
 						

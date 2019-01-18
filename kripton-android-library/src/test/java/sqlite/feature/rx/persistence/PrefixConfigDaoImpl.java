@@ -27,7 +27,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   /**
    * SQL definition for method selectById
    */
-  private static final String SELECT_BY_ID_SQL8 = "SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
@@ -36,7 +36,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL10 = "SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config";
+  private static final String SELECT_ONE_SQL5 = "SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config";
 
   private static SQLiteStatement updatePreparedStatement3;
 
@@ -158,7 +158,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL8;
+    String _sql=SELECT_BY_ID_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -328,7 +328,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL10;
+    String _sql=SELECT_ONE_SQL5;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

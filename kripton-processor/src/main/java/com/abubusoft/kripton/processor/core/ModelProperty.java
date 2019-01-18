@@ -189,14 +189,6 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.core.ModelWithAnnotation#addAnnotation(com.abubusoft.kripton.processor.core.ModelAnnotation)
-	 */
-	@Override
-	public void addAnnotation(ModelAnnotation annotation) {
-		annotations.add(annotation);
-	}
-
-	/* (non-Javadoc)
 	 * @see com.abubusoft.kripton.processor.core.ModelWithAnnotation#getAnnotation(java.lang.Class)
 	 */
 	@Override

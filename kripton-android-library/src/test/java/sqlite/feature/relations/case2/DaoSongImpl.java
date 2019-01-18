@@ -21,7 +21,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   /**
    * SQL definition for method selectAll
    */
-  private static final String SELECT_ALL_SQL4 = "SELECT id, album_id, name FROM song";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, album_id, name FROM song";
 
   public DaoSongImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -49,7 +49,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL4;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

@@ -25,7 +25,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
-
 /**
  * The Class SelectRawHelper.
  *
@@ -34,23 +33,29 @@ import com.squareup.javapoet.TypeSpec;
  */
 public class SelectRawHelper extends AbstractSelectCodeGenerator {
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generateCommonPart(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
-	 */
-	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
-		generateCommonPart(method, classBuilder, methodBuilder, fieldList, mapFields, GenerationType.NO_CLOSE_CURSOR, null, true);
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
+	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#
+	 * generateCommonPart(com.abubusoft.kripton.processor.sqlite.model.
+	 * SQLiteModelMethod, com.squareup.javapoet.TypeSpec.Builder,
+	 * com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
 	 */
 	@Override
-	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
-		methodBuilder.addCode("return _cursor;\n");
-		methodBuilder.endControlFlow();
+	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
+		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CLOSE_CURSOR, null, true, false);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.
+	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
+	 */
+	@Override
+	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
+		methodBuilder.addCode("return _cursor;\n");
+		// methodBuilder.endControlFlow();
+	}
 
 }
