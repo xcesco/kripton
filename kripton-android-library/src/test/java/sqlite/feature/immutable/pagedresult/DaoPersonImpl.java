@@ -59,7 +59,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public PagedResultImpl<Person> select() {
-    final PaginatedResult9 paginatedResult=new PaginatedResult9();
+    final PaginatedResult10 paginatedResult=new PaginatedResult10();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -86,7 +86,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> select(PaginatedResult9 paginatedResult) {
+  private List<Person> select(PaginatedResult10 paginatedResult) {
     // total count - BEGIN
     paginatedResult.setTotalElements(this.selectTotalCount(paginatedResult));
     // total count - END
@@ -184,7 +184,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  private int selectTotalCount(PaginatedResult9 paginatedResult) {
+  private int selectTotalCount(PaginatedResult10 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -466,8 +466,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult9 extends PagedResultImpl<Person> {
-    PaginatedResult9() {
+  public class PaginatedResult10 extends PagedResultImpl<Person> {
+    PaginatedResult10() {
       this.pageSize=10;
     }
 

@@ -21,6 +21,7 @@ import org.junit.runners.Suite;
 import base.BaseProcessorTest;
 import sqlite.feature.livedata.paginated.TestLiveDataPaginated;
 import sqlite.feature.livedata.paginated.case1.TestLiveDataPaginatedCase1;
+import sqlite.feature.livedata.paginated.case2.TestLiveDataPaginatedCase2;
 
 /**
  * The Class TestLiveDataSuite.
@@ -33,7 +34,8 @@ import sqlite.feature.livedata.paginated.case1.TestLiveDataPaginatedCase1;
 		TestLiveDataCompile2.class,
 		TestLiveDataCompile3.class,
 		TestLiveDataPaginated.class,
-		TestLiveDataPaginatedCase1.class
+		TestLiveDataPaginatedCase1.class,
+		TestLiveDataPaginatedCase2.class
 		 })
 //@formatter:on
 public class TestLiveDataSuite extends BaseProcessorTest {

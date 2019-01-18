@@ -20,6 +20,7 @@ import org.junit.runners.Suite;
 
 import base.BaseAndroidTest;
 import sqlite.feature.livedata.paginated.case1.TestPagedLiveDataCase1Runtime;
+import sqlite.feature.livedata.paginated.case2.TestPagedLiveDataCase2Runtime;
 
 /**
  * The Class TestRuntimeMany2ManySuite.
@@ -31,7 +32,8 @@ import sqlite.feature.livedata.paginated.case1.TestPagedLiveDataCase1Runtime;
 		TestFeatureLiveDataRuntime.class,
 		TestFeaturePagedLiveDataRuntime.class,
 		TestLiveDataRuntime.class,
-		TestPagedLiveDataCase1Runtime.class
+		TestPagedLiveDataCase1Runtime.class,
+		TestPagedLiveDataCase2Runtime.class
 		 })
 //@formatter:on
 public class TestRuntimeLiveDataSuite extends BaseAndroidTest {

@@ -94,6 +94,7 @@ import sqlite.test03.Test03Suite;
 import sqlite.test04.v1.Test04;
 import sqlite.test05firt_aid.Test05Suite;
 import sqlite.test05firt_aid.TestFirstAid;
+import sqlite.update.raw.TestRawSuite;
 
 /**
  * The Class SQLiteCompileTestSuite.
@@ -131,6 +132,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestAdapterSuite.class,
 			TestCompileMultipleSuite.class,
 			FeatureAsyncSuite.class,
+			TestRawSuite.class,
 			
 			// bug-fix			
 			TestCompileKotlinImmutable.class,

@@ -242,14 +242,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 			// Analyze custom bean
 			analyzeCustomBeanForSelect(currentSchema);
-
-			String msg;
+			
 			if (currentSchema.getCollection().size() == 0) {
-				msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation",
-						BindDao.class.getSimpleName(), currentSchema.getElement().getSimpleName().toString(),
-						BindDataSource.class.getSimpleName());
-				// info(msg);
-				error(null, msg);
+				AssertKripton.fail("DataSource class %s with @%s annotation has no defined DAOs",
+						currentSchema.getElement().getSimpleName().toString(),
+						BindDataSource.class.getSimpleName(),
+						BindDao.class.getSimpleName()
+						);
+				// info(msg);				
 				return true;
 			}
 
@@ -786,7 +786,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									return false;
 								} else {
 									throw new InvalidDefinition(
-											String.format("@%s can not be used with @%s(allField=false)",
+											String.format("@%s can not be used with @%s(allFields=false)",
 													BindDisabled.class, BindType.class));
 								}
 							}

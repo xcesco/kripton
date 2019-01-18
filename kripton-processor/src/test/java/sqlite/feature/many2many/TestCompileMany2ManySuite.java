@@ -24,6 +24,7 @@ import sqlite.feature.many2many.err1.TestCompileMany2ManyErr1;
 import sqlite.feature.many2many.err2.TestCompileMany2ManyErr2;
 import sqlite.feature.many2many.err3.TestCompileMany2ManyErr3;
 import sqlite.feature.many2many.err4.TestCompileMany2ManyErr4;
+import sqlite.feature.many2many.err5.TestCompileMany2ManyErr5;
 
 /**
  * The Class TestCompileMany2ManySuite.
@@ -42,7 +43,8 @@ import sqlite.feature.many2many.err4.TestCompileMany2ManyErr4;
 		TestCompileMany2ManyErr1.class,
 		TestCompileMany2ManyErr2.class,
 		TestCompileMany2ManyErr3.class,
-		TestCompileMany2ManyErr4.class
+		TestCompileMany2ManyErr4.class,
+		TestCompileMany2ManyErr5.class
 		 })
 //@formatter:on
 public class TestCompileMany2ManySuite extends BaseProcessorTest {
