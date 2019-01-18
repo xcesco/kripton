@@ -80,6 +80,7 @@ import sqlite.kripton64.Test64Suite;
 import sqlite.kripton84.Test84Suite;
 import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
+import sqlite.kripton294.Test294;
 import sqlite.quickstart.TestQuickstartSuite;
 import sqlite.samples.TestSamplesSuite;
 import sqlite.select.TestSelectSuite;
@@ -165,6 +166,7 @@ import sqlite.update.raw.TestRawSuite;
 			Test96Suite.class,
 			TestQuickstartSuite.class,
 			Test296.class,
+			Test294.class,
 			TestDao01.class, 
 			Test03.class, 
 			Test04.class,
