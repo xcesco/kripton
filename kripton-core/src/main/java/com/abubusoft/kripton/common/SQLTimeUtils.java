@@ -40,7 +40,9 @@ public class SQLTimeUtils {
 	 * @param string the string
 	 * @return the time
 	 */
-	public static Time read(String string) {		
-		return Time.valueOf(string);
+	public static Time read(String value) {	
+		if (value == null)
+			return null;
+		return Time.valueOf(value);
 	}
 }

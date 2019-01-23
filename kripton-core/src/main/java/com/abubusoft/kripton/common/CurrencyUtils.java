@@ -41,6 +41,7 @@ public class CurrencyUtils {
 	 * @return the currency
 	 */
 	public static Currency read(String value) {
+		if (value==null) return null;
 		return Currency.getInstance(value);
 	}
 }

@@ -17,29 +17,35 @@ package com.abubusoft.kripton.common;
 
 import java.sql.Date;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLDateUtils.
  */
 public class SQLDateUtils {
-	
+
 	/**
 	 * Write.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the string
 	 */
 	public static String write(Date value) {
+		if (value == null)
+			return null;
+
 		return value.toString();
 	}
-	
+
 	/**
 	 * Convert a string to relative locale.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 * @return the date
 	 */
-	public static Date read(String string) {		
-		return Date.valueOf(string);
+	public static Date read(String value) {
+		if (value == null)
+			return null;
+		return Date.valueOf(value);
 	}
 }
