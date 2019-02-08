@@ -54,7 +54,7 @@ public class Logger {
 	 */
 	public static void debug(String msg, Object... args) {
 		String tag = generateTag();
-		if (!"".equals(tag)) {
+		if (msg!=null && !"".equals(tag)) {
 			if (args.length > 0) {
 				Log.d(tag, String.format(msg, args));
 			} else {
@@ -72,7 +72,7 @@ public class Logger {
 	 */
 	public static void error(String msg, Object... args) {
 		String tag = generateTag();
-		if (!"".equals(tag)) {
+		if (msg!=null && !"".equals(tag)) {
 			if (args.length > 0) {
 				Log.e(tag, String.format(msg, args));
 			} else {
@@ -90,7 +90,7 @@ public class Logger {
 	 */
 	public static void verbose(String msg, Object... args) {
 		String tag = generateTag();
-		if (!"".equals(tag)) {
+		if (msg!=null && !"".equals(tag)) {
 			if (args.length > 0) {
 				Log.v(tag, String.format(msg, args));
 			} else {
@@ -108,7 +108,7 @@ public class Logger {
 	 */
 	public static void warn(String msg, Object... args) {
 		String tag = generateTag();
-		if (!"".equals(tag)) {
+		if (msg!=null && !"".equals(tag)) {
 			if (args.length > 0) {
 				Log.w(tag, String.format(msg, args));
 			} else {
@@ -126,7 +126,7 @@ public class Logger {
 	 */
 	public static void fatal(String msg, Object... args) {
 		String tag = generateTag();
-		if (!"".equals(tag)) {
+		if (msg!=null && !"".equals(tag)) {
 			if (args.length > 0) {
 				Log.wtf(tag, String.format(msg, args));
 			} else {
@@ -144,7 +144,7 @@ public class Logger {
 	 */
 	public static void info(String msg, Object... args) {
 		String tag = generateTag();
-		if (!"".equals(tag)) {
+		if (msg!=null && !"".equals(tag)) {
 			if (args.length > 0) {
 				Log.i(tag, String.format(msg, args));
 			} else {

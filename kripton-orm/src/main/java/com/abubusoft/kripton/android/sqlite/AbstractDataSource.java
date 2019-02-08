@@ -37,7 +37,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Base class for data source
@@ -496,7 +495,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	public boolean isOpenInWriteMode() {
 		// return database != null && database.isOpen() &&
 		// !database.isReadOnly() && database.isDbLockedByCurrentThread();
-		return database != null && !database.isReadOnly() && database.isDbLockedByCurrentThread();
+		return database != null && database.isOpen() && !database.isReadOnly() && database.isDbLockedByCurrentThread();
 	}
 
 	/**
