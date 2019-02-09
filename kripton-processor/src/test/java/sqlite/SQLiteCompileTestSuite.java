@@ -56,6 +56,7 @@ import sqlite.feature.schema.TestSchemaSuite;
 import sqlite.feature.speed.TestCompileSpeed;
 import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.feature.typeadapter.kripton180.Test180Suite;
+import sqlite.git12.TestGit12;
 import sqlite.kotlin.hierarchy.TestKotlinHierarchy;
 import sqlite.kripton111.TestCompile111;
 import sqlite.kripton186.Test186Suite;
@@ -190,6 +191,9 @@ import sqlite.update.raw.TestRawSuite;
 			Test62Compile.class,
 			Test63Compile.class,
 			Test209Suite.class,
+			
+			// git
+			TestGit12.class,
 			
 			// kotlin
 			TestKotlinHierarchy.class,
