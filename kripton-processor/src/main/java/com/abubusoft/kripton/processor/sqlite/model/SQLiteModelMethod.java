@@ -44,7 +44,6 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;

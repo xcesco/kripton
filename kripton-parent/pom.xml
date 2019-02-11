@@ -11,7 +11,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-parent</artifactId>
-	<version>5.1.0-rc.2</version>
+	<version>5.1.0-rc.3</version>
 	<packaging>pom</packaging>
 	
 	<name>Kripton (Parent)</name>

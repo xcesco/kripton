@@ -15,25 +15,31 @@
  *******************************************************************************/
 package sqlite.feature.custombean;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.custombean.case3.AppDataSource;
+import sqlite.feature.custombean.case3.Book;
+import sqlite.feature.custombean.case3.BookDao;
+import sqlite.feature.custombean.case3.BookNoIsbn;
 
 /**
- * The Class TestContentProviderSuite.
+ * The Class TestCompileKripton213.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-			TestCompileCustomCase1.class,
-			TestCompileCustomCase2.class,
-			TestCompileCustomCase3.class,
-			TestCompileCustomErr1.class,
-			TestCompileCustomErr2.class
-		 })
-//@formatter:on
-public class TestCustomBeanSuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class TestCompileCustomCase3 extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable
+	 *             the throwable
+	 */
+	@Test
+	public void testCompile() throws Throwable {
+		buildDataSourceProcessorTest(AppDataSource.class, Book.class, BookDao.class, BookNoIsbn.class);
+	}
 
 }
