@@ -21,10 +21,19 @@ import java.util.List;
  *  @see UserTable
  */
 public class UserDaoImpl extends Dao implements UserDao {
+  /**
+   * SQL definition for method loadAllUsers
+   */
   private static final String LOAD_ALL_USERS_SQL13 = "SELECT id, age, last_name, name FROM user";
 
+  /**
+   * SQL definition for method loadUserById
+   */
   private static final String LOAD_USER_BY_ID_SQL14 = "SELECT id, age, last_name, name FROM user WHERE id = ?";
 
+  /**
+   * SQL definition for method findUserByNameAndLastName
+   */
   private static final String FIND_USER_BY_NAME_AND_LAST_NAME_SQL15 = "SELECT id, age, last_name, name FROM user WHERE name = ? and last_name = ?";
 
   private static SQLiteStatement insertUserPreparedStatement0;
@@ -37,8 +46,14 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   private static SQLiteStatement deleteUsersPreparedStatement4;
 
+  /**
+   * SQL definition for method findUsersYoungerThan
+   */
   private static final String FIND_USERS_YOUNGER_THAN_SQL16 = "SELECT id, age, last_name, name FROM user WHERE age = ?";
 
+  /**
+   * SQL definition for method findUsersYoungerThanSolution
+   */
   private static final String FIND_USERS_YOUNGER_THAN_SOLUTION_SQL17 = "SELECT id, age, last_name, name FROM user WHERE age < ?";
 
   private static SQLiteStatement deleteAllPreparedStatement5;

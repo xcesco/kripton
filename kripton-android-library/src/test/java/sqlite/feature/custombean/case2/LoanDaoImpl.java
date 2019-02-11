@@ -3,6 +3,7 @@ package sqlite.feature.custombean.case2;
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
@@ -28,17 +29,26 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *  @see LoanTable
  */
 public class LoanDaoImpl extends Dao implements LoanDao {
+  /**
+   * SQL definition for method findAllLoans
+   */
   private static final String FIND_ALL_LOANS_SQL10 = "SELECT id, book_id, end_time, start_time, user_id FROM loan";
 
+  /**
+   * SQL definition for method findAllWithUserAndBook
+   */
   private static final String FIND_ALL_WITH_USER_AND_BOOK_SQL11 = "SELECT loan.id, book.title as book_title, user.name as user_name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id ";
 
+  /**
+   * SQL definition for method findLoansByNameAfter
+   */
   private static final String FIND_LOANS_BY_NAME_AFTER_SQL12 = "SELECT loan.id, book.title as book_title, user.name as user_name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
 
   private static SQLiteStatement insertLoanPreparedStatement0;
 
   private static SQLiteStatement deleteAllPreparedStatement1;
 
-  static Collection<WeakReference<KriptonLiveDataHandlerImpl<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonLiveDataHandlerImpl<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public LoanDaoImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -548,8 +558,8 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     }
   }
 
-  protected void registryLiveData(KriptonLiveDataHandlerImpl<?> value) {
-    liveDatas.add(new WeakReference<KriptonLiveDataHandlerImpl<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -557,7 +567,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonLiveDataHandlerImpl<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

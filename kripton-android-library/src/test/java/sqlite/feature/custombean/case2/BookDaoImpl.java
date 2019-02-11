@@ -3,6 +3,7 @@ package sqlite.feature.custombean.case2;
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
@@ -30,22 +31,49 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *  @see BookTable
  */
 public class BookDaoImpl extends Dao implements BookDao {
+  /**
+   * SQL definition for method loadBookById
+   */
   private static final String LOAD_BOOK_BY_ID_SQL1 = "SELECT id, title FROM book WHERE id = ?";
 
+  /**
+   * SQL definition for method findBooksBorrowedByName
+   */
   private static final String FIND_BOOKS_BORROWED_BY_NAME_SQL2 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ?";
 
+  /**
+   * SQL definition for method findBooksBorrowedByNameAfter
+   */
   private static final String FIND_BOOKS_BORROWED_BY_NAME_AFTER_SQL3 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
 
+  /**
+   * SQL definition for method findBooksBorrowedByNameSync
+   */
   private static final String FIND_BOOKS_BORROWED_BY_NAME_SYNC_SQL4 = "SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ?";
 
+  /**
+   * SQL definition for method findBooksBorrowedByUser
+   */
   private static final String FIND_BOOKS_BORROWED_BY_USER_SQL5 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE ? ";
 
+  /**
+   * SQL definition for method findBooksBorrowedByUserAfter
+   */
   private static final String FIND_BOOKS_BORROWED_BY_USER_AFTER_SQL6 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE ? AND loan.end_time > ? ";
 
+  /**
+   * SQL definition for method findBooksBorrowedByUserSync
+   */
   private static final String FIND_BOOKS_BORROWED_BY_USER_SYNC_SQL7 = "SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id = ? ";
 
+  /**
+   * SQL definition for method findAllBooks
+   */
   private static final String FIND_ALL_BOOKS_SQL8 = "SELECT id, title FROM book";
 
+  /**
+   * SQL definition for method findAllBooksSync
+   */
   private static final String FIND_ALL_BOOKS_SYNC_SQL9 = "SELECT id, title FROM book";
 
   private static SQLiteStatement insertBookPreparedStatement0;
@@ -54,7 +82,7 @@ public class BookDaoImpl extends Dao implements BookDao {
 
   private static SQLiteStatement deleteAllPreparedStatement2;
 
-  static Collection<WeakReference<KriptonLiveDataHandlerImpl<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonLiveDataHandlerImpl<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public BookDaoImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -1142,8 +1170,8 @@ public class BookDaoImpl extends Dao implements BookDao {
     }
   }
 
-  protected void registryLiveData(KriptonLiveDataHandlerImpl<?> value) {
-    liveDatas.add(new WeakReference<KriptonLiveDataHandlerImpl<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -1151,7 +1179,7 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonLiveDataHandlerImpl<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }
