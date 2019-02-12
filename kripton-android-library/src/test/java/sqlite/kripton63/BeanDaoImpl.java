@@ -1450,6 +1450,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -1489,6 +1490,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -1529,6 +1531,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -1571,6 +1574,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -1594,6 +1598,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -1618,6 +1623,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

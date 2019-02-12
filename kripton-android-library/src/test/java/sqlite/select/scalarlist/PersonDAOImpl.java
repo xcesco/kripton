@@ -191,6 +191,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -215,6 +216,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -238,6 +240,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -262,6 +265,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

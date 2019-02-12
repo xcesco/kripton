@@ -731,6 +731,7 @@ public class ShortDaoImpl extends Dao implements ShortDao {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -765,6 +766,7 @@ public class ShortDaoImpl extends Dao implements ShortDao {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

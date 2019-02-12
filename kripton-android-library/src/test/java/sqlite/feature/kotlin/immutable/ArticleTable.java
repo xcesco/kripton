@@ -140,6 +140,7 @@ public class ArticleTable implements SQLiteTable {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -162,6 +163,7 @@ public class ArticleTable implements SQLiteTable {
       }
       return __thumbnail;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

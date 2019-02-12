@@ -153,6 +153,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
       jacksonSerializer.flush();
       return stream.toString();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -175,6 +176,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

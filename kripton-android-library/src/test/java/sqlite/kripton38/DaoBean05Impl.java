@@ -1403,6 +1403,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -1427,6 +1428,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
