@@ -24,7 +24,6 @@ import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.util.Logger;
 
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 import com.abubusoft.kripton.android.livedata.PagedLiveData;
@@ -94,7 +93,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest implements Lifecycl
 		public int getSize() { return pagedResult.getTotalElements(); }
 		
 		public E get(int index) {
-			System.out.println(String.format("Index: %s, StartPosition: %s, Size: %s", index, startPosition, size));
+			System.out.println(String.format("Real Index: %s, Index: %s, StartPosition: %s, Size: %s", index - startPosition, index, startPosition, size));
 			loadAround(index);
 			return buffer.get(index-startPosition);
 		}
@@ -102,7 +101,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest implements Lifecycl
 		public void loadAround(int position) {
 			if (position>=startPosition+(size*2/3)) {
 				pagedResult.createPageRequestBuilder().offset(position-size/3).apply();
-			} else if (startPosition>0 && position<=startPosition-(size/3)) {
+			} else if (startPosition>0 && position<=startPosition-(size/3)+1) {
 				pagedResult.createPageRequestBuilder().offset(startPosition-size/3).apply();
 			}
 		}
