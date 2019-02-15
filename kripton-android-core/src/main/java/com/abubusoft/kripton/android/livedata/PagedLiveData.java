@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.PagedResult;
  * @param <T>
  *            the generic type
  */
-public class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult {
+public abstract class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult {
 
 	/**
 	 * Allows to create a builder for a page request. This builder is usefully when you need to modify different parameter of page request and you want to make only a page request.
