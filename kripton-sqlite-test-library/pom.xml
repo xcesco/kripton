@@ -12,7 +12,7 @@
 
 	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
-		<kripton.version>${project.version}</kripton.version>
+		<kripton.version>5.1.0-rc.4</kripton.version>
 	
 		<!-- environment version -->
 		<java.version>1.8</java.version>
