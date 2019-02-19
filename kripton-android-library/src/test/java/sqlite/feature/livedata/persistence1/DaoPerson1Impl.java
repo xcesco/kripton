@@ -712,6 +712,12 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     }
   }
 
+  /**
+   * <p>Allows to registry change on this DAO in a transaction, in an batch operation or in a standalone operation.</p> */
+  public void registryChange() {
+    registryEvent(1);
+  }
+
   protected void registryLiveData(LiveDataHandler value) {
     liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
