@@ -28,6 +28,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import base.BaseAndroidTest;
+import sqlite.feature.asynctask.BindPersonDataSource.Batch;
 
 /**
  * The Class TestRuntimeMultithread.
@@ -246,20 +247,19 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 			}
 			
 			@Override
-			public Person onExecute(BindPersonDataSource dataSource) throws Throwable {
-				dataSource.execute(new BindPersonDataSource.Transaction() {
-					
+			public Person onExecute(BindPersonDataSource dataSource) {
+				return dataSource.executeBatch(new Batch<Person>() {
+
 					@Override
-					public TransactionResult onExecute(BindPersonDaoFactory daoFactory) {						
-						return TransactionResult.ROLLBACK;
+					public Person onExecute(BindPersonDaoFactory daoFactory) {
+						// TODO Auto-generated method stub
+						return null;
 					}
-				});
-				
-				return null;
+				});				
 			}
 		};
 		
-		//asyncTask.e
+		asyncTask.execute();
 		
 		Logger.info("Finished all thread!");
 

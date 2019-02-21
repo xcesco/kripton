@@ -144,7 +144,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    */
   public boolean execute(Transaction transaction,
       AbstractDataSource.OnErrorListener onErrorListener) {
+    // lock the database
+    beginLock();
     boolean needToOpened=!this.isOpenInWriteMode();
+    // unlock the database
+    endLock();
     boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -166,7 +170,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      if (needToOpened) { close(); }
+      if (needToOpened) {
+        close();
+      }
       if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
     return success;
@@ -260,7 +266,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
+    // lock the database
+    beginLock();
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
+    // unlock the database
+    endLock();
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
     currentDaoFactory.onSessionOpened();
@@ -273,7 +283,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       e.printStackTrace();
       throw(e);
     } finally {
-      if (needToOpened) { close(); }
+      if (needToOpened) {
+        close();
+      }
       currentDaoFactory.onSessionClosed();
     }
     return null;

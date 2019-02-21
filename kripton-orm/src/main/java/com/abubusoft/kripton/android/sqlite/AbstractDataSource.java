@@ -158,6 +158,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/** The lock db. */
 	private final ReentrantLock lockDb = new ReentrantLock();
 	
+	protected void beginLock() {
+		lockDb.lock();
+	}
+	
+	protected void endLock() {
+		lockDb.unlock();
+	}
+	
 	/** The lock access. */
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 

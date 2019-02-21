@@ -667,7 +667,9 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
-   * <p>Allows to registry change on this DAO in a transaction, in an batch operation or in a standalone operation.</p> */
+   * <p>Allows to registry change on this DAO in a transaction, in an batch operation or in a standalone operation.</p>
+   *
+   */
   public void registryChange() {
     registryEvent(1);
   }

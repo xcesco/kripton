@@ -104,7 +104,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
+        // lock the database
+        beginLock();
         boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
+        // unlock the database
+        endLock();
         boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -127,7 +131,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          if (needToOpened) { close(); }
+          if (needToOpened) {
+            close();
+          }
           if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
@@ -143,7 +149,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
+        // lock the database
+        beginLock();
         boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
+        // unlock the database
+        endLock();
         boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -166,7 +176,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          if (needToOpened) { close(); }
+          if (needToOpened) {
+            close();
+          }
           if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
@@ -182,7 +194,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
+        // lock the database
+        beginLock();
         boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
+        // unlock the database
+        endLock();
         boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -205,7 +221,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          if (needToOpened) { close(); }
+          if (needToOpened) {
+            close();
+          }
           if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
@@ -221,7 +239,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
+        // lock the database
+        beginLock();
         boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
+        // unlock the database
+        endLock();
         boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -244,7 +266,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          if (needToOpened) { close(); }
+          if (needToOpened) {
+            close();
+          }
           if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
@@ -260,7 +284,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
+        // lock the database
+        beginLock();
         boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
+        // unlock the database
+        endLock();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
@@ -272,7 +300,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          if (needToOpened) { close(); }
+          if (needToOpened) {
+            close();
+          }
           currentDaoFactory.onSessionClosed();
         }
         return;
@@ -292,7 +322,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
+        // lock the database
+        beginLock();
         boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
+        // unlock the database
+        endLock();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
@@ -304,7 +338,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          if (needToOpened) { close(); }
+          if (needToOpened) {
+            close();
+          }
           currentDaoFactory.onSessionClosed();
         }
         return;
@@ -324,7 +360,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
+        // lock the database
+        beginLock();
         boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
+        // unlock the database
+        endLock();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
@@ -336,7 +376,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          if (needToOpened) { close(); }
+          if (needToOpened) {
+            close();
+          }
           currentDaoFactory.onSessionClosed();
         }
         return;
@@ -356,7 +398,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
+        // lock the database
+        beginLock();
         boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
+        // unlock the database
+        endLock();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
@@ -368,7 +414,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          if (needToOpened) { close(); }
+          if (needToOpened) {
+            close();
+          }
           currentDaoFactory.onSessionClosed();
         }
         return;
@@ -410,7 +458,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
    */
   public boolean execute(Transaction transaction,
       AbstractDataSource.OnErrorListener onErrorListener) {
+    // lock the database
+    beginLock();
     boolean needToOpened=!this.isOpenInWriteMode();
+    // unlock the database
+    endLock();
     boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -432,7 +484,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      if (needToOpened) { close(); }
+      if (needToOpened) {
+        close();
+      }
       if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
     return success;
@@ -526,7 +580,11 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
+    // lock the database
+    beginLock();
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
+    // unlock the database
+    endLock();
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
     currentDaoFactory.onSessionOpened();
@@ -539,7 +597,9 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
       e.printStackTrace();
       throw(e);
     } finally {
-      if (needToOpened) { close(); }
+      if (needToOpened) {
+        close();
+      }
       currentDaoFactory.onSessionClosed();
     }
     return null;
