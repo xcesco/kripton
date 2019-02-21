@@ -26,7 +26,6 @@ import okhttp3.RequestBody;
 import okio.Buffer;
 import retrofit2.Converter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class KriptonBinderRequestBodyCollectionConverter.
  *
@@ -68,9 +67,9 @@ final class KriptonBinderRequestBodyCollectionConverter<T> implements Converter<
 		try {			
 			binderContext.serializeCollection((Collection)value, beanClazz,buffer.outputStream());
 			return RequestBody.create(MEDIA_TYPE, buffer.readByteString());
-		} catch (Exception e) {			
+		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			throw(new IOException(e));
 		} finally
 		{
 			buffer.close();
