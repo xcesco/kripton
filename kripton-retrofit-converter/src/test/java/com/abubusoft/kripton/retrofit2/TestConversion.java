@@ -24,6 +24,7 @@ import org.junit.Test;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 // TODO: Auto-generated Javadoc
@@ -67,9 +68,9 @@ public class TestConversion extends AbstractBaseTest {
 
 		JsonPlaceHolderService service = retrofit.create(JsonPlaceHolderService.class);
 
-		// Response<List<Post>> response = service.getAllPost().execute();
+//		Response<List<Post>> response = service.getAllPost().execute();
 
-		// log(response.toString());
+	//	log(response.toString());
 
 		// log(""+list);
 	}
