@@ -1062,7 +1062,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						.addComment("open database in thread safe mode")
 						.addStatement("$T<Boolean, SQLiteDatabase> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class, dataSourceName.simpleName())										
 						
-						.addStatement("boolean success=false").addCode("@SuppressWarnings(\"resource\")\n")
+						.addStatement("boolean success=false")//.addCode("@SuppressWarnings(\"resource\")\n")
 						.addStatement("$T connection=_status.value1", SQLiteDatabase.class)
 												
 						
@@ -1486,7 +1486,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 
 			executeMethod.addStatement("boolean success=false");
-			executeMethod.addCode("@SuppressWarnings(\"resource\")\n");
+			//executeMethod.addCode("@SuppressWarnings(\"resource\")\n");
 			executeMethod.addStatement("$T connection=_status.value1",
 					SQLiteDatabase.class);
 			

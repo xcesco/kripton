@@ -71,7 +71,6 @@ public class TestContentProviderCase1Runtime extends BaseAndroidTest {
 	private void insertRows(int rows) {
 		ContentValues contentValues = new ContentValues();
 						
-
 		for (int i = 0; i < rows; i++) {
 			Uri uri = BindArtistsContentProvider.URI_ARTIST_INSERT;
 			contentValues.put(ArtistTable.COLUMN_NAME, "Tonj Manero"+i);

@@ -132,7 +132,6 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     // open database in thread safe mode
     Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
     boolean success=false;
-    @SuppressWarnings("resource")
     SQLiteDatabase connection=_status.value1;
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
     currentDaoFactory.onSessionOpened();
@@ -331,16 +330,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     // log section create END
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section create END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section create BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
     }
     // log section create END
     database.execSQL(CityTable.CREATE_TABLE_SQL);
+    // log section create BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section create END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);
@@ -387,16 +386,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(CityTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);

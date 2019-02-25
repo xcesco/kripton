@@ -342,8 +342,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		if (status.value0) {
 			close();
 		} else {			
-			lockDb.lock();			
+			beginLock();		
+			// we unlock lockReadWriteAccess, so we can include this code in lockDb
 			manageStatus();
+			endLock();
 			
 			// unlocked inside
 			//lockDb.unlock();
@@ -356,8 +358,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @see android.database.sqlite.SQLiteOpenHelper#close()
 	 */
 	@Override
-	public void close() {
-		lockDb.lock();
+	public void close() {		
+		beginLock();
 		try {
 			if (openCounter.decrementAndGet() <= 0) {
 
@@ -377,6 +379,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			}
 		} finally {
 			manageStatus();
+			endLock();
 		}
 
 	}
@@ -384,28 +387,25 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * 
 	 */
-	private void manageStatus() {
+	private void manageStatus() {						
 		switch (status.get()) {
 		case READ_AND_WRITE_OPENED:
 			if (database == null)
 				status.set(TypeStatus.CLOSED);
 			lockReadWriteAccess.unlock();
-			lockDb.unlock();
+			//lockDb.unlock();
 			break;
 		case READ_ONLY_OPENED:
 			if (database == null)
 				status.set(TypeStatus.CLOSED);
 			lockReadAccess.unlock();
-			lockDb.unlock();
+			//lockDb.unlock();
 			break;
 		case CLOSED:
 			// do nothing
-			lockDb.unlock();
-			break;
-		default:
-			lockDb.unlock();
-			throw (new KriptonRuntimeException("Inconsistent status"));
-		}
+			//lockDb.unlock();
+			break;		
+		}							
 	}
 
 	/**
@@ -595,8 +595,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return read only database
 	 */
 	protected SQLiteDatabase openReadOnlyDatabase(boolean lock) {
-		if (lock)
-			lockDb.lock();
+		if (lock) {
+			// if I lock this in dbLock.. the last one remains locked too
+			lockReadAccess.lock();
+			
+			beginLock();
+		}
+			
+		
 		try {
 			if (sqliteHelper == null)
 				createHelper(options);
@@ -617,8 +623,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			}
 		} finally {
 			if (lock)
-				lockDb.unlock();
-			lockReadAccess.lock();
+				endLock();
+			
 		}
 
 		return database;
@@ -653,6 +659,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			beginLock();
 			boolean needToOpened = writeMode ? !this.isOpenInWriteMode() : !this.isOpen();
 			result.value0 = needToOpened;
+			// in this part we can not lock lockReadWriteAccess, otherwise it may be a blocking race
+			// we lock lockReadWriteAccess after we release 
 			if (needToOpened) {
 				if (writeMode) {
 					result.value1 = openWritableDatabase(false);				
@@ -660,17 +668,16 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					result.value1 = openReadOnlyDatabase(false);				
 				}							
 			}
+											
+		} finally {
+			// unlock entire operation set
+			endLock();
 			
 			if (writeMode) {				
 				lockReadWriteAccess.lock();
 			} else {			
 				lockReadAccess.lock();
 			}		
-						
-		} finally {
-			// unlock entire operation set
-			endLock();
-			
 				
 		}
 
@@ -679,8 +686,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	}
 
 	protected SQLiteDatabase openWritableDatabase(boolean lock) {
-		if (lock)
-			lockDb.lock();
+		if (lock) {
+			lockReadWriteAccess.lock();
+			
+			// if I lock this in dbLock.. the last one remains locked too
+			beginLock();
+		}
+						
+		
 		try {
 			if (sqliteHelper == null)
 				createHelper(options);
@@ -701,8 +714,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			}
 		} finally {
 			if (lock)
-				lockDb.unlock();
-			lockReadWriteAccess.lock();
+				endLock();
 		}
 
 		return database;

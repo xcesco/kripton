@@ -114,7 +114,6 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     // open database in thread safe mode
     Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
     boolean success=false;
-    @SuppressWarnings("resource")
     SQLiteDatabase connection=_status.value1;
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
     currentDaoFactory.onSessionOpened();
