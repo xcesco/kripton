@@ -660,16 +660,18 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					result.value1 = openReadOnlyDatabase(false);				
 				}							
 			}
-						
-		} finally {
-			// unlock entire operation set
-			endLock();
 			
 			if (writeMode) {				
 				lockReadWriteAccess.lock();
 			} else {			
 				lockReadAccess.lock();
-			}			
+			}		
+						
+		} finally {
+			// unlock entire operation set
+			endLock();
+			
+				
 		}
 
 		return result;
