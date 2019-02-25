@@ -157,15 +157,15 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	/** The lock db. */
 	private final ReentrantLock lockDb = new ReentrantLock();
-	
+
 	protected void beginLock() {
 		lockDb.lock();
 	}
-	
+
 	protected void endLock() {
 		lockDb.unlock();
 	}
-	
+
 	/** The lock access. */
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 
@@ -337,6 +337,18 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		this.options = optionsValue;
 		this.logEnabled = optionsValue.logEnabled;
 	}
+	
+	protected void closeThreadSafeMode(Pair<Boolean, SQLiteDatabase> status) {			
+		if (status.value0) {
+			close();
+		} else {			
+			lockDb.lock();			
+			manageStatus();
+			
+			// unlocked inside
+			//lockDb.unlock();
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -364,30 +376,36 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			}
 		} finally {
-			switch (status.get()) {
-			case READ_AND_WRITE_OPENED:
-				if (database == null)
-					status.set(TypeStatus.CLOSED);
-				lockReadWriteAccess.unlock();
-				lockDb.unlock();
-				break;
-			case READ_ONLY_OPENED:
-				if (database == null)
-					status.set(TypeStatus.CLOSED);
-				lockReadAccess.unlock();
-				lockDb.unlock();
-				break;
-			case CLOSED:
-				// do nothing
-				lockDb.unlock();
-				break;
-			default:
-				lockDb.unlock();
-				throw (new KriptonRuntimeException("Inconsistent status"));
-			}
-
+			manageStatus();
 		}
 
+	}
+
+	/**
+	 * 
+	 */
+	private void manageStatus() {
+		switch (status.get()) {
+		case READ_AND_WRITE_OPENED:
+			if (database == null)
+				status.set(TypeStatus.CLOSED);
+			lockReadWriteAccess.unlock();
+			lockDb.unlock();
+			break;
+		case READ_ONLY_OPENED:
+			if (database == null)
+				status.set(TypeStatus.CLOSED);
+			lockReadAccess.unlock();
+			lockDb.unlock();
+			break;
+		case CLOSED:
+			// do nothing
+			lockDb.unlock();
+			break;
+		default:
+			lockDb.unlock();
+			throw (new KriptonRuntimeException("Inconsistent status"));
+		}
 	}
 
 	/**
@@ -420,7 +438,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		}
 
 		if (previousVersion != currentVersion) {
-			Logger.warn(String.format("Can not find version update task from version %s to version %s", previousVersion, currentVersion));
+			Logger.warn(String.format("Can not find version update task from version %s to version %s", previousVersion,
+					currentVersion));
 		}
 
 		return result;
@@ -435,16 +454,18 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	protected void createHelper(DataSourceOptions options) {
 		if (KriptonLibrary.getContext() == null)
-			throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
-		
+			throw new KriptonRuntimeException(
+					"Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
+
 		if (options.inMemory) {
 			Logger.info("In-memory database");
 		} else {
-			File dbFile=KriptonLibrary.getContext().getDatabasePath(name);
+			File dbFile = KriptonLibrary.getContext().getDatabasePath(name);
 			Logger.info("Database file %s", dbFile.getAbsolutePath());
-		}				
+		}
 
-		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.getContext(), name, options.factory, version, options.errorHandler) {
+		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.getContext(), name, options.factory, version,
+				options.errorHandler) {
 
 			@Override
 			public void onConfigure(SQLiteDatabase database) {
@@ -478,7 +499,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	public SQLiteDatabase database() {
 		if (database == null)
-			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
+			throw (new KriptonRuntimeException(
+					"No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
 
@@ -572,8 +594,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * 
 	 * @return read only database
 	 */
-	public SQLiteDatabase openReadOnlyDatabase() {
-		lockDb.lock();
+	protected SQLiteDatabase openReadOnlyDatabase(boolean lock) {
+		if (lock)
+			lockDb.lock();
 		try {
 			if (sqliteHelper == null)
 				createHelper(options);
@@ -593,11 +616,16 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			}
 		} finally {
-			lockDb.unlock();
+			if (lock)
+				lockDb.unlock();
 			lockReadAccess.lock();
 		}
 
 		return database;
+	}
+
+	public SQLiteDatabase openReadOnlyDatabase() {
+		return openReadOnlyDatabase(true);
 	}
 
 	/**
@@ -608,7 +636,49 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return writable database
 	 */
 	public SQLiteDatabase openWritableDatabase() {
-		lockDb.lock();
+		return openWritableDatabase(true);
+	}
+
+	/**
+	 * Open a database, if it is needed in
+	 * 
+	 * @param writeMode
+	 * @return
+	 */
+	protected Pair<Boolean, SQLiteDatabase> openDatabaseThreadSafeMode(boolean writeMode) {
+		Pair<Boolean, SQLiteDatabase> result = new Pair<Boolean, SQLiteDatabase>();
+
+		try {
+			// lock entire operation set
+			beginLock();
+			boolean needToOpened = writeMode ? !this.isOpenInWriteMode() : !this.isOpen();
+			result.value0 = needToOpened;
+			if (needToOpened) {
+				if (writeMode) {
+					result.value1 = openWritableDatabase(false);				
+				} else {
+					result.value1 = openReadOnlyDatabase(false);				
+				}							
+			}
+						
+		} finally {
+			// unlock entire operation set
+			endLock();
+			
+			if (writeMode) {				
+				lockReadWriteAccess.lock();
+			} else {			
+				lockReadAccess.lock();
+			}			
+		}
+
+		return result;
+
+	}
+
+	protected SQLiteDatabase openWritableDatabase(boolean lock) {
+		if (lock)
+			lockDb.lock();
 		try {
 			if (sqliteHelper == null)
 				createHelper(options);
@@ -628,7 +698,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			}
 		} finally {
-			lockDb.unlock();
+			if (lock)
+				lockDb.unlock();
 			lockReadWriteAccess.lock();
 		}
 

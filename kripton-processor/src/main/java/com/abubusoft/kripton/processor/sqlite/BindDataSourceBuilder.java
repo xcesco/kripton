@@ -1059,14 +1059,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						.addModifiers(Modifier.PUBLIC).addParameter(emitterTypeName, "emitter").returns(Void.TYPE)
 						
 						// lock the database
-						.addComment("lock the database")
-						.addStatement("beginLock()")
-						
-						.addStatement("boolean needToOpened=!$L.this.isOpenInWriteMode()", dataSourceName.simpleName())
-						
-						// unlock the database				
-						.addComment("unlock the database")
-						.addStatement("endLock()")
+						.addComment("open database in thread safe mode")
+						.addStatement("$T<Boolean, SQLiteDatabase> _status=this.openDatabaseThreadSafeMode(writeMode)", Pair.class)										
 						
 						.addStatement("boolean success=false").addCode("@SuppressWarnings(\"resource\")\n")
 						.addStatement("$T connection=needToOpened ? openWritableDatabase() : database()",
@@ -1092,10 +1086,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						.addStatement("currentDaoFactory.onSessionClear()").nextControlFlow("finally")
 						.beginControlFlow("try").addStatement("connection.endTransaction()")
 						.nextControlFlow("catch($T e)", Throwable.class)
-						.endControlFlow()						
-						.beginControlFlow("if (needToOpened)")					
-							.addStatement("close()")
-						.endControlFlow()						
+						.endControlFlow()
+						// lock the database
+						.addComment("close database in thread safe mode")
+						.addStatement("closeThreadSafeMode(_status)")
 						// support for live data
 						.addCode(
 								"if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }\n")
