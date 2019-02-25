@@ -11,6 +11,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -91,14 +92,11 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
    */
   public boolean execute(Transaction transaction,
       AbstractDataSource.OnErrorListener onErrorListener) {
-    // lock the database
-    beginLock();
-    boolean needToOpened=!this.isOpenInWriteMode();
-    // unlock the database
-    endLock();
+    // open database in thread safe mode
+    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
     boolean success=false;
     @SuppressWarnings("resource")
-    SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+    SQLiteDatabase connection=_status.value1;
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -117,9 +115,8 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      if (needToOpened) {
-        close();
-      }
+      // close database in thread safe mode
+      closeThreadSafeMode(_status);
       if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
     return success;
@@ -213,12 +210,8 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
-    // lock the database
-    beginLock();
-    boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
-    // unlock the database
-    endLock();
-    if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+    // open database in thread safe mode
+    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
     DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -230,9 +223,8 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
       e.printStackTrace();
       throw(e);
     } finally {
-      if (needToOpened) {
-        close();
-      }
+      // close database in thread safe mode
+      closeThreadSafeMode(_status);
       currentDaoFactory.onSessionClosed();
     }
     return null;
