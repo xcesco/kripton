@@ -53,6 +53,8 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 					@Override
 					public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
 						SQLiteTestUtils.renameAllTablesWithPrefix(database, "tmp_");
+						SQLiteTestUtils.dropIndex(database, "idx_seminar_2_student_0", "idx_professor_0");
+						
 						SQLiteTestUtils.executeSQL(database, stream);
 						SQLiteTestUtils.dropTablesWithPrefix(database, "tmp_");
 

@@ -34,7 +34,6 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.InvalidPropertyToColumnConversion;
 import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
-import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.MissedAnnotationOnClass;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;

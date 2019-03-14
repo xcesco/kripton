@@ -1,4 +1,4 @@
-package sqlite.git20;
+package sqlite.git20.mutable;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 

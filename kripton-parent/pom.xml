@@ -11,7 +11,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-parent</artifactId>
-	<version>6.0.0-rc.3</version>
+	<version>6.0.0-rc.4</version>
 	<packaging>pom</packaging>
 	
 	<name>Kripton (Parent)</name>
@@ -40,7 +40,7 @@
 		<kripton.version>${project.version}</kripton.version>
 		
 		<!-- dependencies version -->
-		<jackson.version>2.9.6</jackson.version>
+		<jackson.version>2.9.8</jackson.version>
 		<retrofit.version>2.5.0</retrofit.version>
 		<rx.version>2.1.17</rx.version>		
 		

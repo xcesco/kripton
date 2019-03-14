@@ -377,7 +377,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (returnType == null) {
 				this.entity = getParent().getEntity();
 			} else {
-				this.entity = BindDataSourceSubProcessor.getInstance().createSQLEntity(parent.getParent(), parent.getElement(), returnType.toString());
+				this.entity = BindDataSourceSubProcessor.getInstance().createSQLEntity(parent.getParent(), parent.getElement(), returnType.toString(), false);
 			}
 		} else {
 			// this is not a select

@@ -1,5 +1,8 @@
-package sqlite.git20;
+package sqlite.git20.mutable;
 
+import com.abubusoft.kripton.annotation.BindType;
+
+@BindType
 public class Count {
 	private String title;
 	public String getTitle() {

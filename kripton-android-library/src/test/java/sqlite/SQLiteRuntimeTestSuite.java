@@ -39,6 +39,7 @@ import sqlite.feature.relations.TestFeatureRelationRuntimeSuite;
 import sqlite.feature.schema.TestSchemaRuntimeSuite;
 import sqlite.feature.speed.TestSpeedRuntime;
 import sqlite.feature.transaction.TestFeatureTransactionRuntimeSuite;
+import sqlite.git20.TestGit20RuntimeSuite;
 import sqlite.kripton209.Test209RuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;
@@ -93,7 +94,9 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestStack44633883RuntimeSuite.class,
 	
 	Test209RuntimeSuite.class,
-	TestPkStringSuite.class
+	TestPkStringSuite.class,
+	
+	TestGit20RuntimeSuite.class
 	
 	 })
 // @formatter:on

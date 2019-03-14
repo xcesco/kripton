@@ -100,6 +100,7 @@ public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 							item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
 							item.typeAdapter.getAdapterTypeName());
 				}
+				
 			}
 		}
 		methodBuilder.addCode("\n");

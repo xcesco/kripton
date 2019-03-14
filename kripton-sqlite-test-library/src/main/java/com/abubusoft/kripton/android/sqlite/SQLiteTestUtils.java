@@ -529,4 +529,12 @@ public abstract class SQLiteTestUtils {
 		}
 	}
 
+
+	public static void dropIndex(SQLiteDatabase database, String... indexNames) {		
+		for (String indexName: indexNames) {
+			drop(database, QueryType.INDEX, indexName);
+		}
+			
+	}
+
 }

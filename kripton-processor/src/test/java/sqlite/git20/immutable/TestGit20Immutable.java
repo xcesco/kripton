@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.git20;
+package sqlite.git20.immutable;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ import sqlite.AbstractBindSQLiteProcessorTest;
  * 
  * https://stackoverflow.com/questions/45160625/how-to-implement-a-many-to-many-relations-with-android-room-persistence-library
  */
-public class TestGit20 extends AbstractBindSQLiteProcessorTest {
+public class TestGit20Immutable extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * Test compile.
