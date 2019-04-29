@@ -1,8 +1,10 @@
 package shared.feature.livedata.case1;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -19,10 +21,10 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+
+import android.arch.lifecycle.MutableLiveData;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * This class is the shared preference binder defined for AppPreferences

@@ -38,7 +38,6 @@ import javax.tools.Diagnostic;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BaseProcessor.
  */
@@ -46,6 +45,9 @@ public abstract class BaseProcessor extends AbstractProcessor {
 
 	/** if we want to display debug info. */
 	public static boolean DEBUG_MODE = false;
+	
+	/** if we want to display debug info. */
+	public static boolean LOG_GENERATION_ENABLED_MODE = true;
 
 	/** The element utils. */
 	public static Elements elementUtils;
@@ -174,8 +176,9 @@ public abstract class BaseProcessor extends AbstractProcessor {
 			logger.info(String.format(msg, args));
 		}
 
-		if (!BaseProcessor.JUNIT_TEST_MODE && BaseProcessor.DEBUG_MODE)
+		if (!BaseProcessor.JUNIT_TEST_MODE && BaseProcessor.DEBUG_MODE) {
 			messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
+		}
 		
 	}
 

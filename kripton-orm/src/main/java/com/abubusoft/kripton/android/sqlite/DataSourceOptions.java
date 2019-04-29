@@ -231,6 +231,25 @@ public class DataSourceOptions {
 		public DataSourceOptions build() {
 			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, updateTasks, logEnabled, populator, inMemory);
 		}
+		
+		/**
+		 * Create builder from data source
+		 * @param source
+		 * @return
+		 */
+		public Builder createFrom(DataSourceOptions source) {
+			Builder builder=new Builder();
+			
+			builder.logEnabled = source.logEnabled;
+			builder.factory = source.factory;
+			builder.errorHandler = source.errorHandler;
+			builder.databaseLifecycleHandler = source.databaseLifecycleHandler;
+			builder.updateTasks = source.updateTasks;
+			builder.populator = source.populator;
+			builder.inMemory = source.inMemory;
+						
+			return builder;
+		}
 	}
 
 	/**

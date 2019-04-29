@@ -1235,6 +1235,11 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				AnnotationAttributeType.VERSION);
 		boolean generateLog = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class,
 				AnnotationAttributeType.GENERATE_LOG);
+		// manage global configuration for log
+		if (!KriptonProcessor.LOG_GENERATION_ENABLED_MODE) {
+			generateLog=false;
+		}
+		
 		boolean generateSchema = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class,
 				AnnotationAttributeType.GENERATE_SCHEMA);
 		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class,

@@ -10,6 +10,7 @@ public abstract class KriptonOptions {
 	public static String DEBUG = "kripton.debug";
 	public static String SCHEMA_LOCATION_OPTIONS = "kripton.schemaLocation";
 	public static String ANDROID_X_OPTIONS = "kripton.androidx";
+	public static String LOG_ENABLED_OPTIONS = "kripton.log";
 
 	public static String schemaLocationDirectory;
 	public static boolean androidX;
@@ -22,6 +23,9 @@ public abstract class KriptonOptions {
 		// if it is already in debug mode, we keep it
 		KriptonProcessor.DEBUG_MODE = KriptonProcessor.DEBUG_MODE
 				|| "true".equals(processingEnv.getOptions().get(KriptonOptions.DEBUG));
+		
+		// get kripton.log value
+		KriptonProcessor.LOG_GENERATION_ENABLED_MODE = KriptonProcessor.LOG_GENERATION_ENABLED_MODE && !"false".equals(processingEnv.getOptions().get(KriptonOptions.LOG_ENABLED_OPTIONS));
 
 		schemaLocationDirectory = processingEnv.getOptions().get(KriptonOptions.SCHEMA_LOCATION_OPTIONS);
 		if (!StringUtils.hasText(schemaLocationDirectory)) {
