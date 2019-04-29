@@ -430,7 +430,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// constructor
 		MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder()
 				.addParameter(DataSourceOptions.class, "options").addModifiers(Modifier.PROTECTED);
-		methodBuilder.addStatement("super($S, $L, options)", schema.fileName, schema.version);
+		if (schema.generateLog) {
+			methodBuilder.addStatement("super($S, $L, options)", schema.fileName, schema.version);
+		} else {
+			methodBuilder.addStatement("super($S, $L, $T.builder().createFrom(options).log(false).build())", schema.fileName, schema.version, DataSourceOptions.class);			
+		}
+		
+		
 		classBuilder.addMethod(methodBuilder.build());
 	}
 

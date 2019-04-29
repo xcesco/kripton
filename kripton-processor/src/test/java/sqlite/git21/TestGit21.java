@@ -19,6 +19,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.abubusoft.kripton.processor.BaseProcessor;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
@@ -38,11 +40,13 @@ public class TestGit21 extends AbstractBindSQLiteProcessorTest {
 	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test	
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {				
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		BaseProcessor.LOG_GENERATION_ENABLED_MODE=false;
 		buildDataSourceProcessorTest(DaoDocument.class,
 				DocumentDataSource.class,
 				Document.class							
 				);
+		BaseProcessor.LOG_GENERATION_ENABLED_MODE=true;
 	}
 
 }

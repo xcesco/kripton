@@ -61,7 +61,7 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindDocumentDataSource(DataSourceOptions options) {
-    super("document.db", 1, options);
+    super("document.db", 1, DataSourceOptions.builder().createFrom(options).log(false).build());
   }
 
   @Override
@@ -281,20 +281,6 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section create BEGIN
-    if (this.logEnabled) {
-      if (options.inMemory) {
-        Logger.info("Create database in memory");
-      } else {
-        Logger.info("Create database '%s' version %s",this.name, this.version);
-      }
-    }
-    // log section create END
-    // log section create BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",DocumentTable.CREATE_TABLE_SQL);
-    }
-    // log section create END
     database.execSQL(DocumentTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
@@ -307,11 +293,6 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
-    }
-    // log section END
     // if we have a list of update task, try to execute them
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
@@ -334,11 +315,6 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
       SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",DocumentTable.CREATE_TABLE_SQL);
-      }
-      // log section END
       database.execSQL(DocumentTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {

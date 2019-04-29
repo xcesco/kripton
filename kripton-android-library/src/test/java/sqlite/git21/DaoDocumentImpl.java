@@ -1,10 +1,8 @@
 package sqlite.git21;
 
 import android.database.Cursor;
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,25 +49,7 @@ public class DaoDocumentImpl extends Dao implements DaoDocument {
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section for select BEGIN
-    if (_context.isLogEnabled()) {
-      // manage log
-      Logger.info(_sql);
-
-      // log for where parameters -- BEGIN
-      int _whereParamCounter=0;
-      for (String _whereParamItem: _contentValues.whereArgs()) {
-        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
-      }
-      // log for where parameters -- END
-    }
-    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
-      // log section BEGIN
-      if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",_cursor.getCount());
-      }
-      // log section END
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 

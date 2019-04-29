@@ -76,7 +76,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPerson2DataSource(DataSourceOptions options) {
-    super("person", 1, options);
+    super("person", 1, DataSourceOptions.builder().createFrom(options).log(false).build());
   }
 
   @Override

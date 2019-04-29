@@ -61,7 +61,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindSimpleDataSource(DataSourceOptions options) {
-    super("kripton.db", 1, options);
+    super("kripton.db", 1, DataSourceOptions.builder().createFrom(options).log(false).build());
   }
 
   @Override
