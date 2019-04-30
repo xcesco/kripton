@@ -55,24 +55,25 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		// no column or too many columns
 		AssertKripton.assertTrueOrInvalidMethodSignException(fieldList.size() == 1, method, "only one field can be defined as result for this method");				
 
-		ParameterizedTypeName returnListName = (ParameterizedTypeName) method.getReturnClass();;
+		ParameterizedTypeName returnListName = (ParameterizedTypeName) method.getReturnClass();
 
 		TypeName collectionClass;
 		ClassName listClazzName = returnListName.rawType;
-		TypeName elementName = returnListName.typeArguments.get(0);
+		TypeName returnElementTypeName = returnListName.typeArguments.get(0);
 
 		collectionClass = SqlUtility.defineCollection(listClazzName);
 
 		methodBuilder.addCode("\n");
-		
+				
+		// try to optimize collection allocation
 		if (TypeUtility.isTypeEquals(collectionClass, TypeUtility.typeName(ArrayList.class))) {			
-			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(_cursor.getCount())", collectionClass, elementName, collectionClass, elementName);
+			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(_cursor.getCount())", collectionClass, returnElementTypeName, collectionClass, returnElementTypeName);
 		} else {			
-			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>()", collectionClass, elementName, collectionClass, elementName);
+			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>()", collectionClass, returnElementTypeName, collectionClass, returnElementTypeName);
 		}
 		methodBuilder.addCode("\n");
 		
-		SQLTransform t=SQLTransformer.lookup(returnListName);
+		SQLTransform t=SQLTransformer.lookup(returnElementTypeName);
 
 		//@formatter:off
 		methodBuilder.addCode("\n");
@@ -81,7 +82,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 				methodBuilder.beginControlFlow("do\n");
 					methodBuilder.beginControlFlow("if (!_cursor.isNull(0))");
 						methodBuilder.addCode("resultList.add(");
-						t.generateReadValueFromCursor(methodBuilder, method.getParent(), elementName, "_cursor", "0");
+						t.generateReadValueFromCursor(methodBuilder, method.getParent(), returnElementTypeName, "_cursor", "0");
 						methodBuilder.addCode(");\n");
 					methodBuilder.nextControlFlow("else");
 						methodBuilder.addCode("resultList.add(null);\n");		

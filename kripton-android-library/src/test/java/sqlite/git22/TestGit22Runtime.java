@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.git21;
+package sqlite.git22;
 
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ import base.BaseAndroidTest;
  * The Class Test209RuntimeSuite.
  */
 
-public class TestGit21Runtime extends BaseAndroidTest {
+public class TestGit22Runtime extends BaseAndroidTest {
 	@Test
 	public void testRun() {
 		BindDocumentDataSource dataSource = BindDocumentDataSource.getInstance();
@@ -33,7 +33,9 @@ public class TestGit21Runtime extends BaseAndroidTest {
 		dataSource.execute(daoFactory-> {
 			DaoDocumentImpl dao = daoFactory.getDaoDocument();
 			
-			dao.insert("sorry.txt");
+			String value="sorry.txt";
+			dao.insert(value);		
+			dao.findByFileName(value);
 			
 			return TransactionResult.COMMIT;
 		});

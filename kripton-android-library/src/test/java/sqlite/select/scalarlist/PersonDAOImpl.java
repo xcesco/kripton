@@ -1,20 +1,11 @@
 package sqlite.select.scalarlist;
 
 import android.database.Cursor;
-import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.common.DateUtils;
-import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -97,7 +88,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         do
          {
           if (!_cursor.isNull(0)) {
-            resultList.add(parser1(_cursor.getBlob(0)));
+            resultList.add(_cursor.getString(0));
           } else {
             resultList.add(null);
           }
@@ -161,7 +152,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         do
          {
           if (!_cursor.isNull(0)) {
-            resultList.add(parser2(_cursor.getBlob(0)));
+            resultList.add(DateUtils.read(_cursor.getString(0)));
           } else {
             resultList.add(null);
           }
@@ -170,104 +161,6 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       return resultList;
     }
     // Specialized part - SelectScalarListHelper - END
-  }
-
-  /**
-   * for param serializer2 serialization
-   */
-  private byte[] serializer2(Date value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        jacksonSerializer.writeStringField("element", DateUtils.write(value));
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      e.printStackTrace();
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser2 parsing
-   */
-  private Date parser2(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Date result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=DateUtils.read(jacksonParser.getText());
-      }
-      return result;
-    } catch(Exception e) {
-      e.printStackTrace();
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(String value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        jacksonSerializer.writeStringField("element", value);
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      e.printStackTrace();
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private String parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      String result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getText();
-      }
-      return result;
-    } catch(Exception e) {
-      e.printStackTrace();
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   public static void clearCompiledStatements() {
