@@ -20,9 +20,9 @@ public class PhoneNumberTable implements SQLiteTable {
    * DDL to create table phone_number
    * </p>
    *
-   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, action TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT);</pre>
+   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, action_type TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, action TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, action_type TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT);";
 
   /**
    * <p>
@@ -41,11 +41,11 @@ public class PhoneNumberTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>action</code> is associated to table column <code>action</code>. This costant represents column name.
+   * Entity's property <code>actionType</code> is associated to table column <code>action_type</code>. This costant represents column name.
    *
-   *  @see PhoneNumber#action
+   *  @see PhoneNumber#actionType
    */
-  public static final String COLUMN_ACTION = "action";
+  public static final String COLUMN_ACTION_TYPE = "action_type";
 
   /**
    * Entity's property <code>contactId</code> is associated to table column <code>contact_id</code>. This costant represents column name.
@@ -78,7 +78,7 @@ public class PhoneNumberTable implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ACTION, COLUMN_CONTACT_ID, COLUMN_CONTACT_NAME, COLUMN_COUNTRY_CODE, COLUMN_NUMBER};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ACTION_TYPE, COLUMN_CONTACT_ID, COLUMN_CONTACT_NAME, COLUMN_COUNTRY_CODE, COLUMN_NUMBER};
 
   /**
    * Columns array

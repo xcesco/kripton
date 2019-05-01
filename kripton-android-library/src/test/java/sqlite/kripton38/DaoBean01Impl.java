@@ -22,7 +22,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   /**
    * SQL definition for method selectOne
    */
-  private static final String SELECT_ONE_SQL1 = "SELECT id, temp, text FROM bean01 WHERE id=?";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, temp1, text FROM bean01 WHERE id=?";
 
   private static SQLiteStatement updateOnePreparedStatement0;
 
@@ -33,7 +33,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, temp, text FROM bean01 WHERE id=${id}</pre>
+   * <pre>SELECT id, temp1, text FROM bean01 WHERE id=${id}</pre>
    *
    * <h2>Mapped class:</h2>
    * {@link Bean01}
@@ -41,7 +41,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>temp</dt><dd>is associated to bean's property <strong>temp</strong></dd>
+   * 	<dt>temp1</dt><dd>is associated to bean's property <strong>temp</strong></dd>
    * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
@@ -90,7 +90,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("temp");
+        int index1=_cursor.getColumnIndex("temp1");
         int index2=_cursor.getColumnIndex("text");
 
         resultBean=new Bean01();

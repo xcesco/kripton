@@ -99,6 +99,7 @@ import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
+import com.abubusoft.kripton.processor.sqlite.SqlKeywordsHelper;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
@@ -899,6 +900,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							// fieldName
 							// to field_name
 							property.columnName = schema.columnNameConverter.convert(columnName);
+							
+							AssertKripton.fail(SqlKeywordsHelper.getInstance().isKeyword(property.columnName), "In class '%s' property '%s' can not use keyword '%s' as column name", bindEntity.getElement().asType(), property.getName(), property.columnName);
 
 							return true;
 
@@ -973,6 +976,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				break;
 			}
 		}
+		
+		AssertKripton.fail(SqlKeywordsHelper.getInstance().isKeyword(currentEntity.getTableName()), "Class '%s' can not use keyword '%s' as table name", bindEntity.getElement().asType(), currentEntity.getTableName());
 
 		ImmutableUtility.buildConstructors(elementUtils, currentEntity);
 		return currentEntity;

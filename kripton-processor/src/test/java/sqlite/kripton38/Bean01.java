@@ -17,6 +17,7 @@ package sqlite.kripton38;
 
 import java.util.List;
 
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -26,7 +27,8 @@ import com.abubusoft.kripton.annotation.BindType;
 @BindType
 public class Bean01 {
 	
-	/** The temp. */
+	/** The temp. */	
+	@BindSqlColumn(value="temp1")
 	public List<String> temp;
 
 	/** The id. */
