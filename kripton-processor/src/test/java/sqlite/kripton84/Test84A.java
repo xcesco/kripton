@@ -16,13 +16,11 @@
 package sqlite.kripton84;
 
 import java.io.IOException;
-import java.util.LinkedHashSet;
 
 import org.junit.Test;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Test84A.
  *
