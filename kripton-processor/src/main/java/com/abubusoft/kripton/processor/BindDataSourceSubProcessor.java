@@ -133,6 +133,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		result.add(KriptonOptions.SCHEMA_LOCATION_OPTIONS);
 		result.add(KriptonOptions.ANDROID_X_OPTIONS);
+		result.add(KriptonOptions.LOG_ENABLED_OPTIONS);
 
 		return result;
 	}
