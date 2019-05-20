@@ -2,7 +2,6 @@ package sqlite.feature.relations.error6;
 
 import java.net.URL;
 
-import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType("item")

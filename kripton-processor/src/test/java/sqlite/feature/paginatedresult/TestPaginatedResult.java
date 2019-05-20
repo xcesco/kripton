@@ -46,7 +46,6 @@ import sqlite.feature.paginatedresult.error5.Err5PersonDAO;
 import sqlite.feature.paginatedresult.error5.Err5PersonDataSource;
 import sqlite.feature.paginatedresult.model.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestPaginatedResult.
  */

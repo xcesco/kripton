@@ -15,7 +15,6 @@
  ******************************************************************************/
 package sqlite.feature.typeadapter.bitmap.err1;
 
-import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 import android.graphics.Bitmap;
