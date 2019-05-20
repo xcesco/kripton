@@ -13,7 +13,14 @@
 
 
 # Kripton Persistence Library
-Kripton is a java library, for Android platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface.
+Kripton is a java library, for Android platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface. Kripton can do for you:
+
+- generate all the code necessary to persist your POJO in a SQLite database (Light-ORM functionality). It's support Live Data and Androidx JetPack.
+- generate all the code necessary to convert POJO object in different data format: JSON, XML, CBOR, properties, YAML
+- generate all the code to persist your POJO in Shared Preferences. It's support Live Data and Androidx JetPack.
+- Kripton can be integrated to Retrofit library to generate all code necessary to JSON-2-Java convertion without any reflection code.
+
+Sound interesting? I hope YES! :)
 
 <img src="https://github.com/xcesco/wikis/blob/master/kripton/overview5.0.png">
 
