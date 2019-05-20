@@ -86,7 +86,6 @@ public abstract class SQLiteTestUtils {
 
 	}
 
-
 	/**
 	 * Query.
 	 *
@@ -228,12 +227,14 @@ public abstract class SQLiteTestUtils {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Execute SQL from file.
 	 *
-	 * @param database the database
-	 * @param fileName the sql definition file
+	 * @param database
+	 *            the database
+	 * @param fileName
+	 *            the sql definition file
 	 */
 	public static void executeSQLFromFile(SQLiteDatabase database, String fileName) {
 		List<String> executionList = readSQLFromFile(fileName);
@@ -429,6 +430,29 @@ public abstract class SQLiteTestUtils {
 		verifySchema(dataSource.openWritableDatabase(), context, rawId);
 	}
 
+	public static <H extends AbstractDataSource> void showSchema(H dataSource) {
+		boolean needToBeOpened = !dataSource.isOpen();
+		SQLiteDatabase database=null;
+
+		if (needToBeOpened) {
+			database = dataSource.openReadOnlyDatabase();
+		}
+
+		List<String> actualSql = new ArrayList<String>();
+		actualSql.addAll(SQLiteTestUtils.getAllTables(database).values());
+		actualSql.addAll(SQLiteTestUtils.getAllIndexes(database).values());
+
+		Logger.info("Database schema version %s", database.getVersion());
+		for (String item : actualSql) {
+			Logger.info("DDL: %s", item);
+		}
+		
+		if (database!=null && needToBeOpened) {
+			database.close();
+		}
+		
+	}
+
 	/**
 	 * Verify schema internal.
 	 *
@@ -529,12 +553,11 @@ public abstract class SQLiteTestUtils {
 		}
 	}
 
-
-	public static void dropIndex(SQLiteDatabase database, String... indexNames) {		
-		for (String indexName: indexNames) {
+	public static void dropIndex(SQLiteDatabase database, String... indexNames) {
+		for (String indexName : indexNames) {
 			drop(database, QueryType.INDEX, indexName);
 		}
-			
+
 	}
 
 }

@@ -4,8 +4,8 @@ ALTER TABLE student RENAME TO tmp_student;
 ALTER TABLE seminar RENAME TO tmp_seminar;
 ALTER TABLE seminar_2_student RENAME TO tmp_seminar_2_student;
 ALTER TABLE professor RENAME TO tmp_professor;
-DROP INDEX idx_seminar_2_student_0;
-DROP INDEX idx_professor_0;
+--DROP INDEX idx_seminar_2_student_0;
+--DROP INDEX idx_professor_0;
 
 
 -- create new tables

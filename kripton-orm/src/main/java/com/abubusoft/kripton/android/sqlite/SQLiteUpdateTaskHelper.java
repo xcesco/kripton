@@ -95,7 +95,9 @@ public abstract class SQLiteUpdateTaskHelper {
 				int index0 = cursor.getColumnIndex("name");
 				int index1 = cursor.getColumnIndex("sql");
 				do {
-					listener.onRow(db, cursor.getString(index0), cursor.getString(index1));
+					String name=cursor.getString(index0);
+					String sql=cursor.getString(index1);
+					listener.onRow(db, name, sql);
 				} while (cursor.moveToNext());
 			}
 		}
