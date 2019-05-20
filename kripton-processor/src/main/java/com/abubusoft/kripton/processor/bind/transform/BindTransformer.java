@@ -35,6 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -56,6 +57,7 @@ public abstract class BindTransformer {
 	 * @return transform
 	 */
 	public static BindTransform lookup(BindProperty property) {
+		try {
 		TypeName typeName = property.getPropertyType().getTypeName();
 
 		if (property.hasTypeAdapter()) {
@@ -63,6 +65,9 @@ public abstract class BindTransformer {
 		}
 
 		return lookup(typeName);
+		} catch(UnsupportedFieldTypeException e) {
+			throw(UnsupportedFieldTypeException.merge(e, property));
+		}
 	}
 
 	/**

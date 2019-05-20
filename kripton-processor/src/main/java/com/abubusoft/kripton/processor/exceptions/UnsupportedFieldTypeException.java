@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
@@ -46,5 +47,17 @@ public class UnsupportedFieldTypeException extends KriptonProcessorException {
 	 */
 	public UnsupportedFieldTypeException(TypeName typeName) {
 		super(String.format("Unsupported type '%s' is used", typeName));
+	}
+	
+	public UnsupportedFieldTypeException(String description) {
+		super(description);
+	}
+	
+	/*public UnsupportedFieldTypeException(PropertyTypeName typeName) {
+		super(String.format("Unsupported type '%s' is used", typeName));
+	}*/
+
+	public static UnsupportedFieldTypeException merge(UnsupportedFieldTypeException e, BindProperty property) {
+		return new UnsupportedFieldTypeException(String.format("In POJO '%s' field '%s' is defined as unsupported type '%s'", property.getParent().getElement().asType(), property.getName(), property.getPropertyType().getTypeName()));
 	}
 }

@@ -26,6 +26,7 @@ import bind.feature.immutable.TestImmutableCompileSuite;
 import bind.feature.kotlin.TestBindTypeKotlinCompileSuite;
 import bind.feature.namespace.CompileNamespaceTestSuite;
 import bind.feature.typeadapter.kripton87.Test87CompileSuite;
+import bind.git18.TestCompileGit18;
 import bind.kripton110.TestCompile110;
 import bind.kripton42faster.Test42CompileSuite;
 import bind.kripton70.Test70CompileSuite;
@@ -73,6 +74,8 @@ import bind.rss.TestRSSCompile;
 		Test109CompileSuite.class,
 		TestCompile110.class,
 		TestFilmCompile.class, 
+		
+		TestCompileGit18.class,
 		
 		// features
 		CompileNamespaceTestSuite.class,
