@@ -17,7 +17,6 @@ package sqlite.feature.pagedadapter;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.Rule;
