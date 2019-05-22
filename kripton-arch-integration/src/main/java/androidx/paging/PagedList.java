@@ -110,7 +110,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @param <T> The type of the entries in the list.
  */
 public abstract class PagedList<T> extends AbstractList<T> {
-    @NonNull
+    public class LoadStateListener {
+
+	}
+
+	@NonNull
     final Executor mMainThreadExecutor;
     @NonNull
     final Executor mBackgroundThreadExecutor;

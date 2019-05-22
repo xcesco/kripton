@@ -65,7 +65,8 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	@Test
 	public void testCustomUpdateTwiceStep() throws Exception {	
 		SQLiteTestUtils.resetDataSourceInstance(BindSchoolDataSource.class);
-		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql"))
+		BindSchoolDataSource.build(DataSourceOptions.builder()
+				.addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql"))
 				.addUpdateTask(4, new SQLiteUpdateTask() {
 					
 					@Override
@@ -76,7 +77,12 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 				})
 				.build());
 		
+		//SQLiteTestUtils.showSchema(BindSchoolDataSource.getInstance());
+		//SQLiteTestUtils.forceDataSourceSchemaUpdate(BindSchoolDataSource.getInstance(), 3);
+		//SQLiteTestUtils.showSchema(BindSchoolDataSource.getInstance());				
 		SQLiteTestUtils.forceDataSourceSchemaUpdate(BindSchoolDataSource.getInstance(), 4);		
+		
+		SQLiteTestUtils.showSchema(BindSchoolDataSource.getInstance());
 		
 		Logger.info("finish");
 	}

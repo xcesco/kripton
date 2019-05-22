@@ -90,7 +90,7 @@ final class KriptonBinderResponseBodyCollectionConverter<T> implements Converter
 			//return (T) reader.readCollection((Collection) clazz.newInstance(), beanClazz, value.byteStream());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			throw(new IOException(e));
 		} finally {
 			value.close();
 		}

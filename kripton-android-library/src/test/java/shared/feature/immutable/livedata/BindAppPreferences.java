@@ -434,6 +434,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       jacksonSerializer.flush();
       return stream.toString();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -468,6 +469,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       }
       return __stringList;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -505,6 +507,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       jacksonSerializer.flush();
       return stream.toString();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -539,6 +542,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       }
       return __stringArray;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

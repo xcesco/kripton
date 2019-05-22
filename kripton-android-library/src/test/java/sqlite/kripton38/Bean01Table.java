@@ -31,9 +31,9 @@ public class Bean01Table implements SQLiteTable {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, temp BLOB, text TEXT);</pre>
+   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, temp1 BLOB, text TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, temp BLOB, text TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, temp1 BLOB, text TEXT);";
 
   /**
    * <p>
@@ -52,11 +52,11 @@ public class Bean01Table implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>temp</code> is associated to table column <code>temp</code>. This costant represents column name.
+   * Entity's property <code>temp</code> is associated to table column <code>temp1</code>. This costant represents column name.
    *
    *  @see Bean01#temp
    */
-  public static final String COLUMN_TEMP = "temp";
+  public static final String COLUMN_TEMP = "temp1";
 
   /**
    * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
@@ -103,6 +103,7 @@ public class Bean01Table implements SQLiteTable {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -137,6 +138,7 @@ public class Bean01Table implements SQLiteTable {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

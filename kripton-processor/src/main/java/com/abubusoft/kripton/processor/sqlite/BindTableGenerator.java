@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -122,6 +123,23 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, schema);
 
 		List<SQLiteEntity> orderedEntities = BindDataSourceBuilder.orderEntitiesList(schema);
+		
+		// check table names
+		Map<String, String> tableNames=new HashMap<String, String>();
+		for (SQLiteEntity item: orderedEntities) {
+			if (tableNames.containsKey(item.getTableName().toLowerCase())) {
+				AssertKripton.fail("Table name '%s' is mapped to entities '%s' and '%s'" , item.getTableName(), item.getName(), tableNames.get(item.getTableName()));
+			} else {
+				tableNames.put(item.getTableName().toLowerCase(), item.getName());
+			}
+		}
+		for (GeneratedTypeElement item: generatedEntities) {
+			if (tableNames.containsKey(item.getTableName().toLowerCase())) {
+				AssertKripton.fail("Table name '%s' is mapped to entities '%s' and '%s'" , item.getTableName(), item.getName(), tableNames.get(item.getTableName()));
+			} else {
+				tableNames.put(item.getTableName().toLowerCase(), item.getName());
+			}
+		}
 
 		for (SQLiteEntity item : orderedEntities) {
 			visitor.visit(schema, item);

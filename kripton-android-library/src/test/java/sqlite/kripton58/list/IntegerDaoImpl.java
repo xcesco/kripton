@@ -731,6 +731,7 @@ public class IntegerDaoImpl extends Dao implements IntegerDao {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -765,6 +766,7 @@ public class IntegerDaoImpl extends Dao implements IntegerDao {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

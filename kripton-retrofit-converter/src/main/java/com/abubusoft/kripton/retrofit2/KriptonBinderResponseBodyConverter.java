@@ -22,7 +22,6 @@ import com.abubusoft.kripton.BinderContext;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class KriptonBinderResponseBodyConverter.
  *
@@ -53,10 +52,10 @@ final class KriptonBinderResponseBodyConverter<T> implements Converter<ResponseB
 	@Override
 	public T convert(ResponseBody value) throws IOException {
 		try {
-			return (T) binderContext.parse(value.byteStream(), clazz);
+			return (T) binderContext.parse(value.byteStream(), clazz);	
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			throw(new IOException(e));
 		} finally {
 			value.close();
 		}

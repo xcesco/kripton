@@ -952,6 +952,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -986,6 +987,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

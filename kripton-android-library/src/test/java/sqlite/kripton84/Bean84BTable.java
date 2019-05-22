@@ -84,6 +84,7 @@ public class Bean84BTable implements SQLiteTable {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -106,6 +107,7 @@ public class Bean84BTable implements SQLiteTable {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

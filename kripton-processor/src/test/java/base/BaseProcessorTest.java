@@ -61,6 +61,9 @@ public class BaseProcessorTest {
 
 	/** The Constant KRIPTON_DEBUG_MODE. */
 	private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
+	
+	/** The Constant KRIPTON_DEBUG_MODE. */
+	private static final String KRIPTON_GENERATE_LOG_MODE = "kripton.log";
 
 	/** The test type. */
 	protected TestType testType = TestType.NONE;
@@ -107,6 +110,8 @@ public class BaseProcessorTest {
 	@Before
 	public void before() {
 		String value = System.getProperty(KRIPTON_DEBUG_MODE);
+		String logEnabledvalue = System.getProperty(KRIPTON_GENERATE_LOG_MODE);
+		
 		// value = "true";
 		if ("false".equals(value)) {
 			// we are in test, but we don't see log on System.out
@@ -115,6 +120,12 @@ public class BaseProcessorTest {
 		} else {
 			BaseProcessor.DEBUG_MODE = true;
 		}
+		
+		if ("false".equals(logEnabledvalue)) {
+			BaseProcessor.LOG_GENERATION_ENABLED_MODE = false;
+		} else {
+			BaseProcessor.LOG_GENERATION_ENABLED_MODE = true;
+		}		
 
 		// when we run junit test, AnnotationProcessor is always in TEST_MODE
 		BaseProcessor.JUNIT_TEST_MODE = true;

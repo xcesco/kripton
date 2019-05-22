@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-sqlite-test-library</artifactId>
-	<version>5.1.0-rc.1</version>
+	<version>6.0.0-rc.7</version>
 
 	<name>Kripton SQLite Test Library</name>
 	<description>Kripton SQLite Test Library</description>
@@ -12,13 +12,16 @@
 
 	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
+		<kripton.version>6.0.0-rc.7</kripton.version>
+	
 		<!-- environment version -->
+		<java.version>1.8</java.version>
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
+		
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
-		<java.version>1.8</java.version>
+
 
 		<!-- test version -->
 		<junit.version>4.12</junit.version>
@@ -73,7 +76,7 @@
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-android-library</artifactId>
-			<version>${project.version}</version>
+			<version>${kripton.version}</version>
 		</dependency>
 
 		<dependency>

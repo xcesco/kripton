@@ -41,7 +41,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select groups.name as group_name, person.name as person_name from person INNER JOIN groups ON person.group_id = groups.id</pre>
+   * <pre>select person_groups.name as group_name, person.name as person_name from person INNER JOIN person_groups ON person.group_id = person_groups.id</pre>
    *
    * <h2>Mapped class:</h2>
    * {@link GroupedPerson}
@@ -63,7 +63,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("select groups.name as group_name, person.name as person_name from person INNER JOIN groups ON person.group_id = groups.id");
+    _sqlBuilder.append("select person_groups.name as group_name, person.name as person_name from person INNER JOIN person_groups ON person.group_id = person_groups.id");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
@@ -130,7 +130,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("select count(*) from person INNER JOIN groups ON person.group_id = groups.id");
+    _sqlBuilder.append("select count(*) from person INNER JOIN person_groups ON person.group_id = person_groups.id");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
@@ -188,7 +188,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h2>Select SQL:</h2>
    *
-   * <pre>select groups.name as group_name, person.name as person_name from person INNER JOIN groups ON person.group_id = groups.id</pre>
+   * <pre>select person_groups.name as group_name, person.name as person_name from person INNER JOIN person_groups ON person.group_id = person_groups.id</pre>
    *
    * <h2>Mapped class:</h2>
    * {@link GroupedPerson}
@@ -370,6 +370,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     } else {
       invalidateLiveData();
     }
+  }
+
+  /**
+   * <p>Allows to registry change on this DAO in a transaction, in an batch operation or in a standalone operation.</p>
+   *
+   */
+  public void registryChange() {
+    registryEvent(1);
   }
 
   protected void registryLiveData(LiveDataHandler value) {

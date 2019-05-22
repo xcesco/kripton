@@ -40,7 +40,9 @@ public class TimeZoneUtils {
 	 * @param string the string
 	 * @return the time zone
 	 */
-	public static TimeZone read(String string) {
-		return TimeZone.getTimeZone(string);
+	public static TimeZone read(String value) {
+		if (value == null)
+			return null;
+		return TimeZone.getTimeZone(value);
 	}
 }

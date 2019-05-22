@@ -28,6 +28,8 @@ import base.BaseProcessorTest;
 @Suite.SuiteClasses(
 		{ 
 			TestCompileCustomCase1.class,
+			TestCompileCustomCase2.class,
+			TestCompileCustomCase3.class,
 			TestCompileCustomErr1.class,
 			TestCompileCustomErr2.class
 		 })

@@ -28,7 +28,7 @@ public class PhoneNumber {
     public long id;
 
     /** The action. */
-    public ActionType action;
+    public ActionType actionType;
 
     /** The number. */
     public String number;

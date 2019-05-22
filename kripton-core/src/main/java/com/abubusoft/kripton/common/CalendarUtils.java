@@ -52,6 +52,7 @@ public class CalendarUtils {
 	 * @return the calendar
 	 */
 	public static Calendar read(String value) {
+		if (value==null) return null;
 		Date date=DateUtils.read(value);
 		
 		Calendar calendar=Calendar.getInstance();

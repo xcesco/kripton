@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.adapters.DateTimeMillisecondsTypeAdapter;
+import com.abubusoft.kripton.android.sqlite.adapters.DateTime2LongTypeAdapter;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -645,7 +645,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     String _sql=FIND_BOOKS_BORROWED_BY_USER_AFTER_SQL6;
     // add where arguments
     _contentValues.addWhereArgs((userId==null?"":userId));
-    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(DateTimeMillisecondsTypeAdapter.class, after));
+    _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(DateTime2LongTypeAdapter.class, after));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
     if (_context.isLogEnabled()) {
@@ -1168,6 +1168,14 @@ public class BookDaoImpl extends Dao implements BookDao {
     } else {
       invalidateLiveData();
     }
+  }
+
+  /**
+   * <p>Allows to registry change on this DAO in a transaction, in an batch operation or in a standalone operation.</p>
+   *
+   */
+  public void registryChange() {
+    registryEvent(1);
   }
 
   protected void registryLiveData(LiveDataHandler value) {

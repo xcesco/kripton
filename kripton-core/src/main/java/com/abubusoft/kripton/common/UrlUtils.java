@@ -41,9 +41,11 @@ public class UrlUtils {
 	 * @param string the string
 	 * @return the url
 	 */
-	public static URL read(String string) {
+	public static URL read(String value) {
+		if (value == null)
+			return null;
 		try {
-			return new URL(string);
+			return new URL(value);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return null;

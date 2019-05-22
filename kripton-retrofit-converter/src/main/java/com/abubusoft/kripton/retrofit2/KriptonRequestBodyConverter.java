@@ -24,7 +24,6 @@ import okhttp3.RequestBody;
 import okio.Buffer;
 import retrofit2.Converter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class KriptonRequestBodyConverter.
  *
@@ -60,7 +59,7 @@ final class KriptonRequestBodyConverter<T> implements Converter<T, RequestBody> 
 			return RequestBody.create(MEDIA_TYPE, buffer.readByteString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			throw(new IOException(e));
 		} finally {
 			buffer.close();
 		}

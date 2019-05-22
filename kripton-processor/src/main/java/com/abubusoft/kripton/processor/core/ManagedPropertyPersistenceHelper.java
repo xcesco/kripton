@@ -155,6 +155,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 			}
 
 			methodBuilder.nextControlFlow("catch($T e)", Exception.class);
+			methodBuilder.addStatement("e.printStackTrace()");
 			methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
 			methodBuilder.endControlFlow();
 		}
@@ -223,8 +224,9 @@ public abstract class ManagedPropertyPersistenceHelper {
 			} else {
 				methodBuilder.addStatement("return $L", ImmutableUtility.IMMUTABLE_PREFIX+property.getName());				
 			}
-
+			
 			methodBuilder.nextControlFlow("catch($T e)", Exception.class);
+			methodBuilder.addStatement("e.printStackTrace()");
 			methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
 			methodBuilder.endControlFlow();
 		}
@@ -295,6 +297,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		}
 
 		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
+		methodBuilder.addStatement("e.printStackTrace()");
 		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
 		methodBuilder.endControlFlow();
 
@@ -351,6 +354,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 		methodBuilder.addStatement("return result");
 
 		methodBuilder.nextControlFlow("catch($T e)", Exception.class);
+		methodBuilder.addStatement("e.printStackTrace()");
 		methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);
 		methodBuilder.endControlFlow();
 

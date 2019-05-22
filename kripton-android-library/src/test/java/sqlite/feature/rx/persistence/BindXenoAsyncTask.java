@@ -73,7 +73,7 @@ public abstract class BindXenoAsyncTask<I, U, R> {
    * @return
    * 	result of operation (list, bean, etc) and execute transactions.
    */
-  public abstract R onExecute(BindXenoDataSource dataSource) throws Throwable;
+  public abstract R onExecute(BindXenoDataSource dataSource);
 
   /**
    * Use this method for operations on UI-thread after execution
@@ -121,18 +121,7 @@ public abstract class BindXenoAsyncTask<I, U, R> {
       @Override
       public R doInBackground(@SuppressWarnings("unchecked") I... params) {
         BindXenoDataSource dataSource=BindXenoDataSource.getInstance();
-        R result=null;
-        boolean needToOpened=false;
-        if (mode==BindAsyncTaskType.READ) { needToOpened=true; dataSource.openReadOnlyDatabase(); } else if (mode==BindAsyncTaskType.READ_WRITE) { needToOpened=true; dataSource.openWritableDatabase();}
-        try {
-          result=onExecute(dataSource);
-        } catch(Throwable e) {
-          onError(e);
-        } finally {
-          if (needToOpened) {
-            dataSource.close();
-          }
-        }
+        R result=onExecute(dataSource);
         return result;
       }
 

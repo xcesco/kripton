@@ -44,7 +44,6 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -378,7 +377,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (returnType == null) {
 				this.entity = getParent().getEntity();
 			} else {
-				this.entity = BindDataSourceSubProcessor.getInstance().createSQLEntity(parent.getParent(), parent.getElement(), returnType.toString());
+				this.entity = BindDataSourceSubProcessor.getInstance().createSQLEntity(parent.getParent(), parent.getElement(), returnType.toString(), false);
 			}
 		} else {
 			// this is not a select

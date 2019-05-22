@@ -128,7 +128,8 @@ public class JQLChecker {
 	 * @param listener
 	 *            the listener
 	 */
-	protected <L extends JqlBaseListener> void analyzeVariableStatementInternal(JQLContext jqlContext, final String jql, L listener) {
+	protected <L extends JqlBaseListener> void analyzeVariableStatementInternal(JQLContext jqlContext, final String jql,
+			L listener) {
 		walker.walk(listener, prepareVariableStatement(jqlContext, jql).value0);
 	}
 
@@ -165,8 +166,11 @@ public class JQLChecker {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new JQLBaseErrorListener() {
 			@Override
-			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-				AssertKripton.assertTrue(false, jqlContext.getContextDescription() + ": unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
+					int charPositionInLine, String msg, RecognitionException e) {
+				AssertKripton.assertTrue(false,
+						jqlContext.getContextDescription() + ": unespected char at pos %s of SQL '%s'",
+						charPositionInLine, jql);
 			}
 		});
 
@@ -195,7 +199,8 @@ public class JQLChecker {
 	 *            the jql
 	 * @return the pair
 	 */
-	protected Pair<ParserRuleContext, CommonTokenStream> prepareVariableStatement(final JQLContext jqlContext, final String jql) {
+	protected Pair<ParserRuleContext, CommonTokenStream> prepareVariableStatement(final JQLContext jqlContext,
+			final String jql) {
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		JqlParser parser = new JqlParser(tokens);
@@ -203,8 +208,11 @@ public class JQLChecker {
 		parser.removeErrorListeners();
 		parser.addErrorListener(new JQLBaseErrorListener() {
 			@Override
-			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-				AssertKripton.assertTrue(false, jqlContext.getContextDescription() + ": unespected char at pos %s of JQL '%s'", charPositionInLine, jql);
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
+					int charPositionInLine, String msg, RecognitionException e) {
+				AssertKripton.assertTrue(false,
+						jqlContext.getContextDescription() + ": unespected char at pos %s of JQL '%s'",
+						charPositionInLine, jql);
 			}
 		});
 
@@ -223,7 +231,8 @@ public class JQLChecker {
 	 *            the entity
 	 * @return the sets the
 	 */
-	public Set<JQLProjection> extractProjections(final JQLContext jqlContext, String jqlValue, final Finder<SQLProperty> entity) {
+	public Set<JQLProjection> extractProjections(final JQLContext jqlContext, String jqlValue,
+			final Finder<SQLProperty> entity) {
 		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
 
 		final One<Boolean> projection = new One<Boolean>(null);
@@ -252,7 +261,8 @@ public class JQLChecker {
 					builder.type(ProjectionType.STAR);
 				} else if (ctx.table_name() != null) {
 					builder.table(ctx.expr().table_name().getText());
-				} else if (ctx.expr().column_fully_qualified_name() != null && ctx.expr().column_fully_qualified_name().column_simple_name() != null) {
+				} else if (ctx.expr().column_fully_qualified_name() != null
+						&& ctx.expr().column_fully_qualified_name().column_simple_name() != null) {
 					Finder<SQLProperty> currentEntity = entity;
 					if (ctx.expr().column_fully_qualified_name().table_simple_name() != null) {
 						String entityName = ctx.expr().column_fully_qualified_name().table_simple_name().getText();
@@ -264,30 +274,35 @@ public class JQLChecker {
 					builder.column(jqlColumnName);
 
 					SQLProperty property = currentEntity.findPropertyByName(jqlColumnName);
-					AssertKripton.assertTrueOrUnknownPropertyInJQLException(property != null, jqlContext, jqlColumnName);
+					AssertKripton.assertTrueOrUnknownPropertyInJQLException(property != null, jqlContext,
+							jqlColumnName);
 
 					builder.property(property);
 					builder.type(ProjectionType.COLUMN);
-					
+
 					if (ctx.column_alias() != null) {
 						String columnAlias = ctx.column_alias().getText();
+						builder.alias(columnAlias);
 
 						SQLProperty property1 = entity.findPropertyByName(columnAlias);
-						AssertKripton.assertTrueOrUnknownPropertyInJQLException(property1 != null, jqlContext, columnAlias);
+						AssertKripton.assertTrueOrUnknownPropertyInJQLException(property1 != null, jqlContext,
+								columnAlias);
 
 						builder.property(property1);
-						//builder.type(ProjectionType.COLUMN);
-
-						builder.alias(columnAlias);
-					}					
+					}
 				} else {
 					builder.type(ProjectionType.COMPLEX);
 					builder.expression(ctx.expr().getText());
-					
+
 					if (ctx.column_alias() != null) {
 						String columnAlias = ctx.column_alias().getText();
-						
 						builder.alias(columnAlias);
+
+						SQLProperty property1 = entity.findPropertyByName(columnAlias);
+						AssertKripton.assertTrueOrUnknownPropertyInJQLException(property1 != null, jqlContext,
+								columnAlias);
+
+						builder.property(property1);
 					}
 				}
 
@@ -307,7 +322,8 @@ public class JQLChecker {
 			if (entity != null) {
 
 				for (SQLProperty item : entity.getCollection()) {
-					JQLProjection col = new JQLProjection(ProjectionType.COLUMN, entity.getSimpleName(), item.getName(), null, null, item);
+					JQLProjection col = new JQLProjection(ProjectionType.COLUMN, entity.getSimpleName(), item.getName(),
+							null, null, item);
 					result.add(col);
 				}
 			}
@@ -327,7 +343,8 @@ public class JQLChecker {
 	 *            the entity
 	 * @return the sets the
 	 */
-	public Set<String> extractColumnsToInsertOrUpdate(final JQLContext jqlContext, String jqlValue, final Finder<SQLProperty> entity) {
+	public Set<String> extractColumnsToInsertOrUpdate(final JQLContext jqlContext, String jqlValue,
+			final Finder<SQLProperty> entity) {
 		final Set<String> result = new LinkedHashSet<String>();
 
 		final One<Boolean> selectionOn = new One<Boolean>(null);
@@ -401,11 +418,8 @@ public class JQLChecker {
 	List<Triple<Token, Token, String>> replace = new ArrayList<>();
 
 	/**
-	 * The listener interface for receiving JQLRewriter events. The class that
-	 * is interested in processing a JQLRewriter event implements this
-	 * interface, and the object created with that class is registered with a
-	 * component using the component's <code>addJQLRewriterListener</code>
-	 * method. When the JQLRewriter event occurs, that object's appropriate
+	 * The listener interface for receiving JQLRewriter events. The class that is interested in processing a JQLRewriter event implements this interface, and the object created
+	 * with that class is registered with a component using the component's <code>addJQLRewriterListener</code> method. When the JQLRewriter event occurs, that object's appropriate
 	 * method is invoked.
 	 *
 	 * @author Francesco Benincasa (info@abubusoft.com)
@@ -431,9 +445,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterTable_name(com.abubusoft.kripton.processor.sqlite.grammars.jsql.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterTable_name(com.abubusoft.kripton.processor.sqlite.grammars.jsql.
 		 * JqlParser.Table_nameContext)
 		 */
 		@Override
@@ -450,9 +462,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterBind_parameter(com.abubusoft.kripton.processor.sqlite.grammars.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterBind_parameter(com.abubusoft.kripton.processor.sqlite.grammars.
 		 * jsql.JqlParser.Bind_parameterContext)
 		 */
 		@Override
@@ -474,9 +484,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterColumn_name_to_update(com.abubusoft.kripton.processor.sqlite.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterColumn_name_to_update(com.abubusoft.kripton.processor.sqlite.
 		 * grammars.jsql.JqlParser.Column_name_to_updateContext)
 		 */
 		@Override
@@ -493,14 +501,14 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterColumn_fully_qualified_name(com.abubusoft.kripton.processor.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterColumn_fully_qualified_name(com.abubusoft.kripton.processor.
 		 * sqlite.grammars.jsql.JqlParser.Column_fully_qualified_nameContext)
 		 */
 		@Override
 		public void enterColumn_fully_qualified_name(Column_fully_qualified_nameContext ctx) {
-			String value = listener.onColumnFullyQualifiedName(ctx.table_simple_name() != null ? ctx.table_simple_name().getText() : "", ctx.column_simple_name().getText());
+			String value = listener.onColumnFullyQualifiedName(
+					ctx.table_simple_name() != null ? ctx.table_simple_name().getText() : "",
+					ctx.column_simple_name().getText());
 
 			// skip without replace
 			if (value == null)
@@ -512,9 +520,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterColumn_name(com.abubusoft.kripton.processor.sqlite.grammars.jsql
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterColumn_name(com.abubusoft.kripton.processor.sqlite.grammars.jsql
 		 * .JqlParser.Column_nameContext)
 		 */
 		@Override
@@ -542,9 +548,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterBind_dynamic_sql(com.abubusoft.kripton.processor.sqlite.grammars
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterBind_dynamic_sql(com.abubusoft.kripton.processor.sqlite.grammars
 		 * .jsql.JqlParser.Bind_dynamic_sqlContext)
 		 */
 		@Override
@@ -561,9 +565,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterWhere_stmt(com.abubusoft.kripton.processor.sqlite.grammars.jsql.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterWhere_stmt(com.abubusoft.kripton.processor.sqlite.grammars.jsql.
 		 * JqlParser.Where_stmtContext)
 		 */
 		@Override
@@ -574,9 +576,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * exitWhere_stmt(com.abubusoft.kripton.processor.sqlite.grammars.jsql.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# exitWhere_stmt(com.abubusoft.kripton.processor.sqlite.grammars.jsql.
 		 * JqlParser.Where_stmtContext)
 		 */
 		@Override
@@ -587,9 +587,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterColumn_name_set(com.abubusoft.kripton.processor.sqlite.grammars.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterColumn_name_set(com.abubusoft.kripton.processor.sqlite.grammars.
 		 * jsql.JqlParser.Column_name_setContext)
 		 */
 		@Override
@@ -600,9 +598,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * exitColumn_name_set(com.abubusoft.kripton.processor.sqlite.grammars.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# exitColumn_name_set(com.abubusoft.kripton.processor.sqlite.grammars.
 		 * jsql.JqlParser.Column_name_setContext)
 		 */
 		@Override
@@ -613,9 +609,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * enterColumn_value_set(com.abubusoft.kripton.processor.sqlite.grammars
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# enterColumn_value_set(com.abubusoft.kripton.processor.sqlite.grammars
 		 * .jsql.JqlParser.Column_value_setContext)
 		 */
 		@Override
@@ -626,9 +620,7 @@ public class JQLChecker {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see
-		 * com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#
-		 * exitColumn_value_set(com.abubusoft.kripton.processor.sqlite.grammars.
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener# exitColumn_value_set(com.abubusoft.kripton.processor.sqlite.grammars.
 		 * jsql.JqlParser.Column_value_setContext)
 		 */
 		@Override
@@ -694,7 +686,8 @@ public class JQLChecker {
 	 *            the rewriter listener
 	 * @return the string
 	 */
-	private String replaceInternal(final JQLContext jqlContext, String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+	private String replaceInternal(final JQLContext jqlContext, String jql,
+			final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jqlContext, jql);
 		walker.walk(rewriterListener, parser.value0);
 
@@ -720,7 +713,8 @@ public class JQLChecker {
 	 *            the rewriter listener
 	 * @return the string
 	 */
-	private String replaceFromVariableStatementInternal(JQLContext context, String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
+	private String replaceFromVariableStatementInternal(JQLContext context, String jql,
+			final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareVariableStatement(context, jql);
 		walker.walk(rewriterListener, parser.value0);
 
@@ -795,8 +789,7 @@ public class JQLChecker {
 
 	/**
 	 * <p>
-	 * Verify sql is syntactally correct, otherwise a KriptonProcessorException
-	 * will be thrown.
+	 * Verify sql is syntactally correct, otherwise a KriptonProcessorException will be thrown.
 	 * </p>
 	 *
 	 * @param jqlContext
@@ -873,7 +866,8 @@ public class JQLChecker {
 	 *            the result
 	 * @return the l
 	 */
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(final JQLContext jqlContext, String jql, final L result) {
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(final JQLContext jqlContext, String jql,
+			final L result) {
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
 
@@ -912,7 +906,8 @@ public class JQLChecker {
 	 *            the result
 	 * @return the l
 	 */
-	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(final JQLContext jqlContext, String jql, final L result) {
+	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(
+			final JQLContext jqlContext, String jql, final L result) {
 		final One<Boolean> valid = new One<>();
 
 		if (!StringUtils.hasText(jql))
@@ -957,7 +952,8 @@ public class JQLChecker {
 	 *            the listener
 	 * @return the string
 	 */
-	public String replaceVariableStatements(final JQLContext jqlContext, final String jql, final JQLReplaceVariableStatementListener listener) {
+	public String replaceVariableStatements(final JQLContext jqlContext, final String jql,
+			final JQLReplaceVariableStatementListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();
 		final One<Integer> currentSelectLevel = new One<Integer>(-1);
 

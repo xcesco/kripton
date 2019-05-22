@@ -26,7 +26,7 @@ public class DaoGroupImpl extends Dao implements DaoGroup {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO groups (name) VALUES (:bean.name)</pre>
+   * <pre>INSERT INTO person_groups (name) VALUES (:bean.name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -44,7 +44,7 @@ public class DaoGroupImpl extends Dao implements DaoGroup {
     // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO groups (name) VALUES (?)";
+      String _sql="INSERT INTO person_groups (name) VALUES (?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
@@ -61,7 +61,7 @@ public class DaoGroupImpl extends Dao implements DaoGroup {
         _columnValueBuffer.append(_columnSeparator+":"+columnName);
         _columnSeparator=", ";
       }
-      Logger.info("INSERT INTO groups (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+      Logger.info("INSERT INTO person_groups (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

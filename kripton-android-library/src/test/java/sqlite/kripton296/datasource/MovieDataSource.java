@@ -2,7 +2,7 @@ package sqlite.kripton296.datasource;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
-import com.abubusoft.kripton.android.annotation.BindTransaction;
+import com.abubusoft.kripton.android.annotation.BindSqlTransaction;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import sqlite.kripton296.model.Movie;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 @BindDataSource(daoSet = {DirectorDao.class, MovieDao.class}, fileName = "movie.db")
 public interface MovieDataSource {
 
-    @BindTransaction
+    @BindSqlTransaction
     static TransactionResult clearDb(MovieDao movieDao, DirectorDao directorDao) {
         movieDao.deleteAll();
         directorDao.deleteAll(); 

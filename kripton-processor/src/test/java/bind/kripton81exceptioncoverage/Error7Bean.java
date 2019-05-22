@@ -42,5 +42,5 @@ public class Error7Bean {
 
 	/** The foreign. */
 	@BindSqlColumn(parentEntity = Error7_1Bean.class)
-	public Error7_1Bean foreign;
+	public Error7_1Bean foreign2;
 }

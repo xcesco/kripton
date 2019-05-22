@@ -66,9 +66,9 @@ final class KriptonRequestBodyCollectionConverter<T> implements Converter<T, Req
 		try {	
 			binderContext.serializeCollection((Collection) value, (Class)clazz,buffer.outputStream()); 			
 			return RequestBody.create(MEDIA_TYPE, buffer.readByteString());
-		} catch (Exception e) {			
+		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			throw(new IOException(e));
 		} finally
 		{
 			buffer.close();

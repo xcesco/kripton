@@ -11,6 +11,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 import java.util.Set;
@@ -64,7 +65,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new LoanTable(), new BookTable(), new UserTable()};
+  static final SQLiteTable[] TABLES = {new BookTable(), new LoanTable(), new UserTable()};
 
   /**
    * <p>dao instance</p>
@@ -127,10 +128,10 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    */
   public boolean execute(Transaction transaction,
       AbstractDataSource.OnErrorListener onErrorListener) {
-    boolean needToOpened=!this.isOpenInWriteMode();
+    // open database in thread safe mode
+    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
     boolean success=false;
-    @SuppressWarnings("resource")
-    SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+    SQLiteDatabase connection=_status.value1;
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -149,7 +150,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      if (needToOpened) { close(); }
+      // close database in thread safe mode
+      closeThreadSafeMode(_status);
       if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
     return success;
@@ -243,8 +245,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
-    boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
-    if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+    // open database in thread safe mode
+    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
     DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -256,7 +258,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       e.printStackTrace();
       throw(e);
     } finally {
-      if (needToOpened) { close(); }
+      // close database in thread safe mode
+      closeThreadSafeMode(_status);
       currentDaoFactory.onSessionClosed();
     }
     return null;
@@ -334,16 +337,16 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     // log section create END
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    }
-    // log section create END
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    // log section create BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",BookTable.CREATE_TABLE_SQL);
     }
     // log section create END
     database.execSQL(BookTable.CREATE_TABLE_SQL);
+    // log section create BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    }
+    // log section create END
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",LoanTable.CREATE_TABLE_SQL);
@@ -390,16 +393,16 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(UserTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",BookTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(BookTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(UserTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",LoanTable.CREATE_TABLE_SQL);

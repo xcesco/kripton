@@ -381,6 +381,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -405,6 +406,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }

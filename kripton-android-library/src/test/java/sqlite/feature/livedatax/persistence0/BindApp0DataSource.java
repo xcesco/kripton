@@ -12,6 +12,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -104,10 +105,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
-        boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
+        // open database in thread safe mode
+        Pair<Boolean, SQLiteDatabase> _status=BindApp0DataSource.this.openDatabaseThreadSafeMode(true);
         boolean success=false;
-        @SuppressWarnings("resource")
-        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        SQLiteDatabase connection=_status.value1;
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -127,7 +128,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          if (needToOpened) { close(); }
+          // close database in thread safe mode
+          closeThreadSafeMode(_status);
           if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
@@ -143,10 +145,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
-        boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
+        // open database in thread safe mode
+        Pair<Boolean, SQLiteDatabase> _status=BindApp0DataSource.this.openDatabaseThreadSafeMode(true);
         boolean success=false;
-        @SuppressWarnings("resource")
-        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        SQLiteDatabase connection=_status.value1;
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -166,7 +168,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          if (needToOpened) { close(); }
+          // close database in thread safe mode
+          closeThreadSafeMode(_status);
           if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
@@ -182,10 +185,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
-        boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
+        // open database in thread safe mode
+        Pair<Boolean, SQLiteDatabase> _status=BindApp0DataSource.this.openDatabaseThreadSafeMode(true);
         boolean success=false;
-        @SuppressWarnings("resource")
-        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        SQLiteDatabase connection=_status.value1;
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -205,7 +208,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          if (needToOpened) { close(); }
+          // close database in thread safe mode
+          closeThreadSafeMode(_status);
           if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
@@ -221,10 +225,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
-        boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
+        // open database in thread safe mode
+        Pair<Boolean, SQLiteDatabase> _status=BindApp0DataSource.this.openDatabaseThreadSafeMode(true);
         boolean success=false;
-        @SuppressWarnings("resource")
-        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        SQLiteDatabase connection=_status.value1;
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -244,7 +248,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
             connection.endTransaction();
           } catch(Throwable e) {
           }
-          if (needToOpened) { close(); }
+          // close database in thread safe mode
+          closeThreadSafeMode(_status);
           if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
@@ -260,8 +265,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
-        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        // open database in thread safe mode
+        Pair<Boolean, SQLiteDatabase> _status=BindApp0DataSource.this.openDatabaseThreadSafeMode(true);
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -272,7 +277,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          if (needToOpened) { close(); }
+          // close database in thread safe mode
+          closeThreadSafeMode(_status);
           currentDaoFactory.onSessionClosed();
         }
         return;
@@ -292,8 +298,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
-        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        // open database in thread safe mode
+        Pair<Boolean, SQLiteDatabase> _status=BindApp0DataSource.this.openDatabaseThreadSafeMode(true);
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -304,7 +310,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          if (needToOpened) { close(); }
+          // close database in thread safe mode
+          closeThreadSafeMode(_status);
           currentDaoFactory.onSessionClosed();
         }
         return;
@@ -324,8 +331,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
-        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        // open database in thread safe mode
+        Pair<Boolean, SQLiteDatabase> _status=BindApp0DataSource.this.openDatabaseThreadSafeMode(true);
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -336,7 +343,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          if (needToOpened) { close(); }
+          // close database in thread safe mode
+          closeThreadSafeMode(_status);
           currentDaoFactory.onSessionClosed();
         }
         return;
@@ -356,8 +364,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
-        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        // open database in thread safe mode
+        Pair<Boolean, SQLiteDatabase> _status=BindApp0DataSource.this.openDatabaseThreadSafeMode(true);
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -368,7 +376,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           e.printStackTrace();
           emitter.onError(e);
         } finally {
-          if (needToOpened) { close(); }
+          // close database in thread safe mode
+          closeThreadSafeMode(_status);
           currentDaoFactory.onSessionClosed();
         }
         return;
@@ -410,10 +419,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
    */
   public boolean execute(Transaction transaction,
       AbstractDataSource.OnErrorListener onErrorListener) {
-    boolean needToOpened=!this.isOpenInWriteMode();
+    // open database in thread safe mode
+    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
     boolean success=false;
-    @SuppressWarnings("resource")
-    SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+    SQLiteDatabase connection=_status.value1;
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -432,7 +441,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
       } catch (Throwable e) {
         Logger.warn("error closing transaction %s", e.getMessage());
       }
-      if (needToOpened) { close(); }
+      // close database in thread safe mode
+      closeThreadSafeMode(_status);
       if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
     return success;
@@ -526,8 +536,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
    * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
-    boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
-    if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+    // open database in thread safe mode
+    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
     DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -539,7 +549,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
       e.printStackTrace();
       throw(e);
     } finally {
-      if (needToOpened) { close(); }
+      // close database in thread safe mode
+      closeThreadSafeMode(_status);
       currentDaoFactory.onSessionClosed();
     }
     return null;

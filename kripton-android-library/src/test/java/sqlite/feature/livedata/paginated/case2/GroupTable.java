@@ -4,34 +4,34 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
 /**
  * <p>
- * Entity <code>Group</code> is associated to table <code>groups</code>
+ * Entity <code>Group</code> is associated to table <code>person_groups</code>
  * This class represents table associated to entity.
  * </p>
  *  @see Group
  */
 public class GroupTable implements SQLiteTable {
   /**
-   * Costant represents typeName of table groups
+   * Costant represents typeName of table person_groups
    */
-  public static final String TABLE_NAME = "groups";
+  public static final String TABLE_NAME = "person_groups";
 
   /**
    * <p>
-   * DDL to create table groups
+   * DDL to create table person_groups
    * </p>
    *
-   * <pre>CREATE TABLE groups (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);</pre>
+   * <pre>CREATE TABLE person_groups (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE groups (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_groups (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);";
 
   /**
    * <p>
-   * DDL to drop table groups
+   * DDL to drop table person_groups
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS groups;</pre>
+   * <pre>DROP TABLE IF EXISTS person_groups;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS groups;";
+  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS person_groups;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.

@@ -22,9 +22,13 @@ import com.abubusoft.kripton.android.annotation.BindDataSourceUpdateTask;
 /**
  * The Interface AppWithConfigDataSource.
  */
-@BindDataSourceOptions(logEnabled = true, populator = PersonPopulator.class, cursorFactory = PersonCursorFactory.class, databaseLifecycleHandler=PersonLifecycleHandler.class, updateTasks = {
+@BindDataSourceOptions(logEnabled = true, 
+	populator = PersonPopulator.class, 
+	cursorFactory = PersonCursorFactory.class, 
+	databaseLifecycleHandler = PersonLifecycleHandler.class, 
+	updateTasks = {
 		@BindDataSourceUpdateTask(version = 2, task = PersonUpdateTask.class) })
-@BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db")
+@BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db" , log=true)
 public interface AppWithConfigDataSource {
 
 }

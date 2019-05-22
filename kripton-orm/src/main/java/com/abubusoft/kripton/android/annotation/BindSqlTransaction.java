@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * &#64;BindDataSource(fileName = "app.db", version = 1, daoSet = { DaoPerson.class }, rx = true)
  * public interface AppDataSource {
  * 
- * 	&#64;BindTransaction
+ * 	&#64;BindSqlTransaction
  * 	static void execute(DaoPerson daoPerson) {
  * 		daoPerson.insert(new Person());
  * 	}
@@ -41,6 +41,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface BindTransaction {
+public @interface BindSqlTransaction {
 
 }

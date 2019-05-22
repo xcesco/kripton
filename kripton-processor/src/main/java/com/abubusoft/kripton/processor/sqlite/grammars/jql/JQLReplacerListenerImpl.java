@@ -266,13 +266,19 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 * @return resolved name ex: "person.birth_date"
 	 */
 	public static String resolveFullyQualifiedColumnName(SQLiteDatabaseSchema schema, SQLiteModelMethod method, String className, String columnName) {
-		Finder<SQLProperty> currentEntity = method.getEntity();
+		Finder<SQLProperty> currentEntity = method.getEntity();		
+		Finder<SQLProperty> daoEntity=method.getParent().getEntity();
+				
 		if (StringUtils.hasText(className)) {
 			currentEntity = schema.getEntityBySimpleName(className);
 			AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, className);
 		}
 
-		SQLProperty currentProperty = currentEntity.findPropertyByName(columnName);
+		SQLProperty currentProperty = currentEntity.findPropertyByName(columnName);		
+		if (currentProperty==null && !currentEntity.getSimpleName().equals(daoEntity.getSimpleName())) {
+			currentProperty = daoEntity.findPropertyByName(columnName);		
+		}
+		
 		AssertKripton.assertTrueOrUnknownPropertyInJQLException(currentProperty != null, method, columnName);
 
 		return (StringUtils.hasText(className) ? currentEntity.getTableName() + "." : "") + currentProperty.columnName;

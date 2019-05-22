@@ -128,7 +128,7 @@ public class BindAsyncTaskBuilder {
 		builder.addMethod(MethodSpec.methodBuilder("onExecute").returns(TypeUtility.typeName("R")).addParameter(TypeUtility.typeName(dataSourceName), "dataSource")
 				.addJavadoc(
 						"Method used to encapsulate operations on datasource\n\n@param dataSource\n\tuse it to retrieve DAO\n@return\n\tresult of operation (list, bean, etc) and execute transactions.\n")
-				.addModifiers(Modifier.PUBLIC).addModifiers(Modifier.ABSTRACT).addException(Throwable.class).build());
+				.addModifiers(Modifier.PUBLIC).addModifiers(Modifier.ABSTRACT).build());
 		builder.addMethod(MethodSpec.methodBuilder("onFinish").addParameter(TypeUtility.typeName("R"), "result").addModifiers(Modifier.PUBLIC).addModifiers(Modifier.ABSTRACT)
 				.addJavadoc("Use this method for operations on UI-thread after execution\n").build());
 
@@ -167,19 +167,7 @@ public class BindAsyncTaskBuilder {
 						.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value","$S", "unchecked").build())
 						.build()).varargs(true)
 				.addStatement("$L dataSource=$L.getInstance()", dataSourceName, dataSourceName)
-				.addStatement("R result=null")
-				.addStatement("boolean needToOpened=false")
-				.addCode("if (mode==$T.READ) { needToOpened=true; dataSource.openReadOnlyDatabase(); } else if (mode==$T.READ_WRITE) { needToOpened=true; dataSource.openWritableDatabase();}\n", BindAsyncTaskType.class,BindAsyncTaskType.class)
-				//.addStatement("$T sqlite=readOnlyTask ? dataSource.getReadableDatabase() : dataSource.getWritableDatabase()", SQLiteDatabase.class)
-				.beginControlFlow("try")
-				.addStatement("result=onExecute(dataSource)")
-				.nextControlFlow("catch(Throwable e)")
-					.addStatement("onError(e)")
-				.nextControlFlow("finally")
-					.beginControlFlow("if (needToOpened)")
-					.addStatement("dataSource.close()")
-					.endControlFlow()
-				.endControlFlow()
+				.addStatement("R result=onExecute(dataSource)")				
 				.addStatement("return result").build());
 		
 		anonymous.addMethod(MethodSpec.methodBuilder("onProgressUpdate")

@@ -756,6 +756,7 @@ public class StringDaoImpl extends Dao implements StringDao {
       jacksonSerializer.flush();
       return stream.toByteArray();
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
@@ -790,6 +791,7 @@ public class StringDaoImpl extends Dao implements StringDao {
       }
       return result;
     } catch(Exception e) {
+      e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
     }
   }
