@@ -278,11 +278,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> selectAll(PaginatedResult7 paginatedResult, boolean loadTotalElement) {
+  private List<Person> selectAll(PaginatedResult7 paginatedResult) {
     // total count - BEGIN
-	if (loadTotalElement) {
-	  paginatedResult.setTotalElements(this.selectAllTotalCount(paginatedResult));
-	}
+    paginatedResult.setTotalElements(this.selectAllTotalCount(paginatedResult));
     // total count - END
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
@@ -439,7 +437,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Person>>() {
           @Override
           public List<Person> onExecute(BindAppDaoFactory daoFactory) {
-            return paginatedResult.execute(daoFactory, true);
+            return paginatedResult.execute(daoFactory);
           }
         });
       }
@@ -642,7 +640,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public static class PaginatedResult6 extends PagedResultImpl<Person> {
+  public class PaginatedResult6 extends PagedResultImpl<Person> {
     String name;
 
     PaginatedResult6(String name) {
@@ -662,7 +660,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public static class PaginatedResult7 extends PagedResultImpl<Person> {
+  public class PaginatedResult7 extends PagedResultImpl<Person> {
     PaginatedResult7() {
       this.pageSize=30;
     }
@@ -674,8 +672,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // Executor builder - END
     }
 
-    public List<Person> execute(BindAppDaoFactory daoFactory, boolean loadTotalCount) {
-      return daoFactory.getDaoPerson().selectAll(this, loadTotalCount);
+    public List<Person> execute(BindAppDaoFactory daoFactory) {
+      return daoFactory.getDaoPerson().selectAll(this);
     }
   }
 }

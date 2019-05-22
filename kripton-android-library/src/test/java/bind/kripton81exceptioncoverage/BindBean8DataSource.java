@@ -314,8 +314,6 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
     // log section END
     // if we have a list of update task, try to execute them
     if (options.updateTasks != null) {
-    	
-    	
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
       for (SQLiteUpdateTask task : tasks) {
         // log section BEGIN
