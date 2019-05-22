@@ -13,22 +13,28 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.datasourceoptions.kripton234;
+package sqlite.git23.bug;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
-import com.abubusoft.kripton.android.annotation.BindDataSourceUpdateTask;
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
 /**
- * The Interface AppWithConfigDataSource.
+ * Created by xcesco on 02/10/2017.
+ *
+ * @param <E> the element type
  */
-@BindDataSourceOptions(logEnabled = true, 
-	populator = PersonPopulator.class, 
-	cursorFactory = PersonCursorFactory.class, 
-	databaseLifecycleHandler = PersonLifecycleHandler.class, 
-	updateTasks = {
-		@BindDataSourceUpdateTask(version = 2, task = PersonUpdateTask.class) })
-@BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db" , log=true)
-public interface AppWithConfigDataSource {
 
+public interface BaseDao<E> {
+	
+	/**
+	 * Select by id.
+	 *
+	 * @param id the id
+	 * @return the e
+	 */
+	@BindContentProviderEntry(path = "${id}")
+	@BindSqlSelect(where = "id=${id}")
+	E selectById(long id);
+	
 }

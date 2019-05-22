@@ -23,7 +23,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
-import com.abubusoft.kripton.android.annotation.BindTransaction;
+import com.abubusoft.kripton.android.annotation.BindSqlTransaction;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.ForeignKeyNotFoundException;
@@ -503,7 +503,7 @@ public abstract class AssertKripton {
 		if (!expression) {
 			String msg = String.format(
 					"In data source definition '%s', method %s must be static to decorated with @%s annotation.",
-					sqLiteDatabaseSchema.getElement().getQualifiedName(), methodElement.getSimpleName(),  BindTransaction.class.getSimpleName());
+					sqLiteDatabaseSchema.getElement().getQualifiedName(), methodElement.getSimpleName(),  BindSqlTransaction.class.getSimpleName());
 			throw (new PropertyVisibilityException(msg));
 		}
 

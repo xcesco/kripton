@@ -483,7 +483,7 @@ public abstract class SqlModifyBuilder {
 			} else {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 				methodBuilder.addStatement(
-						"int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray()), $L)",
+						"int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray(), $L)",
 						entity.getTableName(),
 						method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}

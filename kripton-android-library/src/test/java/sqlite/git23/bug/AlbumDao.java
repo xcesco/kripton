@@ -13,22 +13,22 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.datasourceoptions.kripton234;
+package sqlite.git23.bug;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
-import com.abubusoft.kripton.android.annotation.BindDataSourceUpdateTask;
+import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
+import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
 /**
- * The Interface AppWithConfigDataSource.
+ * The Interface AlbumDao.
  */
-@BindDataSourceOptions(logEnabled = true, 
-	populator = PersonPopulator.class, 
-	cursorFactory = PersonCursorFactory.class, 
-	databaseLifecycleHandler = PersonLifecycleHandler.class, 
-	updateTasks = {
-		@BindDataSourceUpdateTask(version = 2, task = PersonUpdateTask.class) })
-@BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db" , log=true)
-public interface AppWithConfigDataSource {
+@BindContentProviderPath(path = "albums")
+@BindDao(Album.class)
+public interface AlbumDao extends BaseDao<Album> {
 
+	@BindContentProviderEntry(path = "${pref.id}")
+	@BindSqlUpdate(conflictAlgorithm = ConflictAlgorithmType.IGNORE, where = "id=${pref.id}")
+	int update(Album pref);
 }

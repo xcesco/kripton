@@ -13,22 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.datasourceoptions.kripton234;
+package sqlite.git23.bug;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
-import com.abubusoft.kripton.android.annotation.BindDataSourceUpdateTask;
+import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
 /**
- * The Interface AppWithConfigDataSource.
+ * The Class Album.
  */
-@BindDataSourceOptions(logEnabled = true, 
-	populator = PersonPopulator.class, 
-	cursorFactory = PersonCursorFactory.class, 
-	databaseLifecycleHandler = PersonLifecycleHandler.class, 
-	updateTasks = {
-		@BindDataSourceUpdateTask(version = 2, task = PersonUpdateTask.class) })
-@BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db" , log=true)
-public interface AppWithConfigDataSource {
+@BindType
+public class Album extends Entity{
 
+	
+	public String name;
+	
+			
 }

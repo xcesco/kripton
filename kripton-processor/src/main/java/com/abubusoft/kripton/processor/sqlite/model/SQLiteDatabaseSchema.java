@@ -33,7 +33,7 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
-import com.abubusoft.kripton.android.annotation.BindTransaction;
+import com.abubusoft.kripton.android.annotation.BindSqlTransaction;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
@@ -301,7 +301,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 								Map<String, String> attributes) {
 
 							if // @formatter:off
-								(annotationClassName.equals(BindTransaction.class.getCanonicalName()))
+								(annotationClassName.equals(BindSqlTransaction.class.getCanonicalName()))
 								// @formatter:on
 							{
 								ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);

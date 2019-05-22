@@ -16,7 +16,7 @@
 package sqlite.feature.transaction;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindTransaction;
+import com.abubusoft.kripton.android.annotation.BindSqlTransaction;
 
 /**
  * The Interface App0DataSource.
@@ -31,7 +31,7 @@ public interface AppDataSource {
 	 * @param name
 	 * 		is 
 	 */
-	@BindTransaction
+	@BindSqlTransaction
 	static void execute(DaoPerson daoPerson, String name) {
 		daoPerson.insert(new Person(-1, name, "Surname"));		
 	}

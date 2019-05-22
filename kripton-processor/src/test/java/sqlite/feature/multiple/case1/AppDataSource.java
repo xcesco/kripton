@@ -16,7 +16,7 @@
 package sqlite.feature.multiple.case1;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindTransaction;
+import com.abubusoft.kripton.android.annotation.BindSqlTransaction;
 
 /**
  * The Interface App0DataSource.
@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.annotation.BindTransaction;
 @BindDataSource(fileName="app.db", version=1, daoSet={DaoPerson.class})
 public interface AppDataSource {
 	
-	@BindTransaction
+	@BindSqlTransaction
 	static void execute(DaoPerson daoPerson, String name) {
 		//daoPerson.insert(new Person(-1, name, "Surname"));
 		
