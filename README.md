@@ -26,6 +26,8 @@ Does it sound interesting? I hope YES! :)
 
 To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection and with just few lines of code.
 
+Kripton is fully working with Kotlin too.
+
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
 See [benchmarks](https://github.com/xcesco/kripton/wiki/Performance) for more informations about SQLite and JSON persistence perfomance.
