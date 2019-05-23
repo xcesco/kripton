@@ -33,9 +33,11 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
+import android.view.View;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import base.BaseAndroidTest;
+import sqlite.feature.pagedadapter.KriptonRecyclerViewAdapter.ViewBuffer;
 
 /**
  * The Class TestRuntimeMany2Many.
@@ -43,141 +45,26 @@ import base.BaseAndroidTest;
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class TestRuntimePagedAdapter extends BaseAndroidTest {
-	final ListUpdateCallback ca = new ListUpdateCallback() {
-
-		@Override
-		public void onInserted(int position, int count) {
-			log("@@@@@ onInserted " + position + " count " + count);
-		}
-
-		@Override
-		public void onRemoved(int position, int count) {
-			log("@@@@@ onRemoved " + position + " count " + count);
-		}
-
-		@Override
-		public void onMoved(int fromPosition, int toPosition) {
-			log("@@@@@ onMoved " + fromPosition + " to " + toPosition);
-		}
-
-		@Override
-		public void onChanged(int position, int count, Object payload) {
-			log("@@@@@ onChanged  " + position + " count " + count);
-		}
-
-	};
-
-	public class PageAdapterEmulator<T> {
-		public PageAdapterEmulator(PagedLiveData<List<T>> pagedResult, int viewPageSize, CustomDiffCallback<T> diff) {
-			viewBuffer = new ViewBuffer<T>(pagedResult, viewPageSize, diff);
-		}
-
-		public int getSize() {
-			return viewBuffer.getSize();
-		}
-
-		public T getPosition(int position) {
-			return viewBuffer.get(position);
-		}
-
-		ViewBuffer<T> viewBuffer;
-
-		public LiveData<List<T>> getResult() {
-			return viewBuffer.getResult();
-		}
-
-	}
-
-	public class ViewBuffer<E> {
-		private PagedLiveData<List<E>> pagedResult;
-		private LiveData<List<E>> result;
-
-		public LiveData<List<E>> getResult() {
-			return result;
-		}
-
-		private List<E> buffer;
-		private int startPosition;
-		private int size;
-		private int databaseSize;
-		private ReentrantLock lock = new ReentrantLock();
-		private boolean loading = false;
-
-		public ViewBuffer(PagedLiveData<List<E>> pagedResult, int viewPageSize, CustomDiffCallback<E> diff) {
-			this.pagedResult = pagedResult;
-			this.databaseSize = viewPageSize * 3;
-
-			this.result = Transformations.map(pagedResult, result -> {
-				lock.lock();
-				loading = false;
-				if (startPosition == pagedResult.getOffset()) {
-					System.out.println("==$$$ Value changes at " + pagedResult.getOffset());
-				} else {
-					System.out.println("==$$$ Load at " + pagedResult.getOffset());
-				}
-
-				diff.setOldList(this.buffer);
-				diff.setIncomingList(result);
-				DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diff);
-				diffResult.dispatchUpdatesTo(ca);
-
-				startPosition = pagedResult.getOffset();
-				size = pagedResult.getPageSize();
-				buffer = result;
-
-				lock.unlock();
-				return result;
-			});
-
-			this.pagedResult.createPageRequestBuilder().pageSize(databaseSize).apply();
-		}
-
-		public int getSize() {
-			return pagedResult.getTotalElements();
-		}
-
-		public E get(int index) {
-			System.out.println(String.format("Real Index: %s, Index: %s, StartPosition: %s, Size: %s",
-					index - startPosition, index, startPosition, size));
-
-			return loadAround(index);
-		}
-
-		public E loadAround(int position) {
-			if (position >= startPosition + (size * 2 / 3)) {
-				if (!loading) {
-					lock.lock();
-					loading = true;
-					System.out.println("==> Load " + (position - size / 3));
-					pagedResult.createPageRequestBuilder().offset(position - size / 3).apply();
-					lock.unlock();
-				}
-				return buffer.get(position - startPosition);
-			} else if ((position - startPosition) <= 0) {
-				int loadPos = (startPosition - (size / 3));
-				if (loadPos < 0) {
-					System.out.println("==> No-Load " + loadPos);
-				} else {
-					if (!loading) {
-						System.out.println("==> Load " + loadPos);
-						lock.lock();
-						loading = true;
-						pagedResult.createPageRequestBuilder().offset(loadPos).apply();
-						lock.unlock();
-					}
-
-				}
-				return buffer.get(position - startPosition);
-			} else if (position - startPosition >= 0 && position - startPosition < buffer.size()) {
-				return buffer.get(position - startPosition);
-			} else {
-				return null;
-			}
-		}
-	}
 
 	@Rule
 	public TestRule rule = new KriptonInstantTaskExecutorRule();
+
+	public class DevRecyclerViewAdapter extends KriptonRecyclerViewAdapter<Person, DevViewHolder> {
+
+		public DevRecyclerViewAdapter(PagedLiveData<List<T>> pagedResult, int viewPageSize,
+				CustomDiffCallback<T> diff) {
+			super(pagedResult, viewPageSize, diff);
+		}
+
+		public class DevViewHolder extends KriptonRecyclerViewAdapter.KriptonViewHolder<Person> {
+
+			public DevViewHolder(View itemView) {
+				super(itemView);
+				// TODO Auto-generated constructor stub
+			}
+
+		}
+	}
 
 	/**
 	 * Test many 2 many.
@@ -209,7 +96,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 		});
 
 		PagedLiveData<List<Person>> pagedResult = dataSource.getDaoPerson().selectAll();
-		PageAdapterEmulator<Person> pagetAdapter = new PageAdapterEmulator<>(pagedResult, 20, new PersonDiffCallback());
+		KriptonRecyclerViewAdapter<Person> pagetAdapter = new KriptonRecyclerViewAdapter(pagedResult, viewPageSize, diff)<>(pagedResult, 20, new PersonDiffCallback());
 
 		pagetAdapter.getResult().observeForever(lista -> {
 			log("observable " + lista.size());
