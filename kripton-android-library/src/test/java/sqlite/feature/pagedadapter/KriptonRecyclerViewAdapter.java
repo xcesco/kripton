@@ -12,10 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListUpdateCallback;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-public class KriptonRecyclerViewAdapter<T, VH extends ViewHolder> extends Adapter<VH> {
+public class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder> extends Adapter<VH> {
 	
 	public static class KriptonViewHolder<E> extends ViewHolder {
 
@@ -34,6 +35,7 @@ public class KriptonRecyclerViewAdapter<T, VH extends ViewHolder> extends Adapte
 		private ReentrantLock lock = new ReentrantLock();
 		private PagedLiveData<List<E>> pagedResult;
 		private LiveData<List<E>> result;
+		
 		private int size;
 		private int startPosition;
 		public ViewBuffer(PagedLiveData<List<E>> pagedResult, int viewPageSize, CustomDiffCallback<E> diff) {

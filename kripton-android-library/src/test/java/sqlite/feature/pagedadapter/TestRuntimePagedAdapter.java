@@ -48,23 +48,8 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 
 	@Rule
 	public TestRule rule = new KriptonInstantTaskExecutorRule();
+ 
 
-	public class DevRecyclerViewAdapter extends KriptonRecyclerViewAdapter<Person, DevViewHolder> {
-
-		public DevRecyclerViewAdapter(PagedLiveData<List<T>> pagedResult, int viewPageSize,
-				CustomDiffCallback<T> diff) {
-			super(pagedResult, viewPageSize, diff);
-		}
-
-		public class DevViewHolder extends KriptonRecyclerViewAdapter.KriptonViewHolder<Person> {
-
-			public DevViewHolder(View itemView) {
-				super(itemView);
-				// TODO Auto-generated constructor stub
-			}
-
-		}
-	}
 
 	/**
 	 * Test many 2 many.
