@@ -1,20 +1,21 @@
 package sqlite.feature.pagedadapter;
 
-import android.view.View;
+import java.util.List;
+
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 
 public class DevRecyclerViewAdapter extends KriptonRecyclerViewAdapter<Person, DevViewHolder> {
 
-	public DevRecyclerViewAdapter(PagedLiveData<List<Person>> pagedResult, int viewPageSize,
-			CustomDiffCallback<Person> diff) {
+	public DevRecyclerViewAdapter(PagedLiveData<List<Person>> pagedResult,
+			int viewPageSize, CustomDiffCallback<Person> diff) {
 		super(pagedResult, viewPageSize, diff);
+		// TODO Auto-generated constructor stub
 	}
 
-	public static class DevViewHolder extends KriptonRecyclerViewAdapter.KriptonViewHolder<Person> {
+	/*public DevRecyclerViewAdapter(PagedLiveData<List<Person>> pagedResult, int viewPageSize,
+			CustomDiffCallback<Person> diff) {
+		//super(pagedResult, viewPageSize, diff);
+	}*/
 
-		public DevViewHolder(View itemView) {
-			super(itemView);
-			// TODO Auto-generated constructor stub
-		}
-
-	}
+	
 }

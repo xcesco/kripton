@@ -81,7 +81,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 		});
 
 		PagedLiveData<List<Person>> pagedResult = dataSource.getDaoPerson().selectAll();
-		KriptonRecyclerViewAdapter<Person> pagetAdapter = new KriptonRecyclerViewAdapter(pagedResult, viewPageSize, diff)<>(pagedResult, 20, new PersonDiffCallback());
+		DevRecyclerViewAdapter pagetAdapter = new DevRecyclerViewAdapter(pagedResult, 20, new PersonDiffCallback());
 
 		pagetAdapter.getResult().observeForever(lista -> {
 			log("observable " + lista.size());

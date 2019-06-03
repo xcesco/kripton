@@ -16,13 +16,6 @@
 
 package androidx.lifecycle;
 
-import android.arch.core.internal.SafeIterableMap;
-import android.support.annotation.CallSuper;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import java.util.Map;
 
 /**
  * {@link LiveData} subclass which may observe other {@code LiveData} objects and react on
