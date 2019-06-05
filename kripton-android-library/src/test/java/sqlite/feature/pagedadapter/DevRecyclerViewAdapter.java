@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 
+import androidx.lifecycle.LiveData;
+
 public class DevRecyclerViewAdapter extends KriptonRecyclerViewAdapter<Person, DevViewHolder> {
 
 	public DevRecyclerViewAdapter(PagedLiveData<List<Person>> pagedResult,
@@ -11,6 +13,7 @@ public class DevRecyclerViewAdapter extends KriptonRecyclerViewAdapter<Person, D
 		super(pagedResult, viewPageSize, diff);
 		// TODO Auto-generated constructor stub
 	}
+
 
 	/*public DevRecyclerViewAdapter(PagedLiveData<List<Person>> pagedResult, int viewPageSize,
 			CustomDiffCallback<Person> diff) {

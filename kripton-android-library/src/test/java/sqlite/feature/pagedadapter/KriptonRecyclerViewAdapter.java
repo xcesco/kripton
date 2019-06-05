@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder<T>> extends RecyclerView.Adapter<VH> {
 
+	protected PagedLiveData<List<T>> pagedResult;
+
 	public KriptonRecyclerViewAdapter(PagedLiveData<List<T>> pagedResult, int viewPageSize,
 			CustomDiffCallback<T> diff) {
+		this.pagedResult = pagedResult;
 		this.viewBuffer = new ViewBuffer<T>(pagedResult, viewPageSize, diff);
 	}
 
@@ -35,27 +38,16 @@ public abstract class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder
 			this.pagedResult = pagedResult;
 			this.databaseSize = viewPageSize * 3;
 
-			/*this.result = Transformations.map(pagedResult, result -> {
-				lock.lock();
-				loading = false;
-				if (startPosition == pagedResult.getOffset()) {
-					System.out.println("==$$$ Value changes at " + pagedResult.getOffset());
-				} else {
-					System.out.println("==$$$ Load at " + pagedResult.getOffset());
-				}
-
-				diff.setOldList(this.buffer);
-				diff.setIncomingList(result);
-				DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diff);
-				// diffResult.dispatchUpdatesTo(ca);
-
-				startPosition = pagedResult.getOffset();
-				size = pagedResult.getPageSize();
-				buffer = result;
-
-				lock.unlock();
-				return result;
-			});*/
+			/*
+			 * this.result = Transformations.map(pagedResult, result -> { lock.lock(); loading = false; if (startPosition == pagedResult.getOffset()) {
+			 * System.out.println("==$$$ Value changes at " + pagedResult.getOffset()); } else { System.out.println("==$$$ Load at " + pagedResult.getOffset()); }
+			 * 
+			 * diff.setOldList(this.buffer); diff.setIncomingList(result); DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diff); // diffResult.dispatchUpdatesTo(ca);
+			 * 
+			 * startPosition = pagedResult.getOffset(); size = pagedResult.getPageSize(); buffer = result;
+			 * 
+			 * lock.unlock(); return result; });
+			 */
 
 			this.pagedResult.createPageRequestBuilder().pageSize(databaseSize).apply();
 		}
@@ -138,8 +130,6 @@ public abstract class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder
 
 	protected ViewBuffer<T> viewBuffer;
 
-
-
 	@Override
 	public int getItemCount() {
 		return viewBuffer.getTotalSize();
@@ -155,6 +145,14 @@ public abstract class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder
 	public VH onCreateViewHolder(ViewGroup parent, int viewType) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public T getPosition(int i) {
+		return pagedResult.getValue().get(i);
+	}
+
+	public LiveData<List<T>> getResult() {
+		return pagedResult;
 	}
 
 }
