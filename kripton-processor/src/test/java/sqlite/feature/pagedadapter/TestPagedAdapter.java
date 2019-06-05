@@ -19,6 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.KriptonLiveDataManager;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 /**
@@ -29,7 +31,12 @@ public class TestPagedAdapter extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testOK() throws Throwable {
+		KriptonLiveDataManager.reset();
+		KriptonLiveDataManager.init("true");
+		
+		
 		buildDataSourceProcessorTest(Person.class, DaoPerson.class, AppDataSource.class);
+		KriptonLiveDataManager.reset();
 	}
 
 }

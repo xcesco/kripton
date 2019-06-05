@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.livedata.PagedLiveData;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 
 /**
  * The Interface DaoPerson0.

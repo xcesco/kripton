@@ -18,10 +18,11 @@ package sqlite.feature.pagedadapter;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.livedata.PagedLiveData;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 
 /**
  * The Interface DaoPerson0.
@@ -41,6 +42,12 @@ public interface DaoPerson {
 	 */
 	@BindSqlInsert
 	void insert(Person bean);
+	
+	@BindSqlSelect(where="id=:id")
+	Person selectById(long id);
+	
+	@BindSqlDelete(where="id=:id")
+	long deleteById(long id);
 
 	/**
 	 * Update.

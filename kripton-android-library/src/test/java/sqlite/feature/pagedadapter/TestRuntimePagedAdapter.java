@@ -17,7 +17,6 @@ package sqlite.feature.pagedadapter;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,16 +27,10 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
-import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Transformations;
-import android.view.View;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListUpdateCallback;
 import base.BaseAndroidTest;
-import sqlite.feature.pagedadapter.KriptonRecyclerViewAdapter.ViewBuffer;
 
 /**
  * The Class TestRuntimeMany2Many.
