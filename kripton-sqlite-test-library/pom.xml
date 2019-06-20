@@ -21,7 +21,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
-		
+
 
 		<!-- test version -->
 		<junit.version>4.12</junit.version>

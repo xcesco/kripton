@@ -20,11 +20,13 @@ Kripton is a java library, for Android platform, that provides a simple and unif
 - generate all the code to persist your POJO in Shared Preferences. It's support Live Data and Androidx JetPack.
 - Kripton can be integrated to Retrofit library to generate all code necessary to JSON-2-Java convertion without any reflection code.
 
-Does it sound interesting? I hope YES! :)
+Does it sound interesting? I hope so! :)
 
 <img src="https://github.com/xcesco/wikis/blob/master/kripton/overview5.0.png">
 
 To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection and with just few lines of code.
+
+Kripton is fully working with Kotlin too.
 
 See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 
