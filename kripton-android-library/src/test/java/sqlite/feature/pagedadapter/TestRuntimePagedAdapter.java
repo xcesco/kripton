@@ -37,7 +37,7 @@ import android.view.View;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import base.BaseAndroidTest;
-import sqlite.feature.pagedadapter.KriptonRecyclerViewAdapter.ViewBuffer;
+
 
 /**
  * The Class TestRuntimeMany2Many.
@@ -81,7 +81,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 		});
 
 		PagedLiveData<List<Person>> pagedResult = dataSource.getDaoPerson().selectAll();
-		KriptonRecyclerViewAdapter<Person> pagetAdapter = new KriptonRecyclerViewAdapter(pagedResult, viewPageSize, diff)<>(pagedResult, 20, new PersonDiffCallback());
+		/*KriptonRecyclerViewAdapter<Person> pagetAdapter = new KriptonRecyclerViewAdapter(pagedResult, viewPageSize, diff)<>(pagedResult, 20, new PersonDiffCallback());
 
 		pagetAdapter.getResult().observeForever(lista -> {
 			log("observable " + lista.size());
@@ -91,7 +91,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 		for (int i = 0; i < TOTAL_COUNT; i++) {
 			Person item = pagetAdapter.getPosition(i);
 			log("getPosition(%s)=%s", i, item.toString());
-		}
+		}*/
 
 		// --- go back
 	/*	log("-------------------------");

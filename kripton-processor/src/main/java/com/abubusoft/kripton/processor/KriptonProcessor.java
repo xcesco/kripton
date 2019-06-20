@@ -41,7 +41,7 @@ public class KriptonProcessor extends BaseProcessor {
 	public Set<String> getSupportedOptions() {
 		Set<String> options = new LinkedHashSet<String>();
 
-		options.add(KriptonOptions.DEBUG);
+		options.add(KriptonOptions.DEBUG_OPTION_NAME);
 		options.addAll(typeProcessor.getSupportedOptions());
 		options.addAll(sharedPreferencesProcessor.getSupportedOptions());
 		options.addAll(dataSourceProcessor.getSupportedOptions());

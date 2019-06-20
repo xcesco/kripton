@@ -28,7 +28,7 @@ public class KriptonLiveDataManager {
 	private Set<String> liveDataClazzSet = new HashSet<>();
 
 	public static void init(String paramValue) {
-		Boolean value = "true".equals(paramValue) ? true : false;
+		boolean value = "true".equals(paramValue) ? true : false;
 
 		if (instance == null) {
 			instance = new KriptonLiveDataManager(value);
@@ -70,6 +70,10 @@ public class KriptonLiveDataManager {
 
 	private boolean androidxSupport;
 
+	public boolean isAndroidxSupport() {
+		return androidxSupport;
+	}
+
 	private ClassName liveDataClazz;
 
 	private ClassName liveDataHandlerClazz;
@@ -79,7 +83,7 @@ public class KriptonLiveDataManager {
 
 	private ClassName pagedLiveDataHandlerClazz;
 
-	private KriptonLiveDataManager(Boolean value) {
+	private KriptonLiveDataManager(boolean value) {
 		androidxSupport = value;
 	}
 

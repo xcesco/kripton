@@ -131,9 +131,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	public Set<String> getSupportedOptions() {
 		HashSet<String> result = new HashSet<>();
 
-		result.add(KriptonOptions.SCHEMA_LOCATION_OPTIONS);
-		result.add(KriptonOptions.ANDROID_X_OPTIONS);			
-		result.add(KriptonOptions.LOG_ENABLED_OPTIONS);
+		result.add(KriptonOptions.SCHEMA_LOCATION_OPTION_NAME);
+		result.add(KriptonOptions.ANDROID_X_OPTION_NAME);			
+		result.add(KriptonOptions.LOG_ENABLED_OPTION_NAME);
 
 		return result;
 	}

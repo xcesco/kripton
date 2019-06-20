@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-public class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder> extends Adapter<VH> {
+public class KriptonRecyclerViewAdapter { } /*<T, VH extends KriptonViewHolder> extends Adapter<VH> {
 	
 	public static class KriptonViewHolder<E> extends ViewHolder {
 
@@ -166,4 +166,4 @@ public class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder> extends
 		return null;
 	}
 
-}
+}**/
