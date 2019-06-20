@@ -4,13 +4,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl;
-import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
+import com.abubusoft.kripton.androidx.livedata.KriptonXPagedLiveDataHandlerImpl;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
@@ -32,7 +32,14 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class DaoPersonImpl extends Dao implements DaoPerson {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement updatePreparedStatement1;
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, surname FROM person WHERE id=?";
+
+  private static SQLiteStatement deleteByIdPreparedStatement1;
+
+  private static SQLiteStatement updatePreparedStatement2;
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
@@ -214,7 +221,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     // common part generation - END
     final PaginatedResult0 paginatedResult=new PaginatedResult0();
-    final KriptonPagedLiveDataHandlerImpl<List<Person>> builder=new KriptonPagedLiveDataHandlerImpl<List<Person>>(paginatedResult) {
+    final KriptonXPagedLiveDataHandlerImpl<List<Person>> builder=new KriptonXPagedLiveDataHandlerImpl<List<Person>>(paginatedResult) {
       @Override
       protected List<Person> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Person>>() {
@@ -306,6 +313,131 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   }
 
   /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, surname FROM person WHERE id=:id</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is binded to <code>:id</code>
+   * @return selected bean or <code>null</code>.
+   */
+  @Override
+  public Person selectById(long id) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    // query SQL is statically defined
+    String _sql=SELECT_BY_ID_SQL1;
+    // add where arguments
+    _contentValues.addWhereArgs(String.valueOf(id));
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
+
+      Person resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
+
+        resultBean=new Person();
+
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
+
+      }
+      return resultBean;
+    }
+    // Specialized part - SelectBeanHelper - END
+  }
+
+  /**
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM person WHERE id=:id</pre>
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is used as where parameter <strong>:id</strong>
+   *
+   * @return number of deleted records
+   */
+  @Override
+  public long deleteById(long id) {
+    if (deleteByIdPreparedStatement1==null) {
+      // generate static SQL for statement
+      String _sql="DELETE FROM person WHERE id=?";
+      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
+    _contentValues.addWhereArgs(String.valueOf(id));
+
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+
+      // display log
+      Logger.info("DELETE FROM person WHERE id=?");
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section END
+    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
+    if (result>0) {
+      // rx management 
+      subject.onNext(SQLiteEvent.createDelete(result));
+    }
+    // support for livedata
+    registryEvent(result);
+    return result;
+  }
+
+  /**
    * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, surname=:surname WHERE id=${bean.id}</pre>
    *
@@ -325,12 +457,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public void update(Person bean) {
-    if (updatePreparedStatement1==null) {
+    if (updatePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
     _contentValues.put("name", bean.name);
     _contentValues.put("surname", bean.surname);
 
@@ -364,7 +496,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement2, _contentValues);
     if (result>0) {
       // rx management 
       subject.onNext(SQLiteEvent.createUpdate(result));
@@ -382,6 +514,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     } else {
       invalidateLiveData();
     }
+  }
+
+  /**
+   * <p>Allows to registry change on this DAO in a transaction, in an batch operation or in a standalone operation.</p>
+   *
+   */
+  public void registryChange() {
+    registryEvent(1);
   }
 
   protected void registryLiveData(LiveDataHandler value) {
@@ -409,9 +549,13 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
     }
-    if (updatePreparedStatement1!=null) {
-      updatePreparedStatement1.close();
-      updatePreparedStatement1=null;
+    if (deleteByIdPreparedStatement1!=null) {
+      deleteByIdPreparedStatement1.close();
+      deleteByIdPreparedStatement1=null;
+    }
+    if (updatePreparedStatement2!=null) {
+      updatePreparedStatement2.close();
+      updatePreparedStatement2=null;
     }
   }
 

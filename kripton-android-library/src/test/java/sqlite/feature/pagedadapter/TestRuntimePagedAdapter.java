@@ -17,7 +17,6 @@ package sqlite.feature.pagedadapter;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,16 +27,14 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
-import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Transformations;
-import android.view.View;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListUpdateCallback;
 import base.BaseAndroidTest;
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'v6.x' of https://github.com/xcesco/kripton
 
 /**
  * The Class TestRuntimeMany2Many.
@@ -81,7 +78,11 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 		});
 
 		PagedLiveData<List<Person>> pagedResult = dataSource.getDaoPerson().selectAll();
+<<<<<<< HEAD
 		/*KriptonRecyclerViewAdapter<Person> pagetAdapter = new KriptonRecyclerViewAdapter(pagedResult, viewPageSize, diff)<>(pagedResult, 20, new PersonDiffCallback());
+=======
+		DevRecyclerViewAdapter pagetAdapter = new DevRecyclerViewAdapter(pagedResult, 20, new PersonDiffCallback());
+>>>>>>> branch 'v6.x' of https://github.com/xcesco/kripton
 
 		pagetAdapter.getResult().observeForever(lista -> {
 			log("observable " + lista.size());
