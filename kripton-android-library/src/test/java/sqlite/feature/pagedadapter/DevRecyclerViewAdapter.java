@@ -3,12 +3,9 @@ package sqlite.feature.pagedadapter;
 import java.util.List;
 
 import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
-
-<<<<<<< HEAD
 import android.view.View;
-=======
 import androidx.lifecycle.LiveData;
->>>>>>> branch 'v6.x' of https://github.com/xcesco/kripton
+
 
 public class DevRecyclerViewAdapter { /*extends KriptonRecyclerViewAdapter<Person, DevViewHolder> {
 
@@ -24,9 +21,4 @@ public class DevRecyclerViewAdapter { /*extends KriptonRecyclerViewAdapter<Perso
 		//super(pagedResult, viewPageSize, diff);
 	}*/
 
-<<<<<<< HEAD
-	}*/
-=======
-	
->>>>>>> branch 'v6.x' of https://github.com/xcesco/kripton
 }

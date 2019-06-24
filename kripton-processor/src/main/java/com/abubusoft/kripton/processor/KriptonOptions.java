@@ -99,21 +99,21 @@ public abstract class KriptonOptions {
 		{
 			String value=processingEnv.getOptions().get(name);	
 			if (StringUtils.hasText(value)) {
-				return " from annotation processor configuration";
+				return " from annotation processor configuration ("+value+")";
 			}
 		}
 		
 		{
 			String value=System.getProperty(name);	
 			if (StringUtils.hasText(value)) {
-				return " from system property";
+				return " from system property ("+value+")";
 			}
 		}
 		
 		{
 			String value=System.getenv(name);	
 			if (StringUtils.hasText(value)) {
-				return " from system environment";
+				return " from system environment ("+value+")";
 			}
 		}
 		

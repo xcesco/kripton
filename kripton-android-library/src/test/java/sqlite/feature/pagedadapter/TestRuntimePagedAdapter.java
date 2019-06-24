@@ -31,10 +31,6 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 
 import base.BaseAndroidTest;
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'v6.x' of https://github.com/xcesco/kripton
 
 /**
  * The Class TestRuntimeMany2Many.
@@ -56,7 +52,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 	 */
 	@Test
 	public void testPagedAdapter() throws InterruptedException {
-		BindAppDataSource dataSource = BindAppDataSource.getInstance();
+		/*BindAppDataSource dataSource = BindAppDataSource.getInstance();
 
 		final int RECYCLER_VIEW_PAGE_SIZE = 20;
 		final int DB_PAGE = RECYCLER_VIEW_PAGE_SIZE * 3;
@@ -78,11 +74,6 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 		});
 
 		PagedLiveData<List<Person>> pagedResult = dataSource.getDaoPerson().selectAll();
-<<<<<<< HEAD
-		/*KriptonRecyclerViewAdapter<Person> pagetAdapter = new KriptonRecyclerViewAdapter(pagedResult, viewPageSize, diff)<>(pagedResult, 20, new PersonDiffCallback());
-=======
-		DevRecyclerViewAdapter pagetAdapter = new DevRecyclerViewAdapter(pagedResult, 20, new PersonDiffCallback());
->>>>>>> branch 'v6.x' of https://github.com/xcesco/kripton
 
 		pagetAdapter.getResult().observeForever(lista -> {
 			log("observable " + lista.size());
@@ -104,7 +95,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 		/*
 		 * MediatorLiveData<Boolean> a; a.
 		 */
-
+/*
 		dataSource.execute(daoFactory -> {
 			DaoPersonImpl daoPerson = daoFactory.getDaoPerson();
 

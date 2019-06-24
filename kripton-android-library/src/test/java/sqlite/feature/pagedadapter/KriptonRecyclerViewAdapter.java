@@ -11,14 +11,9 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
-<<<<<<< HEAD
-public class KriptonRecyclerViewAdapter { } /*<T, VH extends KriptonViewHolder> extends Adapter<VH> {
-	
-	public static class KriptonViewHolder<E> extends ViewHolder {
-=======
-public abstract class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder<T>> extends RecyclerView.Adapter<VH> {
->>>>>>> branch 'v6.x' of https://github.com/xcesco/kripton
 
+public class KriptonRecyclerViewAdapter { } /*<T, VH extends KriptonViewHolder> extends Adapter<VH> {
+		
 	protected PagedLiveData<List<T>> pagedResult;
 
 	public KriptonRecyclerViewAdapter(PagedLiveData<List<T>> pagedResult, int viewPageSize,
@@ -43,18 +38,7 @@ public abstract class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder
 		public ViewBuffer(PagedLiveData<List<E>> pagedResult, int viewPageSize, CustomDiffCallback<E> diff) {
 			this.pagedResult = pagedResult;
 			this.databaseSize = viewPageSize * 3;
-
-			/*
-			 * this.result = Transformations.map(pagedResult, result -> { lock.lock(); loading = false; if (startPosition == pagedResult.getOffset()) {
-			 * System.out.println("==$$$ Value changes at " + pagedResult.getOffset()); } else { System.out.println("==$$$ Load at " + pagedResult.getOffset()); }
-			 * 
-			 * diff.setOldList(this.buffer); diff.setIncomingList(result); DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diff); // diffResult.dispatchUpdatesTo(ca);
-			 * 
-			 * startPosition = pagedResult.getOffset(); size = pagedResult.getPageSize(); buffer = result;
-			 * 
-			 * lock.unlock(); return result; });
-			 */
-
+			
 			this.pagedResult.createPageRequestBuilder().pageSize(databaseSize).apply();
 		}
 
@@ -153,16 +137,5 @@ public abstract class KriptonRecyclerViewAdapter<T, VH extends KriptonViewHolder
 		return null;
 	}
 
-<<<<<<< HEAD
-}**/
-=======
-	public T getPosition(int i) {
-		return pagedResult.getValue().get(i);
-	}
+	}*/
 
-	public LiveData<List<T>> getResult() {
-		return pagedResult;
-	}
-
-}
->>>>>>> branch 'v6.x' of https://github.com/xcesco/kripton
