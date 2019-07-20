@@ -3,19 +3,26 @@
  */
 package com.abubusoft.kripton.android.livedata;
 
+import com.abubusoft.kripton.android.PageRequestExecutor;
 import com.abubusoft.kripton.android.PagedResult;
+import com.abubusoft.kripton.android.Paginator;
 
 /**
  * <p>
- * The paged version of KriptonLiveData. A paged live data allows to move in the dataset with three parameters:
+ * The paged version of KriptonLiveData. A paged live data allows to move in the
+ * dataset with three parameters:
  * </p>
  * <ul>
  * <li><strong>pageNumber</strong>: current page.</li>
- * <li><strong>pageSize</strong>: is the number of elements retrieved from datasource. It is also used to define iteraction with</li>
- * <li><strong>offset</strong>: it is an alternative to page as navigation system. It rapresents the distance from the first row. If you mix <code>offset</code> and
+ * <li><strong>pageSize</strong>: is the number of elements retrieved from
+ * datasource. It is also used to define iteraction with</li>
+ * <li><strong>offset</strong>: it is an alternative to page as navigation
+ * system. It rapresents the distance from the first row. If you mix
+ * <code>offset</code> and
  * <li><strong>totalElements</strong>: total number of elements</li>
- * <code>nextPage</code>, the behaviour will be strange (but not wrong). Just remember that <code>nextPage</code> and <code>previousPage</code> work with pages and not with
- * <code>offset</code>.</li>
+ * <code>nextPage</code>, the behaviour will be strange (but not wrong). Just
+ * remember that <code>nextPage</code> and <code>previousPage</code> work with
+ * pages and not with <code>offset</code>.</li>
  * </ul>
  *
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -25,7 +32,9 @@ import com.abubusoft.kripton.android.PagedResult;
 public abstract class PagedLiveData<T> extends KriptonLiveData<T> implements PagedResult {
 
 	/**
-	 * Allows to create a builder for a page request. This builder is usefully when you need to modify different parameter of page request and you want to make only a page request.
+	 * Allows to create a builder for a page request. This builder is usefully
+	 * when you need to modify different parameter of page request and you want
+	 * to make only a page request.
 	 * 
 	 * @return
 	 */
@@ -34,7 +43,8 @@ public abstract class PagedLiveData<T> extends KriptonLiveData<T> implements Pag
 	}
 
 	/**
-	 * This builder allows you to manipulate page request object, changing some its attributes and invoke an unique update to live date.
+	 * This builder allows you to manipulate page request object, changing some
+	 * its attributes and invoke an unique update to live date.
 	 * 
 	 * @author xcesco
 	 *
@@ -92,7 +102,9 @@ public abstract class PagedLiveData<T> extends KriptonLiveData<T> implements Pag
 		}
 
 		/**
-		 * Applies all the change you defined with this builder. Backend livedata will be updated. If nothing changes, no livedata update will be performed.
+		 * Applies all the change you defined with this builder. Backend
+		 * livedata will be updated. If nothing changes, no livedata update will
+		 * be performed.
 		 */
 		public void apply() {
 			boolean changes = false;
@@ -121,9 +133,16 @@ public abstract class PagedLiveData<T> extends KriptonLiveData<T> implements Pag
 
 	private KriptonPagedLiveDataHandlerImpl<T> handler;
 
-	public PagedLiveData(PagedResult pageRequest, KriptonPagedLiveDataHandlerImpl<T> handler) {
+	private PageRequestExecutor<T> pageRequestExecutor;
+
+	public PagedLiveData(Paginator<T> pageRequest, KriptonPagedLiveDataHandlerImpl<T> handler) {
 		this.pagedResult = pageRequest;
+		this.pageRequestExecutor = pageRequest;
 		this.handler = handler;
+	}
+
+	public PageRequestExecutor<T> getExecutor() {
+		return this.pageRequestExecutor;
 	}
 
 	@Override
@@ -145,9 +164,9 @@ public abstract class PagedLiveData<T> extends KriptonLiveData<T> implements Pag
 	}
 
 	@Override
-	public void nextPage() {		
+	public void nextPage() {
 		pagedResult.setPage(pagedResult.getPageNumber() + 1);
-		handler.invalidate();		
+		handler.invalidate();
 	}
 
 	@Override
@@ -194,7 +213,7 @@ public abstract class PagedLiveData<T> extends KriptonLiveData<T> implements Pag
 
 	@Override
 	public void lastPage() {
-		setPage(getTotalElements()/getPageSize());		
+		setPage(getTotalElements() / getPageSize());
 	}
 
 	@Override

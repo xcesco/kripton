@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.PageRequest;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -169,7 +170,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * @return paginated result.
    */
   protected PagedResultImpl<User> selectPagedForLiveData() {
-    final PaginatedResult11 paginatedResult=new PaginatedResult11();
+    final PaginatedResult12 paginatedResult=new PaginatedResult12();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -193,7 +194,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * 	handler of paginated result
    * @return result list
    */
-  private List<User> selectPaged(PaginatedResult11 paginatedResult) {
+  private List<User> selectPaged(PaginatedResult12 paginatedResult) {
     // total count - BEGIN
     paginatedResult.setTotalElements(this.selectPagedTotalCount(paginatedResult));
     // total count - END
@@ -273,7 +274,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  private int selectPagedTotalCount(PaginatedResult11 paginatedResult) {
+  private int selectPagedTotalCount(PaginatedResult12 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -325,6 +326,101 @@ public class UserDaoImpl extends Dao implements UserDao {
         // log section for select END
       }
       return _result;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>userid</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>username</dt><dd>is associated to bean's property <strong>userName</strong></dd>
+   * </dl>
+   *
+   * @param pageRequest
+   * 	page request
+   * @return result list
+   */
+  private List<User> selectPagedWithPageRequest(PageRequest pageRequest) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT userid, username FROM users");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sqlWhereStatement="";
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT "+pageRequest.getPageSize();
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+pageRequest.getOffset();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+
+      List<User> resultList=new ArrayList<User>(_cursor.getCount());
+      User resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      String __id=null;
+      String __userName=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("userid");
+        int index1=_cursor.getColumnIndex("username");
+
+        do
+         {
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=null;
+          __userName=null;
+          __id=_cursor.getString(index0);
+          if (!_cursor.isNull(index1)) { __userName=_cursor.getString(index1); }
+
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new User(__id,__userName);
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
     // Specialized part II - SelectPaginatedResultHelper - END
   }
@@ -709,8 +805,8 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
   }
 
-  public class PaginatedResult11 extends PagedResultImpl<User> {
-    PaginatedResult11() {
+  public class PaginatedResult12 extends PagedResultImpl<User> {
+    PaginatedResult12() {
       this.pageSize=20;
     }
 
@@ -723,6 +819,12 @@ public class UserDaoImpl extends Dao implements UserDao {
 
     public List<User> execute(BindUserDaoFactory daoFactory) {
       return daoFactory.getUserDao().selectPaged(this);
+    }
+
+    public List<User> execute(PageRequest pageRequest) {
+      // Executor with pageRequet - BEGIN
+      return BindUserDataSource.getInstance().executeBatch(daoFactory -> daoFactory.getUserDao().selectPagedWithPageRequest(pageRequest));
+      // Executor with pageRequet - END
     }
   }
 }

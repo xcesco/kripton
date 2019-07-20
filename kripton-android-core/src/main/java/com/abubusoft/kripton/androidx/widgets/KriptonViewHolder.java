@@ -1,4 +1,4 @@
-package sqlite.feature.pagedadapter;
+package com.abubusoft.kripton.androidx.widgets;
 
 import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;

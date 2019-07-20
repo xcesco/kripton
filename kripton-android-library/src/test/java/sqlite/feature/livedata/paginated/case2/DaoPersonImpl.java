@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.PageRequest;
 import com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
@@ -185,6 +186,97 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
         // log section for select END
       }
       return _result;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>select person_groups.name as group_name, person.name as person_name from person INNER JOIN person_groups ON person.group_id = person_groups.id ORDER BY person_groups.name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link GroupedPerson}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>group_name</dt><dd>is associated to bean's property <strong>groupName</strong></dd>
+   * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
+   * </dl>
+   *
+   * @param pageRequest
+   * 	page request
+   * @return result list
+   */
+  private List<GroupedPerson> selectAllWithPageRequest(PageRequest pageRequest) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("select person_groups.name as group_name, person.name as person_name from person INNER JOIN person_groups ON person.group_id = person_groups.id");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    String _sqlWhereStatement="";
+    // generation order - BEGIN
+    String _sqlOrderByStatement=" ORDER BY person_groups.name";
+    _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT "+pageRequest.getPageSize();
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+pageRequest.getOffset();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+
+      List<GroupedPerson> resultList=new ArrayList<GroupedPerson>(_cursor.getCount());
+      GroupedPerson resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("group_name");
+        int index1=_cursor.getColumnIndex("person_name");
+
+        do
+         {
+          resultBean=new GroupedPerson();
+
+          if (!_cursor.isNull(index0)) { resultBean.groupName=_cursor.getString(index0); }
+          if (!_cursor.isNull(index1)) { resultBean.personName=_cursor.getString(index1); }
+
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return resultList;
     }
     // Specialized part II - SelectPaginatedResultHelper - END
   }
@@ -428,6 +520,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
     public List<GroupedPerson> execute(BindAppDaoFactory daoFactory) {
       return daoFactory.getDaoPerson().selectAll(this);
+    }
+
+    public List<GroupedPerson> execute(PageRequest pageRequest) {
+      // Executor with pageRequet - BEGIN
+      return BindAppDataSource.getInstance().executeBatch(daoFactory -> daoFactory.getDaoPerson().selectAllWithPageRequest(pageRequest));
+      // Executor with pageRequet - END
     }
   }
 }

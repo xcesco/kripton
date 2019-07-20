@@ -27,7 +27,7 @@ import sqlite.AbstractBindSQLiteProcessorTest;
  * The Class TestLiveDataCompile.
  */
 @RunWith(JUnit4.class)
-public class TestPagedAdapter extends AbstractBindSQLiteProcessorTest {
+public class TestPagedResultCompile extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testOK() throws Throwable {

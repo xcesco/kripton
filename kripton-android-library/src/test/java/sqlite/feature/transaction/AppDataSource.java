@@ -25,14 +25,10 @@ import com.abubusoft.kripton.android.annotation.BindSqlTransaction;
 public interface AppDataSource {
 
 	
-	/**
-	 * @param daoPerson
-	 * 		is injected by kripton
-	 * @param name
-	 * 		is 
-	 */
 	@BindSqlTransaction
 	static void execute(DaoPerson daoPerson, String name) {
-		daoPerson.insert(new Person(-1, name, "Surname"));		
+		daoPerson.insert(new Person(-1, name, "Surname"));
+		
+		//return TransactionResult.COMMIT;
 	}
 }

@@ -29,6 +29,7 @@ import java.util.Set;
 import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.PageRequest;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.common.Pair;
@@ -62,6 +63,8 @@ import com.squareup.javapoet.TypeSpec;
  */
 public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 
+	public static final String WITH_PAGE_REQUEST_PREFIX = "WithPageRequest";
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -82,25 +85,30 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			// create PaginatedResult
 			createPagedResult(method, pagedResultName, methodBuilder);
 
-			generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CONTENT, null, true, false);
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CONTENT, null, true, false, "paginatedResult");
 			methodBuilder.addStatement("return paginatedResult");
 
 			if (!method.isPagedLiveData()) {
 				classBuilder.addMethod(methodBuilder.build());
 			}
 		}
-		
-		String selectTotalCountMethodName=method.getName() + "TotalCount";
+
+		String selectTotalCountMethodName = method.getName() + "TotalCount";
 
 		// generate paged result method
 		{
+			//@formatter:off
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addModifiers(Modifier.PRIVATE);
-			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(method.getEntity().getElement())),
-					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
-			
+			generateMethodSignature(method, 
+					methodBuilder, 
+					TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), 
+							TypeUtility.typeName(method.getEntity().getElement())),
+					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult")
+					.build());
+
 			generateTotalCountUsage(method, methodBuilder, "paginatedResult", selectTotalCountMethodName);
 
-			generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_METHOD_SIGN, null, false, false,
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_METHOD_SIGN, null, false, false, "paginatedResult",
 					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"), JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
 
 			methodBuilder.addComment("Specialized part II - $L - BEGIN", this.getClass().getSimpleName());
@@ -108,6 +116,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			methodBuilder.addComment("Specialized part II - $L - END", this.getClass().getSimpleName());
 
 			classBuilder.addMethod(methodBuilder.build());
+			//@formatter:on
 		}
 
 		// generate select count method
@@ -118,7 +127,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(selectTotalCountMethodName).addModifiers(Modifier.PRIVATE);
 			generateMethodSignature(method, methodBuilder, TypeName.INT, ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
 
-			generateCommonPart(method, classBuilder, methodBuilder, countfields, GenerationType.NO_METHOD_SIGN, TypeName.INT, false, true,
+			generateCommonPart(method, classBuilder, methodBuilder, countfields, GenerationType.NO_METHOD_SIGN, TypeName.INT, false, true, "paginatedResult",
 					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"), JavadocPart.build(JavadocPartType.RETURN, "", "total row count"));
 
 			methodBuilder.addComment("Specialized part II - $L - BEGIN", this.getClass().getSimpleName());
@@ -128,19 +137,44 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			classBuilder.addMethod(methodBuilder.build());
 		}
 
+		// generate paged result method with pageRequest
+		{
+			String selectWithPageRequestMethodName = method.getName() + SelectPaginatedResultHelper.WITH_PAGE_REQUEST_PREFIX;
+			//@formatter:off
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(selectWithPageRequestMethodName).addModifiers(Modifier.PRIVATE);
+			generateMethodSignature(method, 
+					methodBuilder, 
+					TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), 
+							TypeUtility.typeName(method.getEntity().getElement())),
+					ParameterSpec.builder(PageRequest.class, "pageRequest")
+					.build());
+
+	//		generateTotalCountUsage(method, methodBuilder, "paginatedResult", selectTotalCountMethodName);
+
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_METHOD_SIGN, null, false, false, "pageRequest",
+					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "pageRequest", "page request"), JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
+
+			methodBuilder.addComment("Specialized part II - $L - BEGIN", this.getClass().getSimpleName());
+			generateSpecializedPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields());
+			methodBuilder.addComment("Specialized part II - $L - END", this.getClass().getSimpleName());
+
+			classBuilder.addMethod(methodBuilder.build());
+			//@formatter:on
+		}
+
 	}
 
 	private void generateTotalCountUsage(SQLiteModelMethod method, Builder methodBuilder, String paginatedResultName, String selectTotalCountMethodName) {
 		methodBuilder.addComment("total count - BEGIN");
-		methodBuilder.addCode(paginatedResultName+".setTotalElements(this."+selectTotalCountMethodName+"(");
-		
+		methodBuilder.addCode(paginatedResultName + ".setTotalElements(this." + selectTotalCountMethodName + "(");
+
 		method.getParameters().forEach(p -> {
-			methodBuilder.addCode(p.value0+", ");
+			methodBuilder.addCode(p.value0 + ", ");
 		});
-		methodBuilder.addCode(paginatedResultName+"));\n");		
-		
+		methodBuilder.addCode(paginatedResultName + "));\n");
+
 		methodBuilder.addComment("total count - END");
-		
+
 	}
 
 	public static void createPagedResult(SQLiteModelMethod method, String pagedResultName, MethodSpec.Builder methodBuilder) {
@@ -274,13 +308,13 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			// generate log section - BEGIN
 			methodBuilder.addComment("log section for select BEGIN");
 			methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
-			
+
 			// manage log
 			methodBuilder.addComment("manage log");
 
 			// log for where parames
 			SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
-			
+
 			methodBuilder.addStatement("$T.info($S, _result)", Logger.class, "Total elements found: %s");
 
 			// generate log section - END
@@ -320,10 +354,29 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 				.returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
 		executeBuilder.addComment("Executor builder - BEGIN");
 
+		// method for execution with pageRequest
+		//@formatter:off
+		ClassName dataSourceClassName = BindDataSourceBuilder.generateDataSourceName(method.getParent().getParent());
+		MethodSpec.Builder executeWithPageRequestBuilder = MethodSpec.methodBuilder("execute")
+				.addModifiers(Modifier.PUBLIC)
+				.addParameter(PageRequest.class, "pageRequest")
+				.returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
+		
+		executeWithPageRequestBuilder.addComment("Executor with pageRequet - BEGIN");
+		executeWithPageRequestBuilder.addCode("return $T.getInstance().executeBatch(daoFactory -> daoFactory.get$L().$L"+SelectPaginatedResultHelper.WITH_PAGE_REQUEST_PREFIX+"(", 
+				dataSourceClassName, 
+				method.getParentName(), 
+				method.getName());
+		
+
 		ClassName daoFactoryClassName = BindDaoFactoryBuilder.generateDaoFactoryClassName(method.getParent().getParent());
-		MethodSpec.Builder executeWithDaoFactortBuilder = MethodSpec.methodBuilder("execute").addParameter(daoFactoryClassName, "daoFactory").addModifiers(Modifier.PUBLIC)
+
+		MethodSpec.Builder executeWithDaoFactortBuilder = MethodSpec.methodBuilder("execute")
+				.addParameter(daoFactoryClassName, "daoFactory")
+				.addModifiers(Modifier.PUBLIC)
 				.returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
 		executeWithDaoFactortBuilder.addCode("return daoFactory.get$L().$L(", method.getParentName(), method.getName());
+		//@formatter:on
 
 		if (!method.isPagedLiveData()) {
 			executeBuilder.addCode("list=$T.this.$L(", TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
@@ -351,11 +404,13 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 					executeBuilder.addCode(separator + "this.pageSize");
 				}
 				executeWithDaoFactortBuilder.addCode(separator + "this.pageSize");
+				executeWithPageRequestBuilder.addCode(separator + "this.pageSize");
 			} else {
 				if (!method.isPagedLiveData()) {
 					executeBuilder.addCode(separator + item.value0);
 				}
 				executeWithDaoFactortBuilder.addCode(separator + item.value0);
+				executeWithPageRequestBuilder.addCode(separator + item.value0);
 			}
 			separator = ", ";
 		}
@@ -387,8 +442,12 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 		typeBuilder.addMethod(setupBuilder.build());
 
 		executeWithDaoFactortBuilder.addCode(separator + "this);\n");
+		executeWithPageRequestBuilder.addCode(separator + "pageRequest));\n");
+		executeWithPageRequestBuilder.addComment("Executor with pageRequet - END");
 
+		// add methods to type builder
 		typeBuilder.addMethod(executeWithDaoFactortBuilder.build());
+		typeBuilder.addMethod(executeWithPageRequestBuilder.build());
 
 		classBuilder.addType(typeBuilder.build());
 

@@ -3,6 +3,7 @@ package sqlite.feature.paginatedresult;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.PageRequest;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -256,6 +257,121 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
   }
 
   /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE id>${value} ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * </dl>
+   *
+   * @param value
+   * 	is binded to <code>:value</code>
+   * @param pageRequest
+   * 	page request
+   * @return result list
+   */
+  private List<Person> selectWithPageRequest(long value, PageRequest pageRequest) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT id, birth_city, birth_day, name, surname FROM person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE id>?";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    // generation order - BEGIN
+    String _sqlOrderByStatement=" ORDER BY name";
+    _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT "+pageRequest.getPageSize();
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+pageRequest.getOffset();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    _contentValues.addWhereArgs(String.valueOf(value));
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+
+      List<Person> resultList=new ArrayList<Person>(_cursor.getCount());
+      Person resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
+
+        do
+         {
+          resultBean=new Person();
+
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
+
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (:name, :surname, :birthCity, :birthDay)</pre>
    *
@@ -477,6 +593,12 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
 
     public List<Person> execute(BindPerson3DaoFactory daoFactory) {
       return daoFactory.getDao3Person().select(value, this);
+    }
+
+    public List<Person> execute(PageRequest pageRequest) {
+      // Executor with pageRequet - BEGIN
+      return BindPerson3DataSource.getInstance().executeBatch(daoFactory -> daoFactory.getDao3Person().selectWithPageRequest(value, pageRequest));
+      // Executor with pageRequet - END
     }
   }
 }

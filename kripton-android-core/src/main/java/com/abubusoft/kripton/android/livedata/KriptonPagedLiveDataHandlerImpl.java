@@ -19,7 +19,7 @@ package com.abubusoft.kripton.android.livedata;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.abubusoft.kripton.android.LiveDataHandler;
-import com.abubusoft.kripton.android.PagedResult;
+import com.abubusoft.kripton.android.Paginator;
 import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
 
 import android.support.annotation.MainThread;
@@ -54,7 +54,7 @@ public abstract class KriptonPagedLiveDataHandlerImpl<T> implements LiveDataHand
 	 * a call to {@link #compute()} if there are active observers (or when they
 	 * start observing)
 	 */
-	public KriptonPagedLiveDataHandlerImpl(PagedResult pagedResult) {
+	public KriptonPagedLiveDataHandlerImpl(Paginator<T> pagedResult) {
 		mLiveData = new PagedLiveData<T>(pagedResult, this) {
 			@Override
 			protected void onActive() {

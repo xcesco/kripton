@@ -47,6 +47,7 @@ import sqlite.feature.livedata.TestLiveDataSuite;
 import sqlite.feature.livedatax.TestLiveDataXSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.multiple.TestCompileMultipleSuite;
+import sqlite.feature.pagedadapter.TestPagedResultCompile;
 import sqlite.feature.paginatedresult.TestPaginatedResultSuite;
 import sqlite.feature.performance.TestPerformanceSuite;
 import sqlite.feature.pkstring.TestPkStringSuite;
@@ -54,6 +55,7 @@ import sqlite.feature.relations.TestRelationSuite;
 import sqlite.feature.rx.TestRXSuite;
 import sqlite.feature.schema.TestSchemaSuite;
 import sqlite.feature.speed.TestCompileSpeed;
+import sqlite.feature.transaction.TestFeatureTransactionCompile;
 import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.feature.typeadapter.kripton180.Test180Suite;
 import sqlite.git12.TestGit12;
@@ -66,6 +68,7 @@ import sqlite.kripton111.TestCompile111;
 import sqlite.kripton186.Test186Suite;
 import sqlite.kripton205.Test205Suite;
 import sqlite.kripton209.Test209Suite;
+import sqlite.kripton294.Test294;
 import sqlite.kripton296.Test296;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
@@ -85,7 +88,6 @@ import sqlite.kripton64.Test64Suite;
 import sqlite.kripton84.Test84Suite;
 import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
-import sqlite.kripton294.Test294;
 import sqlite.quickstart.TestQuickstartSuite;
 import sqlite.samples.TestSamplesSuite;
 import sqlite.select.TestSelectSuite;
@@ -134,6 +136,8 @@ import sqlite.update.raw.TestRawSuite;
 			TestInSuite.class,
 			TestCompileImmutableSuite.class,
 			TestDataSourceOptionSuite.class,
+			TestFeatureTransactionCompile.class,
+			TestPagedResultCompile.class,
 			
 			TestAdapterSuite.class,
 			TestCompileMultipleSuite.class,

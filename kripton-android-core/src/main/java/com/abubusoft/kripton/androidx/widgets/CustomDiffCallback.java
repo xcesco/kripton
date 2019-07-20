@@ -1,4 +1,4 @@
-package sqlite.feature.pagedadapter;
+package com.abubusoft.kripton.androidx.widgets;
 
 import java.util.List;
 
@@ -12,20 +12,18 @@ public abstract class CustomDiffCallback<E> extends DiffUtil.Callback {
 		boolean sameValue(E value1, E value2);
 	}
 
-	List<E> oldPersons;
-	List<E> newPersons;
-	
+	protected List<E> oldPersons;
+	protected List<E> newPersons;
 
-	public CustomDiffCallback() {				
-	}
-	
-	public void setOldList(List<E> newPersons) {
-		this.newPersons=newPersons;
+	public CustomDiffCallback() {
 	}
 
-	
+	public void setOldList(List<E> persons) {
+		this.oldPersons = persons;
+	}
+
 	public void setIncomingList(List<E> newPersons) {
-		this.newPersons=newPersons;
+		this.newPersons = newPersons;
 	}
 
 	@Override
@@ -38,11 +36,10 @@ public abstract class CustomDiffCallback<E> extends DiffUtil.Callback {
 		return newPersons == null ? 0 : newPersons.size();
 	}
 
-	
 	@Override
 	public Object getChangePayload(int oldItemPosition, int newItemPosition) {
 		// you can return particular field for changed item.
 		return super.getChangePayload(oldItemPosition, newItemPosition);
 	}
-		
+
 }

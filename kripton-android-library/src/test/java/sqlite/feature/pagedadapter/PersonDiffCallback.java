@@ -1,5 +1,7 @@
 package sqlite.feature.pagedadapter;
 
+import com.abubusoft.kripton.androidx.widgets.CustomDiffCallback;
+
 public class PersonDiffCallback extends CustomDiffCallback<Person>{
 
 

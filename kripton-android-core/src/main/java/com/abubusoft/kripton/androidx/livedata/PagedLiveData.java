@@ -3,7 +3,9 @@
  */
 package com.abubusoft.kripton.androidx.livedata;
 
+import com.abubusoft.kripton.android.PageRequestExecutor;
 import com.abubusoft.kripton.android.PagedResult;
+import com.abubusoft.kripton.android.Paginator;
 
 /**
  * The paged version of KriptonLiveData.
@@ -15,7 +17,9 @@ import com.abubusoft.kripton.android.PagedResult;
 public abstract class PagedLiveData<T> extends KriptonXLiveData<T> implements PagedResult {
 
 	/**
-	 * Allows to create a builder for a page request. This builder is usefully when you need to modify different parameter of page request and you want to make only a page request.
+	 * Allows to create a builder for a page request. This builder is usefully
+	 * when you need to modify different parameter of page request and you want
+	 * to make only a page request.
 	 * 
 	 * @return
 	 */
@@ -24,7 +28,8 @@ public abstract class PagedLiveData<T> extends KriptonXLiveData<T> implements Pa
 	}
 
 	/**
-	 * This builder allows you to manipulate page request object, changing some its attributes and invoke an unique update to live date.
+	 * This builder allows you to manipulate page request object, changing some
+	 * its attributes and invoke an unique update to live date.
 	 * 
 	 * @author xcesco
 	 *
@@ -82,7 +87,9 @@ public abstract class PagedLiveData<T> extends KriptonXLiveData<T> implements Pa
 		}
 
 		/**
-		 * Applies all the change you defined with this builder. Backend livedata will be updated. If nothing changes, no livedata update will be performed.
+		 * Applies all the change you defined with this builder. Backend
+		 * livedata will be updated. If nothing changes, no livedata update will
+		 * be performed.
 		 */
 		public void apply() {
 			boolean changes = false;
@@ -111,9 +118,16 @@ public abstract class PagedLiveData<T> extends KriptonXLiveData<T> implements Pa
 
 	private KriptonXPagedLiveDataHandlerImpl<T> handler;
 
-	public PagedLiveData(PagedResult pageRequest, KriptonXPagedLiveDataHandlerImpl<T> handler) {
+	private PageRequestExecutor<T> pageRequestExecutor;
+
+	public PagedLiveData(Paginator<T> pageRequest, KriptonXPagedLiveDataHandlerImpl<T> handler) {
 		this.pagedResult = pageRequest;
+		this.pageRequestExecutor = pageRequest;
 		this.handler = handler;
+	}
+
+	public PageRequestExecutor<T> getExecutor() {
+		return this.pageRequestExecutor;
 	}
 
 	@Override
@@ -135,7 +149,7 @@ public abstract class PagedLiveData<T> extends KriptonXLiveData<T> implements Pa
 	}
 
 	@Override
-	public void nextPage() {		
+	public void nextPage() {
 		pagedResult.setPage(pagedResult.getPageNumber() + 1);
 		handler.invalidate();
 	}
@@ -184,7 +198,7 @@ public abstract class PagedLiveData<T> extends KriptonXLiveData<T> implements Pa
 
 	@Override
 	public void lastPage() {
-		setPage(getTotalElements()/getPageSize());		
+		setPage(getTotalElements() / getPageSize());
 	}
 
 	@Override

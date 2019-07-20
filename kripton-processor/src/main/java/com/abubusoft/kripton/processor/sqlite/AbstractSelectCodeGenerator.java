@@ -245,7 +245,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		methodBuilder.addJavadoc("<h2>Live data</h2>\n");
 		methodBuilder.addJavadoc("<p>This method open a connection internally.</p>\n\n");
 
-		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CONTENT, method.liveDataReturnClass, true, false);
+		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CONTENT, method.liveDataReturnClass, true, false, "paginatedResult");
 
 		boolean pagedLiveData = method.isPagedLiveData();
 
@@ -280,9 +280,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					.build();
 
 			// return
-			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder("paginatedResult")
-					.addSuperinterface(ParameterizedTypeName.get(handlerClass, method.getReturnClass())).addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class)
-							.addModifiers(Modifier.PROTECTED).returns(method.getReturnClass()).addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build());
+			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder("paginatedResult").addSuperinterface(ParameterizedTypeName.get(handlerClass, method.getReturnClass()))
+					.addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class).addModifiers(Modifier.PROTECTED).returns(method.getReturnClass())
+							.addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build());
 			TypeSpec liveDataBuilder = liveDataBuilderBuilder.build();
 
 			methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(handlerClass, method.getReturnClass()), liveDataBuilder);
@@ -322,9 +322,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 *            the map fields
 	 */
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean generateSqlField) {
-		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.ALL, null, generateSqlField, false);
+		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.ALL, null, generateSqlField, false, "paginatedResult");
 	}
-
 
 	/**
 	 * @param method
@@ -334,13 +333,15 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 * @param generationType
 	 * @param forcedReturnType
 	 * @param generateSqlField
-	 * 	    if true, it will generate
+	 *            if true, it will generate
 	 * @param countQuery
-	 * 		if true, the query is a total count query
+	 *            if true, the query is a total count query
+	 * @param pageRequestName
+	 *            name of page request parameter
 	 * @param javadocParts
 	 */
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, GenerationType generationType,
-			TypeName forcedReturnType, boolean generateSqlField, boolean countQuery, JavadocPart... javadocParts) {
+			TypeName forcedReturnType, boolean generateSqlField, boolean countQuery, String pageRequestName, JavadocPart... javadocParts) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
 		SQLiteEntity entity = method.getEntity();
 
@@ -483,34 +484,36 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			methodBuilder.addStatement("$T _contentValues=contentValues()", KriptonContentValues.class);
 
 			if (method.hasDynamicParts()) {
-				generateSQLBuild(method, methodBuilder, splittedSql, countQuery);
+				generateSQLBuild(method, methodBuilder, splittedSql, countQuery, pageRequestName);
 				methodBuilder.addStatement("String _sql=_sqlBuilder.toString()");
 			} else {
 				String sqlName = "";
-				sqlName=CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLName());
+				sqlName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLName());
 				if (countQuery) {
 					String sql = SqlSelectBuilder.convertJQL2SQL(method, true);
-										
-					sql="SELECT COUNT(*) FROM ("+sql+")";					
-					
+
+					sql = "SELECT COUNT(*) FROM (" + sql + ")";
+
 					// add static sql definition
 					classBuilder.addField(FieldSpec.builder(String.class, sqlName, Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).initializer("$S", sql)
 							.addJavadoc("SQL definition for method $L\n", method.getName()).build());
 				} else if (generateSqlField) {
-					//sqlName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLName());
+					// sqlName =
+					// CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE,
+					// method.buildSQLName());
 					String sql = SqlSelectBuilder.convertJQL2SQL(method, true);
-					
+
 					// add static sql definition
 					classBuilder.addField(FieldSpec.builder(String.class, sqlName, Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).initializer("$S", sql)
 							.addJavadoc("SQL definition for method $L\n", method.getName()).build());
 				} else {
-					sqlName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLNameWithCurrentCounter());									
+					sqlName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, method.buildSQLNameWithCurrentCounter());
 				}
 
 				methodBuilder.addComment("query SQL is statically defined");
-								
-				methodBuilder.addStatement("String _sql=$L", sqlName);					
-				
+
+				methodBuilder.addStatement("String _sql=$L", sqlName);
+
 			}
 
 			// build where condition (common for every type of select)
@@ -619,7 +622,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				methodBuilder.addComment("log section for select END");
 			}
 
-			ClassName cursorClass=ClassName.bestGuess("android.database.Cursor");
+			ClassName cursorClass = ClassName.bestGuess("android.database.Cursor");
 			if (generationType.generateCloseableCursor) {
 				methodBuilder.beginControlFlow("try ($T _cursor = database().rawQuery(_sql, _sqlArgs))", cursorClass);
 			} else {
@@ -822,7 +825,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 * @param countQuery
 	 *            is true, the query manage the count query for paged result
 	 */
-	private static void generateSQLBuild(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql, boolean countQuery) {
+	private static void generateSQLBuild(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql, boolean countQuery, String pageRequestName) {
 		methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
 		methodBuilder.addStatement("_sqlBuilder.append($S)", splittedSql.sqlBasic.trim());
 
@@ -833,7 +836,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		}
 
 		SqlBuilderHelper.generateWhereCondition(methodBuilder, method, false);
-		SqlSelectBuilder.generateDynamicPartOfQuery(method, methodBuilder, splittedSql, countQuery);
+		SqlSelectBuilder.generateDynamicPartOfQuery(method, methodBuilder, splittedSql, countQuery, pageRequestName);
 	}
 
 }

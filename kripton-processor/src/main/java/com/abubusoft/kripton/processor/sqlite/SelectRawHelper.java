@@ -43,7 +43,7 @@ public class SelectRawHelper extends AbstractSelectCodeGenerator {
 	 */
 	@Override
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
-		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CLOSE_CURSOR, null, true, false);
+		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CLOSE_CURSOR, null, true, false, "paginatedResult");
 	}
 
 	/*

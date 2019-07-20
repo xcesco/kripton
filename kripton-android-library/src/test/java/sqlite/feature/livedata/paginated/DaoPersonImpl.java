@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.PageRequest;
 import com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
@@ -213,6 +214,109 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   }
 
   /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, surname FROM person WHERE name like ${name} || '%' LIMIT #{DYNAMIC_PAGE_SIZE} OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>:name</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * </dl>
+   *
+   * @param name
+   * 	is binded to <code>:name</code>
+   * @param pageRequest
+   * 	page request
+   * @return result list
+   */
+  private List<Person> selectPagedWithPageRequest(String name, PageRequest pageRequest) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT id, name, surname FROM person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" WHERE name like ? || '%'";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT "+pageRequest.getPageSize();
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+pageRequest.getOffset();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    _contentValues.addWhereArgs((name==null?"":name));
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+
+      List<Person> resultList=new ArrayList<Person>(_cursor.getCount());
+      Person resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
+
+        do
+         {
+          resultBean=new Person();
+
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
+
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
    * <h2>Live data</h2>
    * <p>This method open a connection internally.</p>
    *
@@ -402,6 +506,94 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
         // log section for select END
       }
       return _result;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, surname FROM person LIMIT 30 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * </dl>
+   *
+   * @param pageRequest
+   * 	page request
+   * @return result list
+   */
+  private List<Person> selectAllWithPageRequest(PageRequest pageRequest) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT id, name, surname FROM person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sqlWhereStatement="";
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT "+pageRequest.getPageSize();
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+pageRequest.getOffset();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+
+      List<Person> resultList=new ArrayList<Person>(_cursor.getCount());
+      Person resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
+
+        do
+         {
+          resultBean=new Person();
+
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
+
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return resultList;
     }
     // Specialized part II - SelectPaginatedResultHelper - END
   }
@@ -658,6 +850,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     public List<Person> execute(BindAppDaoFactory daoFactory) {
       return daoFactory.getDaoPerson().selectPaged(name, this);
     }
+
+    public List<Person> execute(PageRequest pageRequest) {
+      // Executor with pageRequet - BEGIN
+      return BindAppDataSource.getInstance().executeBatch(daoFactory -> daoFactory.getDaoPerson().selectPagedWithPageRequest(name, pageRequest));
+      // Executor with pageRequet - END
+    }
   }
 
   public class PaginatedResult7 extends PagedResultImpl<Person> {
@@ -674,6 +872,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
     public List<Person> execute(BindAppDaoFactory daoFactory) {
       return daoFactory.getDaoPerson().selectAll(this);
+    }
+
+    public List<Person> execute(PageRequest pageRequest) {
+      // Executor with pageRequet - BEGIN
+      return BindAppDataSource.getInstance().executeBatch(daoFactory -> daoFactory.getDaoPerson().selectAllWithPageRequest(pageRequest));
+      // Executor with pageRequet - END
     }
   }
 }

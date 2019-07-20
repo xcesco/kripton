@@ -1,5 +1,7 @@
 package sqlite.feature.pagedadapter;
 
+import com.abubusoft.kripton.androidx.widgets.KriptonViewHolder;
+
 import android.view.View;
 
 public class DevViewHolder extends KriptonViewHolder<Person> {

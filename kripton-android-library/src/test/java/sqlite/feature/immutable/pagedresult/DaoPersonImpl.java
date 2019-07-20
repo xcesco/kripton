@@ -3,6 +3,7 @@ package sqlite.feature.immutable.pagedresult;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.PageRequest;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -237,6 +238,122 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
         // log section for select END
       }
       return _result;
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT pk, birth_city, birth_day, name, surname FROM person ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * </dl>
+   *
+   * @param pageRequest
+   * 	page request
+   * @return result list
+   */
+  private List<Person> selectWithPageRequest(PageRequest pageRequest) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT pk, birth_city, birth_day, name, surname FROM person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=null;
+    String _sqlWhereStatement="";
+    // generation order - BEGIN
+    String _sqlOrderByStatement=" ORDER BY name";
+    _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT "+pageRequest.getPageSize();
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+pageRequest.getOffset();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+
+      List<Person> resultList=new ArrayList<Person>(_cursor.getCount());
+      Person resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      String __pk=null;
+      String __name=null;
+      String __surname=null;
+      String __birthCity=null;
+      Date __birthDay=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
+
+        do
+         {
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __pk=null;
+          __name=null;
+          __surname=null;
+          __birthCity=null;
+          __birthDay=null;
+          __pk=_cursor.getString(index0);
+          if (!_cursor.isNull(index1)) { __birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { __birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { __name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { __surname=_cursor.getString(index4); }
+
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new Person(__pk,__name,__surname,__birthCity,__birthDay);
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
     // Specialized part II - SelectPaginatedResultHelper - END
   }
@@ -480,6 +597,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
     public List<Person> execute(BindAppDaoFactory daoFactory) {
       return daoFactory.getDaoPerson().select(this);
+    }
+
+    public List<Person> execute(PageRequest pageRequest) {
+      // Executor with pageRequet - BEGIN
+      return BindAppDataSource.getInstance().executeBatch(daoFactory -> daoFactory.getDaoPerson().selectWithPageRequest(pageRequest));
+      // Executor with pageRequet - END
     }
   }
 }

@@ -30,9 +30,11 @@ import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 @BindDao(Person.class)
 public interface DaoPerson {
 
-	
-	@BindSqlSelect(pageSize=30)
+	@BindSqlSelect(pageSize = 30)
 	PagedLiveData<List<Person>> selectAll();
+
+	@BindSqlSelect(where = "name like :filter || '%'")
+	PagedLiveData<List<Person>> selectByName(String filter);
 
 	/**
 	 * Insert.
@@ -42,11 +44,11 @@ public interface DaoPerson {
 	 */
 	@BindSqlInsert
 	void insert(Person bean);
-	
-	@BindSqlSelect(where="id=:id")
+
+	@BindSqlSelect(where = "id=:id")
 	Person selectById(long id);
-	
-	@BindSqlDelete(where="id=:id")
+
+	@BindSqlDelete(where = "id=:id")
 	long deleteById(long id);
 
 	/**

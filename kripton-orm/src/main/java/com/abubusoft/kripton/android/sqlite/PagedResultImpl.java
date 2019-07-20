@@ -18,7 +18,8 @@ package com.abubusoft.kripton.android.sqlite;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abubusoft.kripton.android.PagedResult;
+import com.abubusoft.kripton.android.PageRequest;
+import com.abubusoft.kripton.android.Paginator;
 
 /**
  * <p>
@@ -38,7 +39,7 @@ import com.abubusoft.kripton.android.PagedResult;
  *
  * @param <E>
  */
-public abstract class PagedResultImpl<E> implements PagedResult {
+public abstract class PagedResultImpl<E> implements Paginator<List<E>> {
 
 	/**
 	 * if false, paged result does not contains valid paged result
@@ -94,6 +95,7 @@ public abstract class PagedResultImpl<E> implements PagedResult {
 	 *
 	 * @return the int
 	 */
+	@Override
 	public int getOffset() {
 		return offset;
 	}
@@ -134,6 +136,7 @@ public abstract class PagedResultImpl<E> implements PagedResult {
 	 * 
 	 * @return
 	 */
+	@Override
 	public boolean hasPrevious() {
 		return !paged || (offset > 0 && totalElements > 0);
 	}
@@ -149,7 +152,7 @@ public abstract class PagedResultImpl<E> implements PagedResult {
 	 */
 	@Override
 	public void nextPage() {
-		if (!paged) {			
+		if (!paged) {
 			this.firstPage();
 			paged = true;
 		} else if (!isLast()) {
@@ -188,19 +191,20 @@ public abstract class PagedResultImpl<E> implements PagedResult {
 	 * @return true, if successful
 	 */
 	@Override
-	public void setPage(int page) {					
+	public void setPage(int page) {
 		offset = pageSize * page;
 
 		// check to stay in the range
-		/*if (offset < 0) {
-			offset = 0;
-		}*/
-		
-		/*if (paged && offset > pageSize * (getTotalPages() - 1)) {
-			offset = pageSize * (getTotalPages() - 1);
-		}*/
-		
-		paged=true;
+		/*
+		 * if (offset < 0) { offset = 0; }
+		 */
+
+		/*
+		 * if (paged && offset > pageSize * (getTotalPages() - 1)) { offset =
+		 * pageSize * (getTotalPages() - 1); }
+		 */
+
+		paged = true;
 	}
 
 	@Override
@@ -230,6 +234,7 @@ public abstract class PagedResultImpl<E> implements PagedResult {
 		return !paged || (getPageNumber() < getTotalPages() - 1);
 	}
 
+	@Override
 	public void setPageSize(int pageSize) {
 		if (pageSize > 0 && this.pageSize != pageSize) {
 			this.pageSize = pageSize;
@@ -242,7 +247,12 @@ public abstract class PagedResultImpl<E> implements PagedResult {
 	public void reset() {
 		this.paged = false;
 		this.totalElements = -1;
-		this.list=new ArrayList<>();
+		this.list = new ArrayList<>();
 
+	}
+
+	@Override
+	public List<E> execute(int pageNumber, int pageSize) {
+		return execute(PageRequest.build(pageNumber, pageSize));
 	}
 }

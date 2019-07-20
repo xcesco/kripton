@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.android;
 
-public interface PagedResult extends PageRequest {
+public interface PagedResult extends PageNavigator {
 
 	/**
 	 * Returns the total amount of elements.
@@ -8,20 +8,20 @@ public interface PagedResult extends PageRequest {
 	 * @return the total amount of elements
 	 */
 	int getTotalElements();
-	
+
 	/**
 	 * Returns the number of total pages.
 	 *
 	 * @return the number of total pages
 	 */
 	int getTotalPages();
-	
+
 	boolean isLast();
-	
+
 	public boolean isFirst();
-	
+
 	boolean hasNext();
-	
+
 	boolean hasPrevious();
-		
+
 }

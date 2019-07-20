@@ -29,6 +29,8 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
+import com.abubusoft.kripton.androidx.widgets.KriptonRecyclerViewAdapter;
+import com.abubusoft.kripton.androidx.widgets.KriptonRecyclerViewAdapter.OnLoadingListener;
 
 import base.BaseAndroidTest;
 
@@ -41,8 +43,6 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 
 	@Rule
 	public TestRule rule = new KriptonInstantTaskExecutorRule();
- 
-
 
 	/**
 	 * Test many 2 many.
@@ -52,12 +52,12 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 	 */
 	@Test
 	public void testPagedAdapter() throws InterruptedException {
-		/*BindAppDataSource dataSource = BindAppDataSource.getInstance();
+		BindAppDataSource dataSource = BindAppDataSource.getInstance();
 
 		final int RECYCLER_VIEW_PAGE_SIZE = 20;
 		final int DB_PAGE = RECYCLER_VIEW_PAGE_SIZE * 3;
 
-		final int TOTAL_COUNT = 1000;
+		final int TOTAL_COUNT = 30;
 
 		dataSource.execute(daoFactory -> {
 			DaoPersonImpl daoPerson = daoFactory.getDaoPerson();
@@ -75,27 +75,29 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 
 		PagedLiveData<List<Person>> pagedResult = dataSource.getDaoPerson().selectAll();
 
-		pagetAdapter.getResult().observeForever(lista -> {
-			log("observable " + lista.size());
-
+		pagedResult.observeForever(lista -> {
+			log(" ::::::::: observable %s total %s", lista.size(), pagedResult.getTotalElements());
+			pagedResult.getExecutor().execute(0, DB_PAGE);
 		});
 
-		for (int i = 0; i < TOTAL_COUNT; i++) {
-			Person item = pagetAdapter.getPosition(i);
-			log("getPosition(%s)=%s", i, item.toString());
-		}*/
+		// PageRequest.
+		//
+		// for (int i = 0; i < TOTAL_COUNT; i++) {
+		// Person item = pagetAdapter.getPosition(i);
+		// log("getPosition(%s)=%s", i, item.toString());
+		// }
 
 		// --- go back
-	/*	log("-------------------------");
-		for (int i = TOTAL_COUNT - 1; i >= 0; i--) {
-			Person item = pagetAdapter.getPosition(i);
-			log("getPosition(%s)=%s", i, item.toString());
-		}*/
+		/*
+		 * log("-------------------------"); for (int i = TOTAL_COUNT - 1; i >=
+		 * 0; i--) { Person item = pagetAdapter.getPosition(i);
+		 * log("getPosition(%s)=%s", i, item.toString()); }
+		 */
 
 		/*
 		 * MediatorLiveData<Boolean> a; a.
 		 */
-/*
+
 		dataSource.execute(daoFactory -> {
 			DaoPersonImpl daoPerson = daoFactory.getDaoPerson();
 
@@ -111,7 +113,7 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 		});
 
 		// ora cambiamo uno
-		/*dataSource.execute(daoFactory -> {
+		dataSource.execute(daoFactory -> {
 			DaoPersonImpl daoPerson = daoFactory.getDaoPerson();
 
 			Person person;
@@ -119,15 +121,111 @@ public class TestRuntimePagedAdapter extends BaseAndroidTest {
 			person.name = person.name + "--nuovoa";
 			daoPerson.update(person);
 
-			person = daoPerson.selectById(50);
+			person = daoPerson.selectById(11);
 			person.name = person.name + "--nuovoa";
 			daoPerson.update(person);
 
 			return TransactionResult.COMMIT;
-		});*/
+		});
 
 		KriptonLibrary.getExecutorService().awaitTermination(10, TimeUnit.SECONDS);
 
+	}
+
+	/**
+	 * Test many 2 many.
+	 *
+	 * @throws InterruptedException
+	 *             the interrupted exception
+	 */
+	@Test
+	public void testPaged() throws InterruptedException {
+		final int TOTAL_COUNT = 100;
+
+		BindAppDataSource dataSource = prepareData(TOTAL_COUNT);
+
+		KriptonRecyclerViewAdapter<Person, DevViewHolder> adapter = new KriptonRecyclerViewAdapter<>(null, dataSource.getDaoPerson().selectAll(), null, new OnLoadingListener() {
+
+			@Override
+			public void onChangeStatus(boolean loading, int page, int size, int total) {
+				log("@@@@@@@@@@ load : %s, page: %s, size: %s, total: %s", loading, page, size, total);
+			}
+
+		});
+
+		for (int i = 0; i < adapter.getItemCount(); i++) {
+			Person p = adapter.getItem(i);
+
+			if (p != null) {
+				log("Item %s = %s", i, p.toString());
+			} else {
+				log("Item %s is empty!!", i);
+			}
+
+		}
+
+		KriptonLibrary.getExecutorService().awaitTermination(10, TimeUnit.SECONDS);
+
+	}
+
+	@Test
+	public void testPagedForwardAndBack() throws InterruptedException {
+		final int TOTAL_COUNT = 100;
+
+		BindAppDataSource dataSource = prepareData(TOTAL_COUNT);
+
+		KriptonRecyclerViewAdapter<Person, DevViewHolder> adapter = new KriptonRecyclerViewAdapter<>(null, dataSource.getDaoPerson().selectAll(), null, new OnLoadingListener() {
+
+			@Override
+			public void onChangeStatus(boolean loading, int page, int size, int total) {
+				log("@@@@@@@@@@ load : %s, page: %s, size: %s, total: %s", loading, page, size, total);
+			}
+
+		});
+
+		for (int i = 0; i < adapter.getItemCount(); i++) {
+			Person p = adapter.getItem(i);
+
+			if (p != null) {
+				log("Item %s = %s", i, p.toString());
+			} else {
+				log("Item %s is empty!!", i);
+			}
+
+		}
+
+		for (int i = adapter.getItemCount() - 1; i >= 0; i--) {
+			Person p = adapter.getItem(i);
+
+			if (p != null) {
+				log("Item %s = %s", i, p.toString());
+			} else {
+				log("Item %s is empty!!", i);
+			}
+
+		}
+
+		KriptonLibrary.getExecutorService().awaitTermination(10, TimeUnit.SECONDS);
+
+	}
+
+	public BindAppDataSource prepareData(final int count) {
+		BindAppDataSource dataSource = BindAppDataSource.getInstance();
+
+		dataSource.execute(daoFactory -> {
+			DaoPersonImpl daoPerson = daoFactory.getDaoPerson();
+
+			Person person;
+			for (int i = 0; i < count; i++) {
+				person = new Person();
+				person.name = "name" + i;
+				person.surname = "surname" + i;
+				daoPerson.insert(person);
+			}
+
+			return TransactionResult.COMMIT;
+		});
+		return dataSource;
 	}
 
 }
