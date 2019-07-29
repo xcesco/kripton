@@ -142,7 +142,8 @@ public abstract class SqlSelectBuilder {
 	 * @param selectResultType
 	 *            the select result type
 	 */
-	private static void generateSelectForContentProvider(Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
+	private static void generateSelectForContentProvider(Builder builder, final SQLiteModelMethod method,
+			SelectType selectResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
 		final SQLiteEntity entity = method.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
@@ -166,12 +167,13 @@ public abstract class SqlSelectBuilder {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 		SplittedSql splittedSql = generateSQL(method, methodBuilder, true);
 
-		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(method, splittedSql.sqlWhereStatement);
+		List<JQLPlaceHolder> placeHolders = jqlChecker.extractFromVariableStatement(method,
+				splittedSql.sqlWhereStatement);
 		// remove placeholder for dynamic where, we are not interested here
 		placeHolders = SqlBuilderHelper.removeDynamicPlaceHolder(placeHolders);
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
-				"In '%s.%s' content provider URI path variables and variables in where conditions are different. If SQL uses parameters, they must be defined in URI path.", daoDefinition.getName(),
-				method.getName());
+				"In '%s.%s' content provider URI path variables and variables in where conditions are different. If SQL uses parameters, they must be defined in URI path.",
+				daoDefinition.getName(), method.getName());
 
 		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method, method.jql.value, entity);
 		for (JQLProjection item : projectedColumns) {
@@ -208,14 +210,16 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.beginControlFlow("if (projection!=null && projection.length>0)");
 			// generate projected column check
 			String columnCheckSetName = SqlBuilderHelper.generateColumnCheckSet(builder, method, columns);
-			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "projection", true, new OnColumnListener() {
+			SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "projection", true,
+					new OnColumnListener() {
 
-				@Override
-				public void onColumnCheck(MethodSpec.Builder methodBuilder, String projectedColumnVariable) {
-					methodBuilder.addStatement("_projectionBuffer.append(_columnSeparator + $L)", projectedColumnVariable);
-					methodBuilder.addStatement("_columnSeparator=\", \"");
-				}
-			});
+						@Override
+						public void onColumnCheck(MethodSpec.Builder methodBuilder, String projectedColumnVariable) {
+							methodBuilder.addStatement("_projectionBuffer.append(_columnSeparator + $L)",
+									projectedColumnVariable);
+							methodBuilder.addStatement("_columnSeparator=\", \"");
+						}
+					});
 			methodBuilder.nextControlFlow("else");
 			methodBuilder.beginControlFlow("for (String column: $L)", columnCheckSetName);
 			methodBuilder.addStatement("_projectionBuffer.append(_columnSeparator + column)");
@@ -227,25 +231,32 @@ public abstract class SqlSelectBuilder {
 			// extract pathVariables
 			// every controls was done in constructor of SQLiteModelMethod
 			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-				AssertKripton.assertTrue(SqlBuilderHelper.validate(variable.value, placeHolders, i), "In '%s.%s' content provider URI path and where conditions must use same set of variables",
+				AssertKripton.assertTrue(SqlBuilderHelper.validate(variable.value, placeHolders, i),
+						"In '%s.%s' content provider URI path and where conditions must use same set of variables",
 						daoDefinition.getName(), method.getName());
 
 				SQLProperty entityProperty = entity.get(variable.value);
 				TypeName methodParameterType = method.findParameterTypeByAliasOrName(variable.value);
 
-				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
+				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value,
+						variable.pathSegmentIndex);
 				// methodBuilder.addStatement("_sqlWhereParams.add(uri.getPathSegments().get($L))",
 				// variable.pathSegmentIndex);
-				methodBuilder.addStatement("_contentValues.addWhereArgs(uri.getPathSegments().get($L))", variable.pathSegmentIndex);
+				methodBuilder.addStatement("_contentValues.addWhereArgs(uri.getPathSegments().get($L))",
+						variable.pathSegmentIndex);
 
 				if (entityProperty != null) {
 
-					AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class, Long.class, Long.TYPE),
-							"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(), entityProperty.getName());
+					AssertKripton.assertTrue(
+							TypeUtility.isTypeIncludedIn(entityProperty.getPropertyType().getTypeName(), String.class,
+									Long.class, Long.TYPE),
+							"In '%s.%s' content provider URI path variables %s must be String of Long type",
+							daoDefinition.getName(), method.getName(), entityProperty.getName());
 				} else if (methodParameterType != null) {
-					AssertKripton.assertTrue(TypeUtility.isTypeIncludedIn(methodParameterType, String.class, Long.class, Long.TYPE),
-							"In '%s.%s' content provider URI path variables %s must be String of Long type", daoDefinition.getName(), method.getName(),
-							method.findParameterNameByAlias(variable.value));
+					AssertKripton.assertTrue(
+							TypeUtility.isTypeIncludedIn(methodParameterType, String.class, Long.class, Long.TYPE),
+							"In '%s.%s' content provider URI path variables %s must be String of Long type",
+							daoDefinition.getName(), method.getName(), method.findParameterNameByAlias(variable.value));
 				}
 
 				i++;
@@ -270,8 +281,10 @@ public abstract class SqlSelectBuilder {
 		SqlBuilderHelper.generateJavaDocForContentProvider(method, methodBuilder);
 
 		methodBuilder.addJavadoc("@param uri $S\n", method.contentProviderUriTemplate.replace("*", "[*]"));
-		methodBuilder.addJavadoc("@param selection dynamic part of <code>where</code> statement $L\n", method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
-		methodBuilder.addJavadoc("@param selectionArgs arguments of dynamic part of <code>where</code> statement $L\n", method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
+		methodBuilder.addJavadoc("@param selection dynamic part of <code>where</code> statement $L\n",
+				method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
+		methodBuilder.addJavadoc("@param selectionArgs arguments of dynamic part of <code>where</code> statement $L\n",
+				method.hasDynamicWhereConditions() ? "" : "<b>NOT USED</b>");
 
 		methodBuilder.addJavadoc("@return number of effected rows\n");
 
@@ -290,7 +303,8 @@ public abstract class SqlSelectBuilder {
 	 * @param countQuery
 	 *            true if query is the query count for paged list
 	 */
-	public static void generateDynamicPartOfQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql, boolean countQuery, String pageRequestName) {
+	public static void generateDynamicPartOfQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder,
+			SplittedSql splittedSql, boolean countQuery, String pageRequestName) {
 		final JQL jql = method.jql;
 		if (StringUtils.hasText(splittedSql.sqlGroupStatement)) {
 			methodBuilder.addCode("\n// manage GROUP BY statement\n");
@@ -317,9 +331,11 @@ public abstract class SqlSelectBuilder {
 
 					methodBuilder.addStatement("String _sqlOrderByStatement=$S", value);
 				} else if (jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
-					methodBuilder.addStatement("String _sqlOrderByStatement=$S+$T.ifNotEmptyAppend($L, \", \")", value.replace(valueToReplace, ""), StringUtils.class, "_sortOrder");
+					methodBuilder.addStatement("String _sqlOrderByStatement=$S+$T.ifNotEmptyAppend($L, \", \")",
+							value.replace(valueToReplace, ""), StringUtils.class, "_sortOrder");
 				} else if (!jql.isStaticOrderBy() && jql.isDynamicOrderBy()) {
-					methodBuilder.addStatement("String _sqlOrderByStatement=$T.ifNotEmptyAppend($L,\" $L \")", StringUtils.class, "_sortOrder", JQLKeywords.ORDER_BY_KEYWORD);
+					methodBuilder.addStatement("String _sqlOrderByStatement=$T.ifNotEmptyAppend($L,\" $L \")",
+							StringUtils.class, "_sortOrder", JQLKeywords.ORDER_BY_KEYWORD);
 				}
 
 				methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOrderByStatement");
@@ -329,25 +345,34 @@ public abstract class SqlSelectBuilder {
 
 			if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE) || jql.annotatedPageSize) {
 				methodBuilder.addComment("generation limit - BEGIN");
-				if (SelectBuilderUtility.detectSelectType(method) != SelectType.PAGED_RESULT && !method.isPagedLiveData()) {
+				if (SelectBuilderUtility.detectSelectType(method) != SelectType.PAGED_RESULT
+						&& !method.isPagedLiveData()) {
 					methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
 				} else if (jql.annotatedPageSize || method.isPagedLiveData()) {
-					methodBuilder.addStatement("String _sqlLimitStatement=\" LIMIT \"+$L", pageRequestName + ".getPageSize()");
+					methodBuilder.addStatement("String _sqlLimitStatement=\" LIMIT \"+$L",
+							pageRequestName + ".getPageSize()");
 				} else if (jql.hasParamPageSize()) {
-					methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+$L)", SqlUtils.class, pageRequestName + ".getPageSize()", pageRequestName + ".getPageSize()");
+					methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+$L)",
+							SqlUtils.class, pageRequestName + ".getPageSize()", pageRequestName + ".getPageSize()");
 				}
 				methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlLimitStatement");
 				methodBuilder.addComment("generation limit - END");
 				methodBuilder.addCode("\n");
 			}
 
-			if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET) && (SelectBuilderUtility.detectSelectType(method) == SelectType.PAGED_RESULT || method.isPagedLiveData())) {
+			if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET)
+					&& (SelectBuilderUtility.detectSelectType(method) == SelectType.PAGED_RESULT
+							|| method.isPagedLiveData())) {
 				methodBuilder.addComment("generation offset - BEGIN");
 				if (jql.annotatedPageSize || method.isPagedLiveData()) {
-					methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+" + pageRequestName + ".getOffset()", SqlUtils.class);
+					methodBuilder.addStatement(
+							"String _sqlOffsetStatement=\" OFFSET \"+" + pageRequestName + ".getOffset()",
+							SqlUtils.class);
 				} else if (jql.hasParamPageSize()) {
-					methodBuilder.addStatement("String _sqlOffsetStatement=$T.printIf($L>0 && " + pageRequestName + ".getOffset()>0, \" OFFSET \"+" + pageRequestName + ".getOffset())", SqlUtils.class,
-							jql.paramPageSize);
+					methodBuilder.addStatement(
+							"String _sqlOffsetStatement=$T.printIf($L>0 && " + pageRequestName
+									+ ".getOffset()>0, \" OFFSET \"+" + pageRequestName + ".getOffset())",
+							SqlUtils.class, jql.paramPageSize);
 				}
 
 				methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOffsetStatement");
@@ -368,7 +393,8 @@ public abstract class SqlSelectBuilder {
 	 *            the replace projected columns
 	 * @return the splitted sql
 	 */
-	static SplittedSql generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, final boolean replaceProjectedColumns) {
+	static SplittedSql generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder,
+			final boolean replaceProjectedColumns) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 
 		final SplittedSql splittedSql = new SplittedSql();
@@ -376,52 +402,53 @@ public abstract class SqlSelectBuilder {
 		String sql = convertJQL2SQL(method, false);
 
 		// parameters extracted from JQL converted in SQL
-		splittedSql.sqlBasic = jqlChecker.replaceVariableStatements(method, sql, new JQLReplaceVariableStatementListenerImpl() {
+		splittedSql.sqlBasic = jqlChecker.replaceVariableStatements(method, sql,
+				new JQLReplaceVariableStatementListenerImpl() {
 
-			@Override
-			public String onWhere(String statement) {
-				splittedSql.sqlWhereStatement = statement;
-				return "";
-			}
+					@Override
+					public String onWhere(String statement) {
+						splittedSql.sqlWhereStatement = statement;
+						return "";
+					}
 
-			@Override
-			public String onOrderBy(String statement) {
-				splittedSql.sqlOrderByStatement = statement;
-				return "";
-			}
+					@Override
+					public String onOrderBy(String statement) {
+						splittedSql.sqlOrderByStatement = statement;
+						return "";
+					}
 
-			@Override
-			public String onOffset(String statement) {
-				splittedSql.sqlOffsetStatement = statement;
-				return "";
-			}
+					@Override
+					public String onOffset(String statement) {
+						splittedSql.sqlOffsetStatement = statement;
+						return "";
+					}
 
-			@Override
-			public String onLimit(String statement) {
-				splittedSql.sqlLimitStatement = statement;
-				return "";
-			}
+					@Override
+					public String onLimit(String statement) {
+						splittedSql.sqlLimitStatement = statement;
+						return "";
+					}
 
-			@Override
-			public String onHaving(String statement) {
-				splittedSql.sqlHavingStatement = statement;
-				return "";
-			}
+					@Override
+					public String onHaving(String statement) {
+						splittedSql.sqlHavingStatement = statement;
+						return "";
+					}
 
-			@Override
-			public String onGroup(String statement) {
-				splittedSql.sqlGroupStatement = statement;
-				return "";
-			}
+					@Override
+					public String onGroup(String statement) {
+						splittedSql.sqlGroupStatement = statement;
+						return "";
+					}
 
-			@Override
-			public String onProjectedColumns(String statement) {
-				if (replaceProjectedColumns)
-					return "%s";
-				else
-					return null;
-			}
-		});
+					@Override
+					public String onProjectedColumns(String statement) {
+						if (replaceProjectedColumns)
+							return "%s";
+						else
+							return null;
+					}
+				});
 
 		return splittedSql;
 	}

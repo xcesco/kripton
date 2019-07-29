@@ -170,7 +170,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * @return paginated result.
    */
   protected PagedResultImpl<User> selectPagedForLiveData() {
-    final PaginatedResult12 paginatedResult=new PaginatedResult12();
+    final PaginatedResult14 paginatedResult=new PaginatedResult14();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -194,7 +194,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * 	handler of paginated result
    * @return result list
    */
-  private List<User> selectPaged(PaginatedResult12 paginatedResult) {
+  private List<User> selectPaged(PaginatedResult14 paginatedResult) {
     // total count - BEGIN
     paginatedResult.setTotalElements(this.selectPagedTotalCount(paginatedResult));
     // total count - END
@@ -274,7 +274,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // Specialized part II - SelectPaginatedResultHelper - END
   }
 
-  private int selectPagedTotalCount(PaginatedResult12 paginatedResult) {
+  private int selectPagedTotalCount(PaginatedResult14 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -805,8 +805,8 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
   }
 
-  public class PaginatedResult12 extends PagedResultImpl<User> {
-    PaginatedResult12() {
+  public class PaginatedResult14 extends PagedResultImpl<User> {
+    PaginatedResult14() {
       this.pageSize=20;
     }
 

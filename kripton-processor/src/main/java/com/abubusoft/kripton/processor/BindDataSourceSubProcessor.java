@@ -132,7 +132,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		HashSet<String> result = new HashSet<>();
 
 		result.add(KriptonOptions.SCHEMA_LOCATION_OPTION_NAME);
-		result.add(KriptonOptions.ANDROID_X_OPTION_NAME);			
+		result.add(KriptonOptions.ANDROID_X_OPTION_NAME);
 		result.add(KriptonOptions.LOG_ENABLED_OPTION_NAME);
 
 		return result;
@@ -901,8 +901,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							// fieldName
 							// to field_name
 							property.columnName = schema.columnNameConverter.convert(columnName);
-							
-							AssertKripton.fail(SqlKeywordsHelper.getInstance().isKeyword(property.columnName), "In class '%s' property '%s' can not use keyword '%s' as column name", bindEntity.getElement().asType(), property.getName(), property.columnName);
+
+							AssertKripton.fail(SqlKeywordsHelper.getInstance().isKeyword(property.columnName),
+									"In class '%s' property '%s' can not use keyword '%s' as column name",
+									bindEntity.getElement().asType(), property.getName(), property.columnName);
 
 							return true;
 
@@ -977,8 +979,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				break;
 			}
 		}
-		
-		AssertKripton.fail(SqlKeywordsHelper.getInstance().isKeyword(currentEntity.getTableName()), "Class '%s' can not use keyword '%s' as table name", bindEntity.getElement().asType(), currentEntity.getTableName());
+
+		AssertKripton.fail(SqlKeywordsHelper.getInstance().isKeyword(currentEntity.getTableName()),
+				"Class '%s' can not use keyword '%s' as table name", bindEntity.getElement().asType(),
+				currentEntity.getTableName());
 
 		ImmutableUtility.buildConstructors(elementUtils, currentEntity);
 		return currentEntity;
@@ -1175,12 +1179,17 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, element,
 						annotationList);
 
-				AssertKripton.assertTrueOrInvalidMethodSignException(methodWithAnnotation.value0, currentMethod,
-						"method must be annotated with @%s, @%s, @%s or @%s", BindSqlSelect.class.getSimpleName(),
-						BindSqlInsert.class.getSimpleName(), BindSqlUpdate.class.getSimpleName(),
-						BindSqlDelete.class.getSimpleName());
-				// annotated", currentDaoDefinition.getName(),
-				// element.getSimpleName());
+				if (currentMethod.isStaticMethod()) {
+					AssertKripton.assertTrueOrInvalidMethodSignException(!methodWithAnnotation.value0, currentMethod,
+							"static method on DAO interface can not be annotated with @%s, @%s, @%s or @%s",
+							BindSqlSelect.class.getSimpleName(), BindSqlInsert.class.getSimpleName(),
+							BindSqlUpdate.class.getSimpleName(), BindSqlDelete.class.getSimpleName());
+				} else {
+					AssertKripton.assertTrueOrInvalidMethodSignException(methodWithAnnotation.value0, currentMethod,
+							"method must be annotated with @%s, @%s, @%s or @%s", BindSqlSelect.class.getSimpleName(),
+							BindSqlInsert.class.getSimpleName(), BindSqlUpdate.class.getSimpleName(),
+							BindSqlDelete.class.getSimpleName());
+				}
 
 				addWithCheckMethod(currentDaoDefinition, currentMethod);
 			}
@@ -1243,9 +1252,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				AnnotationAttributeType.GENERATE_LOG);
 		// manage global configuration for log
 		if (!KriptonProcessor.LOG_GENERATION_ENABLED_MODE) {
-			generateLog=false;
+			generateLog = false;
 		}
-		
+
 		boolean generateSchema = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class,
 				AnnotationAttributeType.GENERATE_SCHEMA);
 		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class,

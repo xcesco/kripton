@@ -171,7 +171,6 @@ public abstract class SqlModifyBuilder {
 	 *            the method
 	 */
 	public static void generate(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
-
 		ModifyType updateResultType = detectModifyType(method, method.jql.operationType);
 
 		// if true, field must be associate to ben attributes
@@ -484,8 +483,7 @@ public abstract class SqlModifyBuilder {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 				methodBuilder.addStatement(
 						"int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray(), $L)",
-						entity.getTableName(),
-						method.jql.conflictAlgorithmType.getConflictAlgorithm());
+						entity.getTableName(), method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
 
 			if (method.getParent().getParent().generateRx) {

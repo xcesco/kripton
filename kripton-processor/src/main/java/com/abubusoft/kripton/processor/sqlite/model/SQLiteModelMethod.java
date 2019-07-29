@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
@@ -223,6 +224,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	private boolean pagedLiveData;
 
+	private boolean staticMethod;
+
+	public boolean isStaticMethod() {
+		return staticMethod;
+	}
+
 	/**
 	 * return true if is use a bean (that this dao manage) as parameter.
 	 * 
@@ -262,6 +269,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public SQLiteModelMethod(SQLiteDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 
+		staticMethod=element.getModifiers().contains(Modifier.STATIC);
+		
 		// before proceed convert typevariable in right typename
 		parent.resolveTypeVariable(this);
 
@@ -464,11 +473,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				contentProviderEntryPathTemplate = this.contentProviderEntryPathTemplate.substring(1);
 
 			// INSERT from SELECT type SQL can not be used with content provider
-			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.INSERT && this.jql.containsSelectOperation), this,
+			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql!=null && this.jql.operationType == JQLType.INSERT && this.jql.containsSelectOperation), this,
 					" INSERT-FROM-SELECT sql can not be used for content provider");
 
 			// UPDATE from SELECT type SQL can not be used with content provider
-			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.UPDATE && this.jql.containsSelectOperation), this,
+			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql!=null && this.jql.operationType == JQLType.UPDATE && this.jql.containsSelectOperation), this,
 					" UPDATE-FROM-SELECT sql can not be used for content provider");
 		}
 

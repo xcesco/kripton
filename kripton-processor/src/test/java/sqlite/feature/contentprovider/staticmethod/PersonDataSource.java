@@ -13,30 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.contentprovider;
+package sqlite.feature.contentprovider.staticmethod;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import base.BaseProcessorTest;
-import sqlite.feature.contentprovider.kripton213.case1.TestCompileKripton213;
-import sqlite.feature.contentprovider.kripton35.TestContentProvider;
-import sqlite.feature.contentprovider.staticmethod.TestContentProviderStaticMethod;
+import com.abubusoft.kripton.android.annotation.BindContentProvider;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 /**
- * The Class TestContentProviderSuite.
+ * Created by xcesco on 27/09/2016.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestContentProvider.class,
-		TestCompileKripton213.class,
-		ContentProviderCase1CompilerTest.class,
-		TestContentProviderStaticMethod.class
-		
-		 })
-//@formatter:on
-public class TestContentProviderSuite extends BaseProcessorTest {
 
+@BindContentProvider(authority="sqlite.feature.contentprovider.kripton35")
+@BindDataSource(daoSet={PersonDAO.class}, fileName = "person", version = 1, log=true)
+public interface PersonDataSource {
 }

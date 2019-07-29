@@ -266,8 +266,7 @@ public abstract class SqlInsertBuilder {
 			AssertKripton.assertTrueOrInvalidMethodSignException(
 					TypeUtility.isCollectionOfType(method.getReturnClass(), beanTypeName)
 							|| TypeUtility.isEquals(method.getReturnClass(), typeName(Void.TYPE)),
-					method, " invalid return type for multiple insert method",
-					daoDefinition.getEntityClassName());
+					method, " invalid return type for multiple insert method", daoDefinition.getEntityClassName());
 		} else {
 			throw (new InvalidMethodSignException(method,
 					"only one parameter of type " + typeName(entity.getElement()) + " can be used"));
