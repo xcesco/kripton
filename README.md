@@ -337,7 +337,7 @@ There are two supported platforms: the android environment and generic Java envi
 # License
 
 ```
-Copyright 2015-2018 Francesco Benincasa.
+Copyright 2015-2019 Francesco Benincasa.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
