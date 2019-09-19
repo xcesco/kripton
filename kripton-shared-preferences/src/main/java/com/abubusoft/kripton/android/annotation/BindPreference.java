@@ -21,39 +21,99 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The Interface BindPreference.
+ * <p>
+ * This annotation allow to specify behaviour for specific field when it is
+ * persisted to a SharedPreference with <code>@BindSharedPreferences</code>
+ * annotation.
+ * </p>
+ * 
+ * <pre>
+ * &#64;BindSharedPreferences(liveData = true)
+ * public class AppPreferences {
+ * 
+ * 	public String name = "ciao";
+ * 
+ * 	protected String description;
+ * 
+ * 	public float valueFloat = 5.0f;
+ * 
+ * 	public boolean valueBoolean;
+ * 
+ * 	protected String[] stringArray;
+ * 
+ * 	public List<String> stringList;
+ * 
+ * 	public String[] getStringArray() {
+ * 		return stringArray;
+ * 	}
+ * 
+ * 	public void setStringArray(String[] stringArray) {
+ * 		this.stringArray = stringArray;
+ * 	}
+ * 
+ * 	public int valueInt;
+ * 
+ * 	public Long valueLong;
+ * 
+ * 	public String getDescription() {
+ * 		return description;
+ * 	}
+ * 
+ * 	public void setDescription(String description) {
+ * 		this.description = description;
+ * 	}
+ * }
+ * </pre>
+ * 
+ * <p>
+ * With <code>liveData=true</code> Kripton will generate the
+ * <code>LiveData</code> support code. This feature allows to manage Shared
+ * Preferences with Live Data.
+ * </p>
+ * 
+ * <pre>
+ * BindAppPreferences sp = BindAppPreferences.getInstance();
+ * sp.getDescriptionAsLiveData().observeForever(new Observer<String>() {
+ * 
+ * 	&#64;Override
+ * 	public void onChanged(String t) {
+ * 		Logger.info("getDescriptionAsLiveData  " + t);
+ * 
+ * 	}
+ * });
+ * </pre>
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindPreference {
-	
+
 	/**
 	 * Enabled.
 	 *
-	 * @return 		if true, means field must bind persisted on shared preferences
+	 * @return if true, means field must bind persisted on shared preferences
 	 */
 	boolean enabled() default true;
 
 	/**
 	 * Value.
 	 *
-	 * @return 		Preference name. Default name is attribute name.
+	 * @return Preference name. Default name is attribute name.
 	 */
 	String value() default "";
-	
+
 	/**
-	 * enable rx generation for marked property 
+	 * enable rx generation for marked property
+	 * 
 	 * @return
 	 */
 	boolean rx() default true;
-	
+
 	/**
 	 * enable live data for marked property
 	 * 
 	 * @return
 	 */
 	boolean liveData() default true;
-	
-	
 
 }

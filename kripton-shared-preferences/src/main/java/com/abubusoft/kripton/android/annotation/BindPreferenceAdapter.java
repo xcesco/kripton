@@ -23,15 +23,60 @@ import java.lang.annotation.Target;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceTypeAdapter;
 
 /**
- * The Interface BindPreferenceAdapter.
+ * <p>
+ * This annotation decorates a field to use a particular Shared-Preference Type
+ * Adapter to customize persistence on the Shared Preference mechanism. A type
+ * adapter must implement the PreferenceTypeAdapter interface. It has two
+ * parameter type: the first is the field type, the second is the type that we
+ * want to use as replacement and that will be used to store data into the
+ * Shared Preference. It implements two methods:
+ * </p>
+ * <ul>
+ * <li>toJava: converts data retrieved from a Shared Preference element.</li>
+ * <li>toData: converts a field into data to store into a Shared Preference
+ * element.</li>
+ * </ul>
+ * 
+ * <h3>Usage</h3>
+ * 
+ * <pre>
+ * &#64;BindSharedPreferences
+ * public class App1Preferences {
+ * 
+ * 	&#64;BindPreference
+ * 	public HashSet<String> valueSet;
+ * 
+ * 	&#64;BindPreferenceAdapter(adapter = IntTypeAdapter.class)
+ * 	&#64;BindPreference
+ * 	public int right;
+ * }
+ * </pre>
+ * <p>
+ * And the associated SQL type adapter:
+ * </p>
+ * 
+ * <pre>
+public class IntTypeAdapter implements PreferenceTypeAdapter<Integer, String> {
+
+  &#64;Override
+  public IntegertoJava(byte[] dataValue) {
+   ...
+  }
+
+  &#64;Override
+  public String toData(Integer javaValue) {
+    ...
+  }
+}
+ * </pre>
+<p>This annotation is very useful when you need to persist a class that Kripton does not support directly for persistence.</p>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindPreferenceAdapter {
 
 	/**
-	 * Adapter class used to convert bean attribute into column value and
-	 * viceversa.
+	 * Adapter class used to convert bean attribute into column value and viceversa.
 	 *
 	 * @return the adapter
 	 */

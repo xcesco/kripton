@@ -25,7 +25,8 @@ import java.lang.annotation.Target;
  * Bind bean to shared preferences. An annotated class name must finish with
  * prefix "SharedPreferences" or "Preferences".
  * </p>
- * 
+ * <h3>Usage</h3>
+ * <p>See <a href="https://github.com/xcesco/kripton/wiki/Persist-with-SharedPreferences">SharedPreferences</a> to see how to use it.</p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
