@@ -646,6 +646,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				} else {
 					result.value1 = openReadOnlyDatabase(false);
 				}
+			} else {
+				result.value1=this.database();
 			}
 
 		} finally {

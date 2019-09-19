@@ -37,7 +37,8 @@ import com.abubusoft.kripton.android.annotation.BindDataSourceUpdateTask;
 
 
 /**
- * */
+ * The Interface SampleDataSource.
+ */
 @BindContentProvider(authority = "com.abubusoft.contentprovidersample.provider")
 @BindDataSourceOptions(updateTasks = { @BindDataSourceUpdateTask(version = 1, task = SampleUpdate02.class) }, populator = SamplePopulator.class)
 @BindDataSource(daoSet = { CheeseDao.class }, fileName = "sample.db", version = 1)
