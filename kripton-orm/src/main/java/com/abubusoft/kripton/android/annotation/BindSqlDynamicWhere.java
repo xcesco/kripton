@@ -20,7 +20,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// TODO: Auto-generated Javadoc
 /**
  * Define a dynamic where condition. It is appended to <code>where</code> statement defined with attribute <code>where</code> in <code>BindSqlSelect</code> annotation.
  * 

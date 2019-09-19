@@ -22,7 +22,8 @@ import java.lang.annotation.Target;
 
 
 /**
- * This annotation is used to mark generated DAO interface parts used in many 2 many relationship.
+ * <p>This annotation is used to mark generated DAO interface parts used in many 2 many relationship. You don't need to use
+ * directly this annotation.</p>
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

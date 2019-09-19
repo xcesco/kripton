@@ -17,12 +17,21 @@ package com.abubusoft.kripton.android.sqlite;
 
 import android.database.sqlite.SQLiteDatabase;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * SQLite schema upgrade to version <i>currentVersion</i> from <i>currentVersion-1</i>.
  * When you create an update task, you just to specify <i>currentVersion</i>, because the previuos version is the same minus 1.
  * </p>
+ *
+ * <pre>
+ *     @BindDataSourceOptions(updateTasks = {
+ *   @BindDataSourceUpdateTask(version = 2, task = PersonUpdateTask.class)
+ * })
+ * @BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db")
+ * public interface AppDataSource {
+ *
+ * }
+ * </pre>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *

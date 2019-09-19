@@ -22,8 +22,62 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
+ * DAOs work with associated entities, so usually it can be used to
+ * insert/update/select/delete a specific type of bean. Suppose you have a data
+ * source which data model is composed by two entities: album and song. There is
+ * a one-2-many relation between them.
  * </p>
  * 
+ * <pre>
+ * &#64;BindTable
+ * public class Album {
+ * 	public long id;
+ * 	public String name;
+ * 
+ * 	&#64;BindRelation(foreignKey = "albumId")
+ * 	public List<Song> songs;
+ * }
+ * </pre>
+ * 
+ * <pre>
+ * &#64;BindTable
+ * public class Song {
+ * 	public long id;
+ * 	public String name;
+ * 
+ * 	&#64;BindColumn(parentEntity = Album.class)
+ * 	public long albumId;
+ * }
+ * </pre>
+ * <p>
+ * albumId is the foreign key of the relation. songs field, marked with
+ * <code>&#64;BindRelation</code>, can contains all album's songs and it can not be
+ * stored in a table column. Every class is managed by its DAO. If you want, you
+ * can link associated DAO to load an album and its songs with the use of child
+ * selects.
+ * </p>
+ * 
+ * <pre>
+ * &#64;BindDao(Album.class)
+ * public interface DaoAlbum extends DaoBase<Album> {
+ * 	&#64;BindSqlSelect(childrenSelects = { &#64;BindSqlChildSelect(relation = "songs", method = "selectByAlbumId") })
+ * 	List<Album> selectAlbums();
+ * }
+ * 
+ * &#64;BindDao(Song.class)
+ * public interface DaoSong extends DaoBase<Song> {
+ * 
+ * 	&#64;BindSqlSelect
+ * 	List<Song> selectAll();
+ * 
+ * 	&#64;BindSqlSelect(where = "albumId=${albumId}")
+ * 	List<Song> selectByAlbumId(&#64;BindSqlParam("albumId") long dummy);
+ * }
+ * </pre>
+ * <p>
+ * In the above DAO definitions, method selectAlbum load all albums and for each
+ * album, to valorize songs field, uses the DaoSong#selectByAlbumId.
+ * </p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  */
@@ -40,9 +94,8 @@ public @interface BindSqlChildSelect {
 	String field();
 
 	/**
-	 * method's name of dao associated to child entity of relation to invoke to
-	 * fill field. This method must have only one parameter: the foreign key
-	 * value
+	 * method's name of dao associated to child entity of relation to invoke to fill
+	 * field. This method must have only one parameter: the foreign key value
 	 * 
 	 * @return method of child dao to use
 	 */

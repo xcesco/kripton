@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
  * 
  * <pre>
  * &#64;BindSqlSelect(orderBy = "name")
- * PaginatedResult<Person> select(@BindSqlPageSize int pageSize);
+ * PaginatedResult<Person> select(&#64;BindSqlPageSize int pageSize);
  * </pre>
  * 
  * <p>

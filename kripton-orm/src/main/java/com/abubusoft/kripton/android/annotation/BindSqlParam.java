@@ -22,9 +22,16 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 import com.abubusoft.kripton.android.sqlite.NoAdapter;
- 
+
 /**
- * The Interface BindSqlParam.
+ * <p>
+ * This annotation allows changing column name associated to a specific Java
+ * class field. The unique attribute is value and it is used to specify the
+ * column name associated to the annotated field. Before new name will be used,
+ * it is converted from upper camel case format to lower underscore case format.
+ * 
+ * See example done for <a href="https://github.com/xcesco/kripton/wiki/%40BindSqlInsert">&#64;BindSqlInsert</a>.
+ * </p>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
@@ -42,6 +49,6 @@ public @interface BindSqlParam {
 	 *
 	 * @return the class&lt;? extends sql type adapter&lt;?,?&gt;&gt;
 	 */
-	Class<? extends SqlTypeAdapter<?, ?>> adapter() default NoAdapter.class;	
-		
+	Class<? extends SqlTypeAdapter<?, ?>> adapter() default NoAdapter.class;
+
 }
