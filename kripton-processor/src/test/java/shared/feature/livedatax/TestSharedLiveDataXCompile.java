@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.KriptonLiveDataManager;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 
 import shared.AbstractBindSharedPreferenceProcessorTest;
 import shared.feature.livedatax.case1.AppPreferences;
@@ -41,10 +41,10 @@ public class TestSharedLiveDataXCompile extends AbstractBindSharedPreferenceProc
 	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		KriptonLiveDataManager.reset();
-		KriptonLiveDataManager.init("true");
+		KriptonDynamicClassManager.reset();
+		KriptonDynamicClassManager.init("true");
 		buildSharedPreferencesProcessorTest(AppPreferences.class);
-		KriptonLiveDataManager.reset();
+		KriptonDynamicClassManager.reset();
 	}
 
 }

@@ -40,7 +40,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.KriptonLiveDataManager;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -320,7 +320,7 @@ public abstract class BindSharedPreferencesBuilder {
 
 	private static void generateMethodAsLiveData(Converter<String, String> converter, TypeName typeName, PrefsProperty property) {
 
-		ParameterizedTypeName liveDataType = ParameterizedTypeName.get(KriptonLiveDataManager.getInstance().getLiveDataHandlerClazz(), typeName);
+		ParameterizedTypeName liveDataType = ParameterizedTypeName.get(KriptonDynamicClassManager.getInstance().getLiveDataHandlerClazz(), typeName);
 		String className = getBuildPreferenceName(property.getParent());
 
 		// generate compute
@@ -332,7 +332,7 @@ public abstract class BindSharedPreferencesBuilder {
 		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(liveDataType).addMethod(computeBuilder.build()).build();
 
 		MethodSpec ms = MethodSpec.methodBuilder("get" + converter.convert(property.getName()) + "AsLiveData").addModifiers(Modifier.PUBLIC)
-				.returns(ParameterizedTypeName.get(KriptonLiveDataManager.getInstance().getMutableLiveDataClazz(), typeName))
+				.returns(ParameterizedTypeName.get(KriptonDynamicClassManager.getInstance().getMutableLiveDataClazz(), typeName))
 				.addJavadoc("Obtains an LiveData to <code>$L</code> property\n\n", property.getName()).addJavadoc("@return\nan LiveData to <code>$L</code> property\n", property.getName())
 				.addStatement("$T liveData=$L", liveDataType, liveDataBuilder).addStatement("registryLiveData($S, liveData)", property.getPreferenceKey()).addStatement("return liveData.getLiveData()")
 				.build();

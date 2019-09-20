@@ -7,7 +7,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class KriptonLiveDataManager {
+public class KriptonDynamicClassManager {
 
 	private static final String KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME = "com.abubusoft.kripton.androidx.livedata.KriptonXPagedLiveDataHandlerImpl";
 
@@ -19,9 +19,9 @@ public class KriptonLiveDataManager {
 
 	private static final String KRIPTON_X_LIVE_DATA_HANDLER_IMPL_CLASS_NAME = "com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl";
 
-	private static KriptonLiveDataManager instance;
+	private static KriptonDynamicClassManager instance;
 
-	public static KriptonLiveDataManager getInstance() {
+	public static KriptonDynamicClassManager getInstance() {
 		return instance;
 	}
 
@@ -31,7 +31,7 @@ public class KriptonLiveDataManager {
 		boolean value = "true".equals(paramValue) ? true : false;
 
 		if (instance == null) {
-			instance = new KriptonLiveDataManager(value);
+			instance = new KriptonDynamicClassManager(value);
 
 			instance.liveDataClazzSet.clear();
 
@@ -83,7 +83,7 @@ public class KriptonLiveDataManager {
 
 	private ClassName pagedLiveDataHandlerClazz;
 
-	private KriptonLiveDataManager(boolean value) {
+	private KriptonDynamicClassManager(boolean value) {
 		androidxSupport = value;
 	}
 

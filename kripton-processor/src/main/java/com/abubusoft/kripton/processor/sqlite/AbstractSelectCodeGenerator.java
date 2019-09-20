@@ -32,7 +32,7 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.BaseProcessor;
-import com.abubusoft.kripton.processor.KriptonLiveDataManager;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -269,9 +269,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			separator = ", ";
 		}
 
-		ClassName handlerClass = KriptonLiveDataManager.getInstance().getLiveDataHandlerClazz();
+		ClassName handlerClass = KriptonDynamicClassManager.getInstance().getLiveDataHandlerClazz();
 		if (pagedLiveData) {
-			handlerClass = KriptonLiveDataManager.getInstance().getPagedLiveDataHandlerClazz();
+			handlerClass = KriptonDynamicClassManager.getInstance().getPagedLiveDataHandlerClazz();
 
 			TypeSpec batchBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(batchClazz, method.getReturnClass()))
 					.addMethod(

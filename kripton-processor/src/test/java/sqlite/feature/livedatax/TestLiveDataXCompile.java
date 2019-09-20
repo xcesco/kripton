@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.KriptonLiveDataManager;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.livedata.data.Person;
@@ -41,13 +41,13 @@ public class TestLiveDataXCompile extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testOK() throws Throwable {
-		KriptonLiveDataManager.reset();
-		KriptonLiveDataManager.init("true");
+		KriptonDynamicClassManager.reset();
+		KriptonDynamicClassManager.init("true");
 		//formatter:off
 		buildDataSourceProcessorTest(Person.class, DaoPerson0.class, App0DataSource.class);
 		//formatter:on
 		
-		KriptonLiveDataManager.reset();
+		KriptonDynamicClassManager.reset();
 	}
 	
 	/**
@@ -57,12 +57,12 @@ public class TestLiveDataXCompile extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile1() throws Throwable {
-		KriptonLiveDataManager.reset();
-		KriptonLiveDataManager.init("true");
+		KriptonDynamicClassManager.reset();
+		KriptonDynamicClassManager.init("true");
 		//formatter:off
 		buildDataSourceProcessorTest(Person.class, DaoPerson1.class, App1DataSource.class);
 		//formatter:on
-		KriptonLiveDataManager.reset();
+		KriptonDynamicClassManager.reset();
 	}
 
 }

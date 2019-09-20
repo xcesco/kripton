@@ -46,7 +46,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
-import com.abubusoft.kripton.processor.KriptonLiveDataManager;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.Finder;
@@ -375,7 +375,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			setReturnClass(returnParameterizedTypeName.typeArguments.get(0));
 
 			// if true, the live data is paged
-			this.pagedLiveData = KriptonLiveDataManager.getInstance().isPagedLiveData(this.liveDataReturnClass);
+			this.pagedLiveData = KriptonDynamicClassManager.getInstance().isPagedLiveData(this.liveDataReturnClass);
 		}
 
 		// detect entity, before other things like jql
@@ -530,7 +530,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 //			}
 //
 //			String wrapperName = wrapperClazz.getName();
-			if (KriptonLiveDataManager.getInstance().isLiveData(returnParameterizedClassName.toString())) {
+			if (KriptonDynamicClassManager.getInstance().isLiveData(returnParameterizedClassName.toString())) {
 				result = true;
 			}
 		}

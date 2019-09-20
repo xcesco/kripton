@@ -38,7 +38,7 @@ public abstract class KriptonOptions {
 		}
 
 		// ANDROIDX MODE
-		KriptonLiveDataManager.init(getOptionValue(processingEnv, KriptonOptions.ANDROID_X_OPTION_NAME));
+		KriptonDynamicClassManager.init(getOptionValue(processingEnv, KriptonOptions.ANDROID_X_OPTION_NAME));
 
 		if (KriptonProcessor.DEBUG_MODE && !KriptonProcessor.JUNIT_TEST_MODE) {
 			KriptonProcessor.info("Kripton Persistence Library v. " + Version.getVersion());
@@ -51,7 +51,7 @@ public abstract class KriptonOptions {
 					KriptonProcessor.info("param " + KriptonOptions.ANDROID_X_OPTION_NAME + " = <unset>");
 				}
 
-				KriptonProcessor.info("\tjetpack live data support is " + (KriptonLiveDataManager.getInstance().isAndroidxSupport()
+				KriptonProcessor.info("\tjetpack live data support is " + (KriptonDynamicClassManager.getInstance().isAndroidxSupport()
 								? "enabled" : "disabled"));
 			}
 			
