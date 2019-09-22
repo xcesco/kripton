@@ -80,6 +80,13 @@
 			<artifactId>kripton-retrofit-converter</artifactId>
 			<version>${kripton.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-arch-integration</artifactId>
+			<version>${kripton.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- RX dependencies - BEGIN -->
 		<dependency>

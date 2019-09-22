@@ -15,14 +15,13 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Enum TransactionResult.
  */
 public enum TransactionResult {
-	
+
 	/** The commit. */
-	COMMIT, 
- /** The rollback. */
- ROLLBACK
+	COMMIT,
+	/** The rollback. */
+	ROLLBACK
 }

@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 /**
  * A simple query builder to create SQL SELECT queries.
  */
-@SuppressWarnings("unused")
 public final class SupportSQLiteQueryBuilder {
     private static final Pattern sLimitPattern =
             Pattern.compile("\\s*\\d+\\s*(,\\s*\\d+\\s*)?");

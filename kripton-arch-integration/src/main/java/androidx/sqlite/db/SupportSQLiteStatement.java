@@ -18,7 +18,6 @@ package androidx.sqlite.db;
 /**
  * An interface to map the behavior of {@link android.database.sqlite.SQLiteStatement}.
  */
-@SuppressWarnings("unused")
 public interface SupportSQLiteStatement extends SupportSQLiteProgram {
     /**
      * Execute this SQL statement, if it is not a SELECT / INSERT / DELETE / UPDATE, for example

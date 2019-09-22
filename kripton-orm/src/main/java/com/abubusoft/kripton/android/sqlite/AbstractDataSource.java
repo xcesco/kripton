@@ -34,6 +34,8 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+//import androix.sqlite.db.SupportSQLiteDatabase;
+
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
@@ -60,7 +62,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 */
 	protected void onSessionOpened() {
 		this.context.onSessionOpened();
-
 	}
 
 	/**

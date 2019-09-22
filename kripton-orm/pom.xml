@@ -46,8 +46,6 @@
 			<version>${kripton.version}</version>
 		</dependency>
 	
-
-
 		<!-- RX dependencies - BEGIN -->
 		<dependency>
 			<groupId>io.reactivex.rxjava2</groupId>
@@ -56,8 +54,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- RX dependencies - END -->
-
-
 
 		<dependency>
 			<groupId>org.robolectric</groupId>

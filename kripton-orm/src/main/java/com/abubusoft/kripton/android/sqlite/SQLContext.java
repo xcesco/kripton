@@ -21,7 +21,6 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
-// TODO: Auto-generated Javadoc
 /**
  * SQL context for queries execution. There are two kind of SQLContext:
  * <ul>

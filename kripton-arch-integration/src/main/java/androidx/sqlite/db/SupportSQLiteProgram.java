@@ -18,7 +18,6 @@ import java.io.Closeable;
 /**
  * An interface to map the behavior of {@link android.database.sqlite.SQLiteProgram}.
  */
-@SuppressWarnings("unused")
 public interface SupportSQLiteProgram extends Closeable {
     /**
      * Bind a NULL value to this statement. The value remains bound until

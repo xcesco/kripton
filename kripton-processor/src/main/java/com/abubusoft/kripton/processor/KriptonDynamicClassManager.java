@@ -35,6 +35,12 @@ public class KriptonDynamicClassManager {
 			instance = new KriptonDynamicClassManager(bAndroidXSupportVale, bAndroidXDBSupportVale);
 
 			instance.liveDataClazzSet.clear();
+			
+			if (instance.androidXDB) {
+				instance.databaseClazz=ClassName.bestGuess("androidx.sqlite.db.SupportSQLiteDatabase");
+			} else {
+				instance.databaseClazz=ClassName.bestGuess("");
+			}
 
 			if (instance.androidxSupport) {
 				instance.liveDataHandlerClazz = ClassName.bestGuess(KRIPTON_X_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
@@ -86,13 +92,12 @@ public class KriptonDynamicClassManager {
 	}
 
 	private ClassName liveDataClazz;
-
 	private ClassName liveDataHandlerClazz;
 	private ClassName mutableLiveDataClazz;
-
 	private ClassName pagedLiveDataClazz;
-
 	private ClassName pagedLiveDataHandlerClazz;
+	
+	private ClassName databaseClazz;
 
 	private KriptonDynamicClassManager(boolean value, boolean bAndroidXDBSupportVale) {
 		androidxSupport = value;
@@ -121,26 +126,7 @@ public class KriptonDynamicClassManager {
 
 	public boolean isLiveData(String wrapperName) {
 		return this.liveDataClazzSet.contains(wrapperName);
-		// if (!androidxSupport &&
-		// (com.abubusoft.kripton.android.livedata.KriptonLiveData.class.getName().equals(wrapperName)
-		// ||
-		// android.arch.lifecycle.MutableLiveData.class.getName().equals(wrapperName)
-		// ||
-		// android.arch.lifecycle.LiveData.class.getName().equals(wrapperName)))
-		// {
-		// return true;
-		// }
-		//
-		// if (androidxSupport &&
-		// (com.abubusoft.kripton.androidx.livedata.KriptonXLiveData.class.getName().equals(wrapperName)
-		// ||
-		// androidx.lifecycle.MutableLiveData.class.getName().equals(wrapperName)
-		// || androidx.lifecycle.LiveData.class.getName().equals(wrapperName)))
-		// {
-		// return true;
-		// }
-		//
-		// return false;
+		
 	}
 
 	public boolean isPagedLiveData(TypeName liveDataReturnClass) {
