@@ -273,10 +273,10 @@ You can use Kritpon Annotation Processor and Kripton Persistence Library via gra
 
 ```
 // annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:5.0.0"
+annotationProcessor "com.abubusoft:kripton-processor:6.0.0"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-implements "com.abubusoft:kripton-android-library:5.0.0"
+implements "com.abubusoft:kripton-android-library:6.0.0"
 ```
 
 or via maven
@@ -287,7 +287,7 @@ or via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>5.0.0</version>
+    <version>6.0.0</version>
   </dependency>
   ...
 </dependencies>
@@ -306,7 +306,7 @@ or via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>5.0.0</version>
+		    <version>6.0.0</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
