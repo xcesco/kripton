@@ -27,11 +27,12 @@ public class KriptonDynamicClassManager {
 
 	private Set<String> liveDataClazzSet = new HashSet<>();
 
-	public static void init(String paramValue) {
-		boolean value = "true".equals(paramValue) ? true : false;
+	public static void init(String androidxSupportValue, String androidxDbSupportValue) {
+		boolean bAndroidXSupportVale = "true".equals(androidxSupportValue) ? true : false;
+		boolean bAndroidXDBSupportVale = "true".equals(androidxDbSupportValue) ? true : false;
 
 		if (instance == null) {
-			instance = new KriptonDynamicClassManager(value);
+			instance = new KriptonDynamicClassManager(bAndroidXSupportVale, bAndroidXDBSupportVale);
 
 			instance.liveDataClazzSet.clear();
 
@@ -41,16 +42,20 @@ public class KriptonDynamicClassManager {
 				instance.mutableLiveDataClazz = ClassName.bestGuess(KRIPTON_X_MUTABLE_LIVE_DATA_CLASS_NAME);
 
 				instance.pagedLiveDataClazz = ClassName.bestGuess(KRIPTON_X_PAGED_LIVE_DATA_CLASS_NAME);
-				instance.pagedLiveDataHandlerClazz = ClassName.bestGuess(KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
+				instance.pagedLiveDataHandlerClazz = ClassName
+						.bestGuess(KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
 
 				instance.liveDataClazzSet.add("androidx.lifecycle.LiveData");
 			} else {
-				instance.liveDataHandlerClazz = ClassName.bestGuess("com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl");
+				instance.liveDataHandlerClazz = ClassName
+						.bestGuess("com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl");
 				instance.liveDataClazz = ClassName.bestGuess("com.abubusoft.kripton.android.livedata.KriptonLiveData");
 				instance.mutableLiveDataClazz = ClassName.bestGuess("android.arch.lifecycle.MutableLiveData");
 
-				instance.pagedLiveDataClazz = ClassName.bestGuess("com.abubusoft.kripton.android.livedata.PagedLiveData");
-				instance.pagedLiveDataHandlerClazz = ClassName.bestGuess("com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl");
+				instance.pagedLiveDataClazz = ClassName
+						.bestGuess("com.abubusoft.kripton.android.livedata.PagedLiveData");
+				instance.pagedLiveDataHandlerClazz = ClassName
+						.bestGuess("com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl");
 
 				instance.liveDataClazzSet.add("android.arch.lifecycle.LiveData");
 			}
@@ -73,6 +78,12 @@ public class KriptonDynamicClassManager {
 	public boolean isAndroidxSupport() {
 		return androidxSupport;
 	}
+	
+	private boolean androidXDB;
+
+	public boolean isAndroidXDB() {
+		return androidXDB;
+	}
 
 	private ClassName liveDataClazz;
 
@@ -83,8 +94,9 @@ public class KriptonDynamicClassManager {
 
 	private ClassName pagedLiveDataHandlerClazz;
 
-	private KriptonDynamicClassManager(boolean value) {
+	private KriptonDynamicClassManager(boolean value, boolean bAndroidXDBSupportVale) {
 		androidxSupport = value;
+		androidXDB=bAndroidXDBSupportVale;
 	}
 
 	public ClassName getLiveDataClazz() {
