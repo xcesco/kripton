@@ -3,15 +3,15 @@ package sqlite.feature.pkstring.rx;
 import android.arch.lifecycle.LiveData;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.PageRequest;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.CollectionUtils;
@@ -19,6 +19,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import io.reactivex.subjects.PublishSubject;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,15 +38,15 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *  @see UserTable
  */
 public class UserDaoImpl extends Dao implements UserDao {
-  private static SQLiteStatement insertUserPreparedStatement0;
+  private static SupportSQLiteStatement insertUserPreparedStatement0;
 
   private static final Set<String> insertUser0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "userid", "username");
 
-  private static SQLiteStatement insertUserPreparedStatement1;
+  private static SupportSQLiteStatement insertUserPreparedStatement1;
 
   private static final Set<String> insertUser1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "userid");
 
-  private static SQLiteStatement deleteAllUsersPreparedStatement2;
+  private static SupportSQLiteStatement deleteAllUsersPreparedStatement2;
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
@@ -116,7 +117,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -231,7 +232,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -298,7 +299,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -382,7 +383,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -485,7 +486,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (insertUserPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO users (userid, username) VALUES (?, ?)";
-      insertUserPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertUserPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertUserPreparedStatement0);
     _contentValues.put("userid", user.getId());
@@ -527,7 +528,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertUserPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertUserPreparedStatement0, _contentValues);
     if (result>0) {
       // rx management 
       subject.onNext(SQLiteEvent.createInsertWithUid(user.getId()));
@@ -578,7 +579,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insertWithOnConflict("users", null, _contentValues.values(), 5);
+    long result = database().insert("users", 5, _contentValues.values());
     if (result>0) {
       // rx management 
       subject.onNext(SQLiteEvent.createInsertWithUid(contentValues.getAsString("userid")));
@@ -607,7 +608,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (insertUserPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO users (userid) VALUES (?)";
-      insertUserPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertUserPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertUserPreparedStatement1);
 
@@ -649,7 +650,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertUserPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertUserPreparedStatement1, _contentValues);
     if (result>0) {
       // rx management 
       subject.onNext(SQLiteEvent.createInsertWithUid(id));
@@ -700,7 +701,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insertWithOnConflict("users", null, _contentValues.values(), 5);
+    long result = database().insert("users", 5, _contentValues.values());
     if (result>0) {
       // rx management 
       subject.onNext(SQLiteEvent.createInsertWithUid(contentValues.getAsString("userid")));
@@ -722,7 +723,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (deleteAllUsersPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM users";
-      deleteAllUsersPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllUsersPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllUsersPreparedStatement2);
 
@@ -742,7 +743,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllUsersPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllUsersPreparedStatement2, _contentValues);
     if (result>0) {
       // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
@@ -791,17 +792,21 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertUserPreparedStatement0!=null) {
-      insertUserPreparedStatement0.close();
-      insertUserPreparedStatement0=null;
-    }
-    if (insertUserPreparedStatement1!=null) {
-      insertUserPreparedStatement1.close();
-      insertUserPreparedStatement1=null;
-    }
-    if (deleteAllUsersPreparedStatement2!=null) {
-      deleteAllUsersPreparedStatement2.close();
-      deleteAllUsersPreparedStatement2=null;
+    try {
+      if (insertUserPreparedStatement0!=null) {
+        insertUserPreparedStatement0.close();
+        insertUserPreparedStatement0=null;
+      }
+      if (insertUserPreparedStatement1!=null) {
+        insertUserPreparedStatement1.close();
+        insertUserPreparedStatement1=null;
+      }
+      if (deleteAllUsersPreparedStatement2!=null) {
+        deleteAllUsersPreparedStatement2.close();
+        deleteAllUsersPreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 

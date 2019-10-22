@@ -1,13 +1,14 @@
 package sqlite.kripton56.persistence;
 
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import sqlite.kripton56.entities.OwnerType;
 
 /**
@@ -20,7 +21,7 @@ import sqlite.kripton56.entities.OwnerType;
  *  @see sqlite.kripton56.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends Dao implements DaoMessage {
-  private static SQLiteStatement updateByIdPreparedStatement0;
+  private static SupportSQLiteStatement updateByIdPreparedStatement0;
 
   public DaoMessageImpl(BindWhisperDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -52,7 +53,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     if (updateByIdPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE message SET owner_type=? WHERE id = ?";
-      updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateByIdPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
     _contentValues.put("owner_type", EnumUtils.write(ownerType));
@@ -87,14 +88,18 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateByIdPreparedStatement0, _contentValues);
     return result!=0;
   }
 
   public static void clearCompiledStatements() {
-    if (updateByIdPreparedStatement0!=null) {
-      updateByIdPreparedStatement0.close();
-      updateByIdPreparedStatement0=null;
+    try {
+      if (updateByIdPreparedStatement0!=null) {
+        updateByIdPreparedStatement0.close();
+        updateByIdPreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

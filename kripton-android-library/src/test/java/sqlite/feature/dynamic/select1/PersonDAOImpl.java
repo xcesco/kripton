@@ -1,15 +1,16 @@
 package sqlite.feature.dynamic.select1;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ import sqlite.feature.dynamic.Person;
  *  @see sqlite.feature.dynamic.PersonTable
  */
 public class PersonDAOImpl extends Dao implements PersonDAO {
-  private static SQLiteStatement insertOnePreparedStatement0;
+  private static SupportSQLiteStatement insertOnePreparedStatement0;
 
   /**
    * SQL definition for method selectAll
@@ -64,7 +65,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
-      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOnePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
@@ -109,7 +110,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOnePreparedStatement0, _contentValues);
     // Specialized Insert - InsertType - END
   }
 
@@ -153,7 +154,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -269,7 +270,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -366,7 +367,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -408,9 +409,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   public static void clearCompiledStatements() {
-    if (insertOnePreparedStatement0!=null) {
-      insertOnePreparedStatement0.close();
-      insertOnePreparedStatement0=null;
+    try {
+      if (insertOnePreparedStatement0!=null) {
+        insertOnePreparedStatement0.close();
+        insertOnePreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

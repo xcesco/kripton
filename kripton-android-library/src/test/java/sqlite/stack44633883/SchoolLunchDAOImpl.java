@@ -1,13 +1,14 @@
 package sqlite.stack44633883;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +32,9 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    */
   private static final String GET_ALL_SQL2 = "SELECT lunch_id, contains_meat, fresh, fruits FROM SchoolLunches";
 
-  private static SQLiteStatement insertAllPreparedStatement0;
+  private static SupportSQLiteStatement insertAllPreparedStatement0;
 
-  private static SQLiteStatement deleteAllPreparedStatement1;
+  private static SupportSQLiteStatement deleteAllPreparedStatement1;
 
   public SchoolLunchDAOImpl(BindSchoolLunchDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -78,7 +79,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -154,7 +155,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -214,7 +215,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
     if (insertAllPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (?, ?, ?)";
-      insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertAllPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertAllPreparedStatement0);
     _contentValues.put("contains_meat", schoolLunches.isContainsMeat());
@@ -257,7 +258,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertAllPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     schoolLunches.setLunchId(result);
     // Specialized Insert - InsertType - END
@@ -275,7 +276,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
     if (deleteAllPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM SchoolLunches";
-      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement1);
 
@@ -295,17 +296,21 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllPreparedStatement1, _contentValues);
   }
 
   public static void clearCompiledStatements() {
-    if (insertAllPreparedStatement0!=null) {
-      insertAllPreparedStatement0.close();
-      insertAllPreparedStatement0=null;
-    }
-    if (deleteAllPreparedStatement1!=null) {
-      deleteAllPreparedStatement1.close();
-      deleteAllPreparedStatement1=null;
+    try {
+      if (insertAllPreparedStatement0!=null) {
+        insertAllPreparedStatement0.close();
+        insertAllPreparedStatement0=null;
+      }
+      if (deleteAllPreparedStatement1!=null) {
+        deleteAllPreparedStatement1.close();
+        deleteAllPreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

@@ -2,15 +2,16 @@ package sqlite.kripton296.datasource;
 
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,13 +35,13 @@ public class MovieDaoImpl extends Dao implements MovieDao {
    */
   private static final String FIND_MOVIE_BY_TITLE_SQL4 = "SELECT id, director_id, title FROM movie WHERE title = ? LIMIT 1";
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement insertPreparedStatement1;
+  private static SupportSQLiteStatement insertPreparedStatement1;
 
-  private static SQLiteStatement updatePreparedStatement2;
+  private static SupportSQLiteStatement updatePreparedStatement2;
 
-  private static SQLiteStatement deleteAllPreparedStatement3;
+  private static SupportSQLiteStatement deleteAllPreparedStatement3;
 
   /**
    * SQL definition for method getAllMovies
@@ -99,7 +100,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -151,7 +152,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
       if (insertPreparedStatement0==null) {
         // generate static SQL for statement
         String _sql="INSERT OR IGNORE INTO movie (director_id, title) VALUES (?, ?)";
-        insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+        insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
       }
       KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
       _contentValues.put("director_id", __bean.directorId);
@@ -193,7 +194,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
       }
       // log section END
       // insert operation
-      long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+      long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
       // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
       __bean.id=result;
       // support for livedata
@@ -224,7 +225,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO movie (title, director_id) VALUES (?, ?)";
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
@@ -267,7 +268,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement1, _contentValues);
     // support for livedata
     registryEvent(result>0?1:0);
     // Specialized Insert - InsertType - END
@@ -291,7 +292,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
     if (updatePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE OR IGNORE movie SET director_id=?, title=?";
-      updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
     _contentValues.put("director_id", director.directorId);
@@ -326,7 +327,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement2, _contentValues);
     // support for livedata
     registryEvent(result);
   }
@@ -343,7 +344,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
     if (deleteAllPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM movie";
-      deleteAllPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement3);
 
@@ -363,7 +364,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllPreparedStatement3, _contentValues);
     // support for livedata
     registryEvent(result);
   }
@@ -404,7 +405,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -511,21 +512,25 @@ public class MovieDaoImpl extends Dao implements MovieDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (insertPreparedStatement1!=null) {
-      insertPreparedStatement1.close();
-      insertPreparedStatement1=null;
-    }
-    if (updatePreparedStatement2!=null) {
-      updatePreparedStatement2.close();
-      updatePreparedStatement2=null;
-    }
-    if (deleteAllPreparedStatement3!=null) {
-      deleteAllPreparedStatement3.close();
-      deleteAllPreparedStatement3=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (insertPreparedStatement1!=null) {
+        insertPreparedStatement1.close();
+        insertPreparedStatement1=null;
+      }
+      if (updatePreparedStatement2!=null) {
+        updatePreparedStatement2.close();
+        updatePreparedStatement2=null;
+      }
+      if (deleteAllPreparedStatement3!=null) {
+        deleteAllPreparedStatement3.close();
+        deleteAllPreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

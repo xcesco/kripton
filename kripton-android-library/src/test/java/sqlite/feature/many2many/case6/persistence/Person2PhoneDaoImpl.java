@@ -1,14 +1,15 @@
 package sqlite.feature.many2many.case6.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +45,13 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   private static final String SELECT_BY_PHONE_NUMBER_ID_SQL14 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE phone_number_id=?";
 
-  private static SQLiteStatement deleteByIdPreparedStatement0;
+  private static SupportSQLiteStatement deleteByIdPreparedStatement0;
 
-  private static SQLiteStatement deleteByPersonIdPreparedStatement1;
+  private static SupportSQLiteStatement deleteByPersonIdPreparedStatement1;
 
-  private static SQLiteStatement deleteByPhoneNumberIdPreparedStatement2;
+  private static SupportSQLiteStatement deleteByPhoneNumberIdPreparedStatement2;
 
-  private static SQLiteStatement insertPreparedStatement3;
+  private static SupportSQLiteStatement insertPreparedStatement3;
 
   public Person2PhoneDaoImpl(BindXenoDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -103,7 +104,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -187,7 +188,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -265,7 +266,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -349,7 +350,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -405,7 +406,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     if (deleteByIdPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person_phone WHERE id=?";
-      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByIdPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -426,7 +427,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -449,7 +450,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     if (deleteByPersonIdPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person_phone WHERE person_id=?";
-      deleteByPersonIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByPersonIdPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByPersonIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(personId));
@@ -470,7 +471,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByPersonIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByPersonIdPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -493,7 +494,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     if (deleteByPhoneNumberIdPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person_phone WHERE phone_number_id=?";
-      deleteByPhoneNumberIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByPhoneNumberIdPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByPhoneNumberIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
@@ -514,7 +515,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByPhoneNumberIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByPhoneNumberIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -542,7 +543,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person_phone (buy_date, person_id, phone_number_id) VALUES (?, ?, ?)";
-      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
     _contentValues.put("buy_date", SQLDateUtils.write(bean.buyDate));
@@ -585,7 +586,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement3, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -594,21 +595,25 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   }
 
   public static void clearCompiledStatements() {
-    if (deleteByIdPreparedStatement0!=null) {
-      deleteByIdPreparedStatement0.close();
-      deleteByIdPreparedStatement0=null;
-    }
-    if (deleteByPersonIdPreparedStatement1!=null) {
-      deleteByPersonIdPreparedStatement1.close();
-      deleteByPersonIdPreparedStatement1=null;
-    }
-    if (deleteByPhoneNumberIdPreparedStatement2!=null) {
-      deleteByPhoneNumberIdPreparedStatement2.close();
-      deleteByPhoneNumberIdPreparedStatement2=null;
-    }
-    if (insertPreparedStatement3!=null) {
-      insertPreparedStatement3.close();
-      insertPreparedStatement3=null;
+    try {
+      if (deleteByIdPreparedStatement0!=null) {
+        deleteByIdPreparedStatement0.close();
+        deleteByIdPreparedStatement0=null;
+      }
+      if (deleteByPersonIdPreparedStatement1!=null) {
+        deleteByPersonIdPreparedStatement1.close();
+        deleteByPersonIdPreparedStatement1=null;
+      }
+      if (deleteByPhoneNumberIdPreparedStatement2!=null) {
+        deleteByPhoneNumberIdPreparedStatement2.close();
+        deleteByPhoneNumberIdPreparedStatement2=null;
+      }
+      if (insertPreparedStatement3!=null) {
+        insertPreparedStatement3.close();
+        insertPreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

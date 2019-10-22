@@ -1,13 +1,14 @@
 package sqlite.kripton209.model2;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,13 +38,13 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    */
   private static final String SELECT_BY_DEVICE_ID_SQL7 = "SELECT id, device_id, user_id FROM user_2_device WHERE device_id=?";
 
-  private static SQLiteStatement deleteByIdPreparedStatement0;
+  private static SupportSQLiteStatement deleteByIdPreparedStatement0;
 
-  private static SQLiteStatement deleteByUserIdPreparedStatement1;
+  private static SupportSQLiteStatement deleteByUserIdPreparedStatement1;
 
-  private static SQLiteStatement deleteByDeviceIdPreparedStatement2;
+  private static SupportSQLiteStatement deleteByDeviceIdPreparedStatement2;
 
-  private static SQLiteStatement insertPreparedStatement3;
+  private static SupportSQLiteStatement insertPreparedStatement3;
 
   public UserDeviceDaoImpl(BindApp2DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -95,7 +96,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -182,7 +183,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -275,7 +276,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -341,7 +342,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     if (deleteByIdPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user_2_device WHERE id=?";
-      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByIdPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -362,7 +363,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -385,7 +386,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     if (deleteByUserIdPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user_2_device WHERE user_id=?";
-      deleteByUserIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByUserIdPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByUserIdPreparedStatement1);
     _contentValues.addWhereArgs((userId==null?"":String.valueOf(userId)));
@@ -406,7 +407,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByUserIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByUserIdPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -429,7 +430,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     if (deleteByDeviceIdPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user_2_device WHERE device_id=?";
-      deleteByDeviceIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByDeviceIdPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByDeviceIdPreparedStatement2);
     _contentValues.addWhereArgs((deviceId==null?"":String.valueOf(deviceId)));
@@ -450,7 +451,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByDeviceIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByDeviceIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -477,7 +478,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO user_2_device (device_id, user_id) VALUES (?, ?)";
-      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
     _contentValues.put("device_id", bean.getDeviceId());
@@ -519,28 +520,32 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement3, _contentValues);
 
     return (int)result;
     // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {
-    if (deleteByIdPreparedStatement0!=null) {
-      deleteByIdPreparedStatement0.close();
-      deleteByIdPreparedStatement0=null;
-    }
-    if (deleteByUserIdPreparedStatement1!=null) {
-      deleteByUserIdPreparedStatement1.close();
-      deleteByUserIdPreparedStatement1=null;
-    }
-    if (deleteByDeviceIdPreparedStatement2!=null) {
-      deleteByDeviceIdPreparedStatement2.close();
-      deleteByDeviceIdPreparedStatement2=null;
-    }
-    if (insertPreparedStatement3!=null) {
-      insertPreparedStatement3.close();
-      insertPreparedStatement3=null;
+    try {
+      if (deleteByIdPreparedStatement0!=null) {
+        deleteByIdPreparedStatement0.close();
+        deleteByIdPreparedStatement0=null;
+      }
+      if (deleteByUserIdPreparedStatement1!=null) {
+        deleteByUserIdPreparedStatement1.close();
+        deleteByUserIdPreparedStatement1=null;
+      }
+      if (deleteByDeviceIdPreparedStatement2!=null) {
+        deleteByDeviceIdPreparedStatement2.close();
+        deleteByDeviceIdPreparedStatement2=null;
+      }
+      if (insertPreparedStatement3!=null) {
+        insertPreparedStatement3.close();
+        insertPreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

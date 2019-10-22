@@ -1,16 +1,17 @@
 package sqlite.feature.javadoc.update.bean;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.util.Set;
 import sqlite.feature.javadoc.Person;
 
@@ -24,11 +25,11 @@ import sqlite.feature.javadoc.Person;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao {
-  private static SQLiteStatement updateAllBeansPreparedStatement0;
+  private static SupportSQLiteStatement updateAllBeansPreparedStatement0;
 
   private static final Set<String> updateAllBeans0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  private static SQLiteStatement updateOneBeanPreparedStatement1;
+  private static SupportSQLiteStatement updateOneBeanPreparedStatement1;
 
   private static final Set<String> updateOneBean1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
@@ -36,11 +37,11 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
   private static final Set<String> updateOneBeanWithDynamicAndArgs3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  private static SQLiteStatement updateAllBeansJQLPreparedStatement2;
+  private static SupportSQLiteStatement updateAllBeansJQLPreparedStatement2;
 
   private static final Set<String> updateAllBeansJQL4ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
-  private static SQLiteStatement updateFromSelectJQLPreparedStatement3;
+  private static SupportSQLiteStatement updateFromSelectJQLPreparedStatement3;
 
   private static final Set<String> updateFromSelectJQL5ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
@@ -73,7 +74,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     if (updateAllBeansPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET person_name=?, person_surname=?, student=?";
-      updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateAllBeansPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
     _contentValues.put("person_name", bean.getPersonName());
@@ -109,7 +110,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateAllBeansPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateAllBeansPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -174,7 +175,8 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -204,7 +206,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     if (updateOneBeanPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?";
-      updateOneBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateOneBeanPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneBeanPreparedStatement1);
     _contentValues.put("person_name", bean.getPersonName());
@@ -241,7 +243,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateOneBeanPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateOneBeanPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -320,7 +322,8 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -403,7 +406,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -482,7 +485,8 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -574,7 +578,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -665,7 +669,8 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -687,7 +692,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     if (updateAllBeansJQLPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET person_surname=?, student = ?";
-      updateAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateAllBeansJQLPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement2);
     _contentValues.put("person_surname", bean.getPersonSurname());
@@ -722,7 +727,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateAllBeansJQLPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateAllBeansJQLPreparedStatement2, _contentValues);
   }
 
   /**
@@ -786,7 +791,8 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -849,7 +855,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -876,7 +882,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     if (updateFromSelectJQLPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET person_name=? where student = (select student from person where id=?)";
-      updateFromSelectJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateFromSelectJQLPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement3);
     _contentValues.put("person_name", bean.getPersonName());
@@ -911,7 +917,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateFromSelectJQLPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateFromSelectJQLPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -990,7 +996,8 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1073,7 +1080,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -1152,7 +1159,8 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1244,7 +1252,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -1335,26 +1343,31 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (updateAllBeansPreparedStatement0!=null) {
-      updateAllBeansPreparedStatement0.close();
-      updateAllBeansPreparedStatement0=null;
-    }
-    if (updateOneBeanPreparedStatement1!=null) {
-      updateOneBeanPreparedStatement1.close();
-      updateOneBeanPreparedStatement1=null;
-    }
-    if (updateAllBeansJQLPreparedStatement2!=null) {
-      updateAllBeansJQLPreparedStatement2.close();
-      updateAllBeansJQLPreparedStatement2=null;
-    }
-    if (updateFromSelectJQLPreparedStatement3!=null) {
-      updateFromSelectJQLPreparedStatement3.close();
-      updateFromSelectJQLPreparedStatement3=null;
+    try {
+      if (updateAllBeansPreparedStatement0!=null) {
+        updateAllBeansPreparedStatement0.close();
+        updateAllBeansPreparedStatement0=null;
+      }
+      if (updateOneBeanPreparedStatement1!=null) {
+        updateOneBeanPreparedStatement1.close();
+        updateOneBeanPreparedStatement1=null;
+      }
+      if (updateAllBeansJQLPreparedStatement2!=null) {
+        updateAllBeansJQLPreparedStatement2.close();
+        updateAllBeansJQLPreparedStatement2=null;
+      }
+      if (updateFromSelectJQLPreparedStatement3!=null) {
+        updateFromSelectJQLPreparedStatement3.close();
+        updateFromSelectJQLPreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

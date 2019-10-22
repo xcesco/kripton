@@ -1,6 +1,6 @@
 package sqlite.kripton40;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
@@ -92,9 +92,9 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   public boolean execute(Transaction transaction,
       AbstractDataSource.OnErrorListener onErrorListener) {
     // open database in thread safe mode
-    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
+    Pair<Boolean, SupportSQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
     boolean success=false;
-    SQLiteDatabase connection=_status.value1;
+    SupportSQLiteDatabase connection=_status.value1;
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -209,7 +209,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     // open database in thread safe mode
-    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
+    Pair<Boolean, SupportSQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
     DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -279,7 +279,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    * onCreate
    */
   @Override
-  public void onCreate(SQLiteDatabase database) {
+  public void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     // log section create BEGIN
     if (this.logEnabled) {
@@ -306,7 +306,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
+  public void onUpgrade(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
@@ -350,7 +350,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    * onConfigure
    */
   @Override
-  public void onConfigure(SQLiteDatabase database) {
+  public void onConfigure(SupportSQLiteDatabase database) {
     // configure database
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);

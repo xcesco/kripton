@@ -2,16 +2,17 @@ package sqlite.feature.kotlin.immutable;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.common.UrlUtils;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,9 +31,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *  @see ArticleTable
  */
 public class DaoArticleImpl extends Dao implements DaoArticle {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement updatePreparedStatement1;
+  private static SupportSQLiteStatement updatePreparedStatement1;
 
   /**
    * SQL definition for method selectByChannelUd
@@ -80,7 +81,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO articles (author, channel_id, comments, description, guid, link, read, thumbnail, title) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("author", bean.getAuthor());
@@ -129,7 +130,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // support for livedata
     registryEvent(result>0?1:0);
 
@@ -164,7 +165,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     if (updatePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE articles SET channel_id=?, read=? WHERE id=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
     _contentValues.put("channel_id", channelId);
@@ -200,7 +201,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement1, _contentValues);
     // support for livedata
     registryEvent(result);
   }
@@ -269,7 +270,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -450,7 +451,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -582,7 +583,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -687,13 +688,17 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (updatePreparedStatement1!=null) {
-      updatePreparedStatement1.close();
-      updatePreparedStatement1=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (updatePreparedStatement1!=null) {
+        updatePreparedStatement1.close();
+        updatePreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

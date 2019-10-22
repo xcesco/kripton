@@ -25,7 +25,7 @@ import org.robolectric.annotation.Config;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.feature.schema.version2.BindSchoolDataSource;
 import sqlite.feature.schema.version2.DaoProfessorImpl;
@@ -52,19 +52,19 @@ public class TestSchemaRuntime extends BaseAndroidTest {
 		BindSchoolDataSource.build(DataSourceOptions.builder().databaseLifecycleHandler(new DatabaseLifecycleHandler() {
 			
 			@Override
-			public void onUpdate(SQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade) {
+			public void onUpdate(SupportSQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade) {
 				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
-			public void onCreate(SQLiteDatabase database) {
+			public void onCreate(SupportSQLiteDatabase database) {
 				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
-			public void onConfigure(SQLiteDatabase database) {
+			public void onConfigure(SupportSQLiteDatabase database) {
 				// TODO Auto-generated method stub
 				
 			}

@@ -1,13 +1,14 @@
 package sqlite.test05firt_aid;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
    */
   private static final String SELECT_ALL_SQL1 = "SELECT id, address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients FROM first_aid ORDER BY description";
 
-  private static SQLiteStatement deleteAllPreparedStatement0;
+  private static SupportSQLiteStatement deleteAllPreparedStatement0;
 
-  private static SQLiteStatement insertPreparedStatement1;
+  private static SupportSQLiteStatement insertPreparedStatement1;
 
   public FirstAidDaoImpl(BindFirstAidDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -91,7 +92,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -178,7 +179,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
     if (deleteAllPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM first_aid WHERE 1=1";
-      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement0);
 
@@ -198,7 +199,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -244,7 +245,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO first_aid (address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("address", bean.address);
@@ -305,7 +306,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -314,13 +315,17 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
   }
 
   public static void clearCompiledStatements() {
-    if (deleteAllPreparedStatement0!=null) {
-      deleteAllPreparedStatement0.close();
-      deleteAllPreparedStatement0=null;
-    }
-    if (insertPreparedStatement1!=null) {
-      insertPreparedStatement1.close();
-      insertPreparedStatement1=null;
+    try {
+      if (deleteAllPreparedStatement0!=null) {
+        deleteAllPreparedStatement0.close();
+        deleteAllPreparedStatement0=null;
+      }
+      if (insertPreparedStatement1!=null) {
+        insertPreparedStatement1.close();
+        insertPreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

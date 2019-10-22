@@ -1,11 +1,12 @@
 package sqlite.kripton41;
 
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
+import java.io.IOException;
 
 /**
  * <p>
@@ -17,7 +18,7 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see Bean01Table
  */
 public class DaoBeanDeleteOKImpl extends Dao implements DaoBeanDeleteOK {
-  private static SQLiteStatement deleteDistancePreparedStatement0;
+  private static SupportSQLiteStatement deleteDistancePreparedStatement0;
 
   public DaoBeanDeleteOKImpl(BindDummy08DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -42,7 +43,7 @@ public class DaoBeanDeleteOKImpl extends Dao implements DaoBeanDeleteOK {
     if (deleteDistancePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM bean01 WHERE id=?";
-      deleteDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteDistancePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteDistancePreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(value));
@@ -63,14 +64,18 @@ public class DaoBeanDeleteOKImpl extends Dao implements DaoBeanDeleteOK {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteDistancePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteDistancePreparedStatement0, _contentValues);
     return result!=0;
   }
 
   public static void clearCompiledStatements() {
-    if (deleteDistancePreparedStatement0!=null) {
-      deleteDistancePreparedStatement0.close();
-      deleteDistancePreparedStatement0=null;
+    try {
+      if (deleteDistancePreparedStatement0!=null) {
+        deleteDistancePreparedStatement0.close();
+        deleteDistancePreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,19 +36,19 @@ public interface DatabaseLifecycleHandler {
 	 * @param upgrade            if true is an upgrade operation, otherwise it's a
 	 *            downgrade operation.
 	 */
-	void onUpdate(SQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade);
+	void onUpdate(SupportSQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade);
 
 	/**
 	 * Invoked after execution of DDL necessary to create database.
 	 *
 	 * @param database the database
 	 */
-	void onCreate(SQLiteDatabase database);
+	void onCreate(SupportSQLiteDatabase database);
 
 	/**
 	 * Invoked during database configuration.
 	 *
 	 * @param database the database
 	 */
-	void onConfigure(SQLiteDatabase database);
+	void onConfigure(SupportSQLiteDatabase database);
 }

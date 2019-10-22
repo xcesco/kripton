@@ -18,8 +18,8 @@ package com.abubusoft.kripton.android.sqlite;
 import java.util.Set;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteStatement;
 
 /**
  * SQL context for queries execution. There are two kind of SQLContext:
@@ -39,7 +39,7 @@ public interface SQLContext {
 	 * @param compiledStatement the compiled statement
 	 * @return the kripton content values
 	 */
-	KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement);
+	KriptonContentValues contentValuesForUpdate(SupportSQLiteStatement compiledStatement);
 
 	/**
 	 * Content values.
@@ -47,7 +47,7 @@ public interface SQLContext {
 	 * @param compiledStatement the compiled statement
 	 * @return the kripton content values
 	 */
-	KriptonContentValues contentValues(SQLiteStatement compiledStatement);
+	KriptonContentValues contentValues(SupportSQLiteStatement compiledStatement);
 
 	/**
 	 * Content values for content provider.
@@ -76,7 +76,7 @@ public interface SQLContext {
 	 *
 	 * @return the SQ lite database
 	 */
-	SQLiteDatabase database();
+	SupportSQLiteDatabase database();
 
 	/**
 	 * Fired when transaction or shared connection is opened.

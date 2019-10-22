@@ -26,7 +26,7 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -50,7 +50,8 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
+
 
 /**
  * The Class InsertBeanHelper.
@@ -81,11 +82,11 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 		} else {
 			String psName = method.buildPreparedStatementName();
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SupportSQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
 
 			methodBuilder.beginControlFlow("if ($L==null)", psName);
 			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);
-			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseHelper.class);
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, psName);
 		}
@@ -106,10 +107,10 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			// does not memorize compiled statement, it can vary every time
 			// generate SQL for insert
 			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);
-			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseHelper.class);
 		} else {
 			String psName = method.buildPreparedStatementName();
-			methodBuilder.addStatement("long result = $T.insert($L, _contentValues)", KriptonDatabaseWrapper.class, psName);
+			methodBuilder.addStatement("long result = $T.insert($L, _contentValues)", KriptonDatabaseHelper.class, psName);
 		}
 
 		// if we are in mutable POJO work to set only id, for immutable object,

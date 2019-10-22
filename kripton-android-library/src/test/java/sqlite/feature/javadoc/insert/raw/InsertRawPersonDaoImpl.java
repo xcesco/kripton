@@ -1,16 +1,17 @@
 package sqlite.feature.javadoc.insert.raw;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -23,15 +24,15 @@ import java.util.Set;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
-  private static SQLiteStatement insertOneRawPreparedStatement0;
+  private static SupportSQLiteStatement insertOneRawPreparedStatement0;
 
   private static final Set<String> insertOneRaw0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
 
-  private static SQLiteStatement insertOneRawFieldNamePreparedStatement1;
+  private static SupportSQLiteStatement insertOneRawFieldNamePreparedStatement1;
 
   private static final Set<String> insertOneRawFieldName1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static SQLiteStatement insertOne2RawFieldNamePreparedStatement2;
+  private static SupportSQLiteStatement insertOne2RawFieldNamePreparedStatement2;
 
   private static final Set<String> insertOne2RawFieldName2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
 
@@ -62,7 +63,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     if (insertOneRawPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (person_name, person_surname) VALUES (?, ?)";
-      insertOneRawPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOneRawPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneRawPreparedStatement0);
 
@@ -105,7 +106,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOneRawPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOneRawPreparedStatement0, _contentValues);
     return (int)result;
     // Specialized Insert - InsertType - END
   }
@@ -149,8 +150,9 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
       }
     }
     // log for content values -- END
+    // conflict algorithm NONE
     // insert operation
-    long result = database().insert("person", null, _contentValues.values());
+    long result = database().insert("person", 0, _contentValues.values());
     return result;
   }
 
@@ -174,7 +176,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     if (insertOneRawFieldNamePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_name) VALUES (?)";
-      insertOneRawFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOneRawFieldNamePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneRawFieldNamePreparedStatement1);
 
@@ -216,7 +218,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOneRawFieldNamePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOneRawFieldNamePreparedStatement1, _contentValues);
     return (int)result;
     // Specialized Insert - InsertType - END
   }
@@ -262,7 +264,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
+    long result = database().insert("person", 5, _contentValues.values());
     return result;
   }
 
@@ -289,7 +291,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     if (insertOne2RawFieldNamePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_name, person_surname) VALUES (?, ?)";
-      insertOne2RawFieldNamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOne2RawFieldNamePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOne2RawFieldNamePreparedStatement2);
 
@@ -332,7 +334,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOne2RawFieldNamePreparedStatement2, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOne2RawFieldNamePreparedStatement2, _contentValues);
     return (int)result;
     // Specialized Insert - InsertType - END
   }
@@ -376,8 +378,9 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
       }
     }
     // log for content values -- END
+    // conflict algorithm REPLACE
     // insert operation
-    long result = database().insert("person", null, _contentValues.values());
+    long result = database().insert("person", 0, _contentValues.values());
     return result;
   }
 
@@ -434,17 +437,21 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertOneRawPreparedStatement0!=null) {
-      insertOneRawPreparedStatement0.close();
-      insertOneRawPreparedStatement0=null;
-    }
-    if (insertOneRawFieldNamePreparedStatement1!=null) {
-      insertOneRawFieldNamePreparedStatement1.close();
-      insertOneRawFieldNamePreparedStatement1=null;
-    }
-    if (insertOne2RawFieldNamePreparedStatement2!=null) {
-      insertOne2RawFieldNamePreparedStatement2.close();
-      insertOne2RawFieldNamePreparedStatement2=null;
+    try {
+      if (insertOneRawPreparedStatement0!=null) {
+        insertOneRawPreparedStatement0.close();
+        insertOneRawPreparedStatement0=null;
+      }
+      if (insertOneRawFieldNamePreparedStatement1!=null) {
+        insertOneRawFieldNamePreparedStatement1.close();
+        insertOneRawFieldNamePreparedStatement1=null;
+      }
+      if (insertOne2RawFieldNamePreparedStatement2!=null) {
+        insertOne2RawFieldNamePreparedStatement2.close();
+        insertOne2RawFieldNamePreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

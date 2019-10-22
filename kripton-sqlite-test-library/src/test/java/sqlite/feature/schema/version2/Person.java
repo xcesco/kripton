@@ -13,46 +13,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.multiple;
+package sqlite.feature.schema.version2;
 
-import com.abubusoft.kripton.android.annotation.BindSqlType;
+import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */
-@BindSqlType
-public class Person {
+@BindType
+public class Person extends Entity {
 
-	/** The id. */
-	private long id;
-	
-	/**
-	 * @param id
-	 * @param name
-	 * @param surname
-	 */
-	public Person(long id, String name, String surname) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.surname = surname;
-	}
-
-	/** The name. */
-	private String name;
-	
 	/** The surname. */
-	private String surname;
-
-	public long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
+	public String surname;
+	
+	/** The email. */
+	public String email;
 }

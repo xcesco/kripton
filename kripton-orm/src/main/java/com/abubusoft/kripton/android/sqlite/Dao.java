@@ -18,10 +18,9 @@ package com.abubusoft.kripton.android.sqlite;
 import com.abubusoft.kripton.android.annotation.BindDao;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteStatement;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class become the parent class for every Dao generated. Every Dao have to
  * be defined by an interface with {@link BindDao} annotation.
@@ -50,9 +49,9 @@ public abstract class Dao implements AutoCloseable {
 	/**
 	 * Retrieve SQLite database instance.
 	 *
-	 * @return the SQ lite database
+	 * @return the SQLite database
 	 */
-	protected SQLiteDatabase database() {
+	protected SupportSQLiteDatabase database() {
 		return _context.database();
 	}
 
@@ -89,7 +88,7 @@ public abstract class Dao implements AutoCloseable {
 	 * @param compiledStatement the compiled statement
 	 * @return the kripton content values
 	 */
-	protected KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
+	protected KriptonContentValues contentValuesForUpdate(SupportSQLiteStatement compiledStatement) {
 		return _context.contentValuesForUpdate(compiledStatement);
 	}
 

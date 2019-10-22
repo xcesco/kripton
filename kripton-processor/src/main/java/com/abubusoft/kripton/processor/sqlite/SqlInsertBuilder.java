@@ -372,17 +372,16 @@ public abstract class SqlInsertBuilder {
 		SqlBuilderHelper.generateLogForContentValuesContentProvider(method, methodBuilder);
 
 		ConflictAlgorithmType conflictAlgorithmType = InsertBeanHelper.getConflictAlgorithmType(method);
-		String conflictString1 = "";
 		String conflictString2 = "";
-		if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
-			conflictString1 = "WithOnConflict";
+		// we need to use everytime after support
+		//if (conflictAlgorithmType != ConflictAlgorithmType.NONE) {
 			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
 			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
-		}
+		//}
 
 		methodBuilder.addComment("insert operation");
-		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)",
-				conflictString1, entity.getTableName(), conflictString2);
+		methodBuilder.addStatement("long result = database().insert($S$L, _contentValues.values())",
+				entity.getTableName(), conflictString2);
 		if (method.getParent().getParent().generateRx) {
 			SQLProperty primaryKey = entity.getPrimaryKey();
 			if (primaryKey.columnType == ColumnType.PRIMARY_KEY) {

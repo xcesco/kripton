@@ -1,13 +1,14 @@
 package sqlite.kripton111.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.kripton111.model.Country;
@@ -22,14 +23,14 @@ import sqlite.kripton111.model.Country;
  *  @see sqlite.kripton111.model.CountryTable
  */
 public class CountryDaoImpl extends Dao implements CountryDao {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   /**
    * SQL definition for method selectById
    */
   private static final String SELECT_BY_ID_SQL6 = "SELECT id, area, calling_code, code, name, region FROM country WHERE id = ?";
 
-  private static SQLiteStatement deleteByIdPreparedStatement1;
+  private static SupportSQLiteStatement deleteByIdPreparedStatement1;
 
   /**
    * SQL definition for method selectAll
@@ -76,7 +77,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO country (area, calling_code, code, name, region) VALUES (?, ?, ?, ?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("area", bean.area);
@@ -121,7 +122,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -178,7 +179,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -232,7 +233,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     if (deleteByIdPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM country WHERE id = ?";
-      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByIdPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -253,7 +254,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -298,7 +299,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -388,7 +389,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -472,7 +473,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -508,13 +509,17 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (deleteByIdPreparedStatement1!=null) {
-      deleteByIdPreparedStatement1.close();
-      deleteByIdPreparedStatement1=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (deleteByIdPreparedStatement1!=null) {
+        deleteByIdPreparedStatement1.close();
+        deleteByIdPreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

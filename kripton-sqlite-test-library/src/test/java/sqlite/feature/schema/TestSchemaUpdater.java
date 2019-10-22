@@ -28,6 +28,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteTestDatabase;
 
 import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import base.BaseAndroidTest;
 
 /**
@@ -51,7 +52,7 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 				.addVersionUpdateTask(2, new SQLiteUpdateTask() {
 
 					@Override
-					public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+					public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
 						SQLiteTestUtils.renameAllTablesWithPrefix(database, "tmp_");
 						SQLiteTestUtils.dropIndex(database, "idx_seminar_2_student_0", "idx_professor_0");
 						

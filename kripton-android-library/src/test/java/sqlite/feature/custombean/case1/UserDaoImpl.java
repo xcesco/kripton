@@ -1,13 +1,14 @@
 package sqlite.feature.custombean.case1;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,15 +37,15 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   private static final String FIND_USER_BY_NAME_AND_LAST_NAME_SQL15 = "SELECT id, age, last_name, name FROM user WHERE name = ? and last_name = ?";
 
-  private static SQLiteStatement insertUserPreparedStatement0;
+  private static SupportSQLiteStatement insertUserPreparedStatement0;
 
-  private static SQLiteStatement deleteUserPreparedStatement1;
+  private static SupportSQLiteStatement deleteUserPreparedStatement1;
 
-  private static SQLiteStatement deleteUsersByNamePreparedStatement2;
+  private static SupportSQLiteStatement deleteUsersByNamePreparedStatement2;
 
-  private static SQLiteStatement insertOrReplaceUsersPreparedStatement3;
+  private static SupportSQLiteStatement insertOrReplaceUsersPreparedStatement3;
 
-  private static SQLiteStatement deleteUsersPreparedStatement4;
+  private static SupportSQLiteStatement deleteUsersPreparedStatement4;
 
   /**
    * SQL definition for method findUsersYoungerThan
@@ -56,7 +57,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   private static final String FIND_USERS_YOUNGER_THAN_SOLUTION_SQL17 = "SELECT id, age, last_name, name FROM user WHERE age < ?";
 
-  private static SQLiteStatement deleteAllPreparedStatement5;
+  private static SupportSQLiteStatement deleteAllPreparedStatement5;
 
   public UserDaoImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -101,7 +102,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -185,7 +186,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -267,7 +268,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -328,7 +329,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (insertUserPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO user (id, age, last_name, name) VALUES (?, ?, ?, ?)";
-      insertUserPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertUserPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertUserPreparedStatement0);
     _contentValues.put("id", user.id);
@@ -372,7 +373,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertUserPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertUserPreparedStatement0, _contentValues);
     // Specialized Insert - InsertType - END
   }
 
@@ -388,7 +389,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (deleteUserPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user";
-      deleteUserPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteUserPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteUserPreparedStatement1);
 
@@ -408,7 +409,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteUserPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteUserPreparedStatement1, _contentValues);
   }
 
   /**
@@ -431,7 +432,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (deleteUsersByNamePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user WHERE name like ? OR last_name like ?";
-      deleteUsersByNamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteUsersByNamePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteUsersByNamePreparedStatement2);
     _contentValues.addWhereArgs((badName==null?"":badName));
@@ -453,7 +454,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteUsersByNamePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteUsersByNamePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -481,7 +482,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (insertOrReplaceUsersPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO user (id, age, last_name, name) VALUES (?, ?, ?, ?)";
-      insertOrReplaceUsersPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOrReplaceUsersPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOrReplaceUsersPreparedStatement3);
     _contentValues.put("id", users.id);
@@ -525,7 +526,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOrReplaceUsersPreparedStatement3, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOrReplaceUsersPreparedStatement3, _contentValues);
     // Specialized Insert - InsertType - END
   }
 
@@ -546,7 +547,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (deleteUsersPreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user WHERE id=?";
-      deleteUsersPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteUsersPreparedStatement4 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteUsersPreparedStatement4);
     _contentValues.addWhereArgs((user.id==null?"":user.id));
@@ -567,7 +568,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteUsersPreparedStatement4, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteUsersPreparedStatement4, _contentValues);
   }
 
   /**
@@ -617,7 +618,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -701,7 +702,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -750,7 +751,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (deleteAllPreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user";
-      deleteAllPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllPreparedStatement5 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement5);
 
@@ -770,33 +771,37 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement5, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllPreparedStatement5, _contentValues);
   }
 
   public static void clearCompiledStatements() {
-    if (insertUserPreparedStatement0!=null) {
-      insertUserPreparedStatement0.close();
-      insertUserPreparedStatement0=null;
-    }
-    if (deleteUserPreparedStatement1!=null) {
-      deleteUserPreparedStatement1.close();
-      deleteUserPreparedStatement1=null;
-    }
-    if (deleteUsersByNamePreparedStatement2!=null) {
-      deleteUsersByNamePreparedStatement2.close();
-      deleteUsersByNamePreparedStatement2=null;
-    }
-    if (insertOrReplaceUsersPreparedStatement3!=null) {
-      insertOrReplaceUsersPreparedStatement3.close();
-      insertOrReplaceUsersPreparedStatement3=null;
-    }
-    if (deleteUsersPreparedStatement4!=null) {
-      deleteUsersPreparedStatement4.close();
-      deleteUsersPreparedStatement4=null;
-    }
-    if (deleteAllPreparedStatement5!=null) {
-      deleteAllPreparedStatement5.close();
-      deleteAllPreparedStatement5=null;
+    try {
+      if (insertUserPreparedStatement0!=null) {
+        insertUserPreparedStatement0.close();
+        insertUserPreparedStatement0=null;
+      }
+      if (deleteUserPreparedStatement1!=null) {
+        deleteUserPreparedStatement1.close();
+        deleteUserPreparedStatement1=null;
+      }
+      if (deleteUsersByNamePreparedStatement2!=null) {
+        deleteUsersByNamePreparedStatement2.close();
+        deleteUsersByNamePreparedStatement2=null;
+      }
+      if (insertOrReplaceUsersPreparedStatement3!=null) {
+        insertOrReplaceUsersPreparedStatement3.close();
+        insertOrReplaceUsersPreparedStatement3=null;
+      }
+      if (deleteUsersPreparedStatement4!=null) {
+        deleteUsersPreparedStatement4.close();
+        deleteUsersPreparedStatement4=null;
+      }
+      if (deleteAllPreparedStatement5!=null) {
+        deleteAllPreparedStatement5.close();
+        deleteAllPreparedStatement5=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

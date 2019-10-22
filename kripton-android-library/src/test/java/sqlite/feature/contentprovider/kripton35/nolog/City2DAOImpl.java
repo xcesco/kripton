@@ -2,15 +2,16 @@ package sqlite.feature.contentprovider.kripton35.nolog;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.util.Set;
 import sqlite.feature.contentprovider.kripton35.entities.City;
 
@@ -24,7 +25,7 @@ import sqlite.feature.contentprovider.kripton35.entities.City;
  *  @see sqlite.feature.contentprovider.kripton35.entities.CityTable
  */
 public class City2DAOImpl extends Dao implements City2DAO {
-  private static SQLiteStatement insertBeanPreparedStatement0;
+  private static SupportSQLiteStatement insertBeanPreparedStatement0;
 
   private static final Set<String> insertBean0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -60,13 +61,13 @@ public class City2DAOImpl extends Dao implements City2DAO {
     if (insertBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO city (name) VALUES (?)";
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertBeanPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     _contentValues.put(bean.name);
 
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertBeanPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // Specialized Insert - InsertType - END
@@ -110,8 +111,9 @@ public class City2DAOImpl extends Dao implements City2DAO {
       }
     }
     // log for content values -- END
+    // conflict algorithm NONE
     // insert operation
-    long result = database().insert("city", null, _contentValues.values());
+    long result = database().insert("city", 0, _contentValues.values());
     return result;
   }
 
@@ -147,7 +149,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanHelper - BEGIN
 
@@ -231,14 +233,18 @@ public class City2DAOImpl extends Dao implements City2DAO {
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
   public static void clearCompiledStatements() {
-    if (insertBeanPreparedStatement0!=null) {
-      insertBeanPreparedStatement0.close();
-      insertBeanPreparedStatement0=null;
+    try {
+      if (insertBeanPreparedStatement0!=null) {
+        insertBeanPreparedStatement0.close();
+        insertBeanPreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

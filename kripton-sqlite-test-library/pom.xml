@@ -3,23 +3,23 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-sqlite-test-library</artifactId>
-	<version>6.0.0</version>
+	<version>7.0.0-SNAPSHOT</version>
 
 	<name>Kripton SQLite Test Library</name>
 	<description>Kripton SQLite Test Library</description>
-	
+
 	<url>https://github.com/xcesco/kripton</url>
 
 	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
-		<kripton.version>6.0.0</kripton.version>
-	
+		<kripton.version>7.0.0-SNAPSHOT</kripton.version>
+
 		<!-- environment version -->
 		<java.version>1.8</java.version>
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		
+
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
 
 
@@ -73,6 +73,14 @@
 
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-arch-integration</artifactId>
+			<version>${kripton.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-android-library</artifactId>
@@ -110,7 +118,7 @@
 					<artifactId>junit</artifactId>
 					<groupId>junit</groupId>
 				</exclusion>
-			</exclusions>			
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -175,7 +183,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -243,7 +251,7 @@
 			</distributionManagement>
 
 		</profile>
-		
+
 		<profile>
 			<id>deploy-bintray</id>
 			<!-- distribution manager -->

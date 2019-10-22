@@ -24,41 +24,40 @@ import java.util.List;
 import com.abubusoft.kripton.common.Triple;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class KriptonContentValues.
  */
 public final class KriptonContentValues {
-	
+
 	/**
 	 * The Enum ParamType.
 	 */
 	public enum ParamType {
-		
+
 		/** The boolean. */
-		BOOLEAN, 
- /** The byte array. */
- BYTE_ARRAY, 
- /** The double. */
- DOUBLE, 
- /** The float. */
- FLOAT, 
- /** The integer. */
- INTEGER, 
- /** The long. */
- LONG, 
- /** The short. */
- SHORT, 
- /** The string. */
- STRING, 
- /** The null. */
- NULL, 
- /** The byte. */
- BYTE, 
- /** The character. */
- CHARACTER
+		BOOLEAN,
+		/** The byte array. */
+		BYTE_ARRAY,
+		/** The double. */
+		DOUBLE,
+		/** The float. */
+		FLOAT,
+		/** The integer. */
+		INTEGER,
+		/** The long. */
+		LONG,
+		/** The short. */
+		SHORT,
+		/** The string. */
+		STRING,
+		/** The null. */
+		NULL,
+		/** The byte. */
+		BYTE,
+		/** The character. */
+		CHARACTER
 	};
 
 	/** The values. */
@@ -108,9 +107,9 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, String value) {
 		if (this.compiledStatement != null) {
-			if (value==null) {
-				this.compiledStatement.bindNull(compiledStatementBindIndex++);				
-			} else {				
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
 				compiledStatement.bindString(compiledStatementBindIndex++, (String) value);
 			}
 		} else if (values != null) {
@@ -127,7 +126,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(String value) {
 		if (value == null) {
@@ -167,7 +167,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(Byte value) {
 		if (value == null) {
@@ -187,9 +188,9 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Short value) {
 		if (this.compiledStatement != null) {
-			if (value==null) {
-				this.compiledStatement.bindNull(compiledStatementBindIndex++);				
-			} else {				
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
 				compiledStatement.bindLong(compiledStatementBindIndex++, (short) value);
 			}
 		} else if (values != null) {
@@ -206,7 +207,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(Short value) {
 		if (value == null) {
@@ -215,7 +217,7 @@ public final class KriptonContentValues {
 			compiledStatement.bindLong(compiledStatementBindIndex++, (short) value);
 		}
 	}
-	
+
 	/**
 	 * Adds a value to the set.
 	 *
@@ -241,7 +243,7 @@ public final class KriptonContentValues {
 		args.add(value);
 		valueType.add(ParamType.INTEGER);
 	}
-	
+
 	/**
 	 * Adds a value to the set.
 	 *
@@ -267,7 +269,7 @@ public final class KriptonContentValues {
 		args.add(value);
 		valueType.add(ParamType.INTEGER);
 	}
-	
+
 	/**
 	 * Adds a value to the set.
 	 *
@@ -323,7 +325,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(Integer value) {
 		if (value == null) {
@@ -353,7 +356,7 @@ public final class KriptonContentValues {
 			return;
 		}
 
-		names.add(key);		
+		names.add(key);
 		args.add(value);
 		valueType.add(ParamType.LONG);
 	}
@@ -361,7 +364,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(Long value) {
 		if (value == null) {
@@ -400,7 +404,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(Float value) {
 		if (value == null) {
@@ -413,7 +418,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(Double value) {
 		if (value == null) {
@@ -523,7 +529,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(Boolean value) {
 		if (value == null) {
@@ -536,7 +543,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds a value to the set.
 	 *
-	 * @param value            the data for the value to put
+	 * @param value
+	 *            the data for the value to put
 	 */
 	public void put(byte[] value) {
 		if (value == null) {
@@ -557,7 +565,8 @@ public final class KriptonContentValues {
 	/**
 	 * Adds the where args.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 */
 	public void addWhereArgs(String value) {
 		if (this.compiledStatement != null) {
@@ -571,9 +580,10 @@ public final class KriptonContentValues {
 	/**
 	 * Bind.
 	 *
-	 * @param statement the statement
+	 * @param statement
+	 *            the statement
 	 */
-	public void bind(SQLiteStatement statement) {
+	public void bind(SupportSQLiteStatement statement) {
 		if (this.compiledStatement != null) {
 			// already binded
 			return;
@@ -600,7 +610,7 @@ public final class KriptonContentValues {
 				statement.bindLong(index, (int) value);
 				break;
 			case CHARACTER:
-				statement.bindLong(index, Character.getNumericValue((char)value));
+				statement.bindLong(index, Character.getNumericValue((char) value));
 				break;
 			case LONG:
 				statement.bindLong(index, (long) value);
@@ -663,7 +673,7 @@ public final class KriptonContentValues {
 	protected Triple<String, Object, ParamType> triple = new Triple<>();
 
 	/** The compiled statement. */
-	private SQLiteStatement compiledStatement;
+	private SupportSQLiteStatement compiledStatement;
 
 	/** The compiled statement bind index. */
 	private int compiledStatementBindIndex;
@@ -671,7 +681,8 @@ public final class KriptonContentValues {
 	/**
 	 * Gets the.
 	 *
-	 * @param index the index
+	 * @param index
+	 *            the index
 	 * @return the triple
 	 */
 	public Triple<String, Object, ParamType> get(int index) {
@@ -738,7 +749,8 @@ public final class KriptonContentValues {
 	/**
 	 * Clear.
 	 *
-	 * @param values the values
+	 * @param values
+	 *            the values
 	 */
 	public void clear(ContentValues values) {
 		clear();
@@ -757,9 +769,10 @@ public final class KriptonContentValues {
 	/**
 	 * Clear.
 	 *
-	 * @param compiledStatement the compiled statement
+	 * @param compiledStatement
+	 *            the compiled statement
 	 */
-	public void clear(SQLiteStatement compiledStatement) {
+	public void clear(SupportSQLiteStatement compiledStatement) {
 		clear();
 		this.compiledStatement = compiledStatement;
 		if (compiledStatement != null) {

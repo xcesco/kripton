@@ -1,13 +1,14 @@
 package sqlite.kripton49.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.kripton49.entities.Bean01Entity;
@@ -32,13 +33,13 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    */
   private static final String SELECT_BY_ID_SQL2 = "SELECT id, text FROM bean01 WHERE id=?";
 
-  private static SQLiteStatement updateOnePreparedStatement0;
+  private static SupportSQLiteStatement updateOnePreparedStatement0;
 
-  private static SQLiteStatement deleteOnePreparedStatement1;
+  private static SupportSQLiteStatement deleteOnePreparedStatement1;
 
-  private static SQLiteStatement insertOnePreparedStatement2;
+  private static SupportSQLiteStatement insertOnePreparedStatement2;
 
-  private static SQLiteStatement insertOnePreparedStatement3;
+  private static SupportSQLiteStatement insertOnePreparedStatement3;
 
   public DaoBean01Impl(BindDummy01DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -89,7 +90,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -161,7 +162,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -220,7 +221,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     if (updateOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE bean01 SET text=? WHERE id=?";
-      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateOnePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     _contentValues.put("text", text);
@@ -255,7 +256,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -278,7 +279,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     if (deleteOnePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM bean01 WHERE id=?";
-      deleteOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteOnePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteOnePreparedStatement1);
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
@@ -299,7 +300,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteOnePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteOnePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -323,7 +324,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     if (insertOnePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (id) VALUES (?)";
-      insertOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOnePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement2);
 
@@ -365,7 +366,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement2, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOnePreparedStatement2, _contentValues);
     return result;
     // Specialized Insert - InsertType - END
   }
@@ -392,7 +393,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     if (insertOnePreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (text) VALUES (?)";
-      insertOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOnePreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement3);
     _contentValues.put("text", bean.getText());
@@ -433,7 +434,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement3, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOnePreparedStatement3, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
@@ -442,21 +443,25 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   }
 
   public static void clearCompiledStatements() {
-    if (updateOnePreparedStatement0!=null) {
-      updateOnePreparedStatement0.close();
-      updateOnePreparedStatement0=null;
-    }
-    if (deleteOnePreparedStatement1!=null) {
-      deleteOnePreparedStatement1.close();
-      deleteOnePreparedStatement1=null;
-    }
-    if (insertOnePreparedStatement2!=null) {
-      insertOnePreparedStatement2.close();
-      insertOnePreparedStatement2=null;
-    }
-    if (insertOnePreparedStatement3!=null) {
-      insertOnePreparedStatement3.close();
-      insertOnePreparedStatement3=null;
+    try {
+      if (updateOnePreparedStatement0!=null) {
+        updateOnePreparedStatement0.close();
+        updateOnePreparedStatement0=null;
+      }
+      if (deleteOnePreparedStatement1!=null) {
+        deleteOnePreparedStatement1.close();
+        deleteOnePreparedStatement1=null;
+      }
+      if (insertOnePreparedStatement2!=null) {
+        insertOnePreparedStatement2.close();
+        insertOnePreparedStatement2=null;
+      }
+      if (insertOnePreparedStatement3!=null) {
+        insertOnePreparedStatement3.close();
+        insertOnePreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

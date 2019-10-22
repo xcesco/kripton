@@ -1,12 +1,13 @@
 package sqlite.kripton40;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
+import java.io.IOException;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    */
   private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean02 WHERE id=?";
 
-  private static SQLiteStatement deleteOnePreparedStatement0;
+  private static SupportSQLiteStatement deleteOnePreparedStatement0;
 
   public DaoBean02Impl(BindDummy02DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -74,7 +75,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -120,7 +121,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
     if (deleteOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM bean02 WHERE id=?";
-      deleteOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteOnePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteOnePreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -141,14 +142,18 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteOnePreparedStatement0, _contentValues);
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (deleteOnePreparedStatement0!=null) {
-      deleteOnePreparedStatement0.close();
-      deleteOnePreparedStatement0=null;
+    try {
+      if (deleteOnePreparedStatement0!=null) {
+        deleteOnePreparedStatement0.close();
+        deleteOnePreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

@@ -2,16 +2,17 @@ package sqlite.feature.immutable.contentprovider;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,15 +42,15 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
 
   private static final Set<String> selectAll1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   private static final Set<String> insert2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  private static SQLiteStatement updatePreparedStatement1;
+  private static SupportSQLiteStatement updatePreparedStatement1;
 
   private static final Set<String> update3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  private static SQLiteStatement deletePreparedStatement2;
+  private static SupportSQLiteStatement deletePreparedStatement2;
 
   public ArtistDaoImpl(BindArtistsDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -100,7 +101,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -210,7 +211,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -251,7 +252,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -353,7 +354,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -378,7 +379,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO artist (name) VALUES (?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("name", bean.getName());
@@ -419,7 +420,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // immutable POJO - create a copy with new id
     // immutable object: initialize temporary variables for properties
     long __id=0;
@@ -474,8 +475,9 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       }
     }
     // log for content values -- END
+    // conflict algorithm NONE
     // insert operation
-    long result = database().insert("artist", null, _contentValues.values());
+    long result = database().insert("artist", 0, _contentValues.values());
     return result;
   }
 
@@ -503,7 +505,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     if (updatePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE artist SET name=? WHERE id=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
     _contentValues.put("name", bean.getName());
@@ -538,7 +540,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -617,7 +619,8 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     // log section END
 
     // execute SQL
-    int result = database().update("artist", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("artist", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -640,7 +643,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     if (deletePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM artist WHERE id=?";
-      deletePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deletePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
@@ -661,7 +664,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deletePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -726,17 +729,21 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (updatePreparedStatement1!=null) {
-      updatePreparedStatement1.close();
-      updatePreparedStatement1=null;
-    }
-    if (deletePreparedStatement2!=null) {
-      deletePreparedStatement2.close();
-      deletePreparedStatement2=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (updatePreparedStatement1!=null) {
+        updatePreparedStatement1.close();
+        updatePreparedStatement1=null;
+      }
+      if (deletePreparedStatement2!=null) {
+        deletePreparedStatement2.close();
+        deletePreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

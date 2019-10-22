@@ -19,6 +19,7 @@
 package com.abubusoft.kripton.android.sqlite;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -33,11 +34,10 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-//import androix.sqlite.db.SupportSQLiteDatabase;
 
-import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteStatement;
 
 /**
  * <p>
@@ -86,7 +86,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * Set error listener for transactions.
 	 *
-	 * @param onErrorListener the new on error listener
+	 * @param onErrorListener
+	 *            the new on error listener
 	 */
 	public void setOnErrorListener(OnErrorListener onErrorListener) {
 		this.onErrorListener = onErrorListener;
@@ -95,16 +96,19 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * Interface for database operations.
 	 *
-	 * @param <E> the element type
+	 * @param <E>
+	 *            the element type
 	 */
 	public interface AbstractExecutable<E extends BindDaoFactory> {
 
 		/**
-		 * Execute transation. Method need to return {@link TransactionResult#COMMIT} to
-		 * commit results or {@link TransactionResult#ROLLBACK} to rollback. If
-		 * exception is thrown, a rollback will be done.
+		 * Execute transation. Method need to return
+		 * {@link TransactionResult#COMMIT} to commit results or
+		 * {@link TransactionResult#ROLLBACK} to rollback. If exception is
+		 * thrown, a rollback will be done.
 		 *
-		 * @param daoFactory the dao factory
+		 * @param daoFactory
+		 *            the dao factory
 		 * @return the transaction result
 		 */
 		TransactionResult onExecute(E daoFactory);
@@ -112,17 +116,18 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	/**
 	 * The listener interface for receiving onError events. The class that is
-	 * interested in processing a onError event implements this interface, and the
-	 * object created with that class is registered with a component using the
-	 * component's <code>addOnErrorListener</code> method. When the onError event
-	 * occurs, that object's appropriate method is invoked.
+	 * interested in processing a onError event implements this interface, and
+	 * the object created with that class is registered with a component using
+	 * the component's <code>addOnErrorListener</code> method. When the onError
+	 * event occurs, that object's appropriate method is invoked.
 	 *
 	 */
 	public interface OnErrorListener {
 		/**
 		 * Manages error situations.
 		 * 
-		 * @param e exception
+		 * @param e
+		 *            exception
 		 */
 		void onError(Throwable e);
 	}
@@ -141,7 +146,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	}
 
 	/** database instance. */
-	SQLiteDatabase database;
+	SupportSQLiteDatabase database;
 
 	/**
 	 * used to clear prepared statements.
@@ -186,7 +191,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	protected DataSourceOptions options;
 
 	/** The sqlite helper. */
-	protected SQLiteOpenHelper sqliteHelper;
+	protected SupportSQLiteOpenHelper sqliteHelper;
 
 	/** The context. */
 	protected SQLContextImpl context;
@@ -203,27 +208,30 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * Content values for update.
 	 *
-	 * @param compiledStatement the compiled statement
+	 * @param compiledStatement
+	 *            the compiled statement
 	 * @return the kripton content values
 	 */
-	protected KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
+	protected KriptonContentValues contentValuesForUpdate(SupportSQLiteStatement compiledStatement) {
 		return context.contentValuesForUpdate(compiledStatement);
 	}
 
 	/**
 	 * Content values.
 	 *
-	 * @param compiledStatement the compiled statement
+	 * @param compiledStatement
+	 *            the compiled statement
 	 * @return the kripton content values
 	 */
-	protected KriptonContentValues contentValues(SQLiteStatement compiledStatement) {
+	protected KriptonContentValues contentValues(SupportSQLiteStatement compiledStatement) {
 		return context.contentValues(compiledStatement);
 	}
 
 	/**
 	 * Content values for content provider.
 	 *
-	 * @param values the values
+	 * @param values
+	 *            the values
 	 * @return the kripton content values
 	 */
 	protected KriptonContentValues contentValuesForContentProvider(ContentValues values) {
@@ -301,18 +309,22 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * Sets the version.
 	 *
-	 * @param version the new version
+	 * @param version
+	 *            the new version
 	 */
-	void setVersion(int version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 
 	/**
 	 * Instantiates a new abstract data source.
 	 *
-	 * @param name    the name
-	 * @param version the version
-	 * @param options the options
+	 * @param name
+	 *            the name
+	 * @param version
+	 *            the version
+	 * @param options
+	 *            the options
 	 */
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
 		DataSourceOptions optionsValue = (options == null) ? DataSourceOptions.builder().build() : options;
@@ -327,12 +339,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		this.logEnabled = optionsValue.logEnabled;
 	}
 
-	protected void closeThreadSafeMode(Pair<Boolean, SQLiteDatabase> status) {
+	protected void closeThreadSafeMode(Pair<Boolean, SupportSQLiteDatabase> status) {
 		if (status.value0) {
 			close();
 		} else {
 			beginLock();
-			// we unlock lockReadWriteAccess, so we can include this code in lockDb
+			// we unlock lockReadWriteAccess, so we can include this code in
+			// lockDb
 			manageStatus();
 			endLock();
 
@@ -366,6 +379,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				if (logEnabled)
 					Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
 			manageStatus();
 			endLock();
@@ -407,8 +422,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * Builds the task list.
 	 *
-	 * @param previousVersion the previous version
-	 * @param currentVersion  the current version
+	 * @param previousVersion
+	 *            the previous version
+	 * @param currentVersion
+	 *            the current version
 	 * @return the list
 	 */
 	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {
@@ -436,7 +453,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * Creates the helper.
 	 *
-	 * @param options the options
+	 * @param options
+	 *            the options
 	 */
 	protected void createHelper(DataSourceOptions options) {
 		if (KriptonLibrary.getContext() == null)
@@ -452,30 +470,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			}
 		}
 
-		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.getContext(), name, options.factory, version,
-				options.errorHandler) {
-
-			@Override
-			public void onConfigure(SQLiteDatabase database) {
-				AbstractDataSource.this.database = database;
-				AbstractDataSource.this.onConfigure(database);
-			}
-
-			@Override
-			public void onCreate(SQLiteDatabase database) {
-				AbstractDataSource.this.onCreate(database);
-			}
-
-			@Override
-			public void onDowngrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-				AbstractDataSource.this.onDowngrade(database, oldVersion, newVersion);
-			}
-
-			@Override
-			public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-				AbstractDataSource.this.onUpgrade(database, oldVersion, newVersion);
-			}
-		};
+		sqliteHelper = new KriptonSQLiteOpenHelper(KriptonLibrary.getContext(), name, options.factory, version,
+				options.errorHandler, this);
 	}
 
 	/**
@@ -485,7 +481,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 *
 	 * @return the SQ lite database
 	 */
-	public SQLiteDatabase database() {
+	public SupportSQLiteDatabase database() {
 		if (database == null)
 			throw (new KriptonRuntimeException(
 					"No database connection is opened before use " + this.getClass().getCanonicalName()));
@@ -528,25 +524,30 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * On configure.
 	 *
-	 * @param database the database
+	 * @param database
+	 *            the database
 	 */
-	public abstract void onConfigure(SQLiteDatabase database);
+	public abstract void onConfigure(SupportSQLiteDatabase database);
 
 	/**
 	 * On create.
 	 *
-	 * @param database the database
+	 * @param database
+	 *            the database
 	 */
-	public abstract void onCreate(SQLiteDatabase database);
+	public abstract void onCreate(SupportSQLiteDatabase database);
 
 	/**
 	 * On downgrade.
 	 *
-	 * @param db         the db
-	 * @param oldVersion the old version
-	 * @param newVersion the new version
+	 * @param db
+	 *            the db
+	 * @param oldVersion
+	 *            the old version
+	 * @param newVersion
+	 *            the new version
 	 */
-	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	public void onDowngrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
 		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
 			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, false);
 			versionChanged = true;
@@ -556,11 +557,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * On upgrade.
 	 *
-	 * @param db         the db
-	 * @param oldVersion the old version
-	 * @param newVersion the new version
+	 * @param db
+	 *            the db
+	 * @param oldVersion
+	 *            the old version
+	 * @param newVersion
+	 *            the new version
 	 */
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	public void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
 		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
 			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, true);
 			versionChanged = true;
@@ -574,7 +578,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * 
 	 * @return read only database
 	 */
-	protected SQLiteDatabase openReadOnlyDatabase(boolean lock) {
+	protected SupportSQLiteDatabase openReadOnlyDatabase(boolean lock) {
 		if (lock) {
 			// if I lock this in dbLock.. the last one remains locked too
 			lockReadAccess.lock();
@@ -609,7 +613,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		return database;
 	}
 
-	public SQLiteDatabase openReadOnlyDatabase() {
+	public SupportSQLiteDatabase openReadOnlyDatabase() {
 		return openReadOnlyDatabase(true);
 	}
 
@@ -620,7 +624,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * 
 	 * @return writable database
 	 */
-	public SQLiteDatabase openWritableDatabase() {
+	public SupportSQLiteDatabase openWritableDatabase() {
 		return openWritableDatabase(true);
 	}
 
@@ -630,15 +634,16 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @param writeMode
 	 * @return
 	 */
-	protected Pair<Boolean, SQLiteDatabase> openDatabaseThreadSafeMode(boolean writeMode) {
-		Pair<Boolean, SQLiteDatabase> result = new Pair<Boolean, SQLiteDatabase>();
+	protected Pair<Boolean, SupportSQLiteDatabase> openDatabaseThreadSafeMode(boolean writeMode) {
+		Pair<Boolean, SupportSQLiteDatabase> result = new Pair<Boolean, SupportSQLiteDatabase>();
 
 		try {
 			// lock entire operation set
 			beginLock();
 			boolean needToOpened = writeMode ? !this.isOpenInWriteMode() : !this.isOpen();
 			result.value0 = needToOpened;
-			// in this part we can not lock lockReadWriteAccess, otherwise it may be a
+			// in this part we can not lock lockReadWriteAccess, otherwise it
+			// may be a
 			// blocking race
 			// we lock lockReadWriteAccess after we release
 			if (needToOpened) {
@@ -648,7 +653,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					result.value1 = openReadOnlyDatabase(false);
 				}
 			} else {
-				result.value1=this.database();
+				result.value1 = this.database();
 			}
 
 		} finally {
@@ -667,7 +672,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	}
 
-	protected SQLiteDatabase openWritableDatabase(boolean lock) {
+	protected SupportSQLiteDatabase openWritableDatabase(boolean lock) {
 		if (lock) {
 			lockReadWriteAccess.lock();
 

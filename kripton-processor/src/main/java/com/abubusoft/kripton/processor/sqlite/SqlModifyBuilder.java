@@ -475,16 +475,17 @@ public abstract class SqlModifyBuilder {
 			break;
 		case UPDATE_BEAN:
 		case UPDATE_RAW:
-			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
-				methodBuilder.addStatement(
-						"int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray())",
-						entity.getTableName());
-			} else {
+//			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
+//				methodBuilder.addStatement(
+//						"int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray())",
+//						entity.getTableName());
+//			} else {
+				
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 				methodBuilder.addStatement(
-						"int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray(), $L)",
+						"int result = database().update($S, $L, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray())",
 						entity.getTableName(), method.jql.conflictAlgorithmType.getConflictAlgorithm());
-			}
+			//}
 
 			if (method.getParent().getParent().generateRx) {
 				GenericSQLHelper.generateSubjectNext(entity, methodBuilder, SubjectType.UPDATE, "result");

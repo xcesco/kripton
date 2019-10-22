@@ -1,14 +1,14 @@
 package sqlite.kripton84;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -18,6 +18,7 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -40,11 +41,11 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    */
   private static final String SELECT_BY_BEAN_SQL2 = "SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?";
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement updateAllPreparedStatement1;
+  private static SupportSQLiteStatement updateAllPreparedStatement1;
 
-  private static SQLiteStatement deleteAllPreparedStatement2;
+  private static SupportSQLiteStatement deleteAllPreparedStatement2;
 
   /**
    * Bean84B2BindMap */
@@ -99,7 +100,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -171,7 +172,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -220,7 +221,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean84_b (column_bean) VALUES (?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
@@ -261,7 +262,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -288,7 +289,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     if (updateAllPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE bean84_b SET column_bean=?";
-      updateAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateAllPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllPreparedStatement1);
     _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
@@ -322,7 +323,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateAllPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateAllPreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -340,7 +341,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     if (deleteAllPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM bean84_b";
-      deleteAllPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement2);
 
@@ -360,7 +361,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllPreparedStatement2, _contentValues);
     return result!=0;
   }
 
@@ -412,17 +413,21 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (updateAllPreparedStatement1!=null) {
-      updateAllPreparedStatement1.close();
-      updateAllPreparedStatement1=null;
-    }
-    if (deleteAllPreparedStatement2!=null) {
-      deleteAllPreparedStatement2.close();
-      deleteAllPreparedStatement2=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (updateAllPreparedStatement1!=null) {
+        updateAllPreparedStatement1.close();
+        updateAllPreparedStatement1=null;
+      }
+      if (deleteAllPreparedStatement2!=null) {
+        deleteAllPreparedStatement2.close();
+        deleteAllPreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

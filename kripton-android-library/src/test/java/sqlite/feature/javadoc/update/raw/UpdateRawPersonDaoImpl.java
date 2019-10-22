@@ -1,16 +1,17 @@
 package sqlite.feature.javadoc.update.raw;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -23,17 +24,17 @@ import java.util.Set;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
-  private static SQLiteStatement updateAllBeansPreparedStatement0;
+  private static SupportSQLiteStatement updateAllBeansPreparedStatement0;
 
-  private static SQLiteStatement updateAllBeansJQLPreparedStatement1;
+  private static SupportSQLiteStatement updateAllBeansJQLPreparedStatement1;
 
   private static final Set<String> updateAllBeansJQL0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "student", "person_name");
 
-  private static SQLiteStatement updateFromSelectJQLPreparedStatement2;
+  private static SupportSQLiteStatement updateFromSelectJQLPreparedStatement2;
 
   private static final Set<String> updateFromSelectJQL1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static SQLiteStatement updateBeanPreparedStatement3;
+  private static SupportSQLiteStatement updateBeanPreparedStatement3;
 
   private static final Set<String> updateBean2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
@@ -66,7 +67,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     if (updateAllBeansPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET person_name=?";
-      updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateAllBeansPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
     _contentValues.put("person_name", personName);
@@ -100,7 +101,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateAllBeansPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateAllBeansPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -131,7 +132,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     if (updateAllBeansJQLPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET student = ?, person_name=?  where person_surname=?";
-      updateAllBeansJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateAllBeansJQLPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement1);
     _contentValues.put("student", student);
@@ -167,7 +168,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateAllBeansJQLPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateAllBeansJQLPreparedStatement1, _contentValues);
   }
 
   /**
@@ -245,7 +246,8 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -332,7 +334,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     if (updateFromSelectJQLPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET person_name=? where student= (select student from person where person_surname=?)";
-      updateFromSelectJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateFromSelectJQLPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement2);
     _contentValues.put("person_name", personName);
@@ -367,7 +369,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateFromSelectJQLPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateFromSelectJQLPreparedStatement2, _contentValues);
   }
 
   /**
@@ -443,7 +445,8 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -473,7 +476,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     if (updateBeanPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET person_name=? WHERE id=?";
-      updateBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateBeanPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement3);
     _contentValues.put("person_name", personName);
@@ -508,7 +511,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateBeanPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateBeanPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -587,7 +590,8 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -671,7 +675,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -750,7 +754,8 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -843,7 +848,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -934,26 +939,31 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (updateAllBeansPreparedStatement0!=null) {
-      updateAllBeansPreparedStatement0.close();
-      updateAllBeansPreparedStatement0=null;
-    }
-    if (updateAllBeansJQLPreparedStatement1!=null) {
-      updateAllBeansJQLPreparedStatement1.close();
-      updateAllBeansJQLPreparedStatement1=null;
-    }
-    if (updateFromSelectJQLPreparedStatement2!=null) {
-      updateFromSelectJQLPreparedStatement2.close();
-      updateFromSelectJQLPreparedStatement2=null;
-    }
-    if (updateBeanPreparedStatement3!=null) {
-      updateBeanPreparedStatement3.close();
-      updateBeanPreparedStatement3=null;
+    try {
+      if (updateAllBeansPreparedStatement0!=null) {
+        updateAllBeansPreparedStatement0.close();
+        updateAllBeansPreparedStatement0=null;
+      }
+      if (updateAllBeansJQLPreparedStatement1!=null) {
+        updateAllBeansJQLPreparedStatement1.close();
+        updateAllBeansJQLPreparedStatement1=null;
+      }
+      if (updateFromSelectJQLPreparedStatement2!=null) {
+        updateFromSelectJQLPreparedStatement2.close();
+        updateFromSelectJQLPreparedStatement2=null;
+      }
+      if (updateBeanPreparedStatement3!=null) {
+        updateBeanPreparedStatement3.close();
+        updateBeanPreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

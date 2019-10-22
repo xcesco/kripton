@@ -1,13 +1,14 @@
 package sqlite.feature.jql.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.jql.entities.Child;
@@ -27,7 +28,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   private static final String SELECT_ALL_SQL1 = "SELECT _id, name, parent_id FROM child";
 
-  private static SQLiteStatement insertBeanPreparedStatement0;
+  private static SupportSQLiteStatement insertBeanPreparedStatement0;
 
   /**
    * SQL definition for method selectByParent
@@ -44,11 +45,11 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   private static final String SELECT_BY_PARENT_ID_SQL4 = "SELECT _id, name, parent_id FROM child WHERE parent_id=?";
 
-  private static SQLiteStatement insertByCopy3PreparedStatement1;
+  private static SupportSQLiteStatement insertByCopy3PreparedStatement1;
 
-  private static SQLiteStatement insertByCopyPreparedStatement2;
+  private static SupportSQLiteStatement insertByCopyPreparedStatement2;
 
-  private static SQLiteStatement updateJQLPreparedStatement3;
+  private static SupportSQLiteStatement updateJQLPreparedStatement3;
 
   public DaoChildImpl(BindFamilyDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -92,7 +93,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -149,7 +150,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     if (insertBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO child (name, parent_id) VALUES (?, ?)";
-      insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertBeanPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     _contentValues.put("name", bean.name);
@@ -191,7 +192,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertBeanPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -245,7 +246,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -324,7 +325,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -390,7 +391,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -507,7 +508,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     if (insertByCopy3PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="insert into child (name, parent_id) values (?, ?)";
-      insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertByCopy3PreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertByCopy3PreparedStatement1);
     _contentValues.put("name", bean.name);
@@ -549,7 +550,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertByCopy3PreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertByCopy3PreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // Specialized Insert - InsertType - END
@@ -578,7 +579,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     if (insertByCopyPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO child (parent_id, name) VALUES (?, ?)";
-      insertByCopyPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertByCopyPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertByCopyPreparedStatement2);
 
@@ -621,7 +622,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertByCopyPreparedStatement2, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertByCopyPreparedStatement2, _contentValues);
     return (int)result;
     // Specialized Insert - InsertType - END
   }
@@ -650,7 +651,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     if (updateJQLPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="update or replace child set name=? where parent_id=?";
-      updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateJQLPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLPreparedStatement3);
     _contentValues.put("name", name);
@@ -685,7 +686,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateJQLPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateJQLPreparedStatement3, _contentValues);
   }
 
   /**
@@ -748,21 +749,25 @@ public class DaoChildImpl extends Dao implements DaoChild {
   }
 
   public static void clearCompiledStatements() {
-    if (insertBeanPreparedStatement0!=null) {
-      insertBeanPreparedStatement0.close();
-      insertBeanPreparedStatement0=null;
-    }
-    if (insertByCopy3PreparedStatement1!=null) {
-      insertByCopy3PreparedStatement1.close();
-      insertByCopy3PreparedStatement1=null;
-    }
-    if (insertByCopyPreparedStatement2!=null) {
-      insertByCopyPreparedStatement2.close();
-      insertByCopyPreparedStatement2=null;
-    }
-    if (updateJQLPreparedStatement3!=null) {
-      updateJQLPreparedStatement3.close();
-      updateJQLPreparedStatement3=null;
+    try {
+      if (insertBeanPreparedStatement0!=null) {
+        insertBeanPreparedStatement0.close();
+        insertBeanPreparedStatement0=null;
+      }
+      if (insertByCopy3PreparedStatement1!=null) {
+        insertByCopy3PreparedStatement1.close();
+        insertByCopy3PreparedStatement1=null;
+      }
+      if (insertByCopyPreparedStatement2!=null) {
+        insertByCopyPreparedStatement2.close();
+        insertByCopyPreparedStatement2=null;
+      }
+      if (updateJQLPreparedStatement3!=null) {
+        updateJQLPreparedStatement3.close();
+        updateJQLPreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

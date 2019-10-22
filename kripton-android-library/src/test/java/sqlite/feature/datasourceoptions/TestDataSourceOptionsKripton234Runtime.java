@@ -25,6 +25,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.feature.datasourceoptions.kripton234.BindAppWithConfigDataSource;
 
@@ -63,19 +64,19 @@ public class TestDataSourceOptionsKripton234Runtime extends BaseAndroidTest {
 		optionsBuilder.databaseLifecycleHandler(new DatabaseLifecycleHandler() {
 			
 			@Override
-			public void onUpdate(SQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
+			public void onUpdate(SupportSQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
 				log("databaseLifecycleHandler - onUpdate");
 				
 			}
 			
 			@Override
-			public void onCreate(SQLiteDatabase database) {
+			public void onCreate(SupportSQLiteDatabase database) {
 				log("databaseLifecycleHandler - onCreate "+database.getVersion());
 				
 			}
 			
 			@Override
-			public void onConfigure(SQLiteDatabase database) {
+			public void onConfigure(SupportSQLiteDatabase database) {
 				log("databaseLifecycleHandler - onConfigure");
 				
 			}
@@ -83,7 +84,7 @@ public class TestDataSourceOptionsKripton234Runtime extends BaseAndroidTest {
 		optionsBuilder.addUpdateTask(1, new SQLiteUpdateTask() {
 			
 			@Override
-			public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+			public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
 				log("aaaaaaaaa");
 				
 			}

@@ -2,16 +2,17 @@ package sqlite.feature.contentprovider.kripton213.case1;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   private static final String COUNT_SQL1 = "SELECT count(*) FROM cheeses";
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   private static final Set<String> insert0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -49,9 +50,9 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
   private static final Set<String> selectById2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
-  private static SQLiteStatement deleteByIdPreparedStatement1;
+  private static SupportSQLiteStatement deleteByIdPreparedStatement1;
 
-  private static SQLiteStatement updatePreparedStatement2;
+  private static SupportSQLiteStatement updatePreparedStatement2;
 
   private static final Set<String> update4ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
@@ -95,7 +96,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -137,7 +138,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO cheeses (name) VALUES (?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("name", cheese.name);
@@ -178,7 +179,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     cheese.id=result;
 
@@ -225,8 +226,9 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       }
     }
     // log for content values -- END
+    // conflict algorithm NONE
     // insert operation
-    long result = database().insert("cheeses", null, _contentValues.values());
+    long result = database().insert("cheeses", 0, _contentValues.values());
     return result;
   }
 
@@ -267,7 +269,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -359,7 +361,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -408,7 +410,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -508,7 +510,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -531,7 +533,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     if (deleteByIdPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM cheeses WHERE id=?";
-      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByIdPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -552,7 +554,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -640,7 +642,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     if (updatePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE cheeses SET name=? WHERE id=?";
-      updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
     _contentValues.put("name", cheese.name);
@@ -675,7 +677,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -754,22 +756,27 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log section END
 
     // execute SQL
-    int result = database().update("cheeses", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = database().update("cheeses", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (deleteByIdPreparedStatement1!=null) {
-      deleteByIdPreparedStatement1.close();
-      deleteByIdPreparedStatement1=null;
-    }
-    if (updatePreparedStatement2!=null) {
-      updatePreparedStatement2.close();
-      updatePreparedStatement2=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (deleteByIdPreparedStatement1!=null) {
+        deleteByIdPreparedStatement1.close();
+        deleteByIdPreparedStatement1=null;
+      }
+      if (updatePreparedStatement2!=null) {
+        updatePreparedStatement2.close();
+        updatePreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

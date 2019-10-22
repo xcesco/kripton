@@ -1,14 +1,15 @@
 package sqlite.feature.dynamic.update1;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    */
   private static final String SELEC_ALL_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person";
 
-  private static SQLiteStatement insertOnePreparedStatement0;
+  private static SupportSQLiteStatement insertOnePreparedStatement0;
 
   public PersonUpdateDAOImpl(BindPersonUpdateDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -88,7 +89,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -184,7 +185,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -241,7 +242,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -322,7 +323,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -404,7 +405,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -447,7 +448,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -514,7 +515,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
-      insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOnePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
@@ -559,14 +560,18 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOnePreparedStatement0, _contentValues);
     // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {
-    if (insertOnePreparedStatement0!=null) {
-      insertOnePreparedStatement0.close();
-      insertOnePreparedStatement0=null;
+    try {
+      if (insertOnePreparedStatement0!=null) {
+        insertOnePreparedStatement0.close();
+        insertOnePreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

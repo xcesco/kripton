@@ -36,11 +36,11 @@ public class KriptonDynamicClassManager {
 
 			instance.liveDataClazzSet.clear();
 			
-			if (instance.androidXDB) {
+			/*if (instance.androidXDB) {
 				instance.databaseClazz=ClassName.bestGuess("androidx.sqlite.db.SupportSQLiteDatabase");
 			} else {
 				instance.databaseClazz=ClassName.bestGuess("");
-			}
+			}*/
 
 			if (instance.androidxSupport) {
 				instance.liveDataHandlerClazz = ClassName.bestGuess(KRIPTON_X_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);

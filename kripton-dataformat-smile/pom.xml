@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>6.0.0</version>
+		<version>7.0.0-SNAPSHOT</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>kripton-dataformat-smile</artifactId>
 
 	<properties>
-		<kripton.version>6.0.0</kripton.version>
+		<kripton.version>7.0.0-SNAPSHOT</kripton.version>
 
 		<!-- dependencies version -->
 		<jackson.version>2.9.8</jackson.version>

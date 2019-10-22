@@ -31,6 +31,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
  * SQLiteUpdateTask Helper.
@@ -71,7 +72,7 @@ public abstract class SQLiteUpdateTaskHelper {
 		 * @param sql
 		 *            the sql
 		 */
-		void onRow(SQLiteDatabase db, String name, String sql);
+		void onRow(SupportSQLiteDatabase db, String name, String sql);
 	}
 
 	/**
@@ -86,11 +87,11 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param listener
 	 *            the listener
 	 */
-	static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
+	static void query(SupportSQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
 		String query = String.format(
 				"SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s",
 				type.toString().toLowerCase(), StringUtils.hasText(conditions) ? " AND " + conditions : "");
-		try (Cursor cursor = db.rawQuery(query, null)) {
+		try (Cursor cursor = db.query(query, null)) {
 			if (cursor.moveToFirst()) {
 				int index0 = cursor.getColumnIndex("name");
 				int index1 = cursor.getColumnIndex("sql");
@@ -114,13 +115,13 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param prefix
 	 *            the prefix
 	 */
-	private static void drop(SQLiteDatabase db, final QueryType type, String prefix) {
+	private static void drop(SupportSQLiteDatabase db, final QueryType type, String prefix) {
 		String dropSQL = StringUtils.hasText(prefix) ? "name like '" + prefix + "' || '%'" : null;
 
 		query(db, dropSQL, type, new OnResultListener() {
 
 			@Override
-			public void onRow(SQLiteDatabase db, String name, String sql) {
+			public void onRow(SupportSQLiteDatabase db, String name, String sql) {
 				String drop = "DROP " + type.toString().toUpperCase() + " " + name;
 				Logger.info(drop);
 				db.execSQL(drop);
@@ -136,13 +137,13 @@ public abstract class SQLiteUpdateTaskHelper {
 	 *            the db
 	 * @return the all tables
 	 */
-	public static Map<String, String> getAllTables(SQLiteDatabase db) {
+	public static Map<String, String> getAllTables(SupportSQLiteDatabase db) {
 		final Map<String, String> result = new LinkedHashMap<>();
 
 		query(db, null, QueryType.TABLE, new OnResultListener() {
 
 			@Override
-			public void onRow(SQLiteDatabase db, String name, String sql) {
+			public void onRow(SupportSQLiteDatabase db, String name, String sql) {
 				if (StringUtils.hasText(sql)) {
 					result.put(name, StringUtils.nvl(sql).trim());
 				}
@@ -160,12 +161,12 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param prefix
 	 *            the prefix
 	 */
-	public static void renameTablesWithPrefix(SQLiteDatabase db, final String prefix) {
+	public static void renameTablesWithPrefix(SupportSQLiteDatabase db, final String prefix) {
 		Logger.info("MASSIVE TABLE RENAME OPERATION: ADD PREFIX " + prefix);
 		query(db, null, QueryType.TABLE, new OnResultListener() {
 
 			@Override
-			public void onRow(SQLiteDatabase db, String name, String sql) {
+			public void onRow(SupportSQLiteDatabase db, String name, String sql) {
 				sql = String.format("ALTER TABLE %s RENAME TO %s%s;", name, prefix, name);
 				Logger.info(sql);
 				db.execSQL(sql);
@@ -182,7 +183,7 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param prefix
 	 *            the prefix
 	 */
-	public static void dropTablesWithPrefix(SQLiteDatabase db, String prefix) {
+	public static void dropTablesWithPrefix(SupportSQLiteDatabase db, String prefix) {
 		Logger.info("MASSIVE TABLE DROP OPERATION%s", StringUtils.ifNotEmptyAppend(prefix, " WITH PREFIX "));
 		drop(db, QueryType.TABLE, prefix);
 	}
@@ -193,7 +194,7 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param db
 	 *            the db
 	 */
-	public static void dropTablesAndIndices(SQLiteDatabase db) {
+	public static void dropTablesAndIndices(SupportSQLiteDatabase db) {
 		drop(db, QueryType.INDEX, null);
 		drop(db, QueryType.TABLE, null);
 	}
@@ -205,13 +206,13 @@ public abstract class SQLiteUpdateTaskHelper {
 	 *            the db
 	 * @return the all indexes
 	 */
-	public static Map<String, String> getAllIndexes(SQLiteDatabase db) {
+	public static Map<String, String> getAllIndexes(SupportSQLiteDatabase db) {
 		final Map<String, String> result = new LinkedHashMap<>();
 
 		query(db, null, QueryType.INDEX, new OnResultListener() {
 
 			@Override
-			public void onRow(SQLiteDatabase db, String name, String sql) {
+			public void onRow(SupportSQLiteDatabase db, String name, String sql) {
 				if (StringUtils.hasText(sql)) {
 					result.put(name, StringUtils.nvl(sql).trim());
 				}

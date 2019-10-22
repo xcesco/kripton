@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
  * <p>
@@ -45,6 +45,6 @@ public interface SQLiteUpdateTask {
 	 * @param previousVersion the previous version
 	 * @param currentVersion the current version
 	 */
-	void execute(SQLiteDatabase database, int previousVersion ,int currentVersion);
+	void execute(SupportSQLiteDatabase database, int previousVersion ,int currentVersion);
 
 }

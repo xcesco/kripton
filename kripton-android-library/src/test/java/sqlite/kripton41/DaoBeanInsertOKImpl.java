@@ -1,12 +1,13 @@
 package sqlite.kripton41;
 
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 
 /**
  * <p>
@@ -18,7 +19,7 @@ import com.abubusoft.kripton.common.Triple;
  *  @see Bean01Table
  */
 public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
-  private static SQLiteStatement insertDistancePreparedStatement0;
+  private static SupportSQLiteStatement insertDistancePreparedStatement0;
 
   public DaoBeanInsertOKImpl(BindDummy04DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -47,7 +48,7 @@ public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
     if (insertDistancePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (id, value) VALUES (?, ?)";
-      insertDistancePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertDistancePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertDistancePreparedStatement0);
 
@@ -90,15 +91,19 @@ public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertDistancePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertDistancePreparedStatement0, _contentValues);
     return result!=-1;
     // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {
-    if (insertDistancePreparedStatement0!=null) {
-      insertDistancePreparedStatement0.close();
-      insertDistancePreparedStatement0=null;
+    try {
+      if (insertDistancePreparedStatement0!=null) {
+        insertDistancePreparedStatement0.close();
+        insertDistancePreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

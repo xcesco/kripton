@@ -15,13 +15,14 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-import android.database.sqlite.SQLiteStatement;
+import java.io.IOException;
 
-// TODO: Auto-generated Javadoc
+import androidx.sqlite.db.SupportSQLiteStatement;
+
 /**
- * The Class KriptonDatabaseWrapper.
+ * This class wrap the database call to do some operations.
  */
-public abstract class KriptonDatabaseWrapper {
+public abstract class KriptonDatabaseHelper {
 	
 	/**
 	 * Compile.
@@ -30,8 +31,8 @@ public abstract class KriptonDatabaseWrapper {
 	 * @param sql the sql
 	 * @return the SQ lite statement
 	 */
-	public static SQLiteStatement compile(SQLContext context, String sql) {
-		SQLiteStatement ps = context.database().compileStatement(sql);
+	public static SupportSQLiteStatement compile(SQLContext context, String sql) {
+		SupportSQLiteStatement ps = context.database().compileStatement(sql);
 		
 		return ps;
 	}
@@ -45,12 +46,16 @@ public abstract class KriptonDatabaseWrapper {
 	 * @return the long
 	 */
 	public static long insert(SQLContext context, String sql, KriptonContentValues contentValues) {
-		SQLiteStatement ps = context.database().compileStatement(sql);
+		SupportSQLiteStatement ps = context.database().compileStatement(sql);
 		try {
 			contentValues.bind(ps);
 			return ps.executeInsert();
 		} finally {
-			ps.close();
+			try {
+				ps.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -61,7 +66,7 @@ public abstract class KriptonDatabaseWrapper {
 	 * @param contentValues the content values
 	 * @return the long
 	 */
-	public static long insert(SQLiteStatement ps, KriptonContentValues contentValues) {
+	public static long insert(SupportSQLiteStatement ps, KriptonContentValues contentValues) {
 		contentValues.bind(ps);
 
 		return ps.executeInsert();
@@ -74,7 +79,7 @@ public abstract class KriptonDatabaseWrapper {
 	 * @param contentValues the content values
 	 * @return the int
 	 */
-	public static int updateDelete(SQLiteStatement ps, KriptonContentValues contentValues) {
+	public static int updateDelete(SupportSQLiteStatement ps, KriptonContentValues contentValues) {
 		contentValues.bind(ps);
 
 		return ps.executeUpdateDelete();
@@ -90,12 +95,16 @@ public abstract class KriptonDatabaseWrapper {
 	 * @return the int
 	 */
 	public static int updateDelete(SQLContext context, String sql, KriptonContentValues contentValues) {
-		SQLiteStatement ps = context.database().compileStatement(sql);
+		SupportSQLiteStatement ps = context.database().compileStatement(sql);
 		try {
 			contentValues.bind(ps);
 			return ps.executeUpdateDelete();
 		} finally {
-			ps.close();
+			try {
+				ps.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

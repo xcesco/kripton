@@ -17,7 +17,7 @@ package sqlite.feature.datasourceoptions.kripton234;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -30,7 +30,7 @@ public class PersonUpdateTask implements SQLiteUpdateTask {
 	 * @see com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask#execute(android.database.sqlite.SQLiteDatabase, int, int)
 	 */
 	@Override
-	public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+	public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
 		// TODO Auto-generated method stub
 		
 	}

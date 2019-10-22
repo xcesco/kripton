@@ -24,8 +24,8 @@ import com.abubusoft.kripton.common.Pair;
 
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
  * Options to build a data source.
@@ -36,6 +36,11 @@ public class DataSourceOptions {
 
 	/** The log enabled. */
 	public final boolean logEnabled;
+	
+	/**
+	 * Contains secret;
+	 */
+	public final byte[] secret;
 
 	/** The factory. */
 	public final CursorFactory factory;
@@ -89,6 +94,11 @@ public class DataSourceOptions {
 		
 		/** The in memory. */
 		private boolean inMemory;
+		
+		/**
+		 * Contains secret;
+		 */
+		private byte[] secret;
 
 		/**
 		 * Cursor factory.
@@ -155,6 +165,17 @@ public class DataSourceOptions {
 			this.inMemory = inMemory;
 			return this;
 		}
+		
+		/**
+		 * Secret
+		 *
+		 * @param secret to open database (if crypted)
+		 * @return the builder
+		 */
+		public Builder secret(byte[] secret) {
+			this.secret = secret;
+			return this;
+		}
 
 		/**
 		 * Retrieve from a raw resource a list of comma separated sql commands
@@ -181,7 +202,7 @@ public class DataSourceOptions {
 			SQLiteUpdateTask task = new SQLiteUpdateTask() {
 
 				@Override
-				public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+				public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
 					for (String item : sqlCommandList) {
 						Logger.info(item);
 						database.execSQL(item);
@@ -229,7 +250,7 @@ public class DataSourceOptions {
 		 * @return the data source options
 		 */
 		public DataSourceOptions build() {
-			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, updateTasks, logEnabled, populator, inMemory);
+			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, secret, updateTasks, logEnabled, populator, inMemory);
 		}
 		
 		/**
@@ -246,6 +267,7 @@ public class DataSourceOptions {
 			builder.databaseLifecycleHandler = source.databaseLifecycleHandler;
 			builder.updateTasks = source.updateTasks;
 			builder.populator = source.populator;
+			builder.secret=source.secret;
 			builder.inMemory = source.inMemory;
 						
 			return builder;
@@ -263,13 +285,14 @@ public class DataSourceOptions {
 	 * @param populator the populator
 	 * @param inMemory the in memory
 	 */
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks,
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, byte[] secret, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks,
 			boolean log, SQLitePopulator populator, boolean inMemory) {
 		this.logEnabled = log;
 		this.factory = factory;
 		this.errorHandler = errorHandler;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;
 		this.updateTasks = updateTasks;
+		this.secret=secret;
 		this.populator = populator;
 		this.inMemory = inMemory;
 	}

@@ -17,7 +17,7 @@ package sqlite.feature.datasourceoptions.kripton234;
 
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -29,7 +29,7 @@ public class PersonLifecycleHandler implements DatabaseLifecycleHandler {
 	 * @see com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler#onUpdate(android.database.sqlite.SQLiteDatabase, int, int, boolean)
 	 */
 	@Override
-	public void onUpdate(SQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
+	public void onUpdate(SupportSQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -38,7 +38,7 @@ public class PersonLifecycleHandler implements DatabaseLifecycleHandler {
 	 * @see com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler#onCreate(android.database.sqlite.SQLiteDatabase)
 	 */
 	@Override
-	public void onCreate(SQLiteDatabase database) {
+	public void onCreate(SupportSQLiteDatabase database) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -47,7 +47,7 @@ public class PersonLifecycleHandler implements DatabaseLifecycleHandler {
 	 * @see com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler#onConfigure(android.database.sqlite.SQLiteDatabase)
 	 */
 	@Override
-	public void onConfigure(SQLiteDatabase database) {
+	public void onConfigure(SupportSQLiteDatabase database) {
 		// TODO Auto-generated method stub
 		
 	}

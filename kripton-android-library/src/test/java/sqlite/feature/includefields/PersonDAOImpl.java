@@ -1,14 +1,15 @@
 package sqlite.feature.includefields;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +33,17 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   private static final String SELECT_EXCLUDE_ONE_SQL2 = "SELECT birth_city, birth_day, surname, type_name FROM person ORDER BY name";
 
-  private static SQLiteStatement insertIncludeOnePreparedStatement0;
+  private static SupportSQLiteStatement insertIncludeOnePreparedStatement0;
 
-  private static SQLiteStatement insertExcludeOnePreparedStatement1;
+  private static SupportSQLiteStatement insertExcludeOnePreparedStatement1;
 
-  private static SQLiteStatement updateIncludeOnePreparedStatement2;
+  private static SupportSQLiteStatement updateIncludeOnePreparedStatement2;
 
-  private static SQLiteStatement updateExcludeOnePreparedStatement3;
+  private static SupportSQLiteStatement updateExcludeOnePreparedStatement3;
 
-  private static SQLiteStatement deleteIncludeOnePreparedStatement4;
+  private static SupportSQLiteStatement deleteIncludeOnePreparedStatement4;
 
-  private static SQLiteStatement deleteExcludeOnePreparedStatement5;
+  private static SupportSQLiteStatement deleteExcludeOnePreparedStatement5;
 
   public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -93,7 +94,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -165,7 +166,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -224,7 +225,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     if (insertIncludeOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, id) VALUES (?, ?)";
-      insertIncludeOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertIncludeOnePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertIncludeOnePreparedStatement0);
     _contentValues.put("name", bean.name);
@@ -266,7 +267,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertIncludeOnePreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertIncludeOnePreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // Specialized Insert - InsertType - END
@@ -296,7 +297,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     if (insertExcludeOnePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (birth_city, birth_day, surname, type_name) VALUES (?, ?, ?, ?)";
-      insertExcludeOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertExcludeOnePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertExcludeOnePreparedStatement1);
     _contentValues.put("birth_city", bean.birthCity);
@@ -340,7 +341,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertExcludeOnePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertExcludeOnePreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // Specialized Insert - InsertType - END
@@ -364,7 +365,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     if (updateIncludeOnePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET name=?, id=?";
-      updateIncludeOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateIncludeOnePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateIncludeOnePreparedStatement2);
     _contentValues.put("name", bean.name);
@@ -399,7 +400,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateIncludeOnePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateIncludeOnePreparedStatement2, _contentValues);
   }
 
   /**
@@ -422,7 +423,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     if (updateExcludeOnePreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET birth_city=?, birth_day=?, surname=?, type_name=?";
-      updateExcludeOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateExcludeOnePreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateExcludeOnePreparedStatement3);
     _contentValues.put("birth_city", bean.birthCity);
@@ -459,7 +460,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateExcludeOnePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateExcludeOnePreparedStatement3, _contentValues);
   }
 
   /**
@@ -474,7 +475,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     if (deleteIncludeOnePreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person";
-      deleteIncludeOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteIncludeOnePreparedStatement4 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteIncludeOnePreparedStatement4);
 
@@ -494,7 +495,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteIncludeOnePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteIncludeOnePreparedStatement4, _contentValues);
   }
 
   /**
@@ -509,7 +510,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     if (deleteExcludeOnePreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person";
-      deleteExcludeOnePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteExcludeOnePreparedStatement5 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteExcludeOnePreparedStatement5);
 
@@ -529,33 +530,37 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteExcludeOnePreparedStatement5, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteExcludeOnePreparedStatement5, _contentValues);
   }
 
   public static void clearCompiledStatements() {
-    if (insertIncludeOnePreparedStatement0!=null) {
-      insertIncludeOnePreparedStatement0.close();
-      insertIncludeOnePreparedStatement0=null;
-    }
-    if (insertExcludeOnePreparedStatement1!=null) {
-      insertExcludeOnePreparedStatement1.close();
-      insertExcludeOnePreparedStatement1=null;
-    }
-    if (updateIncludeOnePreparedStatement2!=null) {
-      updateIncludeOnePreparedStatement2.close();
-      updateIncludeOnePreparedStatement2=null;
-    }
-    if (updateExcludeOnePreparedStatement3!=null) {
-      updateExcludeOnePreparedStatement3.close();
-      updateExcludeOnePreparedStatement3=null;
-    }
-    if (deleteIncludeOnePreparedStatement4!=null) {
-      deleteIncludeOnePreparedStatement4.close();
-      deleteIncludeOnePreparedStatement4=null;
-    }
-    if (deleteExcludeOnePreparedStatement5!=null) {
-      deleteExcludeOnePreparedStatement5.close();
-      deleteExcludeOnePreparedStatement5=null;
+    try {
+      if (insertIncludeOnePreparedStatement0!=null) {
+        insertIncludeOnePreparedStatement0.close();
+        insertIncludeOnePreparedStatement0=null;
+      }
+      if (insertExcludeOnePreparedStatement1!=null) {
+        insertExcludeOnePreparedStatement1.close();
+        insertExcludeOnePreparedStatement1=null;
+      }
+      if (updateIncludeOnePreparedStatement2!=null) {
+        updateIncludeOnePreparedStatement2.close();
+        updateIncludeOnePreparedStatement2=null;
+      }
+      if (updateExcludeOnePreparedStatement3!=null) {
+        updateExcludeOnePreparedStatement3.close();
+        updateExcludeOnePreparedStatement3=null;
+      }
+      if (deleteIncludeOnePreparedStatement4!=null) {
+        deleteIncludeOnePreparedStatement4.close();
+        deleteIncludeOnePreparedStatement4=null;
+      }
+      if (deleteExcludeOnePreparedStatement5!=null) {
+        deleteExcludeOnePreparedStatement5.close();
+        deleteExcludeOnePreparedStatement5=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

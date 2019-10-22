@@ -17,7 +17,6 @@ package com.abubusoft.kripton.android.sqlite;
 
 import android.database.sqlite.SQLiteDatabase;
 
-// TODO: Auto-generated Javadoc
 /**
  * Documentation about InserType is a copy of
  * <a href="https://www.sqlite.org/lang_conflict.html">lang_conflict</a>
@@ -28,7 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
 public enum ConflictAlgorithmType {
 	
 	/** No conflict algorithm is applied. */
-	NONE(-1, ""),
+	NONE(SQLiteDatabase.CONFLICT_NONE, ""),
 	
 	/**
 	 * When an applicable constraint violation occurs, the ROLLBACK resolution

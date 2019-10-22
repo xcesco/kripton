@@ -1,14 +1,15 @@
 package sqlite.kripton51.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.kripton51.entities.MessageEntity;
@@ -30,9 +31,9 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    */
   private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE channel_id = ?";
 
-  private static SQLiteStatement updateByIdPreparedStatement0;
+  private static SupportSQLiteStatement updateByIdPreparedStatement0;
 
-  private static SQLiteStatement insertPreparedStatement1;
+  private static SupportSQLiteStatement insertPreparedStatement1;
 
   /**
    * SQL definition for method selectByUid
@@ -96,7 +97,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -177,7 +178,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     if (updateByIdPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE message SET channel_id=?, channel_uid=?, face_uid=?, owner_type=?, owner_uid=?, text=?, type=?, uid=?, update_time=? WHERE id = ?";
-      updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateByIdPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
     _contentValues.put("channel_id", bean.channelId);
@@ -220,7 +221,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateByIdPreparedStatement0, _contentValues);
     return result!=0;
   }
 
@@ -253,7 +254,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("channel_id", bean.channelId);
@@ -302,7 +303,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // Specialized Insert - InsertType - END
@@ -361,7 +362,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -405,13 +406,17 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   }
 
   public static void clearCompiledStatements() {
-    if (updateByIdPreparedStatement0!=null) {
-      updateByIdPreparedStatement0.close();
-      updateByIdPreparedStatement0=null;
-    }
-    if (insertPreparedStatement1!=null) {
-      insertPreparedStatement1.close();
-      insertPreparedStatement1=null;
+    try {
+      if (updateByIdPreparedStatement0!=null) {
+        updateByIdPreparedStatement0.close();
+        updateByIdPreparedStatement0=null;
+      }
+      if (insertPreparedStatement1!=null) {
+        insertPreparedStatement1.close();
+        insertPreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

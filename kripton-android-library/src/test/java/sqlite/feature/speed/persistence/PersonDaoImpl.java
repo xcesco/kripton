@@ -1,10 +1,11 @@
 package sqlite.feature.speed.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.speed.model.Person;
@@ -29,11 +30,11 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    */
   private static final String SELECT_BY_ID_SQL2 = "SELECT id, name, surname FROM person WHERE id=?";
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement updatePreparedStatement1;
+  private static SupportSQLiteStatement updatePreparedStatement1;
 
-  private static SQLiteStatement deletePreparedStatement2;
+  private static SupportSQLiteStatement deletePreparedStatement2;
 
   public PersonDaoImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -64,7 +65,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 
@@ -127,7 +128,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanHelper - BEGIN
 
@@ -173,14 +174,14 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put(bean.name);
     _contentValues.put(bean.surname);
 
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -213,7 +214,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     if (updatePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
     _contentValues.put(bean.name);
@@ -223,7 +224,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement1, _contentValues);
     return result;
   }
 
@@ -246,29 +247,33 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     if (deletePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
-      deletePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deletePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deletePreparedStatement2, _contentValues);
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (updatePreparedStatement1!=null) {
-      updatePreparedStatement1.close();
-      updatePreparedStatement1=null;
-    }
-    if (deletePreparedStatement2!=null) {
-      deletePreparedStatement2.close();
-      deletePreparedStatement2=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (updatePreparedStatement1!=null) {
+        updatePreparedStatement1.close();
+        updatePreparedStatement1=null;
+      }
+      if (deletePreparedStatement2!=null) {
+        deletePreparedStatement2.close();
+        deletePreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }
