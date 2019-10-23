@@ -29,6 +29,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ImmutableUtility;
@@ -36,7 +37,6 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.GenericSQLHelper.SubjectType;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
@@ -50,9 +50,6 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-
-import androidx.sqlite.db.SupportSQLiteStatement;
-
 
 /**
  * The Class InsertBeanHelper.
@@ -89,7 +86,7 @@ public class InsertListBeanHelper implements InsertCodeGenerator {
 		} else {
 			String psName = method.buildPreparedStatementName();
 			classBuilder.addField(FieldSpec
-					.builder(TypeName.get(SupportSQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
+					.builder(KriptonDynamicClassManager.getInstance().getStatementClazz(), psName, Modifier.PRIVATE, Modifier.STATIC).build());
 
 			methodBuilder.beginControlFlow("if ($L==null)", psName);
 			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);

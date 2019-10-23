@@ -57,6 +57,7 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 import com.abubusoft.kripton.processor.KriptonOptions;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
@@ -80,7 +81,6 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 
-import androidx.sqlite.db.SupportSQLiteDatabase;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -785,7 +785,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		boolean useForeignKey = false;
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class)
 				.addModifiers(Modifier.PUBLIC);
-		methodBuilder.addParameter(SupportSQLiteDatabase.class, "database");
+		methodBuilder.addParameter(KriptonDynamicClassManager.getInstance().getDatabaseClazz(), "database");
 		methodBuilder.addJavadoc("onCreate\n");
 		methodBuilder.addCode("// generate tables\n");
 		if (schema.isLogEnabled()) {
@@ -869,7 +869,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class)
 				.addModifiers(Modifier.PUBLIC);
-		methodBuilder.addParameter(SupportSQLiteDatabase.class, "database");
+		methodBuilder.addParameter(KriptonDynamicClassManager.getInstance().getDatabaseClazz(), "database");
 		methodBuilder.addParameter(Integer.TYPE, "previousVersion");
 		methodBuilder.addParameter(Integer.TYPE, "currentVersion");
 		methodBuilder.addJavadoc("onUpgrade\n");
@@ -989,7 +989,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onConfigure").addAnnotation(Override.class)
 				.addModifiers(Modifier.PUBLIC);
-		methodBuilder.addParameter(SupportSQLiteDatabase.class, "database");
+		methodBuilder.addParameter(KriptonDynamicClassManager.getInstance().getDatabaseClazz(), "database");
 		methodBuilder.addJavadoc("onConfigure\n");
 		methodBuilder.addCode("// configure database\n");
 
@@ -1066,10 +1066,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						
 						// lock the database
 						.addComment("open database in thread safe mode")
-						.addStatement("$T<Boolean, $T> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class, SupportSQLiteDatabase.class,  dataSourceName.simpleName())										
+						.addStatement("$T<Boolean, $T> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class, KriptonDynamicClassManager.getInstance().getDatabaseClazz(),  dataSourceName.simpleName())										
 						
 						.addStatement("boolean success=false")//.addCode("@SuppressWarnings(\"resource\")\n")
-						.addStatement("$T connection=_status.value1", SupportSQLiteDatabase.class)
+						.addStatement("$T connection=_status.value1", KriptonDynamicClassManager.getInstance().getDatabaseClazz())
 												
 						
 						// support for live data
@@ -1156,7 +1156,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 						// lock the database
 						.addComment("open database in thread safe mode")
-						.addStatement("$T<Boolean, $T> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class, SupportSQLiteDatabase.class, dataSourceName.simpleName())
+						.addStatement("$T<Boolean, $T> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class, KriptonDynamicClassManager.getInstance().getDatabaseClazz(), dataSourceName.simpleName())
 						
 						
 						// support for live data
@@ -1488,13 +1488,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			
 			// lock the database
 			executeMethod.addComment("open database in thread safe mode");
-			executeMethod.addStatement("$T<Boolean, $T> _status=openDatabaseThreadSafeMode(true)", Pair.class, SupportSQLiteDatabase.class);
+			executeMethod.addStatement("$T<Boolean, $T> _status=openDatabaseThreadSafeMode(true)", Pair.class, KriptonDynamicClassManager.getInstance().getDatabaseClazz());
 
 
 			executeMethod.addStatement("boolean success=false");
 			//executeMethod.addCode("@SuppressWarnings(\"resource\")\n");
 			executeMethod.addStatement("$T connection=_status.value1",
-					SupportSQLiteDatabase.class);
+					KriptonDynamicClassManager.getInstance().getDatabaseClazz());
 			
 			// support for live data
 			executeMethod.addStatement("$L currentDaoFactory=_daoFactorySingleThread.bindToThread()",
@@ -1614,7 +1614,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			
 			// lock the database
 			executeMethod.addComment("open database in thread safe mode");
-			executeMethod.addStatement("$T<Boolean, $T> _status=openDatabaseThreadSafeMode(writeMode)", Pair.class, SupportSQLiteDatabase.class);
+			executeMethod.addStatement("$T<Boolean, $T> _status=openDatabaseThreadSafeMode(writeMode)", Pair.class, KriptonDynamicClassManager.getInstance().getDatabaseClazz());
 			
 			
 			// support for live data

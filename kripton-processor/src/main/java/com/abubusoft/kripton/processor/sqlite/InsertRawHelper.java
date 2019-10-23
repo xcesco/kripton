@@ -26,6 +26,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -44,8 +45,6 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-
-import androidx.sqlite.db.SupportSQLiteStatement;
 
 /**
  * The Class InsertRawHelper.
@@ -71,7 +70,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		} else {
 			String psName=method.buildPreparedStatementName();
 			// generate SQL for insert
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SupportSQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());								
+			classBuilder.addField(FieldSpec.builder(KriptonDynamicClassManager.getInstance().getStatementClazz(),  psName, Modifier.PRIVATE, Modifier.STATIC).build());								
 			
 			methodBuilder.beginControlFlow("if ($L==null)",psName);
 			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);

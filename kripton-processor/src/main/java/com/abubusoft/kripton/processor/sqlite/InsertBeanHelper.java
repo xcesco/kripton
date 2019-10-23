@@ -29,6 +29,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ImmutableUtility;
@@ -49,9 +50,6 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-
-import androidx.sqlite.db.SupportSQLiteStatement;
-
 
 /**
  * The Class InsertBeanHelper.
@@ -82,7 +80,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 		} else {
 			String psName = method.buildPreparedStatementName();
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SupportSQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
+			classBuilder.addField(FieldSpec.builder(KriptonDynamicClassManager.getInstance().getStatementClazz(), psName, Modifier.PRIVATE, Modifier.STATIC).build());
 
 			methodBuilder.beginControlFlow("if ($L==null)", psName);
 			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);
