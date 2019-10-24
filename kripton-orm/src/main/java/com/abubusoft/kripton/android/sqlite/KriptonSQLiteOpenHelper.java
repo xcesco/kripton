@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.android.sqlite;
 
-import com.abubusoft.kripton.android.sqlite.database.KriptonDatabaseWrapperImpl;
+import com.abubusoft.kripton.android.sqlite.database.KriptonSQLiteDatabaseWrapperImpl;
 
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 public class KriptonSQLiteOpenHelper implements SupportSQLiteOpenHelper {
 
-	final KriptonDatabaseWrapperImpl[] dbRef = new KriptonDatabaseWrapperImpl[1];
+	final KriptonSQLiteDatabaseWrapperImpl[] dbRef = new KriptonSQLiteDatabaseWrapperImpl[1];
 
 	private SQLiteOpenHelper delegate;
 
@@ -99,10 +99,10 @@ public class KriptonSQLiteOpenHelper implements SupportSQLiteOpenHelper {
 	}
 
 	synchronized SupportSQLiteDatabase getWrappedDb(SQLiteDatabase db) {
-		KriptonDatabaseWrapperImpl wrappedDb = dbRef[0];
+		KriptonSQLiteDatabaseWrapperImpl wrappedDb = dbRef[0];
 
 		if (wrappedDb == null) {
-			wrappedDb = new KriptonDatabaseWrapperImpl(db);
+			wrappedDb = new KriptonSQLiteDatabaseWrapperImpl(db);
 			dbRef[0] = wrappedDb;
 		}
 

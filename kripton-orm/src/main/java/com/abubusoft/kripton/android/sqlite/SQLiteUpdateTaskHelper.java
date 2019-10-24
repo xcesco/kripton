@@ -30,7 +30,6 @@ import com.abubusoft.kripton.common.StringUtils;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
@@ -232,7 +231,7 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param rawResourceId
 	 *            the raw resource id
 	 */
-	public static void executeSQL(final SQLiteDatabase database, Context context, int rawResourceId) {
+	public static void executeSQL(final SupportSQLiteDatabase database, Context context, int rawResourceId) {
 		String[] c = IOUtils.readTextFile(context, rawResourceId).split(";");
 		List<String> commands = Arrays.asList(c);
 		executeSQL(database, commands);
@@ -289,7 +288,7 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param fileInputStream
 	 *            the file input stream
 	 */
-	public static void executeSQL(final SQLiteDatabase database, InputStream fileInputStream) {
+	public static void executeSQL(final SupportSQLiteDatabase database, InputStream fileInputStream) {
 		List<String> commands = readSQLFromFile(fileInputStream);
 		executeSQL(database, commands);
 	}
@@ -302,7 +301,7 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param commands
 	 *            the commands
 	 */
-	public static void executeSQL(final SQLiteDatabase database, List<String> commands) {
+	public static void executeSQL(final SupportSQLiteDatabase database, List<String> commands) {
 		for (String command : commands) {
 			executeSQL(database, command);
 		}
@@ -319,7 +318,7 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * @param command
 	 *            the command
 	 */
-	public static void executeSQL(final SQLiteDatabase database, String command) {
+	public static void executeSQL(final SupportSQLiteDatabase database, String command) {
 		// remove comments
 		command = command.replaceAll("\\/\\*.*\\*\\/", "");
 		command = command.replaceAll("--.*$", "");

@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.common.Pair;
 
@@ -36,7 +37,7 @@ public class DataSourceOptions {
 
 	/** The log enabled. */
 	public final boolean logEnabled;
-	
+
 	/**
 	 * Contains secret;
 	 */
@@ -73,28 +74,28 @@ public class DataSourceOptions {
 	 * The Class Builder.
 	 */
 	public static class Builder {
-		
+
 		/** The log enabled. */
 		private boolean logEnabled = true;
-		
+
 		/** The factory. */
 		private CursorFactory factory;
-		
+
 		/** The error handler. */
 		private DatabaseErrorHandler errorHandler;
-		
+
 		/** The database lifecycle handler. */
 		private DatabaseLifecycleHandler databaseLifecycleHandler;
-		
+
 		/** The update tasks. */
 		private List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks = new ArrayList<>();
-		
+
 		/** The populator. */
 		private SQLitePopulator populator;
-		
+
 		/** The in memory. */
 		private boolean inMemory;
-		
+
 		/**
 		 * Contains secret;
 		 */
@@ -103,7 +104,8 @@ public class DataSourceOptions {
 		/**
 		 * Cursor factory.
 		 *
-		 * @param value the value
+		 * @param value
+		 *            the value
 		 * @return the builder
 		 */
 		public Builder cursorFactory(CursorFactory value) {
@@ -114,7 +116,8 @@ public class DataSourceOptions {
 		/**
 		 * Log.
 		 *
-		 * @param value the value
+		 * @param value
+		 *            the value
 		 * @return the builder
 		 */
 		public Builder log(boolean value) {
@@ -125,7 +128,8 @@ public class DataSourceOptions {
 		/**
 		 * Error handler.
 		 *
-		 * @param value the value
+		 * @param value
+		 *            the value
 		 * @return the builder
 		 */
 		public Builder errorHandler(DatabaseErrorHandler value) {
@@ -136,7 +140,8 @@ public class DataSourceOptions {
 		/**
 		 * Database lifecycle handler.
 		 *
-		 * @param value the value
+		 * @param value
+		 *            the value
 		 * @return the builder
 		 */
 		public Builder databaseLifecycleHandler(DatabaseLifecycleHandler value) {
@@ -147,7 +152,8 @@ public class DataSourceOptions {
 		/**
 		 * Populator.
 		 *
-		 * @param populator the populator
+		 * @param populator
+		 *            the populator
 		 * @return the builder
 		 */
 		public Builder populator(SQLitePopulator populator) {
@@ -158,18 +164,20 @@ public class DataSourceOptions {
 		/**
 		 * In memory.
 		 *
-		 * @param inMemory the in memory
+		 * @param inMemory
+		 *            the in memory
 		 * @return the builder
 		 */
 		public Builder inMemory(boolean inMemory) {
 			this.inMemory = inMemory;
 			return this;
 		}
-		
+
 		/**
 		 * Secret
 		 *
-		 * @param secret to open database (if crypted)
+		 * @param secret
+		 *            to open database (if crypted)
 		 * @return the builder
 		 */
 		public Builder secret(byte[] secret) {
@@ -181,24 +189,45 @@ public class DataSourceOptions {
 		 * Retrieve from a raw resource a list of comma separated sql commands
 		 * to execute. File can contains -- or multiline comments.
 		 *
-		 * @param currentVersion the current version
-		 * @param context the context
-		 * @param resRawId the res raw id
+		 * @param finalVersion
+		 *            the version of database we want to reach
+		 * @param context
+		 *            the context
+		 * @param resRawId
+		 *            the res raw id
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(int currentVersion, Context context, int resRawId) {
-			return addUpdateTask(currentVersion, context.getResources().openRawResource(resRawId));
+		public Builder addUpdateTask(int finalVersion, Context context, int resRawId) {
+			return addUpdateTask(finalVersion, context.getResources().openRawResource(resRawId));
+		}
+
+		/**
+		 * Retrieve from a raw resource a list of comma separated sql commands
+		 * to execute. File can contains -- or multiline comments.
+		 *
+		 * @param finalVersion
+		 *            the version of database we want to reach
+		 * @param context
+		 *            the context
+		 * @param resRawId
+		 *            the res raw id
+		 * @return the builder
+		 */
+		public Builder addUpdateTask(int finalVersion, int resRawId) {
+			return addUpdateTask(finalVersion, KriptonLibrary.getContext().getResources().openRawResource(resRawId));
 		}
 
 		/**
 		 * Retrieve from a raw resource a list of comma separated sql commands
 		 * to execute. No comment are allowed. Only sql.
 		 *
-		 * @param currentVersion the current version
-		 * @param sqlCommandList 		sql command to execute
+		 * @param finalVersion
+		 *            the version of database we want to reach
+		 * @param sqlCommandList
+		 *            sql command to execute
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(final int currentVersion, final List<String> sqlCommandList) {
+		public Builder addUpdateTask(final int finalVersion, final List<String> sqlCommandList) {
 			SQLiteUpdateTask task = new SQLiteUpdateTask() {
 
 				@Override
@@ -207,11 +236,11 @@ public class DataSourceOptions {
 						Logger.info(item);
 						database.execSQL(item);
 					}
-					
-				}
-			};				
 
-			this.updateTasks.add(new Pair<>(currentVersion, task));
+				}
+			};
+
+			this.updateTasks.add(new Pair<>(finalVersion, task));
 
 			return this;
 		}
@@ -219,27 +248,31 @@ public class DataSourceOptions {
 		/**
 		 * Adds the update task.
 		 *
-		 * @param version the version
-		 * @param task the task
+		 * @param finalVersion
+		 *            the initial version of database
+		 * @param task
+		 *            the task
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(int version, SQLiteUpdateTask task) {
+		public Builder addUpdateTask(int finalVersion, SQLiteUpdateTask task) {
 
-			this.updateTasks.add(new Pair<>(version, task));
+			this.updateTasks.add(new Pair<>(finalVersion, task));
 			return this;
 		}
 
 		/**
 		 * task to execute upgrade from currentVersion-1 to currentVersion.
 		 *
-		 * @param currentVersion            database current version
-		 * @param inputStream the input stream
+		 * @param finalVersion
+		 *            the version of database we want to reach
+		 * @param inputStream
+		 *            the input stream
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(int currentVersion, InputStream inputStream) {
+		public Builder addUpdateTask(int finalVersion, InputStream inputStream) {
 			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(inputStream);
 
-			this.updateTasks.add(new Pair<>(currentVersion, task));
+			this.updateTasks.add(new Pair<>(finalVersion, task));
 
 			return this;
 		}
@@ -250,26 +283,28 @@ public class DataSourceOptions {
 		 * @return the data source options
 		 */
 		public DataSourceOptions build() {
-			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, secret, updateTasks, logEnabled, populator, inMemory);
+			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, secret, updateTasks,
+					logEnabled, populator, inMemory);
 		}
-		
+
 		/**
 		 * Create builder from data source
+		 * 
 		 * @param source
 		 * @return
 		 */
 		public Builder createFrom(DataSourceOptions source) {
-			Builder builder=new Builder();
-			
+			Builder builder = new Builder();
+
 			builder.logEnabled = source.logEnabled;
 			builder.factory = source.factory;
 			builder.errorHandler = source.errorHandler;
 			builder.databaseLifecycleHandler = source.databaseLifecycleHandler;
 			builder.updateTasks = source.updateTasks;
 			builder.populator = source.populator;
-			builder.secret=source.secret;
+			builder.secret = source.secret;
 			builder.inMemory = source.inMemory;
-						
+
 			return builder;
 		}
 	}
@@ -277,22 +312,31 @@ public class DataSourceOptions {
 	/**
 	 * Instantiates a new data source options.
 	 *
-	 * @param factory the factory
-	 * @param errorHandler the error handler
-	 * @param databaseLifecycleHandler the database lifecycle handler
-	 * @param updateTasks the update tasks
-	 * @param log the log
-	 * @param populator the populator
-	 * @param inMemory the in memory
+	 * @param factory
+	 *            the factory
+	 * @param errorHandler
+	 *            the error handler
+	 * @param databaseLifecycleHandler
+	 *            the database lifecycle handler
+	 * @param updateTasks
+	 *            the update tasks
+	 * @param log
+	 *            the log
+	 * @param populator
+	 *            the populator
+	 * @param inMemory
+	 *            the in memory
 	 */
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, byte[] secret, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks,
-			boolean log, SQLitePopulator populator, boolean inMemory) {
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler,
+			DatabaseLifecycleHandler databaseLifecycleHandler, byte[] secret,
+			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator,
+			boolean inMemory) {
 		this.logEnabled = log;
 		this.factory = factory;
 		this.errorHandler = errorHandler;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;
 		this.updateTasks = updateTasks;
-		this.secret=secret;
+		this.secret = secret;
 		this.populator = populator;
 		this.inMemory = inMemory;
 	}

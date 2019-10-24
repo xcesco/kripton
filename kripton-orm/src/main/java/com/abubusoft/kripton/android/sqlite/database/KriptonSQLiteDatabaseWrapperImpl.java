@@ -36,11 +36,11 @@ import androidx.sqlite.db.SupportSQLiteStatement;
 /**
  * The Class KriptonDatabaseWrapper.
  */
-public class KriptonDatabaseWrapperImpl implements SupportSQLiteDatabase {
+public class KriptonSQLiteDatabaseWrapperImpl implements SupportSQLiteDatabase {
 
 	private SQLiteDatabase safeDb;
 
-	public KriptonDatabaseWrapperImpl(SQLiteDatabase database) {
+	public KriptonSQLiteDatabaseWrapperImpl(SQLiteDatabase database) {
 		safeDb = database;
 	}
 	
@@ -53,7 +53,7 @@ public class KriptonDatabaseWrapperImpl implements SupportSQLiteDatabase {
 	 */
 	@Override
 	public SupportSQLiteStatement compileStatement(String sql) {
-		return (new Statement(safeDb.compileStatement(sql)));
+		return (new KriptonSQLiteStatement(safeDb.compileStatement(sql)));
 	}
 
 	/**
@@ -237,7 +237,7 @@ public class KriptonDatabaseWrapperImpl implements SupportSQLiteDatabase {
 			@Override
 			public Cursor newCursor(SQLiteDatabase db,
 					SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
-				supportQuery.bindTo(new Program(query));
+				supportQuery.bindTo(new KriptonSQLiteProgram(query));
 				return new SQLiteCursor(masterQuery, editTable, query);
 			}
 		}, supportQuery.getSql(), hack.getBindings(), null));

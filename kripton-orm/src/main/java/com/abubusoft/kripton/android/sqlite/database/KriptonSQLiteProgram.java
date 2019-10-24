@@ -7,10 +7,10 @@ import androidx.sqlite.db.SupportSQLiteProgram;
  * SupportSQLiteProgram implementation that wraps SQLite for Android's
  * implementation
  */
-class Program implements SupportSQLiteProgram {
+class KriptonSQLiteProgram implements SupportSQLiteProgram {
 	private final SQLiteProgram delegate;
 
-	Program(SQLiteProgram delegate) {
+	KriptonSQLiteProgram(SQLiteProgram delegate) {
 		this.delegate = delegate;
 	}
 

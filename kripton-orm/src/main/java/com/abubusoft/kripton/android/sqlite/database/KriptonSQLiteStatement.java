@@ -7,10 +7,10 @@ import androidx.sqlite.db.SupportSQLiteStatement;
  * SupportSQLiteStatement implementation that wraps SQLite for Android's
  * SQLiteStatement
  */
-class Statement extends Program implements SupportSQLiteStatement {
+class KriptonSQLiteStatement extends KriptonSQLiteProgram implements SupportSQLiteStatement {
 	private final SQLiteStatement safeStatement;
 
-	Statement(SQLiteStatement safeStatement) {
+	KriptonSQLiteStatement(SQLiteStatement safeStatement) {
 		super(safeStatement);
 		this.safeStatement = safeStatement;
 	}

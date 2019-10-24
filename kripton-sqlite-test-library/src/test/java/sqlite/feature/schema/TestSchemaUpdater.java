@@ -23,11 +23,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTestDatabase;
 import com.abubusoft.kripton.android.sqlite.SQLiteTestUtils;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.sqlite.SQLiteTestDatabase;
 
-import android.database.sqlite.SQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import base.BaseAndroidTest;
 
