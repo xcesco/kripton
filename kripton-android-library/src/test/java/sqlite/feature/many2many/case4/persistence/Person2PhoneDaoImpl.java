@@ -47,7 +47,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   private static SupportSQLiteStatement insertPreparedStatement3;
 
   public Person2PhoneDaoImpl(BindXenoDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -96,7 +96,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -183,7 +183,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -276,7 +276,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

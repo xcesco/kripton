@@ -80,6 +80,19 @@ public class TestDataSourceOptionsKripton234Runtime extends BaseAndroidTest {
 				log("databaseLifecycleHandler - onConfigure");
 				
 			}
+
+			@Override
+			public void onOpen(SupportSQLiteDatabase database) {
+				log("databaseLifecycleHandler - onOpen");
+				
+			}
+
+			@Override
+			public void onCorruption(SupportSQLiteDatabase database) {
+				log("databaseLifecycleHandler - onCorruption "+database.getVersion());
+				
+				
+			}
 		});
 		optionsBuilder.addUpdateTask(1, new SQLiteUpdateTask() {
 			

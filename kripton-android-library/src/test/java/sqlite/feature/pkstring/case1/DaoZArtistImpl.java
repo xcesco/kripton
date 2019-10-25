@@ -40,7 +40,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
   private static SupportSQLiteStatement update3PreparedStatement8;
 
   public DaoZArtistImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

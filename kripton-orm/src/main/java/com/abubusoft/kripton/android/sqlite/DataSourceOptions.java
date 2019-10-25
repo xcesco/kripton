@@ -24,9 +24,9 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.common.Pair;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteOpenHelper.Factory;
 
 /**
  * Options to build a data source.
@@ -37,17 +37,6 @@ public class DataSourceOptions {
 
 	/** The log enabled. */
 	public final boolean logEnabled;
-
-	/**
-	 * Contains secret;
-	 */
-	public final byte[] secret;
-
-	/** The factory. */
-	public final CursorFactory factory;
-
-	/** The error handler. */
-	public final DatabaseErrorHandler errorHandler;
 
 	/** The database lifecycle handler. */
 	public final DatabaseLifecycleHandler databaseLifecycleHandler;
@@ -60,6 +49,8 @@ public class DataSourceOptions {
 
 	/** The in memory. */
 	public final boolean inMemory;
+
+	public final Factory openHelperFactory;
 
 	/**
 	 * Builder.
@@ -78,12 +69,6 @@ public class DataSourceOptions {
 		/** The log enabled. */
 		private boolean logEnabled = true;
 
-		/** The factory. */
-		private CursorFactory factory;
-
-		/** The error handler. */
-		private DatabaseErrorHandler errorHandler;
-
 		/** The database lifecycle handler. */
 		private DatabaseLifecycleHandler databaseLifecycleHandler;
 
@@ -97,19 +82,12 @@ public class DataSourceOptions {
 		private boolean inMemory;
 
 		/**
-		 * Contains secret;
+		 * OpenHelper factory. Default is provided with kripton
 		 */
-		private byte[] secret;
+		private SupportSQLiteOpenHelper.Factory openHelperFactory = new KriptonSQLiteOpenHelperFactory();
 
-		/**
-		 * Cursor factory.
-		 *
-		 * @param value
-		 *            the value
-		 * @return the builder
-		 */
-		public Builder cursorFactory(CursorFactory value) {
-			this.factory = value;
+		public Builder openHelperFactory(SupportSQLiteOpenHelper.Factory openHelperFactory) {
+			this.openHelperFactory = openHelperFactory;
 			return this;
 		}
 
@@ -132,10 +110,10 @@ public class DataSourceOptions {
 		 *            the value
 		 * @return the builder
 		 */
-		public Builder errorHandler(DatabaseErrorHandler value) {
-			this.errorHandler = value;
-			return this;
-		}
+		// public Builder errorHandler(DatabaseErrorHandler value) {
+		// this.errorHandler = value;
+		// return this;
+		// }
 
 		/**
 		 * Database lifecycle handler.
@@ -174,22 +152,10 @@ public class DataSourceOptions {
 		}
 
 		/**
-		 * Secret
-		 *
-		 * @param secret
-		 *            to open database (if crypted)
-		 * @return the builder
-		 */
-		public Builder secret(byte[] secret) {
-			this.secret = secret;
-			return this;
-		}
-
-		/**
 		 * Retrieve from a raw resource a list of comma separated sql commands
 		 * to execute. File can contains -- or multiline comments.
 		 *
-		 * @param finalVersion
+		 * @param targetVersion
 		 *            the version of database we want to reach
 		 * @param context
 		 *            the context
@@ -197,15 +163,15 @@ public class DataSourceOptions {
 		 *            the res raw id
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(int finalVersion, Context context, int resRawId) {
-			return addUpdateTask(finalVersion, context.getResources().openRawResource(resRawId));
+		public Builder addUpdateTask(int targetVersion, Context context, int resRawId) {
+			return addUpdateTask(targetVersion, context.getResources().openRawResource(resRawId));
 		}
 
 		/**
 		 * Retrieve from a raw resource a list of comma separated sql commands
 		 * to execute. File can contains -- or multiline comments.
 		 *
-		 * @param finalVersion
+		 * @param targetVersion
 		 *            the version of database we want to reach
 		 * @param context
 		 *            the context
@@ -213,21 +179,21 @@ public class DataSourceOptions {
 		 *            the res raw id
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(int finalVersion, int resRawId) {
-			return addUpdateTask(finalVersion, KriptonLibrary.getContext().getResources().openRawResource(resRawId));
+		public Builder addUpdateTask(int targetVersion, int resRawId) {
+			return addUpdateTask(targetVersion, KriptonLibrary.getContext().getResources().openRawResource(resRawId));
 		}
 
 		/**
 		 * Retrieve from a raw resource a list of comma separated sql commands
 		 * to execute. No comment are allowed. Only sql.
 		 *
-		 * @param finalVersion
+		 * @param targetVersion
 		 *            the version of database we want to reach
 		 * @param sqlCommandList
 		 *            sql command to execute
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(final int finalVersion, final List<String> sqlCommandList) {
+		public Builder addUpdateTask(final int targetVersion, final List<String> sqlCommandList) {
 			SQLiteUpdateTask task = new SQLiteUpdateTask() {
 
 				@Override
@@ -240,7 +206,7 @@ public class DataSourceOptions {
 				}
 			};
 
-			this.updateTasks.add(new Pair<>(finalVersion, task));
+			this.updateTasks.add(new Pair<>(targetVersion, task));
 
 			return this;
 		}
@@ -248,31 +214,31 @@ public class DataSourceOptions {
 		/**
 		 * Adds the update task.
 		 *
-		 * @param finalVersion
+		 * @param targetVersion
 		 *            the initial version of database
 		 * @param task
 		 *            the task
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(int finalVersion, SQLiteUpdateTask task) {
+		public Builder addUpdateTask(int targetVersion, SQLiteUpdateTask task) {
 
-			this.updateTasks.add(new Pair<>(finalVersion, task));
+			this.updateTasks.add(new Pair<>(targetVersion, task));
 			return this;
 		}
 
 		/**
 		 * task to execute upgrade from currentVersion-1 to currentVersion.
 		 *
-		 * @param finalVersion
+		 * @param targetVersion
 		 *            the version of database we want to reach
 		 * @param inputStream
 		 *            the input stream
 		 * @return the builder
 		 */
-		public Builder addUpdateTask(int finalVersion, InputStream inputStream) {
+		public Builder addUpdateTask(int targetVersion, InputStream inputStream) {
 			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(inputStream);
 
-			this.updateTasks.add(new Pair<>(finalVersion, task));
+			this.updateTasks.add(new Pair<>(targetVersion, task));
 
 			return this;
 		}
@@ -283,8 +249,8 @@ public class DataSourceOptions {
 		 * @return the data source options
 		 */
 		public DataSourceOptions build() {
-			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, secret, updateTasks,
-					logEnabled, populator, inMemory);
+			return new DataSourceOptions(databaseLifecycleHandler, updateTasks,
+					logEnabled, populator, inMemory, openHelperFactory);
 		}
 
 		/**
@@ -297,13 +263,11 @@ public class DataSourceOptions {
 			Builder builder = new Builder();
 
 			builder.logEnabled = source.logEnabled;
-			builder.factory = source.factory;
-			builder.errorHandler = source.errorHandler;
 			builder.databaseLifecycleHandler = source.databaseLifecycleHandler;
 			builder.updateTasks = source.updateTasks;
 			builder.populator = source.populator;
-			builder.secret = source.secret;
 			builder.inMemory = source.inMemory;
+			builder.openHelperFactory = source.openHelperFactory;
 
 			return builder;
 		}
@@ -326,19 +290,17 @@ public class DataSourceOptions {
 	 *            the populator
 	 * @param inMemory
 	 *            the in memory
+	 * @param openHelperFactory
 	 */
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler,
-			DatabaseLifecycleHandler databaseLifecycleHandler, byte[] secret,
+	private DataSourceOptions(DatabaseLifecycleHandler databaseLifecycleHandler,
 			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator,
-			boolean inMemory) {
+			boolean inMemory, Factory openHelperFactory) {
 		this.logEnabled = log;
-		this.factory = factory;
-		this.errorHandler = errorHandler;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;
 		this.updateTasks = updateTasks;
-		this.secret = secret;
 		this.populator = populator;
 		this.inMemory = inMemory;
+		this.openHelperFactory = openHelperFactory;
 	}
 
 }

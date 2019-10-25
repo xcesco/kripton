@@ -51,8 +51,8 @@ public abstract class Dao implements AutoCloseable {
 	 *
 	 * @return the SQLite database
 	 */
-	protected SupportSQLiteDatabase database() {
-		return _context.database();
+	protected SupportSQLiteDatabase getDatabase() {
+		return _context.getDatabase();
 	}
 
 	/* (non-Javadoc)

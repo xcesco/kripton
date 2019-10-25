@@ -315,7 +315,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    * onCreate
    */
   @Override
-  public void onCreate(SupportSQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     // log section create BEGIN
     if (this.logEnabled) {
@@ -354,7 +354,8 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
@@ -410,7 +411,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    * onConfigure
    */
   @Override
-  public void onConfigure(SupportSQLiteDatabase database) {
+  protected void onConfigure(SupportSQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
@@ -461,7 +462,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 
@@ -541,7 +542,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 

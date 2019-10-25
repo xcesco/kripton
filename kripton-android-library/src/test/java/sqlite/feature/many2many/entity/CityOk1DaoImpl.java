@@ -38,7 +38,7 @@ public class CityOk1DaoImpl extends Dao implements CityOk1Dao {
   private static SupportSQLiteStatement deleteByIdPreparedStatement1;
 
   public CityOk1DaoImpl(BindPersonCirtyOk1DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -78,7 +78,7 @@ public class CityOk1DaoImpl extends Dao implements CityOk1Dao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -227,7 +227,7 @@ public class CityOk1DaoImpl extends Dao implements CityOk1Dao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

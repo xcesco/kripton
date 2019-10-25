@@ -37,7 +37,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   private static final String SELECT_ALL_SQL2 = "SELECT id, author, channel_id, comments, description, guid, link, title FROM article";
 
   public DaoArticleImpl(BindRssDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -174,7 +174,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -262,7 +262,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

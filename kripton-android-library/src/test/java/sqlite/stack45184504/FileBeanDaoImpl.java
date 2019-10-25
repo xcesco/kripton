@@ -32,7 +32,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, content, content_type, name FROM files WHERE id=?";
 
   public FileBeanDaoImpl(BindExampleDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -232,7 +232,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

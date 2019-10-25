@@ -22,7 +22,7 @@ public class DaoBeanUpdateOKImpl extends Dao implements DaoBeanUpdateOK {
   private static SupportSQLiteStatement updateDistancePreparedStatement0;
 
   public DaoBeanUpdateOKImpl(BindDummy06DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

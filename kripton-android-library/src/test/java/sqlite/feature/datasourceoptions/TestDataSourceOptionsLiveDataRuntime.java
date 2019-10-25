@@ -24,10 +24,8 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.arch.lifecycle.Observer;
-import android.database.sqlite.SQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.feature.datasourceoptions.livedata.BindAppWithConfigDataSource;
@@ -73,6 +71,18 @@ public class TestDataSourceOptionsLiveDataRuntime extends BaseAndroidTest {
 			@Override
 			public void onConfigure(SupportSQLiteDatabase database) {
 				log("databaseLifecycleHandler - onConfigure");
+				
+			}
+
+			@Override
+			public void onOpen(SupportSQLiteDatabase database) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onCorruption(SupportSQLiteDatabase database) {
+				// TODO Auto-generated method stub
 				
 			}
 		});

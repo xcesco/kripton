@@ -606,7 +606,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    * onCreate
    */
   @Override
-  public void onCreate(SupportSQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     // log section create BEGIN
     if (this.logEnabled) {
@@ -633,7 +633,8 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
@@ -677,7 +678,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    * onConfigure
    */
   @Override
-  public void onConfigure(SupportSQLiteDatabase database) {
+  protected void onConfigure(SupportSQLiteDatabase database) {
     // configure database
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
@@ -725,7 +726,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 
@@ -816,7 +817,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 

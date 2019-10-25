@@ -68,7 +68,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   private static final Set<String> selectBean12ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "birth_city", "birth_day", "city", "name", "surname", "value");
 
   public Person2DAOImpl(BindPerson2DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -154,7 +154,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // log for content values -- END
     // conflict algorithm FAIL
     // insert operation
-    long result = database().insert("person", 3, _contentValues.values());
+    long result = getDatabase().insert("person", 3, _contentValues.values());
     return result;
   }
 
@@ -235,7 +235,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // log for content values -- END
     // conflict algorithm NONE
     // insert operation
-    long result = database().insert("person", 0, _contentValues.values());
+    long result = getDatabase().insert("person", 0, _contentValues.values());
     return result;
   }
 
@@ -317,7 +317,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -439,7 +439,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -521,7 +521,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -632,7 +632,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -762,7 +762,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -913,7 +913,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1034,7 +1034,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1108,7 +1108,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // add where arguments
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 
@@ -1224,7 +1224,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -1296,7 +1296,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 
@@ -1404,7 +1404,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -1470,7 +1470,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // add where arguments
     _contentValues.addWhereArgs(bean.getName());
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 
@@ -1578,7 +1578,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -1612,7 +1612,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _sql=SELECT_BEAN_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 
@@ -1700,7 +1700,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -1761,7 +1761,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectRawListenerHelper - BEGIN
 

@@ -57,7 +57,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   private static final Set<String> update4ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
   public CheeseDaoImpl(BindSampleDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -96,7 +96,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -228,7 +228,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log for content values -- END
     // conflict algorithm NONE
     // insert operation
-    long result = database().insert("cheeses", 0, _contentValues.values());
+    long result = getDatabase().insert("cheeses", 0, _contentValues.values());
     return result;
   }
 
@@ -269,7 +269,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -361,7 +361,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -410,7 +410,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -510,7 +510,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -614,7 +614,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log section END
 
     // execute SQL
-    int result = database().delete("cheeses", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("cheeses", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -757,7 +757,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("cheeses", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("cheeses", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 

@@ -22,7 +22,7 @@ public class PKDaoImpl extends Dao implements PKDao {
   private static SupportSQLiteStatement insertPreparedStatement0;
 
   public PKDaoImpl(BindPKDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

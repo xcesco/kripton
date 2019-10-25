@@ -70,7 +70,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public DaoPersonImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -118,7 +118,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -272,7 +272,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -313,7 +313,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -446,7 +446,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -563,7 +563,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log for content values -- END
     // conflict algorithm NONE
     // insert operation
-    long result = database().insert("person", 0, _contentValues.values());
+    long result = getDatabase().insert("person", 0, _contentValues.values());
     // support for livedata
     registryEvent(result>0?1:0);
     return result;
@@ -709,7 +709,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     // support for livedata
     registryEvent(result);
     return result;
@@ -855,7 +855,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     // support for livedata
     registryEvent(result);
     return result;
@@ -960,7 +960,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     // support for livedata
     registryEvent(result);
     return result;
@@ -1065,7 +1065,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     // support for livedata
     registryEvent(result);
     return result;

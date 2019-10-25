@@ -22,7 +22,7 @@ public class DaoStudentImpl extends Dao implements DaoStudent {
   private static SupportSQLiteStatement insertPreparedStatement0;
 
   public DaoStudentImpl(BindSchoolDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

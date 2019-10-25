@@ -29,7 +29,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
   private static SupportSQLiteStatement deleteBeanPreparedStatement3;
 
   public DeleteBeanPersonDaoImpl(BindDeleteBeanPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -132,7 +132,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -285,7 +285,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -389,7 +389,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -509,7 +509,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -651,7 +651,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 

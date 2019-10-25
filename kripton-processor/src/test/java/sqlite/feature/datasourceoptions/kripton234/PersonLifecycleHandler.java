@@ -52,4 +52,16 @@ public class PersonLifecycleHandler implements DatabaseLifecycleHandler {
 		
 	}
 
+	@Override
+	public void onOpen(SupportSQLiteDatabase database) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCorruption(SupportSQLiteDatabase database) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

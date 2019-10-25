@@ -76,7 +76,7 @@ public interface SQLContext {
 	 *
 	 * @return the SQ lite database
 	 */
-	SupportSQLiteDatabase database();
+	SupportSQLiteDatabase getDatabase();
 
 	/**
 	 * Fired when transaction or shared connection is opened.

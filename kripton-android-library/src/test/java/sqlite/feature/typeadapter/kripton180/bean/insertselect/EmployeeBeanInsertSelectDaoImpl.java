@@ -34,7 +34,7 @@ public class EmployeeBeanInsertSelectDaoImpl extends Dao implements EmployeeBean
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public EmployeeBeanInsertSelectDaoImpl(BindKripton180BeanInsertSelectDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

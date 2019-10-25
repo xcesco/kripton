@@ -279,7 +279,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
    * onCreate
    */
   @Override
-  public void onCreate(SupportSQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     database.execSQL(SimpleAddressItemTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
@@ -292,7 +292,8 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // if we have a list of update task, try to execute them
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
@@ -326,7 +327,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
    * onConfigure
    */
   @Override
-  public void onConfigure(SupportSQLiteDatabase database) {
+  protected void onConfigure(SupportSQLiteDatabase database) {
     // configure database
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
@@ -374,7 +375,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 
@@ -428,7 +429,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 

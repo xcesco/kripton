@@ -288,7 +288,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
    * onCreate
    */
   @Override
-  public void onCreate(SupportSQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     // log section create BEGIN
     if (this.logEnabled) {
@@ -315,7 +315,8 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
@@ -359,7 +360,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
    * onConfigure
    */
   @Override
-  public void onConfigure(SupportSQLiteDatabase database) {
+  protected void onConfigure(SupportSQLiteDatabase database) {
     // configure database
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
@@ -407,7 +408,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 
@@ -461,7 +462,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 

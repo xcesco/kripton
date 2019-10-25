@@ -52,7 +52,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
   private static SupportSQLiteStatement updateJQLPreparedStatement3;
 
   public DaoChildImpl(BindFamilyDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -93,7 +93,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -246,7 +246,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -325,7 +325,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -391,7 +391,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -482,7 +482,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     }
     // log section END
 
-    database().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _contentValues.whereArgsAsArray());
+    getDatabase().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _contentValues.whereArgsAsArray());
     // Specialized Insert - InsertType - END
   }
 
@@ -745,7 +745,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     }
     // log section END
 
-    database().execSQL("update or replace child set parent_id=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
+    getDatabase().execSQL("update or replace child set parent_id=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
   }
 
   public static void clearCompiledStatements() {

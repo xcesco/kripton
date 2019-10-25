@@ -22,7 +22,7 @@ public class DaoGroupImpl extends Dao implements DaoGroup {
   private static SupportSQLiteStatement insertPreparedStatement0;
 
   public DaoGroupImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

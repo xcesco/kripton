@@ -108,8 +108,8 @@ public class SQLContextInSessionImpl extends AbstractSQLContext {
 	 * @see com.abubusoft.kripton.android.sqlite.SQLContext#database()
 	 */
 	@Override
-	public SupportSQLiteDatabase database() {
-		return dataSource.database();
+	public SupportSQLiteDatabase getDatabase() {
+		return dataSource.getDatabase();
 	}
 
 	/* (non-Javadoc)

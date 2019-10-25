@@ -32,7 +32,7 @@ public abstract class KriptonDatabaseHelper {
 	 * @return the SQ lite statement
 	 */
 	public static SupportSQLiteStatement compile(SQLContext context, String sql) {
-		SupportSQLiteStatement ps = context.database().compileStatement(sql);
+		SupportSQLiteStatement ps = context.getDatabase().compileStatement(sql);
 		
 		return ps;
 	}
@@ -46,7 +46,7 @@ public abstract class KriptonDatabaseHelper {
 	 * @return the long
 	 */
 	public static long insert(SQLContext context, String sql, KriptonContentValues contentValues) {
-		SupportSQLiteStatement ps = context.database().compileStatement(sql);
+		SupportSQLiteStatement ps = context.getDatabase().compileStatement(sql);
 		try {
 			contentValues.bind(ps);
 			return ps.executeInsert();
@@ -95,7 +95,7 @@ public abstract class KriptonDatabaseHelper {
 	 * @return the int
 	 */
 	public static int updateDelete(SQLContext context, String sql, KriptonContentValues contentValues) {
-		SupportSQLiteStatement ps = context.database().compileStatement(sql);
+		SupportSQLiteStatement ps = context.getDatabase().compileStatement(sql);
 		try {
 			contentValues.bind(ps);
 			return ps.executeUpdateDelete();

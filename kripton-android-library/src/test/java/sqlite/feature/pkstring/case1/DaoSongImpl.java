@@ -40,7 +40,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   private static SupportSQLiteStatement update3PreparedStatement8;
 
   public DaoSongImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

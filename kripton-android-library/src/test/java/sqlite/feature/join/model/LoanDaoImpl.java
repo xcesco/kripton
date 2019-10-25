@@ -23,7 +23,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
   private static SupportSQLiteStatement insertPreparedStatement0;
 
   public LoanDaoImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

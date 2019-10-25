@@ -50,7 +50,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   private static final Set<String> updateBeanDynamicWithArgs7ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
   public UpdateBeanPersonDaoImpl(BindUpdateBeanPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -176,7 +176,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -323,7 +323,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -486,7 +486,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -670,7 +670,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -792,7 +792,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -997,7 +997,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1160,7 +1160,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -1344,7 +1344,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 

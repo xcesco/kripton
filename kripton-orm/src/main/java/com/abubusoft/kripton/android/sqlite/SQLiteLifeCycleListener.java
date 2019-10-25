@@ -1,15 +1,5 @@
 package com.abubusoft.kripton.android.sqlite;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import com.abubusoft.kripton.android.Logger;
-
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.os.Build;
-import android.util.Pair;
 import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
@@ -120,79 +110,6 @@ public interface SQLiteLifeCycleListener {
 	 *            the {@link SupportSQLiteDatabase} object representing the
 	 *            database on which corruption is detected.
 	 */
-	static void onCorruption(@NonNull SupportSQLiteDatabase db) {
-		// the following implementation is taken from {@link
-		// DefaultDatabaseErrorHandler}.
-		Logger.error("Corruption reported by sqlite on database: " + db.getPath());
-		// is the corruption detected even before database could be 'opened'?
-		if (!db.isOpen()) {
-			// database files are not even openable. delete this database file.
-			// NOTE if the database has attached databases, then any of them
-			// could be corrupt.
-			// and not deleting all of them could cause corrupted database file
-			// to remain and
-			// make the application crash on database open operation. To avoid
-			// this problem,
-			// the application should provide its own {@link
-			// DatabaseErrorHandler} impl class
-			// to delete ALL files of the database (including the attached
-			// databases).
-			deleteDatabaseFile(db.getPath());
-			return;
-		}
-		List<Pair<String, String>> attachedDbs = null;
-		try {
-			// Close the database, which will cause subsequent operations to
-			// fail.
-			// before that, get the attached database list first.
-			try {
-				attachedDbs = db.getAttachedDbs();
-			} catch (SQLiteException e) {
-				/* ignore */
-			}
-			try {
-				db.close();
-			} catch (IOException e) {
-				/* ignore */
-			}
-		} finally {
-			// Delete all files of this corrupt database and/or attached
-			// databases
-			if (attachedDbs != null) {
-				for (Pair<String, String> p : attachedDbs) {
-					deleteDatabaseFile(p.second);
-				}
-			} else {
-				// attachedDbs = null is possible when the database is so
-				// corrupt that even
-				// "PRAGMA database_list;" also fails. delete the main database
-				// file
-				deleteDatabaseFile(db.getPath());
-			}
-		}
-	}
-
-	static void deleteDatabaseFile(String fileName) {
-            if (fileName.equalsIgnoreCase(":memory:") || fileName.trim().length() == 0) {
-                return;
-            }
-            Logger.warn("deleting the database file: " + fileName);
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    SQLiteDatabase.deleteDatabase(new File(fileName));
-                } else {
-                    try {
-                        final boolean deleted = new File(fileName).delete();
-                        if (!deleted) {
-                        	Logger.error("Could not delete the database file " + fileName);
-                        }
-                    } catch (Exception error) {
-                    	Logger.error("error while deleting corrupted database file", error);
-                    }
-                }
-            } catch (Exception e) {
-            /* print warning and ignore exception */
-            	Logger.warn("delete failed: ", e);
-            }
-        }
+	void onCorruption(@NonNull SupportSQLiteDatabase db);
+	
 }

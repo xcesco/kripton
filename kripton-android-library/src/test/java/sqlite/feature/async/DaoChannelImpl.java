@@ -129,7 +129,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   private static final String SELECT_BEAN8_SQL14 = "SELECT update_time FROM channel WHERE update_time=?";
 
   public DaoChannelImpl(BindDummy01DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -1190,7 +1190,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1277,7 +1277,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1364,7 +1364,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    Cursor _cursor = database().query(_sql, _sqlArgs);
+    Cursor _cursor = getDatabase().query(_sql, _sqlArgs);
     // log section BEGIN
     if (_context.isLogEnabled()) {
       Logger.info("Rows found: %s",_cursor.getCount());
@@ -1425,7 +1425,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1515,7 +1515,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1583,7 +1583,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1666,7 +1666,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1731,7 +1731,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1809,7 +1809,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1873,7 +1873,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    Cursor _cursor = database().query(_sql, _sqlArgs);
+    Cursor _cursor = getDatabase().query(_sql, _sqlArgs);
     // log section BEGIN
     if (_context.isLogEnabled()) {
       Logger.info("Rows found: %s",_cursor.getCount());
@@ -1929,7 +1929,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1998,7 +1998,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -2073,7 +2073,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -2148,7 +2148,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

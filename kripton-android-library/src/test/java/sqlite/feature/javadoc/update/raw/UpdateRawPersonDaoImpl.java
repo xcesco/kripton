@@ -43,7 +43,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
   private static final Set<String> updateBeanDynamicWithArgs4ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
   public UpdateRawPersonDaoImpl(BindUpdateRawPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -247,7 +247,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -307,7 +307,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     }
     // log section END
 
-    database().execSQL("UPDATE person SET person_name=?, student = (select student from person where person_surname=?)", _contentValues.whereArgsAsArray());
+    getDatabase().execSQL("UPDATE person SET person_name=?, student = (select student from person where person_surname=?)", _contentValues.whereArgsAsArray());
   }
 
   /**
@@ -446,7 +446,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -591,7 +591,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -755,7 +755,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -940,7 +940,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 

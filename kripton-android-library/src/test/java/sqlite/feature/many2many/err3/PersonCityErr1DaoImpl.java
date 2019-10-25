@@ -46,7 +46,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
   private static SupportSQLiteStatement insertPreparedStatement3;
 
   public PersonCityErr1DaoImpl(BindPersonCirtyErr3DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -95,7 +95,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -176,7 +176,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -257,7 +257,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

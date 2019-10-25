@@ -37,7 +37,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
   private static final Set<String> update1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
   public AlbumDaoImpl(BindAlbumDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -85,7 +85,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -185,7 +185,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -328,7 +328,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
 
     // execute SQL
     // conflict algorithm IGNORE
-    int result = database().update("album", 4, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("album", 4, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 

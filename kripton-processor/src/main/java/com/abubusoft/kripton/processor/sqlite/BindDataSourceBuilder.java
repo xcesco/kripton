@@ -407,7 +407,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			f.initializer(c.build());
 			classBuilder.addField(f.build());
 
-			classBuilder.addMethod(MethodSpec.methodBuilder("tables").addJavadoc("List of tables compose datasource:\n")
+			classBuilder.addMethod(MethodSpec.methodBuilder("getTables").addJavadoc("List of tables compose datasource:\n")
 					.addModifiers(Modifier.PUBLIC, Modifier.STATIC).addStatement("return TABLES")
 					.returns(ArrayTypeName.of(SQLiteTable.class)).build());
 		}
@@ -433,10 +433,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		if (schema.generateLog) {
 			methodBuilder.addStatement("super($S, $L, options)", schema.fileName, schema.version);
 		} else {
-			methodBuilder.addStatement("super($S, $L, $T.builder().createFrom(options).log(false).build())", schema.fileName, schema.version, DataSourceOptions.class);			
+			methodBuilder.addStatement("super($S, $L, $T.builder().createFrom(options).log(false).build())",
+					schema.fileName, schema.version, DataSourceOptions.class);
 		}
-		
-		
+
 		classBuilder.addMethod(methodBuilder.build());
 	}
 
@@ -505,7 +505,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// public SQLContext context()
 		{
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("context").addModifiers(Modifier.PUBLIC)
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getContext").addModifiers(Modifier.PUBLIC)
 					.returns(SQLContext.class);
 			methodBuilder.addAnnotation(Override.class);
 			methodBuilder.addStatement("return _context");
@@ -579,7 +579,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 					.addJavadoc("Used only in transactions (that can be executed one for time\n")
 					.initializer("new DataSourceSingleThread()").build());
 		}
-		
+
 		// build transactions
 		{
 			SchemaUtility.generateTransaction(clazzBuilder, schema, false);
@@ -634,9 +634,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		if (instance) {
 			methodBuilder.addCode("$T options=$T.builder()", DataSourceOptions.class, DataSourceOptions.class);
 
-			if (schema.configCursorFactoryClazz != null) {
-				methodBuilder.addCode("\n\t.cursorFactory(new $T())",
-						TypeUtility.className(schema.configCursorFactoryClazz));
+			if (schema.configOpenHelperFactoryClazz != null) {
+				methodBuilder.addCode("\n\t.openHelperFactory(new $T())",
+						TypeUtility.className(schema.configOpenHelperFactoryClazz));
 			}
 			if (schema.configDatabaseErrorHandlerClazz != null) {
 				methodBuilder.addCode("\n\t.errorHandler(new $T())",
@@ -708,11 +708,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.addComment("run populator only a time");
 			methodBuilder.addStatement("instance.justCreated=false");
 
-			// populator manage its connection
-			// methodBuilder.beginControlFlow("try");
-			// methodBuilder.addStatement("$T
-			// currentDb=instance.openWritableDatabase()",
-			// SQLiteDatabase.class);
+			// populator manage its connection			
 			methodBuilder.addComment("run populator");
 			methodBuilder.addStatement("options.populator.execute()");
 
@@ -784,7 +780,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	private boolean generateOnCreate(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
 		boolean useForeignKey = false;
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class)
-				.addModifiers(Modifier.PUBLIC);
+				.addModifiers(Modifier.PROTECTED);
 		methodBuilder.addParameter(KriptonDynamicClassManager.getInstance().getDatabaseClazz(), "database");
 		methodBuilder.addJavadoc("onCreate\n");
 		methodBuilder.addCode("// generate tables\n");
@@ -868,7 +864,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 */
 	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class)
-				.addModifiers(Modifier.PUBLIC);
+				.addModifiers(Modifier.PROTECTED);
 		methodBuilder.addParameter(KriptonDynamicClassManager.getInstance().getDatabaseClazz(), "database");
 		methodBuilder.addParameter(Integer.TYPE, "previousVersion");
 		methodBuilder.addParameter(Integer.TYPE, "currentVersion");
@@ -988,7 +984,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// onConfigure
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onConfigure").addAnnotation(Override.class)
-				.addModifiers(Modifier.PUBLIC);
+				.addModifiers(Modifier.PROTECTED);
 		methodBuilder.addParameter(KriptonDynamicClassManager.getInstance().getDatabaseClazz(), "database");
 		methodBuilder.addJavadoc("onConfigure\n");
 		methodBuilder.addCode("// configure database\n");
@@ -1063,15 +1059,17 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		TypeSpec innerEmitter = TypeSpec.anonymousClassBuilder("").addSuperinterface(observableTypeName)
 				.addMethod(MethodSpec.methodBuilder("subscribe").addAnnotation(Override.class)
 						.addModifiers(Modifier.PUBLIC).addParameter(emitterTypeName, "emitter").returns(Void.TYPE)
-						
+
 						// lock the database
 						.addComment("open database in thread safe mode")
-						.addStatement("$T<Boolean, $T> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class, KriptonDynamicClassManager.getInstance().getDatabaseClazz(),  dataSourceName.simpleName())										
-						
-						.addStatement("boolean success=false")//.addCode("@SuppressWarnings(\"resource\")\n")
-						.addStatement("$T connection=_status.value1", KriptonDynamicClassManager.getInstance().getDatabaseClazz())
-												
-						
+						.addStatement("$T<Boolean, $T> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class,
+								KriptonDynamicClassManager.getInstance().getDatabaseClazz(),
+								dataSourceName.simpleName())
+
+						.addStatement("boolean success=false")// .addCode("@SuppressWarnings(\"resource\")\n")
+						.addStatement("$T connection=_status.value1",
+								KriptonDynamicClassManager.getInstance().getDatabaseClazz())
+
 						// support for live data
 						.addStatement("$L currentDaoFactory=_daoFactorySingleThread.bindToThread()",
 								DATA_SOURCE_SINGLE_THREAD_NAME)
@@ -1090,11 +1088,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						// support for live data
 						.addStatement("currentDaoFactory.onSessionClear()").nextControlFlow("finally")
 						.beginControlFlow("try").addStatement("connection.endTransaction()")
-						.nextControlFlow("catch($T e)", Throwable.class)
-						.endControlFlow()
+						.nextControlFlow("catch($T e)", Throwable.class).endControlFlow()
 						// lock the database
-						.addComment("close database in thread safe mode")
-						.addStatement("closeThreadSafeMode(_status)")
+						.addComment("close database in thread safe mode").addStatement("closeThreadSafeMode(_status)")
 						// support for live data
 						.addCode(
 								"if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }\n")
@@ -1156,9 +1152,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 						// lock the database
 						.addComment("open database in thread safe mode")
-						.addStatement("$T<Boolean, $T> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class, KriptonDynamicClassManager.getInstance().getDatabaseClazz(), dataSourceName.simpleName())
-						
-						
+						.addStatement("$T<Boolean, $T> _status=$L.this.openDatabaseThreadSafeMode(true)", Pair.class,
+								KriptonDynamicClassManager.getInstance().getDatabaseClazz(),
+								dataSourceName.simpleName())
+
 						// support for live data
 						.addStatement("$L currentDaoFactory=new DataSourceSingleThread()",
 								DATA_SOURCE_SINGLE_THREAD_NAME)
@@ -1173,9 +1170,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 						.addStatement("emitter.onError(e)").nextControlFlow("finally")
 
 						// lock the database
-						.addComment("close database in thread safe mode")
-						.addStatement("closeThreadSafeMode(_status)")		
-				
+						.addComment("close database in thread safe mode").addStatement("closeThreadSafeMode(_status)")
+
 						// support for live data
 						.addStatement("currentDaoFactory.onSessionClosed()").endControlFlow().addStatement("return")
 						.build())
@@ -1485,17 +1481,17 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
 					.addParameter(className(transationExecutorName), "transaction").returns(Boolean.TYPE)
 					.addParameter(className(OnErrorListener.class), "onErrorListener");
-			
+
 			// lock the database
 			executeMethod.addComment("open database in thread safe mode");
-			executeMethod.addStatement("$T<Boolean, $T> _status=openDatabaseThreadSafeMode(true)", Pair.class, KriptonDynamicClassManager.getInstance().getDatabaseClazz());
-
+			executeMethod.addStatement("$T<Boolean, $T> _status=openDatabaseThreadSafeMode(true)", Pair.class,
+					KriptonDynamicClassManager.getInstance().getDatabaseClazz());
 
 			executeMethod.addStatement("boolean success=false");
-			//executeMethod.addCode("@SuppressWarnings(\"resource\")\n");
+			// executeMethod.addCode("@SuppressWarnings(\"resource\")\n");
 			executeMethod.addStatement("$T connection=_status.value1",
 					KriptonDynamicClassManager.getInstance().getDatabaseClazz());
-			
+
 			// support for live data
 			executeMethod.addStatement("$L currentDaoFactory=_daoFactorySingleThread.bindToThread()",
 					DATA_SOURCE_SINGLE_THREAD_NAME);
@@ -1525,11 +1521,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			executeMethod.nextControlFlow("catch ($T e)", Throwable.class);
 			executeMethod.addStatement("$T.warn(\"error closing transaction %s\", e.getMessage())", Logger.class);
 			executeMethod.endControlFlow();
-			
+
 			// lock the database
 			executeMethod.addComment("close database in thread safe mode");
 			executeMethod.addStatement("closeThreadSafeMode(_status)");
-			
+
 			// support for live data
 			executeMethod.addCode(
 					"if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }\n");
@@ -1611,12 +1607,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 							ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")),
 							"commands")
 					.addParameter(Boolean.TYPE, "writeMode").returns(TypeVariableName.get("T"));
-			
+
 			// lock the database
 			executeMethod.addComment("open database in thread safe mode");
-			executeMethod.addStatement("$T<Boolean, $T> _status=openDatabaseThreadSafeMode(writeMode)", Pair.class, KriptonDynamicClassManager.getInstance().getDatabaseClazz());
-			
-			
+			executeMethod.addStatement("$T<Boolean, $T> _status=openDatabaseThreadSafeMode(writeMode)", Pair.class,
+					KriptonDynamicClassManager.getInstance().getDatabaseClazz());
+
 			// support for live data
 			executeMethod.addStatement("$L currentDaoFactory=new DataSourceSingleThread()",
 					DATA_SOURCE_SINGLE_THREAD_NAME);
@@ -1635,11 +1631,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			executeMethod.addStatement("throw(e)");
 
 			executeMethod.nextControlFlow("finally");
-			
+
 			// lock the database
 			executeMethod.addComment("close database in thread safe mode");
 			executeMethod.addStatement("closeThreadSafeMode(_status)");
-			
+
 			// support for live data
 			executeMethod.addStatement("currentDaoFactory.onSessionClosed()");
 			executeMethod.endControlFlow();

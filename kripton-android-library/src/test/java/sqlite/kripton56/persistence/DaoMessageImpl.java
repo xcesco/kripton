@@ -24,7 +24,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   private static SupportSQLiteStatement updateByIdPreparedStatement0;
 
   public DaoMessageImpl(BindWhisperDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

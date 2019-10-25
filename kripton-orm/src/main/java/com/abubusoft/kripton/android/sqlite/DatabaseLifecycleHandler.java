@@ -17,7 +17,6 @@ package com.abubusoft.kripton.android.sqlite;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-// TODO: Auto-generated Javadoc
 /**
  * Manage upgrade or downgrade of database.
  * 
@@ -30,25 +29,47 @@ public interface DatabaseLifecycleHandler {
 	 * <p>
 	 * Method for DDL or DML.
 	 *
-	 * @param database            database
-	 * @param oldVersion            current version of database
-	 * @param newVersion            new version of database
-	 * @param upgrade            if true is an upgrade operation, otherwise it's a
-	 *            downgrade operation.
+	 * @param database
+	 *            database
+	 * @param oldVersion
+	 *            current version of database
+	 * @param newVersion
+	 *            new version of database
+	 * @param upgrade
+	 *            if true is an upgrade operation, otherwise it's a downgrade
+	 *            operation.
 	 */
 	void onUpdate(SupportSQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade);
 
 	/**
+	 * Invoked when database is opened.
+	 *
+	 * @param database
+	 *            the database
+	 */
+	void onOpen(SupportSQLiteDatabase database);
+
+	/**
 	 * Invoked after execution of DDL necessary to create database.
 	 *
-	 * @param database the database
+	 * @param database
+	 *            the database
 	 */
 	void onCreate(SupportSQLiteDatabase database);
 
 	/**
 	 * Invoked during database configuration.
 	 *
-	 * @param database the database
+	 * @param database
+	 *            the database
 	 */
 	void onConfigure(SupportSQLiteDatabase database);
+
+	/**
+	 * Invoked during database corruption. The database will be deleted in every
+	 * case, this methods allows to notify to the user the situation.
+	 * 
+	 * @param database
+	 */
+	void onCorruption(SupportSQLiteDatabase database);
 }

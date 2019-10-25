@@ -35,7 +35,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
   private static final String GET_USER_DEVICES_SQL2 = "select * from device inner join user_2_device on device.id = user_2_device.device_id  where user_2_device.user_id = ?";
 
   public DeviceDaoImpl(BindApp2DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -143,7 +143,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -221,7 +221,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

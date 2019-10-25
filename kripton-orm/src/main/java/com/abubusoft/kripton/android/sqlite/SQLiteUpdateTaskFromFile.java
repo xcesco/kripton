@@ -60,7 +60,7 @@ public class SQLiteUpdateTaskFromFile implements SQLiteUpdateTask {
 	 * @see com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask#execute(android.database.sqlite.SQLiteDatabase, int, int)
 	 */
 	@Override
-	public void execute(SupportSQLiteDatabase database, int previuosVersion, int currentVersion) {
+	public void execute(SupportSQLiteDatabase database, int previuosVersion, int targetVersion) {
 		List<String> executionList=null;
 	
 		if (inputStream==null) {

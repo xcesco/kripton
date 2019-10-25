@@ -25,5 +25,5 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
  */
 public interface BindDaoFactory {
 	
-	SQLContext context();
+	SQLContext getContext();
 }

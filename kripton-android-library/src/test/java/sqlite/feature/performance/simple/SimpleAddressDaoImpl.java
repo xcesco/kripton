@@ -33,7 +33,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
   private static SupportSQLiteStatement insertPreparedStatement1;
 
   public SimpleAddressDaoImpl(BindSimpleDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -72,7 +72,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanHelper - BEGIN
 
@@ -151,7 +151,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 

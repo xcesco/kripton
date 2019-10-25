@@ -21,7 +21,7 @@ public class DaoBeanDeleteOKImpl extends Dao implements DaoBeanDeleteOK {
   private static SupportSQLiteStatement deleteDistancePreparedStatement0;
 
   public DaoBeanDeleteOKImpl(BindDummy08DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

@@ -38,7 +38,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
   private static final Set<String> insertOneBeanFieldSurname2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
   public InsertBeanPersonDaoImpl(BindInsertBeanPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -157,7 +157,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // log for content values -- END
     // conflict algorithm NONE
     // insert operation
-    long result = database().insert("person", 0, _contentValues.values());
+    long result = getDatabase().insert("person", 0, _contentValues.values());
     return result;
   }
 
@@ -273,7 +273,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insert("person", 5, _contentValues.values());
+    long result = getDatabase().insert("person", 5, _contentValues.values());
     return result;
   }
 
@@ -391,7 +391,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insert("person", 5, _contentValues.values());
+    long result = getDatabase().insert("person", 5, _contentValues.values());
     return result;
   }
 

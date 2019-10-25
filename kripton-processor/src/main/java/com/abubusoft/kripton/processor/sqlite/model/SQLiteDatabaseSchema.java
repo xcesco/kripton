@@ -153,7 +153,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	public final boolean configInMemory;
 
 	/** The config cursor factory clazz. */
-	public final String configCursorFactoryClazz;
+	public final String configOpenHelperFactoryClazz;
 
 	/** The config log enabled. */
 	public final boolean configLogEnabled;
@@ -218,7 +218,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	 */
 	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log,
 			boolean asyncTask, boolean generateCursor, boolean generateRx, List<String> daoIntoDataSource,
-			String configCursorFactoryClass, String configDatabaseErrorHandlerClass,
+			String configOpenHelperFactoryClass, String configDatabaseErrorHandlerClass,
 			String configDatabaseLifecycleHandlerClass, boolean configInMemory, boolean configLogEnabled,
 			String configPopulatorClass) {
 		super(item.getSimpleName().toString(), item);
@@ -278,7 +278,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		this.configInMemory = configInMemory;
 		this.configUpdateTasks = valueVisitor.getTasks();
 
-		this.configCursorFactoryClazz = fillClazz(configCursorFactoryClass, ReferredClasses.NO_CURSOR_FACTORY_CLASS_NAME);
+		this.configOpenHelperFactoryClazz = fillClazz(configOpenHelperFactoryClass, ReferredClasses.DEFAULT_OPEN_HELPER_FACTORY_CLASS_NAME);
 		this.configDatabaseErrorHandlerClazz = fillClazz(configDatabaseErrorHandlerClass, ReferredClasses.NO_DATABASE_ERROR_HANDLER_CLASS_NAME);
 		this.configDatabaseLifecycleHandlerClazz = fillClazz(configDatabaseLifecycleHandlerClass,
 				ReferredClasses.NO_DATABASE_LIFECYCLE_HANDLER_CLASS_NAME);

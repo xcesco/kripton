@@ -24,7 +24,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   private static final String LIST_ALL_SQL1 = "SELECT id, bean_list, lista, message_date, message_text, value FROM bean01 WHERE 1=1";
 
   public DaoBean01Impl(BindDummy01DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -68,7 +68,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

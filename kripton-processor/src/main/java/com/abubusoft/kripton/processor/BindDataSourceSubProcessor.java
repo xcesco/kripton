@@ -1268,7 +1268,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema,
 				BindDataSource.class, AnnotationAttributeType.DAO_SET);
 
-		String configCursorFactory = ReferredClasses.NO_CURSOR_FACTORY_CLASS_NAME;
+		String configCursorFactory = ReferredClasses.DEFAULT_OPEN_HELPER_FACTORY_CLASS_NAME;
 		String configDatabaseErrorHandler = ReferredClasses.NO_DATABASE_ERROR_HANDLER_CLASS_NAME;
 		String configDatabaseLifecycleHandler = ReferredClasses.NO_DATABASE_LIFECYCLE_HANDLER_CLASS_NAME;
 		boolean configInMemory = false;
@@ -1285,7 +1285,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			configPopulatorClass = AnnotationUtility.extractAsClassName(databaseSchema, BindDataSourceOptions.class,
 					AnnotationAttributeType.POPULATOR);
 			configCursorFactory = AnnotationUtility.extractAsClassName(databaseSchema, BindDataSourceOptions.class,
-					AnnotationAttributeType.CURSOR_FACTORY);
+					AnnotationAttributeType.OPEN_HELPER_FACTORY);
 			configDatabaseLifecycleHandler = AnnotationUtility.extractAsClassName(databaseSchema,
 					BindDataSourceOptions.class, AnnotationAttributeType.DATABASE_LIFECYCLE_HANDLER);
 		}

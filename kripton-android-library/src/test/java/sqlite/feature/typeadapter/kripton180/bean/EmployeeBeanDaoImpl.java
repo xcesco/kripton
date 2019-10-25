@@ -73,7 +73,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   private static SupportSQLiteStatement deleteByIdPreparedStatement8;
 
   public EmployeeBeanDaoImpl(BindKripton180BeanDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -135,7 +135,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -260,7 +260,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -405,7 +405,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -550,7 +550,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

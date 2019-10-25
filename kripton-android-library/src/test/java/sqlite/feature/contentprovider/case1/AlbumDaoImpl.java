@@ -60,7 +60,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public AlbumDaoImpl(BindArtistsDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -109,7 +109,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -211,7 +211,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -252,7 +252,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -385,7 +385,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -505,7 +505,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // log for content values -- END
     // conflict algorithm NONE
     // insert operation
-    long result = database().insert("album", 0, _contentValues.values());
+    long result = getDatabase().insert("album", 0, _contentValues.values());
     // support for livedata
     registryEvent(result>0?1:0);
     return result;
@@ -654,7 +654,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
 
     // execute SQL
     // conflict algorithm NONE
-    int result = database().update("album", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().update("album", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     // support for livedata
     registryEvent(result);
     return result;
@@ -762,7 +762,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // log section END
 
     // execute SQL
-    int result = database().delete("album", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("album", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     // support for livedata
     registryEvent(result);
     return result;

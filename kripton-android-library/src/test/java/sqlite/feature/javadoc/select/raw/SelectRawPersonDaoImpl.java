@@ -61,7 +61,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   private static final Set<String> selectWithJQL7ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   public SelectRawPersonDaoImpl(BindSelectRawPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -103,7 +103,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -199,7 +199,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -239,7 +239,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -318,7 +318,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -369,7 +369,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -473,7 +473,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -541,7 +541,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -639,7 +639,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -723,7 +723,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -837,7 +837,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -912,7 +912,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1022,7 +1022,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -1099,7 +1099,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1216,7 +1216,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -1267,7 +1267,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1371,7 +1371,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 

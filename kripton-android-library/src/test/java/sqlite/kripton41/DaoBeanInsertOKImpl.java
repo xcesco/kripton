@@ -22,7 +22,7 @@ public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
   private static SupportSQLiteStatement insertDistancePreparedStatement0;
 
   public DaoBeanInsertOKImpl(BindDummy04DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

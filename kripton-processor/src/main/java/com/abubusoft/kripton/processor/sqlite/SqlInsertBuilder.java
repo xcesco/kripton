@@ -380,7 +380,7 @@ public abstract class SqlInsertBuilder {
 		//}
 
 		methodBuilder.addComment("insert operation");
-		methodBuilder.addStatement("long result = database().insert($S$L, _contentValues.values())",
+		methodBuilder.addStatement("long result = getDatabase().insert($S$L, _contentValues.values())",
 				entity.getTableName(), conflictString2);
 		if (method.getParent().getParent().generateRx) {
 			SQLProperty primaryKey = entity.getPrimaryKey();

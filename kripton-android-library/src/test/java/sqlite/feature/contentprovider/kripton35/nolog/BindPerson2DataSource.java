@@ -299,7 +299,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    * onCreate
    */
   @Override
-  public void onCreate(SupportSQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     database.execSQL(CityTable.CREATE_TABLE_SQL);
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
@@ -313,7 +313,8 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // if we have a list of update task, try to execute them
     if (options.updateTasks != null) {
       List<SQLiteUpdateTask> tasks = buildTaskList(previousVersion, currentVersion);
@@ -348,7 +349,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    * onConfigure
    */
   @Override
-  public void onConfigure(SupportSQLiteDatabase database) {
+  protected void onConfigure(SupportSQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
@@ -398,7 +399,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 
@@ -465,7 +466,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 

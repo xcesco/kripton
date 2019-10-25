@@ -22,7 +22,7 @@ public class DaoUserImpl extends Dao implements DaoUser {
   private static SupportSQLiteStatement insertPreparedStatement0;
 
   public DaoUserImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

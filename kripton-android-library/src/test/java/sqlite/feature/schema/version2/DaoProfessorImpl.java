@@ -23,7 +23,7 @@ public class DaoProfessorImpl extends Dao implements DaoProfessor {
   private static SupportSQLiteStatement insertPreparedStatement0;
 
   public DaoProfessorImpl(BindSchoolDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

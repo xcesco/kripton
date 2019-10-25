@@ -34,9 +34,13 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;
-
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.os.Build;
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration.Builder;
 import androidx.sqlite.db.SupportSQLiteStatement;
 
 /**
@@ -48,50 +52,6 @@ import androidx.sqlite.db.SupportSQLiteStatement;
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class AbstractDataSource implements AutoCloseable {
-
-	/** The on error listener. */
-	protected OnErrorListener onErrorListener = new OnErrorListener() {
-		@Override
-		public void onError(Throwable e) {
-			throw (new KriptonRuntimeException(e));
-		}
-	};
-
-	/**
-	 * On session opened.
-	 */
-	protected void onSessionOpened() {
-		this.context.onSessionOpened();
-	}
-
-	/**
-	 * On session closed.
-	 *
-	 * @return the sets the
-	 */
-	protected Set<Integer> onSessionClosed() {
-		return this.context.onSessionClosed();
-
-	}
-
-	/**
-	 * Get error listener, in transations.
-	 *
-	 * @return the on error listener
-	 */
-	public OnErrorListener getOnErrorListener() {
-		return onErrorListener;
-	}
-
-	/**
-	 * Set error listener for transactions.
-	 *
-	 * @param onErrorListener
-	 *            the new on error listener
-	 */
-	public void setOnErrorListener(OnErrorListener onErrorListener) {
-		this.onErrorListener = onErrorListener;
-	}
 
 	/**
 	 * Interface for database operations.
@@ -145,30 +105,25 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		READ_ONLY_OPENED
 	}
 
+	/** The context. */
+	protected SQLContextImpl context;
+
 	/** database instance. */
 	SupportSQLiteDatabase database;
 
 	/**
-	 * used to clear prepared statements.
+	 * <p>
+	 * True if dataSource is just created
+	 * </p>
+	 * .
 	 */
-	public abstract void clearCompiledStatements();
-
-	/** The log enabled. */
-	public boolean logEnabled;
-
-	/** The lock db. */
-	private final ReentrantLock lockDb = new ReentrantLock();
-
-	protected void beginLock() {
-		lockDb.lock();
-	}
-
-	protected void endLock() {
-		lockDb.unlock();
-	}
+	protected boolean justCreated = false;
 
 	/** The lock access. */
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
+
+	/** The lock db. */
+	private final ReentrantLock lockDb = new ReentrantLock();
 
 	/** The lock read access. */
 	private final Lock lockReadAccess = lockAccess.readLock();
@@ -176,13 +131,24 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/** The lock read write access. */
 	private final Lock lockReadWriteAccess = lockAccess.writeLock();
 
+	/** The log enabled. */
+	protected boolean logEnabled;
+	
 	/**
 	 * <p>
 	 * file name used to save database,
 	 * </p>
 	 * .
 	 */
-	public final String name;
+	protected final String name;
+
+	/** The on error listener. */
+	protected OnErrorListener onErrorListener = new OnErrorListener() {
+		@Override
+		public void onError(Throwable e) {
+			throw (new KriptonRuntimeException(e));
+		}
+	};
 
 	/** The open counter. */
 	private AtomicInteger openCounter = new AtomicInteger();
@@ -192,69 +158,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	/** The sqlite helper. */
 	protected SupportSQLiteOpenHelper sqliteHelper;
-
-	/** The context. */
-	protected SQLContextImpl context;
-
-	/**
-	 * Context.
-	 *
-	 * @return the SQL context
-	 */
-	public SQLContext context() {
-		return context;
-	}
-
-	/**
-	 * Content values for update.
-	 *
-	 * @param compiledStatement
-	 *            the compiled statement
-	 * @return the kripton content values
-	 */
-	protected KriptonContentValues contentValuesForUpdate(SupportSQLiteStatement compiledStatement) {
-		return context.contentValuesForUpdate(compiledStatement);
-	}
-
-	/**
-	 * Content values.
-	 *
-	 * @param compiledStatement
-	 *            the compiled statement
-	 * @return the kripton content values
-	 */
-	protected KriptonContentValues contentValues(SupportSQLiteStatement compiledStatement) {
-		return context.contentValues(compiledStatement);
-	}
-
-	/**
-	 * Content values for content provider.
-	 *
-	 * @param values
-	 *            the values
-	 * @return the kripton content values
-	 */
-	protected KriptonContentValues contentValuesForContentProvider(ContentValues values) {
-		return context.contentValuesForContentProvider(values);
-	}
-
-	/**
-	 * Sql builder.
-	 *
-	 * @return the string builder
-	 */
-	protected StringBuilder sqlBuilder() {
-		return context.sqlBuilder();
-	}
-
-	/**
-	 * Checks if is log enabled.
-	 *
-	 * @return true, if is log enabled
-	 */
-	public boolean isLogEnabled() {
-		return context.isLogEnabled();
-	}
 
 	/** The status. */
 	protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
@@ -266,29 +169,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	};
 
-	/** if true, database was update during this application run. */
-	protected boolean versionChanged;
-
-	/**
-	 * <p>
-	 * True if dataSource is just created
-	 * </p>
-	 * .
-	 */
-	protected boolean justCreated = false;
-
-	/**
-	 * <p>
-	 * True if dataSource is just created
-	 * </p>
-	 * .
-	 *
-	 * @return true, if is just created
-	 */
-	public boolean isJustCreated() {
-		return justCreated;
-	}
-
 	/**
 	 * <p>
 	 * database version
@@ -296,25 +176,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * .
 	 */
 	protected int version;
-
-	/**
-	 * Gets the version.
-	 *
-	 * @return the version
-	 */
-	public int getVersion() {
-		return version;
-	}
-
-	/**
-	 * Sets the version.
-	 *
-	 * @param version
-	 *            the new version
-	 */
-	public void setVersion(int version) {
-		this.version = version;
-	}
+	
+	/** if true, database was update during this application run. */
+	protected boolean versionChanged;
 
 	/**
 	 * Instantiates a new abstract data source.
@@ -339,19 +203,53 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		this.logEnabled = optionsValue.logEnabled;
 	}
 
-	protected void closeThreadSafeMode(Pair<Boolean, SupportSQLiteDatabase> status) {
-		if (status.value0) {
-			close();
-		} else {
-			beginLock();
-			// we unlock lockReadWriteAccess, so we can include this code in
-			// lockDb
-			manageStatus();
-			endLock();
+	protected void beginLock() {
+		lockDb.lock();
+	}
 
-			// unlocked inside
-			// lockDb.unlock();
+	/**
+	 * Builds the task list.
+	 *
+	 * @param previousVersion
+	 *            the previous version
+	 * @param currentVersion
+	 *            the current version
+	 * @return the list
+	 */
+	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {
+		List<SQLiteUpdateTask> result = new ArrayList<>();
+
+		for (Pair<Integer, ? extends SQLiteUpdateTask> item : this.options.updateTasks) {
+			if (item.value0 - 1 == previousVersion) {
+				result.add(item.value1);
+				previousVersion = item.value0;
+			}
+
+			if (previousVersion == currentVersion)
+				break;
 		}
+
+		if (previousVersion != currentVersion) {
+			Logger.warn(String.format("Can not find version update task from version %s to version %s", previousVersion,
+					currentVersion));
+		}
+
+		return result;
+
+	}
+
+	/**
+	 * used to clear prepared statements.
+	 */
+	public abstract void clearCompiledStatements();
+
+	/**
+	 * Context.
+	 *
+	 * @return the SQL context
+	 */
+	public SQLContext getContext() {
+		return context;
 	}
 
 	/*
@@ -388,66 +286,52 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	}
 
-	/**
-	 * 
-	 */
-	private void manageStatus() {
-		switch (status.get()) {
-		case READ_AND_WRITE_OPENED:
-			if (database == null)
-				status.set(TypeStatus.CLOSED);
-			lockReadWriteAccess.unlock();
+	protected void closeThreadSafeMode(Pair<Boolean, SupportSQLiteDatabase> status) {
+		if (status.value0) {
+			close();
+		} else {
+			beginLock();
+			// we unlock lockReadWriteAccess, so we can include this code in
+			// lockDb
+			manageStatus();
+			endLock();
+
+			// unlocked inside
 			// lockDb.unlock();
-			break;
-		case READ_ONLY_OPENED:
-			if (database == null)
-				status.set(TypeStatus.CLOSED);
-			lockReadAccess.unlock();
-			// lockDb.unlock();
-			break;
-		case CLOSED:
-			// do nothing
-			// lockDb.unlock();
-			break;
 		}
 	}
 
 	/**
-	 * Force close.
-	 */
-	void forceClose() {
-		openCounter.set(0);
-	}
-
-	/**
-	 * Builds the task list.
+	 * Content values.
 	 *
-	 * @param previousVersion
-	 *            the previous version
-	 * @param currentVersion
-	 *            the current version
-	 * @return the list
+	 * @param compiledStatement
+	 *            the compiled statement
+	 * @return the kripton content values
 	 */
-	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {
-		List<SQLiteUpdateTask> result = new ArrayList<>();
+	protected KriptonContentValues contentValues(SupportSQLiteStatement compiledStatement) {
+		return context.contentValues(compiledStatement);
+	}
 
-		for (Pair<Integer, ? extends SQLiteUpdateTask> item : this.options.updateTasks) {
-			if (item.value0 - 1 == previousVersion) {
-				result.add(item.value1);
-				previousVersion = item.value0;
-			}
+	/**
+	 * Content values for content provider.
+	 *
+	 * @param values
+	 *            the values
+	 * @return the kripton content values
+	 */
+	protected KriptonContentValues contentValuesForContentProvider(ContentValues values) {
+		return context.contentValuesForContentProvider(values);
+	}
 
-			if (previousVersion == currentVersion)
-				break;
-		}
-
-		if (previousVersion != currentVersion) {
-			Logger.warn(String.format("Can not find version update task from version %s to version %s", previousVersion,
-					currentVersion));
-		}
-
-		return result;
-
+	/**
+	 * Content values for update.
+	 *
+	 * @param compiledStatement
+	 *            the compiled statement
+	 * @return the kripton content values
+	 */
+	protected KriptonContentValues contentValuesForUpdate(SupportSQLiteStatement compiledStatement) {
+		return context.contentValuesForUpdate(compiledStatement);
 	}
 
 	/**
@@ -455,8 +339,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 *
 	 * @param options
 	 *            the options
+	 * 
 	 */
-	protected void createHelper(DataSourceOptions options) {
+	protected void createHelper() {
 		if (KriptonLibrary.getContext() == null)
 			throw new KriptonRuntimeException(
 					"Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
@@ -470,8 +355,90 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			}
 		}
 
-		sqliteHelper = new KriptonSQLiteOpenHelper(KriptonLibrary.getContext(), name, options.factory, version,
-				options.errorHandler, this);
+		Builder config = SupportSQLiteOpenHelper.Configuration.builder(KriptonLibrary.getContext()).name(name)
+				.callback(new SupportSQLiteOpenHelper.Callback(version) {
+
+					@Override
+					public void onConfigure(SupportSQLiteDatabase db) {
+						AbstractDataSource.this.onConfigure(db);
+					}
+
+					@Override
+					public void onCorruption(SupportSQLiteDatabase db) {
+						AbstractDataSource.this.onCorruption(db);
+					}
+
+					@Override
+					public void onCreate(SupportSQLiteDatabase db) {
+						AbstractDataSource.this.onCreate(db);
+					}
+
+					@Override
+					public void onDowngrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+						AbstractDataSource.this.onDowngrade(db, oldVersion, newVersion);
+					}
+
+					@Override
+					public void onOpen(SupportSQLiteDatabase db) {
+						AbstractDataSource.this.onOpen(db);
+					}
+
+					@Override
+					public void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+						AbstractDataSource.this.onUpgrade(db, oldVersion, newVersion);
+					}
+				});
+
+		sqliteHelper = options.openHelperFactory.create(config.build());
+
+		/*
+		 * sqliteHelper = new
+		 * KriptonSQLiteOpenHelper(KriptonLibrary.getContext(), name,
+		 * options.cursorFactory, version, options.errorHandler, this);
+		 */
+	}
+
+	private void deleteDatabaseFile(String fileName) {
+		if (fileName.equalsIgnoreCase(":memory:") || fileName.trim().length() == 0) {
+			return;
+		}
+		if (this.logEnabled) {
+			Logger.fatal("deleting the database file: " + fileName);
+		}
+		try {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+				SQLiteDatabase.deleteDatabase(new File(fileName));
+			} else {
+				try {
+					final boolean deleted = new File(fileName).delete();
+					if (!deleted) {
+						if (this.logEnabled) {
+							Logger.fatal("Could not delete the database file " + fileName);
+						}
+					}
+				} catch (Exception error) {
+					if (this.logEnabled) {
+						Logger.fatal("error while deleting corrupted database file " + error.getMessage());
+					}
+				}
+			}
+		} catch (Exception e) {
+			if (this.logEnabled) {
+				/* print warning and ignore exception */
+				Logger.warn("delete failed: ", e);
+			}
+		}
+	}
+
+	protected void endLock() {
+		lockDb.unlock();
+	}
+
+	/**
+	 * Force close.
+	 */
+	void forceClose() {
+		openCounter.set(0);
 	}
 
 	/**
@@ -481,11 +448,64 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 *
 	 * @return the SQ lite database
 	 */
-	public SupportSQLiteDatabase database() {
+	public SupportSQLiteDatabase getDatabase() {
 		if (database == null)
 			throw (new KriptonRuntimeException(
 					"No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	// /**
+	// * Sets the version.
+	// *
+	// * @param version
+	// * the new version
+	// */
+	// public void setVersion(int version) {
+	// this.version = version;
+	// }
+
+	/**
+	 * Get error listener, in transations.
+	 *
+	 * @return the on error listener
+	 */
+	public OnErrorListener getOnErrorListener() {
+		return onErrorListener;
+	}
+
+	/**
+	 * Gets the version.
+	 *
+	 * @return the version
+	 */
+	public int getVersion() {
+		return version;
+	}
+
+	/**
+	 * <p>
+	 * True if dataSource is just created
+	 * </p>
+	 * .
+	 *
+	 * @return true, if is just created
+	 */
+	public boolean isJustCreated() {
+		return justCreated;
+	}
+
+	/**
+	 * Checks if is log enabled.
+	 *
+	 * @return true, if is log enabled
+	 */
+	public boolean isLogEnabled() {
+		return context.isLogEnabled();
 	}
 
 	/**
@@ -522,12 +542,106 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	}
 
 	/**
+	 * 
+	 */
+	private void manageStatus() {
+		switch (status.get()) {
+		case READ_AND_WRITE_OPENED:
+			if (database == null)
+				status.set(TypeStatus.CLOSED);
+			lockReadWriteAccess.unlock();
+			// lockDb.unlock();
+			break;
+		case READ_ONLY_OPENED:
+			if (database == null)
+				status.set(TypeStatus.CLOSED);
+			lockReadAccess.unlock();
+			// lockDb.unlock();
+			break;
+		case CLOSED:
+			// do nothing
+			// lockDb.unlock();
+			break;
+		}
+	}
+
+	/**
 	 * On configure.
 	 *
 	 * @param database
 	 *            the database
 	 */
-	public abstract void onConfigure(SupportSQLiteDatabase database);
+	protected abstract void onConfigure(SupportSQLiteDatabase database);
+
+	/**
+	 * The method invoked when database corruption is detected. Default
+	 * implementation will delete the database file.
+	 *
+	 * @param db
+	 *            the {@link SupportSQLiteDatabase} object representing the
+	 *            database on which corruption is detected.
+	 */
+	protected void onCorruption(@NonNull SupportSQLiteDatabase db) {
+		// the following implementation is taken from {@link
+		// DefaultDatabaseErrorHandler}.
+		if (this.logEnabled) {
+			Logger.fatal("Corruption reported by sqlite on database: " + db.getPath());
+		}
+		try {
+			if (options.databaseLifecycleHandler != null) {
+				options.databaseLifecycleHandler.onCorruption(db);
+			}
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+		// is the corruption detected even before database could be 'opened'?
+		if (!db.isOpen()) {
+			// database files are not even openable. delete this database file.
+			// NOTE if the database has attached databases, then any of them
+			// could be corrupt.
+			// and not deleting all of them could cause corrupted database file
+			// to remain and
+			// make the application crash on database open operation. To avoid
+			// this problem,
+			// the application should provide its own {@link
+			// DatabaseErrorHandler} impl class
+			// to delete ALL files of the database (including the attached
+			// databases).
+			deleteDatabaseFile(db.getPath());
+			return;
+		}
+		List<android.util.Pair<String, String>> attachedDbs = null;
+		try {
+			// Close the database, which will cause subsequent operations to
+			// fail.
+			// before that, get the attached database list first.
+			try {
+				attachedDbs = db.getAttachedDbs();
+			} catch (SQLiteException e) {
+				/* ignore */
+			}
+			try {
+				db.close();
+			} catch (IOException e) {
+				/* ignore */
+			}
+		} finally {
+			// Delete all files of this corrupt database and/or attached
+			// databases
+			if (attachedDbs != null) {
+				for (android.util.Pair<String, String> p : attachedDbs) {
+					deleteDatabaseFile(p.second);
+				}
+			} else {
+				// attachedDbs = null is possible when the database is so
+				// corrupt that even
+				// "PRAGMA database_list;" also fails. delete the main database
+				// file
+				deleteDatabaseFile(db.getPath());
+			}
+		}
+	}
 
 	/**
 	 * On create.
@@ -535,7 +649,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @param database
 	 *            the database
 	 */
-	public abstract void onCreate(SupportSQLiteDatabase database);
+	protected abstract void onCreate(SupportSQLiteDatabase database);
 
 	/**
 	 * On downgrade.
@@ -547,11 +661,35 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @param newVersion
 	 *            the new version
 	 */
-	public void onDowngrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
-		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
-			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, false);
+	protected void onDowngrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+		if (options.databaseLifecycleHandler != null) {
+			options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, false);
 			versionChanged = true;
 		}
+	}
+
+	protected void onOpen(SupportSQLiteDatabase db) {
+		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
+			AbstractDataSource.this.options.databaseLifecycleHandler.onOpen(db);
+			versionChanged = true;
+		}
+	}
+
+	/**
+	 * On session closed.
+	 *
+	 * @return the sets the
+	 */
+	protected Set<Integer> onSessionClosed() {
+		return this.context.onSessionClosed();
+
+	}
+
+	/**
+	 * On session opened.
+	 */
+	protected void onSessionOpened() {
+		this.context.onSessionOpened();
 	}
 
 	/**
@@ -564,68 +702,11 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @param newVersion
 	 *            the new version
 	 */
-	public void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+	protected void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
 		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
 			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, true);
 			versionChanged = true;
 		}
-	}
-
-	/**
-	 * <p>
-	 * Open a read only database.
-	 * </p>
-	 * 
-	 * @return read only database
-	 */
-	protected SupportSQLiteDatabase openReadOnlyDatabase(boolean lock) {
-		if (lock) {
-			// if I lock this in dbLock.. the last one remains locked too
-			lockReadAccess.lock();
-
-			beginLock();
-		}
-
-		try {
-			if (sqliteHelper == null)
-				createHelper(options);
-
-			status.set(TypeStatus.READ_ONLY_OPENED);
-
-			if (openCounter.incrementAndGet() == 1) {
-				// open new read database
-				if (database == null) {
-					sqliteHelper.setWriteAheadLoggingEnabled(true);
-					database = sqliteHelper.getReadableDatabase();
-				}
-				if (logEnabled)
-					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
-			} else {
-				if (logEnabled)
-					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
-			}
-		} finally {
-			if (lock)
-				endLock();
-
-		}
-
-		return database;
-	}
-
-	public SupportSQLiteDatabase openReadOnlyDatabase() {
-		return openReadOnlyDatabase(true);
-	}
-
-	/**
-	 * <p>
-	 * open a writable database.
-	 * </p>
-	 * 
-	 * @return writable database
-	 */
-	public SupportSQLiteDatabase openWritableDatabase() {
-		return openWritableDatabase(true);
 	}
 
 	/**
@@ -653,7 +734,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					result.value1 = openReadOnlyDatabase(false);
 				}
 			} else {
-				result.value1 = this.database();
+				result.value1 = this.getDatabase();
 			}
 
 		} finally {
@@ -672,6 +753,63 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	}
 
+	public SupportSQLiteDatabase openReadOnlyDatabase() {
+		return openReadOnlyDatabase(true);
+	}
+
+	/**
+	 * <p>
+	 * Open a read only database.
+	 * </p>
+	 * 
+	 * @return read only database
+	 */
+	protected SupportSQLiteDatabase openReadOnlyDatabase(boolean lock) {
+		if (lock) {
+			// if I lock this in dbLock.. the last one remains locked too
+			lockReadAccess.lock();
+
+			beginLock();
+		}
+
+		try {
+			if (sqliteHelper == null)
+				createHelper();
+
+			status.set(TypeStatus.READ_ONLY_OPENED);
+
+			if (openCounter.incrementAndGet() == 1) {
+				// open new read database
+				if (database == null) {
+					sqliteHelper.setWriteAheadLoggingEnabled(true);
+					database = sqliteHelper.getReadableDatabase();
+				}
+				if (logEnabled)
+					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
+			} else {
+				if (logEnabled)
+					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
+			}
+		} finally {
+			if (lock)
+				endLock();
+
+		}
+
+		return database;
+	}
+
+	/**
+	 * <p>
+	 * open a writable database.
+	 * </p>
+	 * 
+	 * @return writable database
+	 */
+	public SupportSQLiteDatabase openWritableDatabase() {
+		return openWritableDatabase(true);
+	}
+
 	protected SupportSQLiteDatabase openWritableDatabase(boolean lock) {
 		if (lock) {
 			lockReadWriteAccess.lock();
@@ -682,7 +820,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 		try {
 			if (sqliteHelper == null)
-				createHelper(options);
+				createHelper();
 
 			status.set(TypeStatus.READ_AND_WRITE_OPENED);
 
@@ -704,6 +842,25 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		}
 
 		return database;
+	}
+
+	/**
+	 * Set error listener for transactions.
+	 *
+	 * @param onErrorListener
+	 *            the new on error listener
+	 */
+	public void setOnErrorListener(OnErrorListener onErrorListener) {
+		this.onErrorListener = onErrorListener;
+	}
+
+	/**
+	 * Sql builder.
+	 *
+	 * @return the string builder
+	 */
+	protected StringBuilder sqlBuilder() {
+		return context.sqlBuilder();
 	}
 
 }

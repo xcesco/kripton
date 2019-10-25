@@ -32,7 +32,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
   private static SupportSQLiteStatement updatePreparedStatement5;
 
   public DaoBean02Impl(BindDummy02DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

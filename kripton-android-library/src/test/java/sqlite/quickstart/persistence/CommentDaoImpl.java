@@ -36,7 +36,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
   private static final String SELECT_ONE_BY_POST_ID_SQL6 = "SELECT id, body, email, name, post_id FROM comment WHERE id = ?";
 
   public CommentDaoImpl(BindQuickStartDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -163,7 +163,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -250,7 +250,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

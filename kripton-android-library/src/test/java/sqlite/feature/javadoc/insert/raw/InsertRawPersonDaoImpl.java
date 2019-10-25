@@ -37,7 +37,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
   private static final Set<String> insertOne2RawFieldName2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
 
   public InsertRawPersonDaoImpl(BindInsertRawPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -152,7 +152,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     // log for content values -- END
     // conflict algorithm NONE
     // insert operation
-    long result = database().insert("person", 0, _contentValues.values());
+    long result = getDatabase().insert("person", 0, _contentValues.values());
     return result;
   }
 
@@ -264,7 +264,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insert("person", 5, _contentValues.values());
+    long result = getDatabase().insert("person", 5, _contentValues.values());
     return result;
   }
 
@@ -380,7 +380,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insert("person", 0, _contentValues.values());
+    long result = getDatabase().insert("person", 0, _contentValues.values());
     return result;
   }
 
@@ -432,7 +432,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     }
     // log section END
 
-    database().execSQL("INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=?", _contentValues.whereArgsAsArray());
+    getDatabase().execSQL("INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=?", _contentValues.whereArgsAsArray());
     // Specialized Insert - InsertType - END
   }
 

@@ -332,7 +332,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
    * onCreate
    */
   @Override
-  public void onCreate(SupportSQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     // log section create BEGIN
     if (this.logEnabled) {
@@ -365,7 +365,8 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
@@ -415,7 +416,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
    * onConfigure
    */
   @Override
-  public void onConfigure(SupportSQLiteDatabase database) {
+  protected void onConfigure(SupportSQLiteDatabase database) {
     // configure database
     database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
@@ -465,7 +466,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 
@@ -532,7 +533,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 

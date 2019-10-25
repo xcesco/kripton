@@ -35,7 +35,7 @@ public class Bean64ADaoImpl extends Dao implements Bean64ADao {
   private static SupportSQLiteStatement insertPreparedStatement0;
 
   public Bean64ADaoImpl(BindBean64ADaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -77,7 +77,7 @@ public class Bean64ADaoImpl extends Dao implements Bean64ADao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -161,7 +161,7 @@ public class Bean64ADaoImpl extends Dao implements Bean64ADao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

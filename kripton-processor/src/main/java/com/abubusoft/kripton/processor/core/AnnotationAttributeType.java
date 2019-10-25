@@ -189,8 +189,8 @@ public enum AnnotationAttributeType {
 
 	/** The log enabled. */
 	LOG_ENABLED("logEnabled"),
-	/** The cursor factory. */
-	CURSOR_FACTORY("cursorFactory"),
+	/** The open helper factory. */
+	OPEN_HELPER_FACTORY("openHelperFactory"),
 	/** The database lifecycle handler. */
 	DATABASE_LIFECYCLE_HANDLER("databaseLifecycleHandler"),
 	/** The type adapters. */

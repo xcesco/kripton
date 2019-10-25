@@ -30,7 +30,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
   private static SupportSQLiteStatement deleteRawPreparedStatement4;
 
   public DeleteRawPersonDaoImpl(BindDeleteRawPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -133,7 +133,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -235,7 +235,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -388,7 +388,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -492,7 +492,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -615,7 +615,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -760,7 +760,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 

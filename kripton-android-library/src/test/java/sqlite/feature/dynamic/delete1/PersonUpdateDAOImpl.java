@@ -18,7 +18,7 @@ import sqlite.feature.dynamic.Person;
  */
 public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   public PersonUpdateDAOImpl(BindPersonUpdateDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

@@ -37,7 +37,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
   private static final Set<String> selectCityFromPerson1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
   public City2DAOImpl(BindPerson2DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -113,7 +113,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
     // log for content values -- END
     // conflict algorithm NONE
     // insert operation
-    long result = database().insert("city", 0, _contentValues.values());
+    long result = getDatabase().insert("city", 0, _contentValues.values());
     return result;
   }
 
@@ -149,7 +149,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanHelper - BEGIN
 
@@ -233,7 +233,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
     String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
 
     // execute query
-    Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 

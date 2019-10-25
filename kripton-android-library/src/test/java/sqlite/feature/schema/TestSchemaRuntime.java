@@ -49,7 +49,7 @@ public class TestSchemaRuntime extends BaseAndroidTest {
 	@Test
 	public void testRun() {
 		
-		BindSchoolDataSource.build(DataSourceOptions.builder().databaseLifecycleHandler(new DatabaseLifecycleHandler() {
+		DatabaseLifecycleHandler listener=new DatabaseLifecycleHandler() {
 			
 			@Override
 			public void onUpdate(SupportSQLiteDatabase db, int oldVersion, int newVersion, boolean upgrade) {
@@ -68,7 +68,25 @@ public class TestSchemaRuntime extends BaseAndroidTest {
 				// TODO Auto-generated method stub
 				
 			}
-		}).build());
+
+			@Override
+			public void onOpen(SupportSQLiteDatabase database) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onCorruption(SupportSQLiteDatabase database) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		BindSchoolDataSource.build(
+				DataSourceOptions
+				.builder()
+					.databaseLifecycleHandler(listener)
+					.build());
 		
 		try (BindSchoolDataSource dataSource = BindSchoolDataSource.open(); DaoProfessorImpl dao = dataSource.getDaoProfessor()) {
 			// dataSource.execute(transaction);

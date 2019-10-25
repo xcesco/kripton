@@ -37,7 +37,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   private static SupportSQLiteStatement deletePreparedStatement2;
 
   public PersonDaoImpl(BindPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -65,7 +65,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 
@@ -128,7 +128,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanHelper - BEGIN
 

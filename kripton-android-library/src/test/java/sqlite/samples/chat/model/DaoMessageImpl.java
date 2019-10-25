@@ -22,7 +22,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   private static SupportSQLiteStatement insertPreparedStatement0;
 
   public DaoMessageImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**

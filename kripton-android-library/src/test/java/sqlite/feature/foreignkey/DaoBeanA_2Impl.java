@@ -42,7 +42,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
   private static SupportSQLiteStatement updatePreparedStatement1;
 
   public DaoBeanA_2Impl(BindDummyDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -82,7 +82,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -160,7 +160,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -237,7 +237,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

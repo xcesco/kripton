@@ -270,7 +270,7 @@ public abstract class SqlSelectBuilder {
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
 		methodBuilder.addCode("\n// execute query\n");
-		methodBuilder.addStatement("Cursor _result = database().query(_sql, _contentValues.whereArgsAsArray())");
+		methodBuilder.addStatement("Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray())");
 
 		methodBuilder.addStatement("return _result");
 

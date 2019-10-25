@@ -34,7 +34,7 @@ public class DaoDocumentImpl extends Dao implements DaoDocument {
   private static final String SELECT_ALL_SQL2 = "SELECT id, file_name FROM document";
 
   public DaoDocumentImpl(BindDocumentDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -68,7 +68,7 @@ public class DaoDocumentImpl extends Dao implements DaoDocument {
     // add where arguments
     _contentValues.addWhereArgs((input==null?"":input));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectScalarListHelper - BEGIN
 
@@ -145,7 +145,7 @@ public class DaoDocumentImpl extends Dao implements DaoDocument {
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().query(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 

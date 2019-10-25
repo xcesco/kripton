@@ -585,7 +585,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 
