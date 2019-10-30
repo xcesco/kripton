@@ -408,15 +408,11 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   }
 
   /**
-   * onConfigure
+   * Returns <code>true</code> if database needs foreign keys.
    */
   @Override
-  protected void onConfigure(SupportSQLiteDatabase database) {
-    // configure database
-    database.setForeignKeyConstraintsEnabled(true);
-    if (options.databaseLifecycleHandler != null) {
-      options.databaseLifecycleHandler.onConfigure(database);
-    }
+  public boolean hasForeignKeys() {
+    return true;
   }
 
   public void clearCompiledStatements() {

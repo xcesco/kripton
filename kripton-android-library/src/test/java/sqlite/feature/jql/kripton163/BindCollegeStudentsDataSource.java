@@ -348,14 +348,11 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   }
 
   /**
-   * onConfigure
+   * Returns <code>true</code> if database needs foreign keys.
    */
   @Override
-  protected void onConfigure(SupportSQLiteDatabase database) {
-    // configure database
-    if (options.databaseLifecycleHandler != null) {
-      options.databaseLifecycleHandler.onConfigure(database);
-    }
+  public boolean hasForeignKeys() {
+    return false;
   }
 
   public void clearCompiledStatements() {

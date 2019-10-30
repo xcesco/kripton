@@ -133,7 +133,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	/** The log enabled. */
 	protected boolean logEnabled;
-	
+
 	/**
 	 * <p>
 	 * file name used to save database,
@@ -176,7 +176,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * .
 	 */
 	protected int version;
-	
+
 	/** if true, database was update during this application run. */
 	protected boolean versionChanged;
 
@@ -267,7 +267,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					// Closing database
 					if (database != null) {
 						clearCompiledStatements();
-						database.close();
+						sqliteHelper.close();
+						//database.close();
 					}
 					database = null;
 				}
@@ -277,8 +278,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				if (logEnabled)
 					Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			}
-		} catch (IOException e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
+			throw(e);
 		} finally {
 			manageStatus();
 			endLock();
@@ -370,6 +372,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 					@Override
 					public void onCreate(SupportSQLiteDatabase db) {
+						sqliteHelper.setWriteAheadLoggingEnabled(true);
 						AbstractDataSource.this.onCreate(db);
 					}
 
@@ -380,6 +383,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 					@Override
 					public void onOpen(SupportSQLiteDatabase db) {
+						sqliteHelper.setWriteAheadLoggingEnabled(true);
 						AbstractDataSource.this.onOpen(db);
 					}
 
@@ -564,6 +568,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			break;
 		}
 	}
+	
+	/**
+	 * Returns <code>true</code> if the database need foreign keys
+	 * @return
+	 * 	
+	 */
+	public abstract boolean hasForeignKeys();
 
 	/**
 	 * On configure.
@@ -571,7 +582,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @param database
 	 *            the database
 	 */
-	protected abstract void onConfigure(SupportSQLiteDatabase database);
+	protected void onConfigure(SupportSQLiteDatabase database) {
+		// configure database		
+		//database.setForeignKeyConstraintsEnabled(true);
+		if (options.databaseLifecycleHandler != null) {
+			options.databaseLifecycleHandler.onConfigure(database);
+		}
+	}
+	//protected abstract void onConfigure(SupportSQLiteDatabase database);
 
 	/**
 	 * The method invoked when database corruption is detected. Default
@@ -783,6 +801,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				if (database == null) {
 					sqliteHelper.setWriteAheadLoggingEnabled(true);
 					database = sqliteHelper.getReadableDatabase();
+					database.setForeignKeyConstraintsEnabled(hasForeignKeys());
 				}
 				if (logEnabled)
 					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
@@ -790,6 +809,12 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				if (logEnabled)
 					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			}
+		} catch (Throwable e) {
+			if (logEnabled) {
+				Logger.fatal("database error during open operation: %s", e.getMessage());
+				e.printStackTrace();
+			}
+			throw(e);
 		} finally {
 			if (lock)
 				endLock();
@@ -827,8 +852,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
 				if (database == null) {
-					sqliteHelper.setWriteAheadLoggingEnabled(true);
-					database = sqliteHelper.getWritableDatabase();
+					sqliteHelper.setWriteAheadLoggingEnabled(true);					
+					database = sqliteHelper.getWritableDatabase();				
+					database.setForeignKeyConstraintsEnabled(hasForeignKeys());
 				}
 				if (logEnabled)
 					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
@@ -836,6 +862,12 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				if (logEnabled)
 					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			}
+		} catch (Throwable e) {
+			if (logEnabled) {
+				Logger.fatal("database error during open operation: %s", e.getMessage());
+				e.printStackTrace();
+			}
+			throw(e);
 		} finally {
 			if (lock)
 				endLock();

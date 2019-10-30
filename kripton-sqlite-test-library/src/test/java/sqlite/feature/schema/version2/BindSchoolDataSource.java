@@ -333,7 +333,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * onCreate
    */
   @Override
-  public void onCreate(SupportSQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     // log section create BEGIN
     if (this.logEnabled) {
@@ -378,7 +378,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
@@ -437,15 +438,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * onConfigure
+   * Returns <code>true</code> if database need foreign keys.
    */
   @Override
-  public void onConfigure(SupportSQLiteDatabase database) {
-    // configure database
-    database.setForeignKeyConstraintsEnabled(true);
-    if (options.databaseLifecycleHandler != null) {
-      options.databaseLifecycleHandler.onConfigure(database);
-    }
+  public boolean hasForeignKeys() {
+    return true;
   }
 
   public void clearCompiledStatements() {
@@ -492,7 +489,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 

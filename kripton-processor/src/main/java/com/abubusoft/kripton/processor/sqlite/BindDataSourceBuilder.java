@@ -350,12 +350,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// onCreate
 		boolean useForeignKey = generateOnCreate(schema, orderedEntities);
+		//generateOnCreate(schema, orderedEntities);
 
 		// onUpgrade
 		generateOnUpgrade(schema, orderedEntities);
 
 		// onConfigure
-		generateOnConfigure(useForeignKey);
+		// bring to AbstractDatasource
+		generateHasForeignKeysNeeded(useForeignKey);
 
 		// generate
 		generateDaoUids(classBuilder, schema);
@@ -980,22 +982,29 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * @param useForeignKey
 	 *            the use foreign key
 	 */
-	private void generateOnConfigure(boolean useForeignKey) {
+	private void generateHasForeignKeysNeeded(boolean useForeignKey) {
 		// onConfigure
 
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onConfigure").addAnnotation(Override.class)
-				.addModifiers(Modifier.PROTECTED);
-		methodBuilder.addParameter(KriptonDynamicClassManager.getInstance().getDatabaseClazz(), "database");
-		methodBuilder.addJavadoc("onConfigure\n");
-		methodBuilder.addCode("// configure database\n");
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("hasForeignKeys").addAnnotation(Override.class)
+				.returns(Boolean.TYPE)
+				.addModifiers(Modifier.PUBLIC);
+		//methodBuilder.addParameter(KriptonDynamicClassManager.getInstance().getDatabaseClazz(), "database");
+		methodBuilder.addJavadoc("Returns <code>true</code> if database needs foreign keys.\n");
+		
+		methodBuilder.addStatement("return $L", useForeignKey);
+		/*if (useForeignKey) {
+			
+		}*/
+		
+		//methodBuilder.addCode("// configure database\n");
 
-		if (useForeignKey) {
+		/*if (useForeignKey) {
 			methodBuilder.addStatement("database.setForeignKeyConstraintsEnabled(true)");
 		}
 
 		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
 		methodBuilder.addStatement("options.databaseLifecycleHandler.onConfigure(database)");
-		methodBuilder.endControlFlow();
+		methodBuilder.endControlFlow();*/
 
 		classBuilder.addMethod(methodBuilder.build());
 	}
