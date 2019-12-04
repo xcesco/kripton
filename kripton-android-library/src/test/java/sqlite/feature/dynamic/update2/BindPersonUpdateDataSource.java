@@ -364,6 +364,10 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindPersonUpdateDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindPersonUpdateDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindPersonUpdateDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -391,6 +395,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
     } else {
       throw new KriptonRuntimeException("Datasource BindPersonUpdateDataSource is already builded");
     }
+    Logger.info("Datasource BindPersonUpdateDataSource is created");
     return result;
   }
 

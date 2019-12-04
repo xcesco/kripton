@@ -364,6 +364,10 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindWhisperDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindWhisperDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindWhisperDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -391,6 +395,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     } else {
       throw new KriptonRuntimeException("Datasource BindWhisperDataSource is already builded");
     }
+    Logger.info("Datasource BindWhisperDataSource is created");
     return result;
   }
 

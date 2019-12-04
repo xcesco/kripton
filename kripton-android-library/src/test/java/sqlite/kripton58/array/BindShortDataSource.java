@@ -363,6 +363,10 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindShortDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindShortDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindShortDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
     } else {
       throw new KriptonRuntimeException("Datasource BindShortDataSource is already builded");
     }
+    Logger.info("Datasource BindShortDataSource is created");
     return result;
   }
 

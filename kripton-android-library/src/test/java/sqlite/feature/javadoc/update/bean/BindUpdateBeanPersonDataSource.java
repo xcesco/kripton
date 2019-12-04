@@ -364,6 +364,10 @@ public class BindUpdateBeanPersonDataSource extends AbstractDataSource implement
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindUpdateBeanPersonDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindUpdateBeanPersonDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindUpdateBeanPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -391,6 +395,7 @@ public class BindUpdateBeanPersonDataSource extends AbstractDataSource implement
     } else {
       throw new KriptonRuntimeException("Datasource BindUpdateBeanPersonDataSource is already builded");
     }
+    Logger.info("Datasource BindUpdateBeanPersonDataSource is created");
     return result;
   }
 

@@ -364,6 +364,10 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindDeleteBeanPersonDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindDeleteBeanPersonDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindDeleteBeanPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -391,6 +395,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
     } else {
       throw new KriptonRuntimeException("Datasource BindDeleteBeanPersonDataSource is already builded");
     }
+    Logger.info("Datasource BindDeleteBeanPersonDataSource is created");
     return result;
   }
 

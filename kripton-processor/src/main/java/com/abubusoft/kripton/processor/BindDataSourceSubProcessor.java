@@ -1272,7 +1272,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		String configDatabaseErrorHandler = ReferredClasses.NO_DATABASE_ERROR_HANDLER_CLASS_NAME;
 		String configDatabaseLifecycleHandler = ReferredClasses.NO_DATABASE_LIFECYCLE_HANDLER_CLASS_NAME;
 		boolean configInMemory = false;
-		boolean configLogEnabled = true;
+		boolean configLogEnabled = true;		
 		String configPopulatorClass = NoPopulator.class.getName();
 
 		// manage for annotated data-source options
@@ -1287,7 +1287,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			configCursorFactory = AnnotationUtility.extractAsClassName(databaseSchema, BindDataSourceOptions.class,
 					AnnotationAttributeType.OPEN_HELPER_FACTORY);
 			configDatabaseLifecycleHandler = AnnotationUtility.extractAsClassName(databaseSchema,
-					BindDataSourceOptions.class, AnnotationAttributeType.DATABASE_LIFECYCLE_HANDLER);
+					BindDataSourceOptions.class, AnnotationAttributeType.DATABASE_LIFECYCLE_HANDLER);	
+			// force config is not used here (we are working on getInstance()).
 		}
 
 		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName,

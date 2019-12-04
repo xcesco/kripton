@@ -396,6 +396,10 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindRssDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindRssDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindRssDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -423,6 +427,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
     } else {
       throw new KriptonRuntimeException("Datasource BindRssDataSource is already builded");
     }
+    Logger.info("Datasource BindRssDataSource is created");
     return result;
   }
 

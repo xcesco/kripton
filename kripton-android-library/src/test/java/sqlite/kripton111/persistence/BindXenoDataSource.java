@@ -428,6 +428,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindXenoDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindXenoDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindXenoDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -455,6 +459,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     } else {
       throw new KriptonRuntimeException("Datasource BindXenoDataSource is already builded");
     }
+    Logger.info("Datasource BindXenoDataSource is created");
     return result;
   }
 

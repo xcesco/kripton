@@ -363,6 +363,10 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindDocumentDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindDocumentDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindDocumentDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
     } else {
       throw new KriptonRuntimeException("Datasource BindDocumentDataSource is already builded");
     }
+    Logger.info("Datasource BindDocumentDataSource is created");
     return result;
   }
 

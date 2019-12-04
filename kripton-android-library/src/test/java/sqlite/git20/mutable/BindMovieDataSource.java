@@ -363,6 +363,10 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindMovieDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindMovieDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindMovieDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
     } else {
       throw new KriptonRuntimeException("Datasource BindMovieDataSource is already builded");
     }
+    Logger.info("Datasource BindMovieDataSource is created");
     return result;
   }
 

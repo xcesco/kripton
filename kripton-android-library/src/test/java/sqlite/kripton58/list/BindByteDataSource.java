@@ -363,6 +363,10 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindByteDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindByteDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindByteDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
     } else {
       throw new KriptonRuntimeException("Datasource BindByteDataSource is already builded");
     }
+    Logger.info("Datasource BindByteDataSource is created");
     return result;
   }
 

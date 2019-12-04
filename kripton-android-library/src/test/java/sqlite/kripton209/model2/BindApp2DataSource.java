@@ -425,6 +425,10 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindApp2DataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindApp2DataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindApp2DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -452,6 +456,7 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
     } else {
       throw new KriptonRuntimeException("Datasource BindApp2DataSource is already builded");
     }
+    Logger.info("Datasource BindApp2DataSource is created");
     return result;
   }
 

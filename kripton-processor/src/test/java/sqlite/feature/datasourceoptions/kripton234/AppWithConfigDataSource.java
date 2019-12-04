@@ -26,7 +26,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonSQLiteOpenHelperFactory;
 @BindDataSourceOptions(logEnabled = true, 
 	populator = PersonPopulator.class, 
 	openHelperFactory = KriptonSQLiteOpenHelperFactory.class, 
-	databaseLifecycleHandler = PersonLifecycleHandler.class, 
+	databaseLifecycleHandler = PersonLifecycleHandler.class, 	
 	updateTasks = {
 		@BindDataSourceUpdateTask(version = 2, task = PersonUpdateTask.class) })
 @BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db" , log=true)

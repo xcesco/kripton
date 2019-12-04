@@ -395,6 +395,10 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindArtistsDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindArtistsDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindArtistsDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -422,6 +426,7 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
     } else {
       throw new KriptonRuntimeException("Datasource BindArtistsDataSource is already builded");
     }
+    Logger.info("Datasource BindArtistsDataSource is created");
     return result;
   }
 

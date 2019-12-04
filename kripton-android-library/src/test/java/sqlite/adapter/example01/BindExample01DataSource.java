@@ -363,6 +363,10 @@ public class BindExample01DataSource extends AbstractDataSource implements BindE
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindExample01DataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindExample01DataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindExample01DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindExample01DataSource extends AbstractDataSource implements BindE
     } else {
       throw new KriptonRuntimeException("Datasource BindExample01DataSource is already builded");
     }
+    Logger.info("Datasource BindExample01DataSource is created");
     return result;
   }
 

@@ -363,6 +363,10 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindSchoolLunchDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindSchoolLunchDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindSchoolLunchDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
     } else {
       throw new KriptonRuntimeException("Datasource BindSchoolLunchDataSource is already builded");
     }
+    Logger.info("Datasource BindSchoolLunchDataSource is created");
     return result;
   }
 

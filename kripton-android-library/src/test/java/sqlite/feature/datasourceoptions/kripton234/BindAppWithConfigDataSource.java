@@ -373,6 +373,10 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindAppWithConfigDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindAppWithConfigDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindAppWithConfigDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -400,6 +404,7 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
     } else {
       throw new KriptonRuntimeException("Datasource BindAppWithConfigDataSource is already builded");
     }
+    Logger.info("Datasource BindAppWithConfigDataSource is created");
     return result;
   }
 

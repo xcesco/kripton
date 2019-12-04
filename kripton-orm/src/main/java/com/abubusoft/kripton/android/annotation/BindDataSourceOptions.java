@@ -80,8 +80,8 @@ BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.build(optionsBuilder.
  * </pre>
  * 
  * <p>
- * To achieve the same result with <strong>@BindDataSourceOptions</strong> just define data
- * source:
+ * To achieve the same result with <strong>@BindDataSourceOptions</strong> just
+ * define data source:
  * </p>
  * 
  * <pre>
@@ -103,7 +103,8 @@ BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.build(optionsBuilder.
  * 
  * <h2>Attributes</h2>
  * <ul>
- * <li><strong>openHelperFactory</strong>: factory for openHelper used to create database.</li> * 
+ * <li><strong>openHelperFactory</strong>: factory for openHelper used to create
+ * database.</li> *
  * <li><strong>databaseLifecycleHandler</strong>: databaseLifecycleHandler</li>
  * <li><strong>inMemory</strong>: if true, generate database in memory.</li>
  * <li><strong>logEnabled</strong>: Log enabled. This flag controls log that is
@@ -124,7 +125,8 @@ public @interface BindDataSourceOptions {
 	/**
 	 * open helper factory.
 	 *
-	 * @return the class&lt;? extends open helper factory&gt;. Default constructor must be defined and public.
+	 * @return the class&lt;? extends open helper factory&gt;. Default
+	 *         constructor must be defined and public.
 	 */
 	public Class<? extends SupportSQLiteOpenHelper.Factory> openHelperFactory() default KriptonSQLiteOpenHelperFactory.class;
 
@@ -155,6 +157,15 @@ public @interface BindDataSourceOptions {
 	 * @return true to show operations log
 	 */
 	boolean logEnabled() default true;
+
+	/**
+	 * Add force instance properties to force instance creation during
+	 * datasource build
+	 * 
+	 * @return forces instance properties to force instance creation during
+	 *         datasource build
+	 */
+	boolean forceBuild() default false;
 
 	/**
 	 * {@link SQLitePopulator#execute()} is executed after database creation.

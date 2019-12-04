@@ -394,6 +394,10 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindDummyDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindDummyDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindDummyDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -421,6 +425,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
     } else {
       throw new KriptonRuntimeException("Datasource BindDummyDataSource is already builded");
     }
+    Logger.info("Datasource BindDummyDataSource is created");
     return result;
   }
 

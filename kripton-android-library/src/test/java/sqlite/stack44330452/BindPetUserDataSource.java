@@ -394,6 +394,10 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindPetUserDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindPetUserDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindPetUserDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -421,6 +425,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     } else {
       throw new KriptonRuntimeException("Datasource BindPetUserDataSource is already builded");
     }
+    Logger.info("Datasource BindPetUserDataSource is created");
     return result;
   }
 

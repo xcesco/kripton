@@ -363,6 +363,10 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindStringDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindStringDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindStringDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
     } else {
       throw new KriptonRuntimeException("Datasource BindStringDataSource is already builded");
     }
+    Logger.info("Datasource BindStringDataSource is created");
     return result;
   }
 

@@ -364,6 +364,10 @@ public class BindInsertRawPersonDataSource extends AbstractDataSource implements
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindInsertRawPersonDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindInsertRawPersonDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindInsertRawPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -391,6 +395,7 @@ public class BindInsertRawPersonDataSource extends AbstractDataSource implements
     } else {
       throw new KriptonRuntimeException("Datasource BindInsertRawPersonDataSource is already builded");
     }
+    Logger.info("Datasource BindInsertRawPersonDataSource is created");
     return result;
   }
 

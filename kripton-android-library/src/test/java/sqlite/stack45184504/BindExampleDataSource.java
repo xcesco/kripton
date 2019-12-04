@@ -363,6 +363,10 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindExampleDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindExampleDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindExampleDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
     } else {
       throw new KriptonRuntimeException("Datasource BindExampleDataSource is already builded");
     }
+    Logger.info("Datasource BindExampleDataSource is created");
     return result;
   }
 

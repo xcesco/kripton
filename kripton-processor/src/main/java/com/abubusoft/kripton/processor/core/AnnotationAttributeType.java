@@ -222,7 +222,7 @@ public enum AnnotationAttributeType {
 	 */
 	URI("uri"),
 	
-	GENERATE_LIVE_DATA("liveData");
+	GENERATE_LIVE_DATA("liveData");	
 
 	/** The value. */
 	private String value;

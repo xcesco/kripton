@@ -363,6 +363,10 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindBean64ADataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindBean64ADataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindBean64ADataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
     } else {
       throw new KriptonRuntimeException("Datasource BindBean64ADataSource is already builded");
     }
+    Logger.info("Datasource BindBean64ADataSource is created");
     return result;
   }
 

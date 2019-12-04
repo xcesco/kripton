@@ -363,6 +363,10 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindIntegerDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindIntegerDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindIntegerDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
     } else {
       throw new KriptonRuntimeException("Datasource BindIntegerDataSource is already builded");
     }
+    Logger.info("Datasource BindIntegerDataSource is created");
     return result;
   }
 

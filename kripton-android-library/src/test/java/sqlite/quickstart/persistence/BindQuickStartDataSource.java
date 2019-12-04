@@ -460,6 +460,10 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindQuickStartDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindQuickStartDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindQuickStartDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -487,6 +491,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
     } else {
       throw new KriptonRuntimeException("Datasource BindQuickStartDataSource is already builded");
     }
+    Logger.info("Datasource BindQuickStartDataSource is created");
     return result;
   }
 

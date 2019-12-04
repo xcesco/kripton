@@ -363,6 +363,10 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindContactDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindContactDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindContactDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
     } else {
       throw new KriptonRuntimeException("Datasource BindContactDataSource is already builded");
     }
+    Logger.info("Datasource BindContactDataSource is created");
     return result;
   }
 

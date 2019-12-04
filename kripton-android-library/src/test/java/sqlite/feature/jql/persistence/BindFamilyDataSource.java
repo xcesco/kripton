@@ -396,6 +396,10 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindFamilyDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindFamilyDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindFamilyDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -423,6 +427,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
     } else {
       throw new KriptonRuntimeException("Datasource BindFamilyDataSource is already builded");
     }
+    Logger.info("Datasource BindFamilyDataSource is created");
     return result;
   }
 

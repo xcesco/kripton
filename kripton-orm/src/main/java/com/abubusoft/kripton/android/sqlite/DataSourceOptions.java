@@ -53,6 +53,11 @@ public class DataSourceOptions {
 	public final Factory openHelperFactory;
 
 	/**
+	 * If database is builded with the build method, forces the instance to be created
+	 */
+	public final boolean forceBuild;
+
+	/**
 	 * Builder.
 	 *
 	 * @return the builder
@@ -82,6 +87,11 @@ public class DataSourceOptions {
 		private boolean inMemory;
 
 		/**
+		 * If <code>true</code> force instance to be created. Default is <code>false</code>.
+		 */
+		private boolean forceBuild=false;
+
+		/**
 		 * OpenHelper factory. Default is provided with kripton
 		 */
 		private SupportSQLiteOpenHelper.Factory openHelperFactory = new KriptonSQLiteOpenHelperFactory();
@@ -104,16 +114,16 @@ public class DataSourceOptions {
 		}
 
 		/**
-		 * Error handler.
+		 * If <code>true</code> force instance to be created. Default is <code>false</code>.
 		 *
 		 * @param value
 		 *            the value
 		 * @return the builder
 		 */
-		// public Builder errorHandler(DatabaseErrorHandler value) {
-		// this.errorHandler = value;
-		// return this;
-		// }
+		public Builder forceBuild(boolean value) {
+			this.forceBuild = value;
+			return this;
+		}
 
 		/**
 		 * Database lifecycle handler.
@@ -249,8 +259,8 @@ public class DataSourceOptions {
 		 * @return the data source options
 		 */
 		public DataSourceOptions build() {
-			return new DataSourceOptions(databaseLifecycleHandler, updateTasks,
-					logEnabled, populator, inMemory, openHelperFactory);
+			return new DataSourceOptions(databaseLifecycleHandler, updateTasks, logEnabled, populator, inMemory,
+					openHelperFactory, forceBuild);
 		}
 
 		/**
@@ -291,16 +301,19 @@ public class DataSourceOptions {
 	 * @param inMemory
 	 *            the in memory
 	 * @param openHelperFactory
+	 * @param forceBuild
+	 * 			force the build method to rebuild the instance
 	 */
 	private DataSourceOptions(DatabaseLifecycleHandler databaseLifecycleHandler,
 			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator,
-			boolean inMemory, Factory openHelperFactory) {
+			boolean inMemory, Factory openHelperFactory, boolean forceBuild) {
 		this.logEnabled = log;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;
 		this.updateTasks = updateTasks;
 		this.populator = populator;
 		this.inMemory = inMemory;
 		this.openHelperFactory = openHelperFactory;
+		this.forceBuild=forceBuild;
 	}
 
 }

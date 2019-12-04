@@ -363,6 +363,10 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindPersonDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindPersonDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -390,6 +394,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     } else {
       throw new KriptonRuntimeException("Datasource BindPersonDataSource is already builded");
     }
+    Logger.info("Datasource BindPersonDataSource is created");
     return result;
   }
 

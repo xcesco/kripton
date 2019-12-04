@@ -626,6 +626,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		} else {
 			methodBuilder.addJavadoc("<p>Retrieve instance.</p>\n");
 		}
+		
+		if (!instance) {
+			//ASSERT: we are in build
+			methodBuilder.beginControlFlow("if (options.forceBuild && instance!=null)");
+			methodBuilder.addStatement("$T.info(\"Datasource $L is forced to be (re)builded\")", Logger.class, schemaName);
+			methodBuilder.addStatement("instance=null");
+			methodBuilder.endControlFlow();
+		}
 
 		methodBuilder.addStatement("$T result=instance", className(schemaName));
 		methodBuilder.beginControlFlow("if (result==null)");
@@ -683,6 +691,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 		methodBuilder.endControlFlow();
 
+		if (!instance) {
+			//ASSERT: we are in build
+			methodBuilder.addStatement("$T.info(\"Datasource $L is created\")", Logger.class, schemaName);
+		}
+		
 		methodBuilder.addCode("return result;\n");
 
 		classBuilder.addMethod(methodBuilder.build());

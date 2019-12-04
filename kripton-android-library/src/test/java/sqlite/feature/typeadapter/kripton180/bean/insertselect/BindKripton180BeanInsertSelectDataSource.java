@@ -690,6 +690,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindKripton180BeanInsertSelectDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindKripton180BeanInsertSelectDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindKripton180BeanInsertSelectDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -717,6 +721,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     } else {
       throw new KriptonRuntimeException("Datasource BindKripton180BeanInsertSelectDataSource is already builded");
     }
+    Logger.info("Datasource BindKripton180BeanInsertSelectDataSource is created");
     return result;
   }
 
