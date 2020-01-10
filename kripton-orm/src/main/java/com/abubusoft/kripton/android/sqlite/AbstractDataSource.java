@@ -522,6 +522,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	public boolean isOpen() {
 		return database != null && database.isOpen() && database.isDbLockedByCurrentThread();
 	}
+	
+	/**
+	 * Return <code>true</code> if any operation is running on datasource, <code>false</code> if database is currently closed.
+	 * @return
+	 */
+	public boolean isAnyPendingOperation() {
+		return openCounter.get()>0;
+	}
 
 	/**
 	 * <p>
