@@ -3,7 +3,7 @@ package sqlite.feature.typeadapter.kripton180.bean.insertselect;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -34,7 +34,7 @@ public class EmployeeBeanInsertSelectDaoImpl extends Dao implements EmployeeBean
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public EmployeeBeanInsertSelectDaoImpl(BindKripton180BeanInsertSelectDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -107,7 +107,7 @@ public class EmployeeBeanInsertSelectDaoImpl extends Dao implements EmployeeBean
     // insert operation
     // generate SQL for insert
     String _sql=String.format("INSERT INTO employees (%s) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?", _contentValues.keyList());
-    long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
+    long result = KriptonDatabaseHelper.insert(_context, _sql, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     if (result>0) {

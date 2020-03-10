@@ -9,6 +9,17 @@ import com.squareup.javapoet.TypeName;
 
 public class KriptonDynamicClassManager {
 
+	private static final String KRIPTON_X_DATABASE_CLASS_NAME = "androidx.sqlite.db.SupportSQLiteDatabase";
+	private static final String KRIPTON_X_STATEMENT_CLASS_NAME = "androidx.sqlite.db.SupportSQLiteStatement";
+	/*
+	 * private static final String
+	 * KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME =
+	 * "com.abubusoft.kripton.androidx.livedata.KriptonXPagedLiveDataHandlerImpl";
+	 * private static final String
+	 * KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME =
+	 * "com.abubusoft.kripton.androidx.livedata.KriptonXPagedLiveDataHandlerImpl";
+	 */
+
 	private static final String KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME = "com.abubusoft.kripton.androidx.livedata.KriptonXPagedLiveDataHandlerImpl";
 
 	private static final String KRIPTON_X_PAGED_LIVE_DATA_CLASS_NAME = "com.abubusoft.kripton.androidx.livedata.PagedLiveData";
@@ -35,6 +46,15 @@ public class KriptonDynamicClassManager {
 			instance = new KriptonDynamicClassManager(bAndroidXSupportVale, bAndroidXDBSupportVale);
 
 			instance.liveDataClazzSet.clear();
+
+			// define database support layer classes
+			instance.databaseClazz = ClassName.bestGuess(KRIPTON_X_DATABASE_CLASS_NAME);
+			instance.statementClazz = ClassName.bestGuess(KRIPTON_X_STATEMENT_CLASS_NAME);
+			/*
+			 * if (instance.androidXDB) {
+			 * 
+			 * } else { instance.databaseClazz=ClassName.bestGuess(""); }
+			 */
 
 			if (instance.androidxSupport) {
 				instance.liveDataHandlerClazz = ClassName.bestGuess(KRIPTON_X_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
@@ -78,7 +98,7 @@ public class KriptonDynamicClassManager {
 	public boolean isAndroidxSupport() {
 		return androidxSupport;
 	}
-	
+
 	private boolean androidXDB;
 
 	public boolean isAndroidXDB() {
@@ -86,17 +106,25 @@ public class KriptonDynamicClassManager {
 	}
 
 	private ClassName liveDataClazz;
-
 	private ClassName liveDataHandlerClazz;
 	private ClassName mutableLiveDataClazz;
-
 	private ClassName pagedLiveDataClazz;
-
 	private ClassName pagedLiveDataHandlerClazz;
+
+	private ClassName databaseClazz;
+	private ClassName statementClazz;
+
+	public ClassName getStatementClazz() {
+		return statementClazz;
+	}
+
+	public ClassName getDatabaseClazz() {
+		return databaseClazz;
+	}
 
 	private KriptonDynamicClassManager(boolean value, boolean bAndroidXDBSupportVale) {
 		androidxSupport = value;
-		androidXDB=bAndroidXDBSupportVale;
+		androidXDB = bAndroidXDBSupportVale;
 	}
 
 	public ClassName getLiveDataClazz() {
@@ -121,26 +149,7 @@ public class KriptonDynamicClassManager {
 
 	public boolean isLiveData(String wrapperName) {
 		return this.liveDataClazzSet.contains(wrapperName);
-		// if (!androidxSupport &&
-		// (com.abubusoft.kripton.android.livedata.KriptonLiveData.class.getName().equals(wrapperName)
-		// ||
-		// android.arch.lifecycle.MutableLiveData.class.getName().equals(wrapperName)
-		// ||
-		// android.arch.lifecycle.LiveData.class.getName().equals(wrapperName)))
-		// {
-		// return true;
-		// }
-		//
-		// if (androidxSupport &&
-		// (com.abubusoft.kripton.androidx.livedata.KriptonXLiveData.class.getName().equals(wrapperName)
-		// ||
-		// androidx.lifecycle.MutableLiveData.class.getName().equals(wrapperName)
-		// || androidx.lifecycle.LiveData.class.getName().equals(wrapperName)))
-		// {
-		// return true;
-		// }
-		//
-		// return false;
+
 	}
 
 	public boolean isPagedLiveData(TypeName liveDataReturnClass) {

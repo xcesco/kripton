@@ -2,18 +2,19 @@ package sqlite.feature.custombean.case2;
 
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.adapters.DateTime2LongTypeAdapter;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -76,16 +77,16 @@ public class BookDaoImpl extends Dao implements BookDao {
    */
   private static final String FIND_ALL_BOOKS_SYNC_SQL9 = "SELECT id, title FROM book";
 
-  private static SQLiteStatement insertBookPreparedStatement0;
+  private static SupportSQLiteStatement insertBookPreparedStatement0;
 
-  private static SQLiteStatement updateBookPreparedStatement1;
+  private static SupportSQLiteStatement updateBookPreparedStatement1;
 
-  private static SQLiteStatement deleteAllPreparedStatement2;
+  private static SupportSQLiteStatement deleteAllPreparedStatement2;
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public BookDaoImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -133,7 +134,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -204,7 +205,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -330,7 +331,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -457,7 +458,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -534,7 +535,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -660,7 +661,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -786,7 +787,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -855,7 +856,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -963,7 +964,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1018,7 +1019,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     if (insertBookPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO book (id, title) VALUES (?, ?)";
-      insertBookPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertBookPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBookPreparedStatement0);
     _contentValues.put("id", book.id);
@@ -1060,7 +1061,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertBookPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertBookPreparedStatement0, _contentValues);
     // support for livedata
     registryEvent(result>0?1:0);
     // Specialized Insert - InsertType - END
@@ -1083,7 +1084,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     if (updateBookPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE OR REPLACE book SET title=?";
-      updateBookPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateBookPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBookPreparedStatement1);
     _contentValues.put("title", book.title);
@@ -1117,7 +1118,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateBookPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateBookPreparedStatement1, _contentValues);
     // support for livedata
     registryEvent(result);
   }
@@ -1134,7 +1135,7 @@ public class BookDaoImpl extends Dao implements BookDao {
     if (deleteAllPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM book";
-      deleteAllPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement2);
 
@@ -1154,7 +1155,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllPreparedStatement2, _contentValues);
     // support for livedata
     registryEvent(result);
   }
@@ -1195,17 +1196,21 @@ public class BookDaoImpl extends Dao implements BookDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertBookPreparedStatement0!=null) {
-      insertBookPreparedStatement0.close();
-      insertBookPreparedStatement0=null;
-    }
-    if (updateBookPreparedStatement1!=null) {
-      updateBookPreparedStatement1.close();
-      updateBookPreparedStatement1=null;
-    }
-    if (deleteAllPreparedStatement2!=null) {
-      deleteAllPreparedStatement2.close();
-      deleteAllPreparedStatement2=null;
+    try {
+      if (insertBookPreparedStatement0!=null) {
+        insertBookPreparedStatement0.close();
+        insertBookPreparedStatement0=null;
+      }
+      if (updateBookPreparedStatement1!=null) {
+        updateBookPreparedStatement1.close();
+        updateBookPreparedStatement1=null;
+      }
+      if (deleteAllPreparedStatement2!=null) {
+        deleteAllPreparedStatement2.close();
+        deleteAllPreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

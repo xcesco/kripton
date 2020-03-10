@@ -1,14 +1,15 @@
 package sqlite.feature.typeadapter.bitmap;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
  *  @see PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   /**
    * SQL definition for method list
@@ -30,7 +31,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   private static final String LIST_SQL1 = "SELECT id, image FROM person";
 
   public DaoPersonImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -55,7 +56,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (image) VALUES (?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("image", SQLTypeAdapterUtils.toData(BitmapTypeAdapter.class, bean.image));
@@ -96,7 +97,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -141,7 +142,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -176,9 +177,13 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

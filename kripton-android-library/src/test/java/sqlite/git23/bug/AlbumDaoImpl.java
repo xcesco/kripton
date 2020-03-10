@@ -2,16 +2,17 @@ package sqlite.git23.bug;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -31,12 +32,12 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
 
   private static final Set<String> selectById0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
-  private static SQLiteStatement updatePreparedStatement0;
+  private static SupportSQLiteStatement updatePreparedStatement0;
 
   private static final Set<String> update1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
   public AlbumDaoImpl(BindAlbumDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -84,7 +85,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -184,7 +185,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -212,7 +213,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     if (updatePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE OR IGNORE album SET name=? WHERE id=?";
-      updatePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement0);
     _contentValues.put("name", pref.name);
@@ -247,7 +248,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -327,14 +328,18 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
 
     // execute SQL
     // conflict algorithm IGNORE
-    int result = database().updateWithOnConflict("album", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray(), 4);
+    int result = getDatabase().update("album", 4, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (updatePreparedStatement0!=null) {
-      updatePreparedStatement0.close();
-      updatePreparedStatement0=null;
+    try {
+      if (updatePreparedStatement0!=null) {
+        updatePreparedStatement0.close();
+        updatePreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

@@ -1,14 +1,15 @@
 package sqlite.feature.in.case3;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.SpreadUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,10 @@ import java.util.List;
  *  @see CityTable
  */
 public class DaoCityImpl extends Dao implements DaoCity {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   public DaoCityImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -50,7 +51,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO city (name) VALUES (?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("name", bean.name);
@@ -91,7 +92,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -161,7 +162,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -195,9 +196,13 @@ public class DaoCityImpl extends Dao implements DaoCity {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

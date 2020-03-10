@@ -5,48 +5,61 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>6.0.0</version>
+		<version>7.0.0-rc.3</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
- 
+
 	<artifactId>kripton-orm</artifactId>
 
 	<name>Kripton ORM</name>
 	<description>Kripton Persistence Library - ORM module</description>
 	<packaging>jar</packaging>
-	
+
 	<properties>
-		<kripton.version>6.0.0</kripton.version>
-		
+		<kripton.version>7.0.0-rc.3</kripton.version>
+
 		<!-- dependencies version -->
 		<jackson.version>2.9.8</jackson.version>
 		<retrofit.version>2.5.0</retrofit.version>
-		<rx.version>2.2.10</rx.version>	
-		
+		<rx.version>2.2.10</rx.version>
+
 		<!-- test version -->
 		<junit.version>4.12</junit.version>
 		<unitils.version>3.4.2</unitils.version>
 		<jsr305.version>3.0.1</jsr305.version>
-		<guava.version>23.0</guava.version>		
+		<guava.version>23.0</guava.version>
 		<robolectric.version>3.1.4</robolectric.version>
-		
+
 		<!-- android stub by roboletric -->
 		<roboletricAndroidAll.version>5.0.0_r2-robolectric-0</roboletricAndroidAll.version>
-		
+
 		<!-- processor libraries -->
 		<javapoet.version>1.9.0</javapoet.version>
 		<antlr.version>4.7.1</antlr.version>
+		<androidx.sqlite.version>2.0.1</androidx.sqlite.version>
 	</properties>
 
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/androidx.sqlite/sqlite -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>androidx.sqlite</groupId> -->
+<!-- 			<artifactId>sqlite</artifactId> -->
+<!-- 			<version>${androidx.sqlite.version}</version> -->
+<!-- 		</dependency> -->
+
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-android-core</artifactId>
 			<version>${kripton.version}</version>
 		</dependency>
-	
 
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-arch-integration</artifactId>
+			<version>${kripton.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- RX dependencies - BEGIN -->
 		<dependency>
@@ -56,8 +69,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- RX dependencies - END -->
-
-
 
 		<dependency>
 			<groupId>org.robolectric</groupId>

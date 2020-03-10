@@ -1,15 +1,16 @@
 package sqlite.feature.async;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -25,37 +26,37 @@ import java.util.Set;
  *  @see ChannelTable
  */
 public class DaoChannelImpl extends Dao implements DaoChannel {
-  private static SQLiteStatement deleteContactBean1PreparedStatement0;
+  private static SupportSQLiteStatement deleteContactBean1PreparedStatement0;
 
-  private static SQLiteStatement deleteContactBean2PreparedStatement1;
+  private static SupportSQLiteStatement deleteContactBean2PreparedStatement1;
 
-  private static SQLiteStatement deleteContactRaw1PreparedStatement2;
+  private static SupportSQLiteStatement deleteContactRaw1PreparedStatement2;
 
-  private static SQLiteStatement deleteContactRaw2PreparedStatement3;
+  private static SupportSQLiteStatement deleteContactRaw2PreparedStatement3;
 
-  private static SQLiteStatement insertRaw1PreparedStatement4;
+  private static SupportSQLiteStatement insertRaw1PreparedStatement4;
 
-  private static SQLiteStatement insertRaw2PreparedStatement5;
+  private static SupportSQLiteStatement insertRaw2PreparedStatement5;
 
-  private static SQLiteStatement insertRaw3PreparedStatement6;
+  private static SupportSQLiteStatement insertRaw3PreparedStatement6;
 
-  private static SQLiteStatement insertBean1PreparedStatement7;
+  private static SupportSQLiteStatement insertBean1PreparedStatement7;
 
-  private static SQLiteStatement insertBean2PreparedStatement8;
+  private static SupportSQLiteStatement insertBean2PreparedStatement8;
 
-  private static SQLiteStatement updateContactRaw1PreparedStatement9;
+  private static SupportSQLiteStatement updateContactRaw1PreparedStatement9;
 
-  private static SQLiteStatement updateContactRaw2PreparedStatement10;
+  private static SupportSQLiteStatement updateContactRaw2PreparedStatement10;
 
-  private static SQLiteStatement updateContactRaw3PreparedStatement11;
+  private static SupportSQLiteStatement updateContactRaw3PreparedStatement11;
 
-  private static SQLiteStatement updateContactRaw4PreparedStatement12;
+  private static SupportSQLiteStatement updateContactRaw4PreparedStatement12;
 
-  private static SQLiteStatement updateContactBean1PreparedStatement13;
+  private static SupportSQLiteStatement updateContactBean1PreparedStatement13;
 
-  private static SQLiteStatement updateContactBean2PreparedStatement14;
+  private static SupportSQLiteStatement updateContactBean2PreparedStatement14;
 
-  private static SQLiteStatement updateContactBean3PreparedStatement15;
+  private static SupportSQLiteStatement updateContactBean3PreparedStatement15;
 
   /**
    * SQL definition for method selectAll
@@ -128,7 +129,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   private static final String SELECT_BEAN8_SQL14 = "SELECT update_time FROM channel WHERE update_time=?";
 
   public DaoChannelImpl(BindDummy01DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -150,7 +151,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (deleteContactBean1PreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM channel WHERE owner_uid=?";
-      deleteContactBean1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteContactBean1PreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteContactBean1PreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(channel.getId()));
@@ -171,7 +172,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteContactBean1PreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteContactBean1PreparedStatement0, _contentValues);
     return result!=0;
   }
 
@@ -194,7 +195,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (deleteContactBean2PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM channel WHERE owner_uid=?";
-      deleteContactBean2PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteContactBean2PreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteContactBean2PreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(value.getId()));
@@ -215,7 +216,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteContactBean2PreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteContactBean2PreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -241,7 +242,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (deleteContactRaw1PreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM channel WHERE owner_uid=? and id=?";
-      deleteContactRaw1PreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteContactRaw1PreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteContactRaw1PreparedStatement2);
     _contentValues.addWhereArgs((b==null?"":b));
@@ -263,7 +264,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteContactRaw1PreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteContactRaw1PreparedStatement2, _contentValues);
     return result;
   }
 
@@ -289,7 +290,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (deleteContactRaw2PreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM channel WHERE owner_uid=? and id=?";
-      deleteContactRaw2PreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteContactRaw2PreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteContactRaw2PreparedStatement3);
     _contentValues.addWhereArgs((ownerUid==null?"":ownerUid));
@@ -311,7 +312,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteContactRaw2PreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteContactRaw2PreparedStatement3, _contentValues);
     return result!=0;
   }
 
@@ -338,7 +339,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (insertRaw1PreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
-      insertRaw1PreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertRaw1PreparedStatement4 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw1PreparedStatement4);
 
@@ -381,7 +382,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertRaw1PreparedStatement4, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertRaw1PreparedStatement4, _contentValues);
     return result;
     // Specialized Insert - InsertType - END
   }
@@ -409,7 +410,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (insertRaw2PreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
-      insertRaw2PreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertRaw2PreparedStatement5 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw2PreparedStatement5);
 
@@ -452,7 +453,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertRaw2PreparedStatement5, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertRaw2PreparedStatement5, _contentValues);
     return result!=-1;
     // Specialized Insert - InsertType - END
   }
@@ -480,7 +481,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (insertRaw3PreparedStatement6==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
-      insertRaw3PreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertRaw3PreparedStatement6 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw3PreparedStatement6);
 
@@ -523,7 +524,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertRaw3PreparedStatement6, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertRaw3PreparedStatement6, _contentValues);
     return (int)result;
     // Specialized Insert - InsertType - END
   }
@@ -553,7 +554,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (insertBean1PreparedStatement7==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (?, ?, ?, ?)";
-      insertBean1PreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertBean1PreparedStatement7 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBean1PreparedStatement7);
     _contentValues.put("name", bean.getName());
@@ -597,7 +598,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertBean1PreparedStatement7, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertBean1PreparedStatement7, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
@@ -630,7 +631,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (insertBean2PreparedStatement8==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (?, ?, ?, ?)";
-      insertBean2PreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertBean2PreparedStatement8 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBean2PreparedStatement8);
     _contentValues.put("name", bean.getName());
@@ -674,7 +675,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertBean2PreparedStatement8, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertBean2PreparedStatement8, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
@@ -708,7 +709,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (updateContactRaw1PreparedStatement9==null) {
       // generate static SQL for statement
       String _sql="UPDATE channel SET id=? WHERE id=?";
-      updateContactRaw1PreparedStatement9 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateContactRaw1PreparedStatement9 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw1PreparedStatement9);
     _contentValues.put("id", glu);
@@ -743,7 +744,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateContactRaw1PreparedStatement9, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateContactRaw1PreparedStatement9, _contentValues);
     return result;
   }
 
@@ -773,7 +774,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (updateContactRaw2PreparedStatement10==null) {
       // generate static SQL for statement
       String _sql="UPDATE channel SET id=? WHERE id=?";
-      updateContactRaw2PreparedStatement10 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateContactRaw2PreparedStatement10 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw2PreparedStatement10);
     _contentValues.put("id", id);
@@ -808,7 +809,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateContactRaw2PreparedStatement10, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateContactRaw2PreparedStatement10, _contentValues);
     return result;
   }
 
@@ -838,7 +839,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (updateContactRaw3PreparedStatement11==null) {
       // generate static SQL for statement
       String _sql="UPDATE channel SET owner_uid=? WHERE id=?";
-      updateContactRaw3PreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateContactRaw3PreparedStatement11 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw3PreparedStatement11);
     _contentValues.put("owner_uid", app);
@@ -873,7 +874,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateContactRaw3PreparedStatement11, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateContactRaw3PreparedStatement11, _contentValues);
     return result!=0;
   }
 
@@ -903,7 +904,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (updateContactRaw4PreparedStatement12==null) {
       // generate static SQL for statement
       String _sql="UPDATE channel SET owner_uid=? WHERE id=?";
-      updateContactRaw4PreparedStatement12 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateContactRaw4PreparedStatement12 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw4PreparedStatement12);
     _contentValues.put("owner_uid", ownerUid);
@@ -938,7 +939,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateContactRaw4PreparedStatement12, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateContactRaw4PreparedStatement12, _contentValues);
     return result;
   }
 
@@ -969,7 +970,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (updateContactBean1PreparedStatement13==null) {
       // generate static SQL for statement
       String _sql="UPDATE channel SET name=?, owner_uid=?, uid=?, update_time=? WHERE id=?";
-      updateContactBean1PreparedStatement13 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateContactBean1PreparedStatement13 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean1PreparedStatement13);
     _contentValues.put("name", value.getName());
@@ -1007,7 +1008,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateContactBean1PreparedStatement13, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateContactBean1PreparedStatement13, _contentValues);
     return result;
   }
 
@@ -1038,7 +1039,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (updateContactBean2PreparedStatement14==null) {
       // generate static SQL for statement
       String _sql="UPDATE channel SET name=?, owner_uid=?, uid=?, update_time=? WHERE id=?";
-      updateContactBean2PreparedStatement14 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateContactBean2PreparedStatement14 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean2PreparedStatement14);
     _contentValues.put("name", bean.getName());
@@ -1076,7 +1077,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateContactBean2PreparedStatement14, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateContactBean2PreparedStatement14, _contentValues);
     return result;
   }
 
@@ -1107,7 +1108,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (updateContactBean3PreparedStatement15==null) {
       // generate static SQL for statement
       String _sql="UPDATE channel SET name=?, owner_uid=?, uid=?, update_time=? WHERE id=?";
-      updateContactBean3PreparedStatement15 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateContactBean3PreparedStatement15 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean3PreparedStatement15);
     _contentValues.put("name", bean.getName());
@@ -1145,7 +1146,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateContactBean3PreparedStatement15, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateContactBean3PreparedStatement15, _contentValues);
     return result!=0;
   }
 
@@ -1189,7 +1190,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1276,7 +1277,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1363,7 +1364,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    Cursor _cursor = database().rawQuery(_sql, _sqlArgs);
+    Cursor _cursor = getDatabase().query(_sql, _sqlArgs);
     // log section BEGIN
     if (_context.isLogEnabled()) {
       Logger.info("Rows found: %s",_cursor.getCount());
@@ -1424,7 +1425,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1514,7 +1515,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1582,7 +1583,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1665,7 +1666,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1730,7 +1731,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1808,7 +1809,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1872,7 +1873,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    Cursor _cursor = database().rawQuery(_sql, _sqlArgs);
+    Cursor _cursor = getDatabase().query(_sql, _sqlArgs);
     // log section BEGIN
     if (_context.isLogEnabled()) {
       Logger.info("Rows found: %s",_cursor.getCount());
@@ -1928,7 +1929,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1997,7 +1998,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -2072,7 +2073,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -2147,7 +2148,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -2176,69 +2177,73 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   }
 
   public static void clearCompiledStatements() {
-    if (deleteContactBean1PreparedStatement0!=null) {
-      deleteContactBean1PreparedStatement0.close();
-      deleteContactBean1PreparedStatement0=null;
-    }
-    if (deleteContactBean2PreparedStatement1!=null) {
-      deleteContactBean2PreparedStatement1.close();
-      deleteContactBean2PreparedStatement1=null;
-    }
-    if (deleteContactRaw1PreparedStatement2!=null) {
-      deleteContactRaw1PreparedStatement2.close();
-      deleteContactRaw1PreparedStatement2=null;
-    }
-    if (deleteContactRaw2PreparedStatement3!=null) {
-      deleteContactRaw2PreparedStatement3.close();
-      deleteContactRaw2PreparedStatement3=null;
-    }
-    if (insertRaw1PreparedStatement4!=null) {
-      insertRaw1PreparedStatement4.close();
-      insertRaw1PreparedStatement4=null;
-    }
-    if (insertRaw2PreparedStatement5!=null) {
-      insertRaw2PreparedStatement5.close();
-      insertRaw2PreparedStatement5=null;
-    }
-    if (insertRaw3PreparedStatement6!=null) {
-      insertRaw3PreparedStatement6.close();
-      insertRaw3PreparedStatement6=null;
-    }
-    if (insertBean1PreparedStatement7!=null) {
-      insertBean1PreparedStatement7.close();
-      insertBean1PreparedStatement7=null;
-    }
-    if (insertBean2PreparedStatement8!=null) {
-      insertBean2PreparedStatement8.close();
-      insertBean2PreparedStatement8=null;
-    }
-    if (updateContactRaw1PreparedStatement9!=null) {
-      updateContactRaw1PreparedStatement9.close();
-      updateContactRaw1PreparedStatement9=null;
-    }
-    if (updateContactRaw2PreparedStatement10!=null) {
-      updateContactRaw2PreparedStatement10.close();
-      updateContactRaw2PreparedStatement10=null;
-    }
-    if (updateContactRaw3PreparedStatement11!=null) {
-      updateContactRaw3PreparedStatement11.close();
-      updateContactRaw3PreparedStatement11=null;
-    }
-    if (updateContactRaw4PreparedStatement12!=null) {
-      updateContactRaw4PreparedStatement12.close();
-      updateContactRaw4PreparedStatement12=null;
-    }
-    if (updateContactBean1PreparedStatement13!=null) {
-      updateContactBean1PreparedStatement13.close();
-      updateContactBean1PreparedStatement13=null;
-    }
-    if (updateContactBean2PreparedStatement14!=null) {
-      updateContactBean2PreparedStatement14.close();
-      updateContactBean2PreparedStatement14=null;
-    }
-    if (updateContactBean3PreparedStatement15!=null) {
-      updateContactBean3PreparedStatement15.close();
-      updateContactBean3PreparedStatement15=null;
+    try {
+      if (deleteContactBean1PreparedStatement0!=null) {
+        deleteContactBean1PreparedStatement0.close();
+        deleteContactBean1PreparedStatement0=null;
+      }
+      if (deleteContactBean2PreparedStatement1!=null) {
+        deleteContactBean2PreparedStatement1.close();
+        deleteContactBean2PreparedStatement1=null;
+      }
+      if (deleteContactRaw1PreparedStatement2!=null) {
+        deleteContactRaw1PreparedStatement2.close();
+        deleteContactRaw1PreparedStatement2=null;
+      }
+      if (deleteContactRaw2PreparedStatement3!=null) {
+        deleteContactRaw2PreparedStatement3.close();
+        deleteContactRaw2PreparedStatement3=null;
+      }
+      if (insertRaw1PreparedStatement4!=null) {
+        insertRaw1PreparedStatement4.close();
+        insertRaw1PreparedStatement4=null;
+      }
+      if (insertRaw2PreparedStatement5!=null) {
+        insertRaw2PreparedStatement5.close();
+        insertRaw2PreparedStatement5=null;
+      }
+      if (insertRaw3PreparedStatement6!=null) {
+        insertRaw3PreparedStatement6.close();
+        insertRaw3PreparedStatement6=null;
+      }
+      if (insertBean1PreparedStatement7!=null) {
+        insertBean1PreparedStatement7.close();
+        insertBean1PreparedStatement7=null;
+      }
+      if (insertBean2PreparedStatement8!=null) {
+        insertBean2PreparedStatement8.close();
+        insertBean2PreparedStatement8=null;
+      }
+      if (updateContactRaw1PreparedStatement9!=null) {
+        updateContactRaw1PreparedStatement9.close();
+        updateContactRaw1PreparedStatement9=null;
+      }
+      if (updateContactRaw2PreparedStatement10!=null) {
+        updateContactRaw2PreparedStatement10.close();
+        updateContactRaw2PreparedStatement10=null;
+      }
+      if (updateContactRaw3PreparedStatement11!=null) {
+        updateContactRaw3PreparedStatement11.close();
+        updateContactRaw3PreparedStatement11=null;
+      }
+      if (updateContactRaw4PreparedStatement12!=null) {
+        updateContactRaw4PreparedStatement12.close();
+        updateContactRaw4PreparedStatement12=null;
+      }
+      if (updateContactBean1PreparedStatement13!=null) {
+        updateContactBean1PreparedStatement13.close();
+        updateContactBean1PreparedStatement13=null;
+      }
+      if (updateContactBean2PreparedStatement14!=null) {
+        updateContactBean2PreparedStatement14.close();
+        updateContactBean2PreparedStatement14=null;
+      }
+      if (updateContactBean3PreparedStatement15!=null) {
+        updateContactBean3PreparedStatement15.close();
+        updateContactBean3PreparedStatement15=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

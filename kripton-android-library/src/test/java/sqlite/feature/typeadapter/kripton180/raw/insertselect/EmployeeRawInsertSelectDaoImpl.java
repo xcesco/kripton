@@ -21,7 +21,7 @@ public class EmployeeRawInsertSelectDaoImpl extends Dao implements EmployeeRawIn
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public EmployeeRawInsertSelectDaoImpl(BindKripton180RawInsertSelectDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -110,7 +110,7 @@ public class EmployeeRawInsertSelectDaoImpl extends Dao implements EmployeeRawIn
     }
     // log section END
 
-    database().execSQL("INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?", _contentValues.whereArgsAsArray());
+    getDatabase().execSQL("INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?", _contentValues.whereArgsAsArray());
     // Specialized Insert - InsertType - END
   }
 

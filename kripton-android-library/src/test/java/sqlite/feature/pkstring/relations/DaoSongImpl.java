@@ -1,13 +1,14 @@
 package sqlite.feature.pkstring.relations;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
  *  @see SongTable
  */
 public class DaoSongImpl extends Dao implements DaoSong {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   /**
    * SQL definition for method selectAll
@@ -34,7 +35,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   private static final String SELECT_BY_ALBUM_ID_SQL3 = "SELECT name, album_id FROM song WHERE album_id=?";
 
   public DaoSongImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -59,7 +60,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (name, album_id) VALUES (?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("name", bean.name);
@@ -101,7 +102,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // Specialized Insert - InsertType - END
   }
 
@@ -142,7 +143,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -220,7 +221,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -254,9 +255,13 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

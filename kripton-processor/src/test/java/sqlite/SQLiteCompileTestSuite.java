@@ -62,6 +62,7 @@ import sqlite.git12.TestGit12;
 import sqlite.git19.TestGit19Suite;
 import sqlite.git20.TestGit20Suite;
 import sqlite.git21.TestGit21;
+import sqlite.git22.TestGit22;
 import sqlite.git23.bug.TestGit23;
 import sqlite.kotlin.hierarchy.TestKotlinHierarchy;
 import sqlite.kripton111.TestCompile111;
@@ -164,7 +165,7 @@ import sqlite.update.raw.TestRawSuite;
 			Test48Suite.class,
 			Test49Suite.class,
 			Test51Suite.class,
-			Test56Suite.class,
+			Test56Suite.class,			
 			Test58Suite.class,
 			Test60Suite.class,
 			Test62Suite.class,
@@ -200,11 +201,14 @@ import sqlite.update.raw.TestRawSuite;
 			Test63Compile.class,
 			Test209Suite.class,
 			
+			
+			
 			// git
 			TestGit12.class,
 			TestGit19Suite.class,
 			TestGit20Suite.class,
 			TestGit21.class,
+			TestGit22.class,
 			TestGit23.class,
 			
 			// kotlin

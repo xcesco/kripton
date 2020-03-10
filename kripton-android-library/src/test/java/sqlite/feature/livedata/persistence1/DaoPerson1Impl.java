@@ -3,18 +3,19 @@ package sqlite.feature.livedata.persistence1;
 import android.arch.lifecycle.LiveData;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,18 +48,18 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
 
   private static final Set<String> selectAll1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   private static final Set<String> insert2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
-  private static SQLiteStatement updatePreparedStatement1;
+  private static SupportSQLiteStatement updatePreparedStatement1;
 
   private static final Set<String> update3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public DaoPerson1Impl(BindApp1DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -106,7 +107,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -260,7 +261,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -301,7 +302,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -434,7 +435,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     // log for where parameters -- END
 
     // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
+    Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray());
     return _result;
   }
 
@@ -460,7 +461,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("name", bean.name);
@@ -502,7 +503,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // support for livedata
@@ -549,8 +550,9 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
       }
     }
     // log for content values -- END
+    // conflict algorithm NONE
     // insert operation
-    long result = database().insert("person", null, _contentValues.values());
+    long result = getDatabase().insert("person", 0, _contentValues.values());
     // support for livedata
     registryEvent(result>0?1:0);
     return result;
@@ -579,7 +581,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     if (updatePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
     _contentValues.put("name", bean.name);
@@ -615,7 +617,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement1, _contentValues);
     // support for livedata
     registryEvent(result);
   }
@@ -695,7 +697,8 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     // log section END
 
     // execute SQL
-    int result = database().update("person", _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    // conflict algorithm NONE
+    int result = getDatabase().update("person", 0, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray());
     // support for livedata
     registryEvent(result);
     return result;
@@ -737,13 +740,17 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (updatePreparedStatement1!=null) {
-      updatePreparedStatement1.close();
-      updatePreparedStatement1=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (updatePreparedStatement1!=null) {
+        updatePreparedStatement1.close();
+        updatePreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

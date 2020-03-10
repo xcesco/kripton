@@ -1,13 +1,14 @@
 package sqlite.quickstart.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.quickstart.model.Post;
@@ -22,7 +23,7 @@ import sqlite.quickstart.model.Post;
  *  @see sqlite.quickstart.model.PostTable
  */
 public class PostDaoImpl extends Dao implements PostDao {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   /**
    * SQL definition for method selectByUserId
@@ -35,7 +36,7 @@ public class PostDaoImpl extends Dao implements PostDao {
   private static final String SELECT_ONE_BY_USER_ID_SQL4 = "SELECT id, body, title, user_id FROM post WHERE id = ?";
 
   public PostDaoImpl(BindQuickStartDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -62,7 +63,7 @@ public class PostDaoImpl extends Dao implements PostDao {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO post (id, body, title, user_id) VALUES (?, ?, ?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("id", bean.id);
@@ -106,7 +107,7 @@ public class PostDaoImpl extends Dao implements PostDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // Specialized Insert - InsertType - END
@@ -159,7 +160,7 @@ public class PostDaoImpl extends Dao implements PostDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -243,7 +244,7 @@ public class PostDaoImpl extends Dao implements PostDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -275,9 +276,13 @@ public class PostDaoImpl extends Dao implements PostDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

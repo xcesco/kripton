@@ -23,7 +23,6 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.datasourceoptions.livedata.AppWithConfigDataSource;
 import sqlite.feature.datasourceoptions.livedata.DaoPerson;
 import sqlite.feature.datasourceoptions.livedata.Person;
-import sqlite.feature.datasourceoptions.livedata.PersonCursorFactory;
 import sqlite.feature.datasourceoptions.livedata.PersonLifecycleHandler;
 import sqlite.feature.datasourceoptions.livedata.PersonUpdateTask;
 
@@ -40,7 +39,7 @@ public class FeatureDataSourceOptionsLiveDataTest extends AbstractBindSQLiteProc
 	 */
 	@Test
 	public void testMainScenario() throws Throwable {
-		buildDataSourceProcessorTest(AppWithConfigDataSource.class, DaoPerson.class, Person.class, PersonCursorFactory.class, PersonUpdateTask.class, PersonLifecycleHandler.class);
+		buildDataSourceProcessorTest(AppWithConfigDataSource.class, DaoPerson.class, Person.class, PersonUpdateTask.class, PersonLifecycleHandler.class);
 	}
 	
 	/**

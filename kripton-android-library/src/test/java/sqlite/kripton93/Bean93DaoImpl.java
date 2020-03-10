@@ -1,13 +1,14 @@
 package sqlite.kripton93;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,20 +32,20 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   private static final String SELECT_ALL_SQL2 = "SELECT id, name, surname, type_name FROM bean93";
 
-  private static SQLiteStatement insertDefaultPreparedStatement0;
+  private static SupportSQLiteStatement insertDefaultPreparedStatement0;
 
-  private static SQLiteStatement insertAbortPreparedStatement1;
+  private static SupportSQLiteStatement insertAbortPreparedStatement1;
 
-  private static SQLiteStatement insertFailPreparedStatement2;
+  private static SupportSQLiteStatement insertFailPreparedStatement2;
 
-  private static SQLiteStatement insertIgnorePreparedStatement3;
+  private static SupportSQLiteStatement insertIgnorePreparedStatement3;
 
-  private static SQLiteStatement insertReplacePreparedStatement4;
+  private static SupportSQLiteStatement insertReplacePreparedStatement4;
 
-  private static SQLiteStatement insertRollbackPreparedStatement5;
+  private static SupportSQLiteStatement insertRollbackPreparedStatement5;
 
   public Bean93DaoImpl(BindBean93DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -94,7 +95,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -164,7 +165,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -225,7 +226,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     if (insertDefaultPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean93 (name, surname, type_name) VALUES (?, ?, ?)";
-      insertDefaultPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertDefaultPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertDefaultPreparedStatement0);
     _contentValues.put("name", bean.name);
@@ -268,7 +269,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertDefaultPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertDefaultPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -301,7 +302,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     if (insertAbortPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT OR ABORT INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
-      insertAbortPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertAbortPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertAbortPreparedStatement1);
     _contentValues.put("id", bean.id);
@@ -345,7 +346,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertAbortPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertAbortPreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -378,7 +379,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     if (insertFailPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT OR FAIL INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
-      insertFailPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertFailPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertFailPreparedStatement2);
     _contentValues.put("id", bean.id);
@@ -422,7 +423,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertFailPreparedStatement2, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertFailPreparedStatement2, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -455,7 +456,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     if (insertIgnorePreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
-      insertIgnorePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertIgnorePreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertIgnorePreparedStatement3);
     _contentValues.put("id", bean.id);
@@ -499,7 +500,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertIgnorePreparedStatement3, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertIgnorePreparedStatement3, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -532,7 +533,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     if (insertReplacePreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
-      insertReplacePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertReplacePreparedStatement4 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertReplacePreparedStatement4);
     _contentValues.put("id", bean.id);
@@ -576,7 +577,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertReplacePreparedStatement4, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertReplacePreparedStatement4, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -609,7 +610,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     if (insertRollbackPreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT OR ROLLBACK INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
-      insertRollbackPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertRollbackPreparedStatement5 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRollbackPreparedStatement5);
     _contentValues.put("id", bean.id);
@@ -653,7 +654,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertRollbackPreparedStatement5, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertRollbackPreparedStatement5, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -662,29 +663,33 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertDefaultPreparedStatement0!=null) {
-      insertDefaultPreparedStatement0.close();
-      insertDefaultPreparedStatement0=null;
-    }
-    if (insertAbortPreparedStatement1!=null) {
-      insertAbortPreparedStatement1.close();
-      insertAbortPreparedStatement1=null;
-    }
-    if (insertFailPreparedStatement2!=null) {
-      insertFailPreparedStatement2.close();
-      insertFailPreparedStatement2=null;
-    }
-    if (insertIgnorePreparedStatement3!=null) {
-      insertIgnorePreparedStatement3.close();
-      insertIgnorePreparedStatement3=null;
-    }
-    if (insertReplacePreparedStatement4!=null) {
-      insertReplacePreparedStatement4.close();
-      insertReplacePreparedStatement4=null;
-    }
-    if (insertRollbackPreparedStatement5!=null) {
-      insertRollbackPreparedStatement5.close();
-      insertRollbackPreparedStatement5=null;
+    try {
+      if (insertDefaultPreparedStatement0!=null) {
+        insertDefaultPreparedStatement0.close();
+        insertDefaultPreparedStatement0=null;
+      }
+      if (insertAbortPreparedStatement1!=null) {
+        insertAbortPreparedStatement1.close();
+        insertAbortPreparedStatement1=null;
+      }
+      if (insertFailPreparedStatement2!=null) {
+        insertFailPreparedStatement2.close();
+        insertFailPreparedStatement2=null;
+      }
+      if (insertIgnorePreparedStatement3!=null) {
+        insertIgnorePreparedStatement3.close();
+        insertIgnorePreparedStatement3=null;
+      }
+      if (insertReplacePreparedStatement4!=null) {
+        insertReplacePreparedStatement4.close();
+        insertReplacePreparedStatement4=null;
+      }
+      if (insertRollbackPreparedStatement5!=null) {
+        insertRollbackPreparedStatement5.close();
+        insertRollbackPreparedStatement5=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

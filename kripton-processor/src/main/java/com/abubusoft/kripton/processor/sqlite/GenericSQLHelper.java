@@ -249,7 +249,7 @@ public abstract class GenericSQLHelper {
 
 		// log
 		methodBuilder.addCode("\n");
-		methodBuilder.addStatement("database().execSQL($S, _contentValues.whereArgsAsArray())", sql);
+		methodBuilder.addStatement("getDatabase().execSQL($S, _contentValues.whereArgsAsArray())", sql);
 	}
 
 }

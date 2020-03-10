@@ -18,6 +18,7 @@ package com.abubusoft.kripton.android.sqlite;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Sql_stmtContext;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
  * <p>
@@ -98,7 +99,7 @@ public abstract class SQLiteTestUtils {
 	 * @param listener
 	 *            the listener
 	 */
-	private static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
+	private static void query(SupportSQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
 		SQLiteUpdateTaskHelper.query(db, conditions, type, listener);
 	}
 
@@ -113,13 +114,13 @@ public abstract class SQLiteTestUtils {
 	 * @param prefix
 	 *            the prefix
 	 */
-	private static void drop(SQLiteDatabase db, final QueryType type, String prefix) {
+	private static void drop(SupportSQLiteDatabase db, final QueryType type, String prefix) {
 		String dropSQL = StringUtils.hasText(prefix) ? "name like '" + prefix + "' || '%'" : null;
 
 		query(db, dropSQL, type, new OnResultListener() {
 
 			@Override
-			public void onRow(SQLiteDatabase db, String name, String sql) {
+			public void onRow(SupportSQLiteDatabase db, String name, String sql) {
 				String drop = "DROP " + type.toString().toUpperCase() + " " + name;
 				Logger.info(drop);
 				db.execSQL(drop);
@@ -135,7 +136,7 @@ public abstract class SQLiteTestUtils {
 	 *            the db
 	 * @return the all tables
 	 */
-	public static Map<String, String> getAllTables(SQLiteDatabase db) {
+	public static Map<String, String> getAllTables(SupportSQLiteDatabase db) {
 		return SQLiteUpdateTaskHelper.getAllTables(db);
 	}
 
@@ -147,12 +148,12 @@ public abstract class SQLiteTestUtils {
 	 * @param prefix
 	 *            the prefix
 	 */
-	public static void renameAllTablesWithPrefix(SQLiteDatabase db, final String prefix) {
+	public static void renameAllTablesWithPrefix(SupportSQLiteDatabase db, final String prefix) {
 		Logger.info("MASSIVE TABLE RENAME OPERATION: ADD PREFIX " + prefix);
 		query(db, null, QueryType.TABLE, new OnResultListener() {
 
 			@Override
-			public void onRow(SQLiteDatabase db, String name, String sql) {
+			public void onRow(SupportSQLiteDatabase db, String name, String sql) {
 				sql = String.format("ALTER TABLE %s RENAME TO %s%s;", name, prefix, name);
 				Logger.info(sql);
 				db.execSQL(sql);
@@ -169,7 +170,7 @@ public abstract class SQLiteTestUtils {
 	 * @param prefix
 	 *            the prefix
 	 */
-	public static void dropTablesWithPrefix(SQLiteDatabase db, String prefix) {
+	public static void dropTablesWithPrefix(SupportSQLiteDatabase db, String prefix) {
 		Logger.info("MASSIVE TABLE DROP OPERATION%s", StringUtils.ifNotEmptyAppend(prefix, " WITH PREFIX "));
 		drop(db, QueryType.TABLE, prefix);
 	}
@@ -180,7 +181,7 @@ public abstract class SQLiteTestUtils {
 	 * @param db
 	 *            the db
 	 */
-	public static void dropTablesAndIndices(SQLiteDatabase db) {
+	public static void dropTablesAndIndices(SupportSQLiteDatabase db) {
 		drop(db, QueryType.INDEX, null);
 		drop(db, QueryType.TABLE, null);
 	}
@@ -192,7 +193,7 @@ public abstract class SQLiteTestUtils {
 	 *            the db
 	 * @return indexes
 	 */
-	public static Map<String, String> getAllIndexes(SQLiteDatabase db) {
+	public static Map<String, String> getAllIndexes(SupportSQLiteDatabase db) {
 		return SQLiteUpdateTaskHelper.getAllIndexes(db);
 	}
 
@@ -206,7 +207,7 @@ public abstract class SQLiteTestUtils {
 	 * @param rawResourceId
 	 *            the raw resource id
 	 */
-	public static void executeSQL(final SQLiteDatabase database, Context context, int rawResourceId) {
+	public static void executeSQL(final SupportSQLiteDatabase database, Context context, int rawResourceId) {
 		String[] c = IOUtils.readTextFile(context, rawResourceId).split(";");
 		List<String> commands = Arrays.asList(c);
 		executeSQL(database, commands);
@@ -236,7 +237,7 @@ public abstract class SQLiteTestUtils {
 	 * @param fileName
 	 *            the sql definition file
 	 */
-	public static void executeSQLFromFile(SQLiteDatabase database, String fileName) {
+	public static void executeSQLFromFile(SupportSQLiteDatabase database, String fileName) {
 		List<String> executionList = readSQLFromFile(fileName);
 		for (String item : executionList) {
 			Logger.info(item);
@@ -295,7 +296,7 @@ public abstract class SQLiteTestUtils {
 	 * @param fileInputStream
 	 *            the file input stream
 	 */
-	public static void executeSQL(final SQLiteDatabase database, InputStream fileInputStream) {
+	public static void executeSQL(final SupportSQLiteDatabase database, InputStream fileInputStream) {
 		List<String> commands = readSQLFromFile(fileInputStream);
 		executeSQL(database, commands);
 	}
@@ -308,7 +309,7 @@ public abstract class SQLiteTestUtils {
 	 * @param commands
 	 *            the commands
 	 */
-	public static void executeSQL(final SQLiteDatabase database, List<String> commands) {
+	public static void executeSQL(final SupportSQLiteDatabase database, List<String> commands) {
 		for (String command : commands) {
 			executeSQL(database, command);
 		}
@@ -325,7 +326,7 @@ public abstract class SQLiteTestUtils {
 	 * @param command
 	 *            the command
 	 */
-	public static void executeSQL(final SQLiteDatabase database, String command) {
+	public static void executeSQL(final SupportSQLiteDatabase database, String command) {
 		// remove comments
 		command = command.replaceAll("\\/\\*.*\\*\\/", "");
 		command = command.replaceAll("--.*$", "");
@@ -345,7 +346,7 @@ public abstract class SQLiteTestUtils {
 	 * @param inputStream
 	 *            the input stream
 	 */
-	public static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
+	public static void verifySchema(SupportSQLiteDatabase database, InputStream inputStream) {
 		List<String> ddl = extractCommands(database, inputStream);
 		verifySchemaInternal(database, ddl);
 	}
@@ -374,7 +375,7 @@ public abstract class SQLiteTestUtils {
 	 * @param rawId
 	 *            the raw id
 	 */
-	public static void verifySchema(SQLiteDatabase database, Context context, int rawId) {
+	public static void verifySchema(SupportSQLiteDatabase database, Context context, int rawId) {
 		verifySchema(database, context.getResources().openRawResource(rawId));
 	}
 
@@ -387,7 +388,7 @@ public abstract class SQLiteTestUtils {
 	 *            the input stream
 	 * @return the list
 	 */
-	static List<String> extractCommands(SQLiteDatabase database, InputStream inputStream) {
+	static List<String> extractCommands(SupportSQLiteDatabase database, InputStream inputStream) {
 		final List<String> result = new ArrayList<>();
 		final String input = IOUtils.readText(inputStream);
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(input));
@@ -432,7 +433,7 @@ public abstract class SQLiteTestUtils {
 
 	public static <H extends AbstractDataSource> void showSchema(H dataSource) {
 		boolean needToBeOpened = !dataSource.isOpen();
-		SQLiteDatabase database=null;
+		SupportSQLiteDatabase database=null;
 
 		if (needToBeOpened) {
 			database = dataSource.openReadOnlyDatabase();
@@ -448,7 +449,11 @@ public abstract class SQLiteTestUtils {
 		}
 		
 		if (database!=null && needToBeOpened) {
-			database.close();
+			try {
+				database.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -461,7 +466,7 @@ public abstract class SQLiteTestUtils {
 	 * @param expectedSQL
 	 *            the expected SQL
 	 */
-	static void verifySchemaInternal(SQLiteDatabase database, List<String> expectedSQL) {
+	static void verifySchemaInternal(SupportSQLiteDatabase database, List<String> expectedSQL) {
 		Set<String> actualSql = new HashSet<String>();
 		actualSql.addAll(SQLiteTestUtils.getAllTables(database).values());
 		actualSql.addAll(SQLiteTestUtils.getAllIndexes(database).values());
@@ -500,7 +505,11 @@ public abstract class SQLiteTestUtils {
 
 		Logger.info("Database schema comparison result: OK - Actual and expected schemas are the same!");
 
-		database.close();
+		try {
+			database.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -553,7 +562,7 @@ public abstract class SQLiteTestUtils {
 		}
 	}
 
-	public static void dropIndex(SQLiteDatabase database, String... indexNames) {
+	public static void dropIndex(SupportSQLiteDatabase database, String... indexNames) {
 		for (String indexName : indexNames) {
 			drop(database, QueryType.INDEX, indexName);
 		}

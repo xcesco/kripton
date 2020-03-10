@@ -1,6 +1,6 @@
 package sqlite.feature.javadoc.update.raw;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
@@ -93,9 +93,9 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
   public boolean execute(Transaction transaction,
       AbstractDataSource.OnErrorListener onErrorListener) {
     // open database in thread safe mode
-    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
+    Pair<Boolean, SupportSQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
     boolean success=false;
-    SQLiteDatabase connection=_status.value1;
+    SupportSQLiteDatabase connection=_status.value1;
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -210,7 +210,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     // open database in thread safe mode
-    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
+    Pair<Boolean, SupportSQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
     DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -280,7 +280,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
    * onCreate
    */
   @Override
-  public void onCreate(SQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     // log section create BEGIN
     if (this.logEnabled) {
@@ -307,7 +307,8 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
@@ -348,14 +349,11 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
   }
 
   /**
-   * onConfigure
+   * Returns <code>true</code> if database needs foreign keys.
    */
   @Override
-  public void onConfigure(SQLiteDatabase database) {
-    // configure database
-    if (options.databaseLifecycleHandler != null) {
-      options.databaseLifecycleHandler.onConfigure(database);
-    }
+  public boolean hasForeignKeys() {
+    return false;
   }
 
   public void clearCompiledStatements() {
@@ -366,6 +364,10 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindUpdateRawPersonDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindUpdateRawPersonDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindUpdateRawPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -393,13 +395,14 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
     } else {
       throw new KriptonRuntimeException("Datasource BindUpdateRawPersonDataSource is already builded");
     }
+    Logger.info("Datasource BindUpdateRawPersonDataSource is created");
     return result;
   }
 
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 
@@ -453,7 +456,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 

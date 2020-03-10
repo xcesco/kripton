@@ -1,16 +1,17 @@
 package sqlite.feature.javadoc.insert.bean;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import java.io.IOException;
 import java.util.Set;
 import sqlite.feature.javadoc.Person;
 
@@ -24,20 +25,20 @@ import sqlite.feature.javadoc.Person;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao {
-  private static SQLiteStatement insertOneBeanPreparedStatement0;
+  private static SupportSQLiteStatement insertOneBeanPreparedStatement0;
 
   private static final Set<String> insertOneBean0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  private static SQLiteStatement insertOneBeanFieldNamePreparedStatement1;
+  private static SupportSQLiteStatement insertOneBeanFieldNamePreparedStatement1;
 
   private static final Set<String> insertOneBeanFieldName1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static SQLiteStatement insertOneBeanFieldSurnamePreparedStatement2;
+  private static SupportSQLiteStatement insertOneBeanFieldSurnamePreparedStatement2;
 
   private static final Set<String> insertOneBeanFieldSurname2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
   public InsertBeanPersonDaoImpl(BindInsertBeanPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -64,7 +65,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     if (insertOneBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (person_name, person_surname, student) VALUES (?, ?, ?)";
-      insertOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOneBeanPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanPreparedStatement0);
     _contentValues.put("person_name", bean.getPersonName());
@@ -107,7 +108,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOneBeanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOneBeanPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -154,8 +155,9 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
       }
     }
     // log for content values -- END
+    // conflict algorithm NONE
     // insert operation
-    long result = database().insert("person", null, _contentValues.values());
+    long result = getDatabase().insert("person", 0, _contentValues.values());
     return result;
   }
 
@@ -181,7 +183,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     if (insertOneBeanFieldNamePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_name) VALUES (?)";
-      insertOneBeanFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOneBeanFieldNamePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanFieldNamePreparedStatement1);
     _contentValues.put("person_name", bean.getPersonName());
@@ -222,7 +224,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOneBeanFieldNamePreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOneBeanFieldNamePreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -271,7 +273,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
+    long result = getDatabase().insert("person", 5, _contentValues.values());
     return result;
   }
 
@@ -298,7 +300,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     if (insertOneBeanFieldSurnamePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_surname, student) VALUES (?, ?)";
-      insertOneBeanFieldSurnamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertOneBeanFieldSurnamePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanFieldSurnamePreparedStatement2);
     _contentValues.put("person_surname", bean.getPersonSurname());
@@ -340,7 +342,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertOneBeanFieldSurnamePreparedStatement2, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertOneBeanFieldSurnamePreparedStatement2, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -389,7 +391,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // log for content values -- END
     // conflict algorithm REPLACE
     // insert operation
-    long result = database().insertWithOnConflict("person", null, _contentValues.values(), 5);
+    long result = getDatabase().insert("person", 5, _contentValues.values());
     return result;
   }
 
@@ -445,24 +447,28 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // insert operation
     // generate SQL for insert
     String _sql=String.format("INSERT OR REPLACE INTO person (%s) SELECT person_name FROM person WHERE person_name=?", _contentValues.keyList());
-    long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
+    long result = KriptonDatabaseHelper.insert(_context, _sql, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {
-    if (insertOneBeanPreparedStatement0!=null) {
-      insertOneBeanPreparedStatement0.close();
-      insertOneBeanPreparedStatement0=null;
-    }
-    if (insertOneBeanFieldNamePreparedStatement1!=null) {
-      insertOneBeanFieldNamePreparedStatement1.close();
-      insertOneBeanFieldNamePreparedStatement1=null;
-    }
-    if (insertOneBeanFieldSurnamePreparedStatement2!=null) {
-      insertOneBeanFieldSurnamePreparedStatement2.close();
-      insertOneBeanFieldSurnamePreparedStatement2=null;
+    try {
+      if (insertOneBeanPreparedStatement0!=null) {
+        insertOneBeanPreparedStatement0.close();
+        insertOneBeanPreparedStatement0=null;
+      }
+      if (insertOneBeanFieldNamePreparedStatement1!=null) {
+        insertOneBeanFieldNamePreparedStatement1.close();
+        insertOneBeanFieldNamePreparedStatement1=null;
+      }
+      if (insertOneBeanFieldSurnamePreparedStatement2!=null) {
+        insertOneBeanFieldSurnamePreparedStatement2.close();
+        insertOneBeanFieldSurnamePreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

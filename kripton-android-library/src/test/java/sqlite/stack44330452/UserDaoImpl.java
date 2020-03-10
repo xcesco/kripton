@@ -24,7 +24,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   private static final String LOAD_USER_SQL1 = "SELECT id FROM user";
 
   public UserDaoImpl(BindPetUserDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -63,7 +63,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

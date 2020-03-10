@@ -26,11 +26,12 @@ import javax.lang.model.element.Modifier;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
@@ -50,8 +51,6 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-
-import android.database.sqlite.SQLiteStatement;
 
 /**
  * The Class ModifyBeanHelper.
@@ -90,11 +89,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		} else {
 			String psName = method.buildPreparedStatementName();
 			// generate SQL for insert
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
+			classBuilder.addField(FieldSpec.builder(KriptonDynamicClassManager.getInstance().getStatementClazz(), psName, Modifier.PRIVATE, Modifier.STATIC).build());
 
 			methodBuilder.beginControlFlow("if ($L==null)", psName);
 			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);
-			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseHelper.class);
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, psName);
 		}
@@ -178,10 +177,10 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
 			// does not memorize compiled statement, it can vary every time
 			// generate SQL for insert
-			methodBuilder.addStatement("int result = $T.updateDelete(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("int result = $T.updateDelete(_context, _sql, _contentValues)", KriptonDatabaseHelper.class);
 		} else {
 			String psName = method.buildPreparedStatementName();
-			methodBuilder.addStatement("int result = $T.updateDelete($L, _contentValues)", KriptonDatabaseWrapper.class, psName);
+			methodBuilder.addStatement("int result = $T.updateDelete($L, _contentValues)", KriptonDatabaseHelper.class, psName);
 		}
 
 		if (method.getParent().getParent().generateRx) {

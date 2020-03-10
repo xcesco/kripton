@@ -1,13 +1,13 @@
 package sqlite.kripton63;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -19,6 +19,7 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,22 +56,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   private static final String SELECT_LIST_SQL4 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ?";
 
-  private static SQLiteStatement updateOnePreparedStatement0;
+  private static SupportSQLiteStatement updateOnePreparedStatement0;
 
-  private static SQLiteStatement insertPreparedStatement1;
+  private static SupportSQLiteStatement insertPreparedStatement1;
 
-  private static SQLiteStatement insertPreparedStatement2;
+  private static SupportSQLiteStatement insertPreparedStatement2;
 
   /**
    * SQL definition for method selectOne
    */
   private static final String SELECT_ONE_SQL5 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
 
-  private static SQLiteStatement deletePreparedStatement3;
+  private static SupportSQLiteStatement deletePreparedStatement3;
 
-  private static SQLiteStatement updateOnePreparedStatement4;
+  private static SupportSQLiteStatement updateOnePreparedStatement4;
 
-  private static SQLiteStatement insertPreparedStatement5;
+  private static SupportSQLiteStatement insertPreparedStatement5;
 
   /**
    * SQL definition for method selectOne
@@ -92,9 +93,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   private static final String SELECT_CURSOR_LISTENER_ONE_SQL9 = "SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=?";
 
-  private static SQLiteStatement deletePreparedStatement6;
+  private static SupportSQLiteStatement deletePreparedStatement6;
 
-  private static SQLiteStatement updateOnePreparedStatement7;
+  private static SupportSQLiteStatement updateOnePreparedStatement7;
 
   /**
    * SQL definition for method selectMapEnumByteOne
@@ -107,7 +108,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   private static final String SELECT_MAP_ENUM_BYTE_ONE_STRING_SQL11 = "SELECT value_map_enum_byte FROM bean63";
 
   public BeanDaoImpl(BindBeanDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -149,7 +150,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -228,7 +229,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -314,7 +315,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -381,7 +382,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -444,7 +445,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (updateOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE bean63 SET value=?, value_map_enum_byte=?, value_map_string_byte=? WHERE id=?";
-      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateOnePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     _contentValues.put("value", value.value);
@@ -481,7 +482,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -509,7 +510,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value, value_map_enum_byte, value_map_string_byte) VALUES (?, ?, ?)";
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("value", bean.value);
@@ -552,7 +553,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -580,7 +581,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value_map_string_byte) VALUES (?)";
-      insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
 
@@ -622,7 +623,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement2, _contentValues);
     return result;
     // Specialized Insert - InsertType - END
   }
@@ -674,7 +675,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -724,7 +725,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (deletePreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM bean63 WHERE value=?";
-      deletePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deletePreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement3);
     _contentValues.addWhereArgs((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
@@ -745,7 +746,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deletePreparedStatement3, _contentValues);
     return result;
   }
 
@@ -775,7 +776,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (updateOnePreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="UPDATE bean63 SET id=? WHERE value=?";
-      updateOnePreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateOnePreparedStatement4 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement4);
     _contentValues.put("id", id);
@@ -810,7 +811,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement4, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateOnePreparedStatement4, _contentValues);
     return result;
   }
 
@@ -834,7 +835,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (insertPreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value_map_enum_byte) VALUES (?)";
-      insertPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement5 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement5);
 
@@ -876,7 +877,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement5, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement5, _contentValues);
     return result;
     // Specialized Insert - InsertType - END
   }
@@ -928,7 +929,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1006,7 +1007,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    Cursor _cursor = database().rawQuery(_sql, _sqlArgs);
+    Cursor _cursor = getDatabase().query(_sql, _sqlArgs);
     // log section BEGIN
     if (_context.isLogEnabled()) {
       Logger.info("Rows found: %s",_cursor.getCount());
@@ -1067,7 +1068,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1154,7 +1155,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1193,7 +1194,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (deletePreparedStatement6==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM bean63 WHERE value=?";
-      deletePreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deletePreparedStatement6 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement6);
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
@@ -1214,7 +1215,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement6, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deletePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1244,7 +1245,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (updateOnePreparedStatement7==null) {
       // generate static SQL for statement
       String _sql="UPDATE bean63 SET id=? WHERE value=?";
-      updateOnePreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateOnePreparedStatement7 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement7);
     _contentValues.put("id", id);
@@ -1279,7 +1280,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement7, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateOnePreparedStatement7, _contentValues);
     return result;
   }
 
@@ -1319,7 +1320,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1386,7 +1387,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -1580,37 +1581,41 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   public static void clearCompiledStatements() {
-    if (updateOnePreparedStatement0!=null) {
-      updateOnePreparedStatement0.close();
-      updateOnePreparedStatement0=null;
-    }
-    if (insertPreparedStatement1!=null) {
-      insertPreparedStatement1.close();
-      insertPreparedStatement1=null;
-    }
-    if (insertPreparedStatement2!=null) {
-      insertPreparedStatement2.close();
-      insertPreparedStatement2=null;
-    }
-    if (deletePreparedStatement3!=null) {
-      deletePreparedStatement3.close();
-      deletePreparedStatement3=null;
-    }
-    if (updateOnePreparedStatement4!=null) {
-      updateOnePreparedStatement4.close();
-      updateOnePreparedStatement4=null;
-    }
-    if (insertPreparedStatement5!=null) {
-      insertPreparedStatement5.close();
-      insertPreparedStatement5=null;
-    }
-    if (deletePreparedStatement6!=null) {
-      deletePreparedStatement6.close();
-      deletePreparedStatement6=null;
-    }
-    if (updateOnePreparedStatement7!=null) {
-      updateOnePreparedStatement7.close();
-      updateOnePreparedStatement7=null;
+    try {
+      if (updateOnePreparedStatement0!=null) {
+        updateOnePreparedStatement0.close();
+        updateOnePreparedStatement0=null;
+      }
+      if (insertPreparedStatement1!=null) {
+        insertPreparedStatement1.close();
+        insertPreparedStatement1=null;
+      }
+      if (insertPreparedStatement2!=null) {
+        insertPreparedStatement2.close();
+        insertPreparedStatement2=null;
+      }
+      if (deletePreparedStatement3!=null) {
+        deletePreparedStatement3.close();
+        deletePreparedStatement3=null;
+      }
+      if (updateOnePreparedStatement4!=null) {
+        updateOnePreparedStatement4.close();
+        updateOnePreparedStatement4=null;
+      }
+      if (insertPreparedStatement5!=null) {
+        insertPreparedStatement5.close();
+        insertPreparedStatement5=null;
+      }
+      if (deletePreparedStatement6!=null) {
+        deletePreparedStatement6.close();
+        deletePreparedStatement6=null;
+      }
+      if (updateOnePreparedStatement7!=null) {
+        updateOnePreparedStatement7.close();
+        updateOnePreparedStatement7=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

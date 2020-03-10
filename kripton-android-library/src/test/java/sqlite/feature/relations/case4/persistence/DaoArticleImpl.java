@@ -1,14 +1,15 @@
 package sqlite.feature.relations.case4.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.common.UrlUtils;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.relations.case4.model.Article;
@@ -23,7 +24,7 @@ import sqlite.feature.relations.case4.model.Article;
  *  @see sqlite.feature.relations.case4.model.ArticleTable
  */
 public class DaoArticleImpl extends Dao implements DaoArticle {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   /**
    * SQL definition for method selectByChannel
@@ -36,7 +37,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   private static final String SELECT_ALL_SQL2 = "SELECT id, author, channel_id, comments, description, guid, link, title FROM article";
 
   public DaoArticleImpl(BindRssDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -67,7 +68,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO article (author, channel_id, comments, description, guid, link, title) VALUES (?, ?, ?, ?, ?, ?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("author", bean.author);
@@ -114,7 +115,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -173,7 +174,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -261,7 +262,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -307,9 +308,13 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

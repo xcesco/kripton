@@ -13,7 +13,7 @@ import com.abubusoft.kripton.android.sqlite.Dao;
  */
 public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao {
   public Person2PhoneDaoImpl(BindXenoDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   public static void clearCompiledStatements() {

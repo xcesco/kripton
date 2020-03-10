@@ -1,10 +1,11 @@
 package sqlite.feature.performance.simple;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -22,17 +23,17 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    */
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, address, city, name, phone, state FROM simple_address_item WHERE id=?";
 
-  private static SQLiteStatement deleteAllPreparedStatement0;
+  private static SupportSQLiteStatement deleteAllPreparedStatement0;
 
   /**
    * SQL definition for method selectAll
    */
   private static final String SELECT_ALL_SQL2 = "SELECT id, address, city, name, phone, state FROM simple_address_item";
 
-  private static SQLiteStatement insertPreparedStatement1;
+  private static SupportSQLiteStatement insertPreparedStatement1;
 
   public SimpleAddressDaoImpl(BindSimpleDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -71,7 +72,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanHelper - BEGIN
 
@@ -113,13 +114,13 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     if (deleteAllPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM simple_address_item";
-      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement0);
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllPreparedStatement0, _contentValues);
   }
 
   /**
@@ -150,7 +151,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // common part generation - END
       // Specialized part - SelectBeanListHelper - BEGIN
 
@@ -211,7 +212,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO simple_address_item (address, city, name, phone, state) VALUES (?, ?, ?, ?, ?)";
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put(bean.getAddress());
@@ -221,20 +222,24 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     _contentValues.put(bean.getState());
 
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
     // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {
-    if (deleteAllPreparedStatement0!=null) {
-      deleteAllPreparedStatement0.close();
-      deleteAllPreparedStatement0=null;
-    }
-    if (insertPreparedStatement1!=null) {
-      insertPreparedStatement1.close();
-      insertPreparedStatement1=null;
+    try {
+      if (deleteAllPreparedStatement0!=null) {
+        deleteAllPreparedStatement0.close();
+        deleteAllPreparedStatement0=null;
+      }
+      if (insertPreparedStatement1!=null) {
+        insertPreparedStatement1.close();
+        insertPreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

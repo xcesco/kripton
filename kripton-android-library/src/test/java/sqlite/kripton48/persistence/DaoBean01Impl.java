@@ -1,13 +1,14 @@
 package sqlite.kripton48.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import sqlite.kripton48.entities.Bean01;
 
 /**
@@ -25,10 +26,10 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    */
   private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean01 WHERE id=?";
 
-  private static SQLiteStatement updateOnePreparedStatement0;
+  private static SupportSQLiteStatement updateOnePreparedStatement0;
 
   public DaoBean01Impl(BindDummy01DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -76,7 +77,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -129,7 +130,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     if (updateOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE bean01 SET text=? WHERE id=?";
-      updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateOnePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     _contentValues.put("text", text);
@@ -164,14 +165,18 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateOnePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateOnePreparedStatement0, _contentValues);
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (updateOnePreparedStatement0!=null) {
-      updateOnePreparedStatement0.close();
-      updateOnePreparedStatement0=null;
+    try {
+      if (updateOnePreparedStatement0!=null) {
+        updateOnePreparedStatement0.close();
+        updateOnePreparedStatement0=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

@@ -1,13 +1,14 @@
 package sqlite.feature.multiple.case1;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -29,14 +30,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement insertAllPreparedStatement1;
+  private static SupportSQLiteStatement insertAllPreparedStatement1;
 
-  private static SQLiteStatement updatePreparedStatement2;
+  private static SupportSQLiteStatement updatePreparedStatement2;
 
   public DaoPersonImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -85,7 +86,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -155,7 +156,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       if (insertPreparedStatement0==null) {
         // generate static SQL for statement
         String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
-        insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+        insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
       }
       KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
       _contentValues.put("name", __bean.getName());
@@ -197,7 +198,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       }
       // log section END
       // insert operation
-      long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+      long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     }
     // Specialized Insert - InsertType - END
   }
@@ -226,7 +227,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       if (insertAllPreparedStatement1==null) {
         // generate static SQL for statement
         String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
-        insertAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+        insertAllPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
       }
       KriptonContentValues _contentValues=contentValuesForUpdate(insertAllPreparedStatement1);
       _contentValues.put("name", __bean.getName());
@@ -268,7 +269,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       }
       // log section END
       // insert operation
-      long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement1, _contentValues);
+      long result = KriptonDatabaseHelper.insert(insertAllPreparedStatement1, _contentValues);
       // immutable POJO - create a copy with new id
       // immutable object: initialize temporary variables for properties
       long __id=0;
@@ -310,7 +311,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     if (updatePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
-      updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
     _contentValues.put("name", bean.getName());
@@ -346,21 +347,25 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement2, _contentValues);
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (insertAllPreparedStatement1!=null) {
-      insertAllPreparedStatement1.close();
-      insertAllPreparedStatement1=null;
-    }
-    if (updatePreparedStatement2!=null) {
-      updatePreparedStatement2.close();
-      updatePreparedStatement2=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (insertAllPreparedStatement1!=null) {
+        insertAllPreparedStatement1.close();
+        insertAllPreparedStatement1=null;
+      }
+      if (updatePreparedStatement2!=null) {
+        updatePreparedStatement2.close();
+        updatePreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

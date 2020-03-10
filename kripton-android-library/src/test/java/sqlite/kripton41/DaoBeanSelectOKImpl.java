@@ -22,7 +22,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
   private static final String SELECT_DISTANCE_SQL1 = "SELECT count(*) FROM bean01 WHERE id=? and value=?";
 
   public DaoBeanSelectOKImpl(BindDummy02DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -73,7 +73,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());

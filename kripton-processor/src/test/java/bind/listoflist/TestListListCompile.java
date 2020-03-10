@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.update.raw.err4;
+package bind.listoflist;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
+import java.io.IOException;
+
+import org.junit.Test;
+
+import bind.AbstractBindTypeProcessorTest;
 
 /**
- * The Interface Example01DataSource.
+ * The Class Test81ACompile.
  */
-@BindDataSource(daoSet=PersonDAO.class, fileName = "example.db")
-public interface Example01DataSource {
+public class TestListListCompile extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(BeanListList.class);
+	}
 }

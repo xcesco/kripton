@@ -24,17 +24,15 @@ import java.util.List;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskFromFile;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.database.sqlite.SQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteOpenHelper.Callback;
+import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration;
 
 /**
  * The Class SQLiteUpdateTestDatabase.
@@ -178,7 +176,7 @@ public class SQLiteTestDatabase {
 				}
 			});
 
-			SQLiteTestDatabase helper = new SQLiteTestDatabase(KriptonLibrary.getContext(), null, version, null,
+			SQLiteTestDatabase helper = new SQLiteTestDatabase(KriptonLibrary.getContext(), version, 
 					initialSchemaInputStream, initialSchemaResourceRawId, populator, updateTasks);
 
 			return helper.create();
@@ -190,16 +188,10 @@ public class SQLiteTestDatabase {
 	public static final String TEST_DATABASE = "migration-test.db";
 
 	/** The sqlite. */
-	private SQLiteOpenHelper sqlite;
+	private SupportSQLiteOpenHelper sqlite;
 
 	/** The update tasks. */
 	private List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks;
-
-	/** The factory. */
-	private CursorFactory factory;
-
-	/** The error handler. */
-	private DatabaseErrorHandler errorHandler;
 
 	/** The version. */
 	private int version;
@@ -235,13 +227,10 @@ public class SQLiteTestDatabase {
 	 * @param updateTasks
 	 *            the update tasks
 	 */
-	SQLiteTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler,
-			InputStream initialSchemaInputStream, int initialSchemaResourceId, SQLitePopulator populator,
+	SQLiteTestDatabase(Context context, int version, InputStream initialSchemaInputStream, int initialSchemaResourceId, SQLitePopulator populator,
 			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks) {
-		this.version = version;
-		this.factory = factory;
-		this.context = context;
-		this.errorHandler = errorHandler;
+		this.version = version;		
+		this.context = context;		
 		this.firstSchemaDefinitionInputStream = initialSchemaInputStream;
 		this.firstSchemaDefinitionResourceId = initialSchemaResourceId;
 		this.updateTasks = updateTasks;
@@ -254,40 +243,45 @@ public class SQLiteTestDatabase {
 	 * @return the SQ lite update test database
 	 */
 	private SQLiteTestDatabase create() {
-		sqlite = new SQLiteOpenHelper(context, TEST_DATABASE, factory, version, errorHandler) {
+		Configuration configuration=Configuration.builder(context)
+				.name(TEST_DATABASE)
+				.callback(new Callback(version) {
 
 			@Override
-			public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-				throw (new KriptonRuntimeException("Unsupported situation"));
-			}
-
-			@Override
-			public void onCreate(SQLiteDatabase database) {
+			public void onCreate(SupportSQLiteDatabase db) {
 				if (firstSchemaDefinitionInputStream != null) {
 					Logger.info("Load DDL from input stream");
-					SQLiteTestUtils.executeSQL(database, firstSchemaDefinitionInputStream);
+					SQLiteTestUtils.executeSQL(db, firstSchemaDefinitionInputStream);
 				} else {
 					Logger.info("Load DDL from resourceId");
-					SQLiteTestUtils.executeSQL(database, context, firstSchemaDefinitionResourceId);
-				}
+					SQLiteTestUtils.executeSQL(db, context, firstSchemaDefinitionResourceId);
+				}		
 			}
-		};
+
+			@Override
+			public void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+				throw (new KriptonRuntimeException("Unsupported situation"));
+				
+			}
 		
+		}).build();					
+		sqlite = KriptonSQLiteOpenHelperFactory.build().create(configuration);
+				
 		sqlite.getWritableDatabase();
-		
 
 		if (this.populator != null) {
 			this.populator.execute();
 		}
-		
+
 		sqlite.close();
 
 		return this;
 	}
 
 	/**
-	 * Allows to update database version to <i>version</i>. This method allows to specify the destination version schema and compare it with schema resulting by version update
-	 * applied.
+	 * Allows to update database version to <i>version</i>. This method allows
+	 * to specify the destination version schema and compare it with schema
+	 * resulting by version update applied.
 	 *
 	 * @param version
 	 *            the version
@@ -295,26 +289,30 @@ public class SQLiteTestDatabase {
 	 *            the schema definition input stream
 	 * @return the SQ lite update test database
 	 */
-	public SQLiteTestDatabase updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {		
-		sqlite = new SQLiteOpenHelper(context, TEST_DATABASE, factory, version, errorHandler) {
+	public SQLiteTestDatabase updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {
+		Configuration configuration=Configuration.builder(context)
+				.name(TEST_DATABASE)
+				.callback(new Callback(version) {
 
 			@Override
-			public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			public void onCreate(SupportSQLiteDatabase db) {
+				throw (new KriptonRuntimeException("Unsupported situation"));			
+			}
+
+			@Override
+			public void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
 				List<SQLiteUpdateTask> task = findTask(oldVersion, newVersion);
 
 				for (SQLiteUpdateTask item : task) {
 					item.execute(db, oldVersion, oldVersion + 1);
 					oldVersion++;
 				}
+				
 			}
-
-			@Override
-			public void onCreate(SQLiteDatabase db) {
-				throw (new KriptonRuntimeException("Unsupported situation"));
-
-			}
-		};
-
+		
+		}).build();					
+		sqlite = KriptonSQLiteOpenHelperFactory.build().create(configuration);
+		
 		SQLiteTestUtils.verifySchema(sqlite.getWritableDatabase(), schemaDefinitionInputStream);
 
 		return this;
@@ -335,8 +333,9 @@ public class SQLiteTestDatabase {
 	}
 
 	/**
-	 * Allow to update database version to <i>version</i>. This method allows to specify the destination version schema and compare it with schema resulting by version update
-	 * applied.
+	 * Allow to update database version to <i>version</i>. This method allows to
+	 * specify the destination version schema and compare it with schema
+	 * resulting by version update applied.
 	 *
 	 * @param version
 	 *            the version

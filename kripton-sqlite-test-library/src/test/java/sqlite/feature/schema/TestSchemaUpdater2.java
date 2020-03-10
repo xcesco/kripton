@@ -28,6 +28,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteTestUtils;
 
 import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.feature.schema.version2.BindSchoolDataSource;
 
@@ -70,7 +71,7 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 				.addUpdateTask(4, new SQLiteUpdateTask() {
 					
 					@Override
-					public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+					public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
 						Logger.info("just in case, 3 and 4 are the same!");			
 						
 					}

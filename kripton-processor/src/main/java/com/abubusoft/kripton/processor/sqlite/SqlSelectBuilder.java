@@ -270,10 +270,7 @@ public abstract class SqlSelectBuilder {
 		SqlBuilderHelper.generateLogForWhereParameters(method, methodBuilder);
 
 		methodBuilder.addCode("\n// execute query\n");
-		// methodBuilder.addStatement("Cursor _result =
-		// database().rawQuery(_sql, _sqlWhereParams.toArray(new
-		// String[_sqlWhereParams.size()]))");
-		methodBuilder.addStatement("Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray())");
+		methodBuilder.addStatement("Cursor _result = getDatabase().query(_sql, _contentValues.whereArgsAsArray())");
 
 		methodBuilder.addStatement("return _result");
 

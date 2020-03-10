@@ -33,7 +33,6 @@ import androidx.annotation.Nullable;
  * uses {@link Factory#create(Configuration)} to create this and {@link Callback} to implement
  * the methods that should be overridden.
  */
-@SuppressWarnings("unused")
 public interface SupportSQLiteOpenHelper extends Closeable {
     /**
      * Return the name of the SQLite database being opened, as given to

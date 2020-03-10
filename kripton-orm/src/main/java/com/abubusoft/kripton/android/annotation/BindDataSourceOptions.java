@@ -21,14 +21,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
-import com.abubusoft.kripton.android.sqlite.NoCursorFactory;
+import com.abubusoft.kripton.android.sqlite.KriptonSQLiteOpenHelperFactory;
 import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
 import com.abubusoft.kripton.android.sqlite.NoDatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.android.sqlite.SQLitePopulator;
 
 import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 /**
  * <p>
@@ -46,25 +46,31 @@ DataSourceOptions.Builder optionsBuilder=DataSourceOptions.builder();
   optionsBuilder.databaseLifecycleHandler(new DatabaseLifecycleHandler() {
 			
   &#64;Override
-  public void onUpdate(SQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
+  public void onUpdate(SupportSQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
     Logger.info("databaseLifecycleHandler - onUpdate");
   }
 
   &#64;Override
-  public void onCreate(SQLiteDatabase database) {
+  public void onCreate(SupportSQLiteDatabase database) {
     Logger.info("databaseLifecycleHandler - onCreate "+database.getVersion());
     ...
   }
 
   &#64;Override
-  public void onConfigure(SQLiteDatabase database) {
+  public void onConfigure(SupportSQLiteDatabase database) {
    Logger.info("databaseLifecycleHandler - onConfigure");
+    ...
+  }
+  
+    &#64;Override
+  public void onCorruption(SupportSQLiteDatabase database) {
+    Logger.info("databaseLifecycleHandler - onCreate "+database.getVersion());
     ...
   }
 });
 optionsBuilder.addUpdateTask(1, new SQLiteUpdateTask() {
   &#64;Override
-  public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+  public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
     ...
   }
 });
@@ -74,12 +80,12 @@ BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.build(optionsBuilder.
  * </pre>
  * 
  * <p>
- * To achieve the same result with <strong>@BindDataSourceOptions</strong> just define data
- * source:
+ * To achieve the same result with <strong>@BindDataSourceOptions</strong> just
+ * define data source:
  * </p>
  * 
  * <pre>
- * &#64;BindDataSourceOptions(logEnabled = true, populator = PersonPopulator.class, cursorFactory = PersonCursorFactory.class, databaseLifecycleHandler = PersonLifecycleHandler.class, updateTasks = {
+ * &#64;BindDataSourceOptions(logEnabled = true, populator = PersonPopulator.class, openHelperFactory = KriptonSQLiteOpenHelperFactory.class, databaseLifecycleHandler = PersonLifecycleHandler.class, updateTasks = {
  * 		&#64;BindDataSourceUpdateTask(version = 2, task = PersonUpdateTask.class) })
  * &#64;BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db")
  * public interface AppWithConfigDataSource {
@@ -97,8 +103,8 @@ BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.build(optionsBuilder.
  * 
  * <h2>Attributes</h2>
  * <ul>
- * <li><strong>cursorFactory</strong>: cursorFactory</li>
- * <li><strong>databaseErrorHandler</strong>: databaseErrorHandler</li>
+ * <li><strong>openHelperFactory</strong>: factory for openHelper used to create
+ * database.</li> *
  * <li><strong>databaseLifecycleHandler</strong>: databaseLifecycleHandler</li>
  * <li><strong>inMemory</strong>: if true, generate database in memory.</li>
  * <li><strong>logEnabled</strong>: Log enabled. This flag controls log that is
@@ -117,11 +123,12 @@ BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.build(optionsBuilder.
 public @interface BindDataSourceOptions {
 
 	/**
-	 * Cursor factory.
+	 * open helper factory.
 	 *
-	 * @return the class&lt;? extends cursor factory&gt;
+	 * @return the class&lt;? extends open helper factory&gt;. Default
+	 *         constructor must be defined and public.
 	 */
-	public Class<? extends CursorFactory> cursorFactory() default NoCursorFactory.class;
+	public Class<? extends SupportSQLiteOpenHelper.Factory> openHelperFactory() default KriptonSQLiteOpenHelperFactory.class;
 
 	/**
 	 * Database error handler.
@@ -150,6 +157,15 @@ public @interface BindDataSourceOptions {
 	 * @return true to show operations log
 	 */
 	boolean logEnabled() default true;
+
+	/**
+	 * Add force instance properties to force instance creation during
+	 * datasource build
+	 * 
+	 * @return forces instance properties to force instance creation during
+	 *         datasource build
+	 */
+	boolean forceBuild() default false;
 
 	/**
 	 * {@link SQLitePopulator#execute()} is executed after database creation.

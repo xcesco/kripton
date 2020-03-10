@@ -1,13 +1,14 @@
 package sqlite.feature.pkstring.case1;
 
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.sql.Date;
 
 /**
@@ -20,26 +21,26 @@ import java.sql.Date;
  *  @see ZArtistTable
  */
 public class DaoZArtistImpl extends Dao implements DaoZArtist {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement insert1PreparedStatement1;
+  private static SupportSQLiteStatement insert1PreparedStatement1;
 
-  private static SQLiteStatement insert2PreparedStatement2;
+  private static SupportSQLiteStatement insert2PreparedStatement2;
 
-  private static SQLiteStatement insert3PreparedStatement3;
+  private static SupportSQLiteStatement insert3PreparedStatement3;
 
-  private static SQLiteStatement insert4PreparedStatement4;
+  private static SupportSQLiteStatement insert4PreparedStatement4;
 
-  private static SQLiteStatement insert5PreparedStatement5;
+  private static SupportSQLiteStatement insert5PreparedStatement5;
 
-  private static SQLiteStatement updatePreparedStatement6;
+  private static SupportSQLiteStatement updatePreparedStatement6;
 
-  private static SQLiteStatement update2PreparedStatement7;
+  private static SupportSQLiteStatement update2PreparedStatement7;
 
-  private static SQLiteStatement update3PreparedStatement8;
+  private static SupportSQLiteStatement update3PreparedStatement8;
 
   public DaoZArtistImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -64,7 +65,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (name, year) VALUES (?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("name", bean.name);
@@ -106,7 +107,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // Specialized Insert - InsertType - END
@@ -134,7 +135,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (insert1PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (name, year) VALUES (?, ?)";
-      insert1PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insert1PreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insert1PreparedStatement1);
     _contentValues.put("name", bean.name);
@@ -176,7 +177,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insert1PreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insert1PreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -207,7 +208,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (insert2PreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (name, year) VALUES (?, ?)";
-      insert2PreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insert2PreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insert2PreparedStatement2);
     _contentValues.put("name", bean.name);
@@ -249,7 +250,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insert2PreparedStatement2, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insert2PreparedStatement2, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -276,7 +277,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (insert3PreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (year) VALUES (?)";
-      insert3PreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insert3PreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insert3PreparedStatement3);
 
@@ -318,7 +319,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insert3PreparedStatement3, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insert3PreparedStatement3, _contentValues);
     // Specialized Insert - InsertType - END
   }
 
@@ -341,7 +342,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (insert4PreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (year) VALUES (?)";
-      insert4PreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insert4PreparedStatement4 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insert4PreparedStatement4);
 
@@ -383,7 +384,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insert4PreparedStatement4, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insert4PreparedStatement4, _contentValues);
     return String.valueOf(result);
     // Specialized Insert - InsertType - END
   }
@@ -408,7 +409,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (insert5PreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (year) VALUES (?)";
-      insert5PreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insert5PreparedStatement5 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insert5PreparedStatement5);
 
@@ -450,7 +451,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insert5PreparedStatement5, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insert5PreparedStatement5, _contentValues);
     return result;
     // Specialized Insert - InsertType - END
   }
@@ -478,7 +479,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (updatePreparedStatement6==null) {
       // generate static SQL for statement
       String _sql="UPDATE z_artist SET name=?, year=? WHERE name=?";
-      updatePreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement6 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement6);
     _contentValues.put("name", bean.name);
@@ -514,7 +515,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement6, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement6, _contentValues);
   }
 
   /**
@@ -542,7 +543,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (update2PreparedStatement7==null) {
       // generate static SQL for statement
       String _sql="UPDATE z_artist SET name=?, year=? WHERE name=?";
-      update2PreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
+      update2PreparedStatement7 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(update2PreparedStatement7);
     _contentValues.put("name", bean.name);
@@ -578,7 +579,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(update2PreparedStatement7, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(update2PreparedStatement7, _contentValues);
     return result;
   }
 
@@ -607,7 +608,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     if (update3PreparedStatement8==null) {
       // generate static SQL for statement
       String _sql="UPDATE z_artist SET name=?, year=? WHERE name=?";
-      update3PreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
+      update3PreparedStatement8 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(update3PreparedStatement8);
     _contentValues.put("name", bean.name);
@@ -643,46 +644,50 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(update3PreparedStatement8, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(update3PreparedStatement8, _contentValues);
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (insert1PreparedStatement1!=null) {
-      insert1PreparedStatement1.close();
-      insert1PreparedStatement1=null;
-    }
-    if (insert2PreparedStatement2!=null) {
-      insert2PreparedStatement2.close();
-      insert2PreparedStatement2=null;
-    }
-    if (insert3PreparedStatement3!=null) {
-      insert3PreparedStatement3.close();
-      insert3PreparedStatement3=null;
-    }
-    if (insert4PreparedStatement4!=null) {
-      insert4PreparedStatement4.close();
-      insert4PreparedStatement4=null;
-    }
-    if (insert5PreparedStatement5!=null) {
-      insert5PreparedStatement5.close();
-      insert5PreparedStatement5=null;
-    }
-    if (updatePreparedStatement6!=null) {
-      updatePreparedStatement6.close();
-      updatePreparedStatement6=null;
-    }
-    if (update2PreparedStatement7!=null) {
-      update2PreparedStatement7.close();
-      update2PreparedStatement7=null;
-    }
-    if (update3PreparedStatement8!=null) {
-      update3PreparedStatement8.close();
-      update3PreparedStatement8=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (insert1PreparedStatement1!=null) {
+        insert1PreparedStatement1.close();
+        insert1PreparedStatement1=null;
+      }
+      if (insert2PreparedStatement2!=null) {
+        insert2PreparedStatement2.close();
+        insert2PreparedStatement2=null;
+      }
+      if (insert3PreparedStatement3!=null) {
+        insert3PreparedStatement3.close();
+        insert3PreparedStatement3=null;
+      }
+      if (insert4PreparedStatement4!=null) {
+        insert4PreparedStatement4.close();
+        insert4PreparedStatement4=null;
+      }
+      if (insert5PreparedStatement5!=null) {
+        insert5PreparedStatement5.close();
+        insert5PreparedStatement5=null;
+      }
+      if (updatePreparedStatement6!=null) {
+        updatePreparedStatement6.close();
+        updatePreparedStatement6=null;
+      }
+      if (update2PreparedStatement7!=null) {
+        update2PreparedStatement7.close();
+        update2PreparedStatement7=null;
+      }
+      if (update3PreparedStatement8!=null) {
+        update3PreparedStatement8.close();
+        update3PreparedStatement8=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

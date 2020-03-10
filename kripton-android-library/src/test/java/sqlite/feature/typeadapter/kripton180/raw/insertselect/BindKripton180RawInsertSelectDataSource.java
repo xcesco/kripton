@@ -1,6 +1,6 @@
 package sqlite.feature.typeadapter.kripton180.raw.insertselect;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
@@ -105,9 +105,9 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
         // open database in thread safe mode
-        Pair<Boolean, SQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
+        Pair<Boolean, SupportSQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
         boolean success=false;
-        SQLiteDatabase connection=_status.value1;
+        SupportSQLiteDatabase connection=_status.value1;
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -145,9 +145,9 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
         // open database in thread safe mode
-        Pair<Boolean, SQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
+        Pair<Boolean, SupportSQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
         boolean success=false;
-        SQLiteDatabase connection=_status.value1;
+        SupportSQLiteDatabase connection=_status.value1;
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -185,9 +185,9 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
         // open database in thread safe mode
-        Pair<Boolean, SQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
+        Pair<Boolean, SupportSQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
         boolean success=false;
-        SQLiteDatabase connection=_status.value1;
+        SupportSQLiteDatabase connection=_status.value1;
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -225,9 +225,9 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
         // open database in thread safe mode
-        Pair<Boolean, SQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
+        Pair<Boolean, SupportSQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
         boolean success=false;
-        SQLiteDatabase connection=_status.value1;
+        SupportSQLiteDatabase connection=_status.value1;
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -265,7 +265,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
         // open database in thread safe mode
-        Pair<Boolean, SQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
+        Pair<Boolean, SupportSQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -298,7 +298,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
         // open database in thread safe mode
-        Pair<Boolean, SQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
+        Pair<Boolean, SupportSQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -331,7 +331,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
         // open database in thread safe mode
-        Pair<Boolean, SQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
+        Pair<Boolean, SupportSQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -364,7 +364,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
         // open database in thread safe mode
-        Pair<Boolean, SQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
+        Pair<Boolean, SupportSQLiteDatabase> _status=BindKripton180RawInsertSelectDataSource.this.openDatabaseThreadSafeMode(true);
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
         try {
@@ -419,9 +419,9 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   public boolean execute(Transaction transaction,
       AbstractDataSource.OnErrorListener onErrorListener) {
     // open database in thread safe mode
-    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
+    Pair<Boolean, SupportSQLiteDatabase> _status=openDatabaseThreadSafeMode(true);
     boolean success=false;
-    SQLiteDatabase connection=_status.value1;
+    SupportSQLiteDatabase connection=_status.value1;
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -536,7 +536,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     // open database in thread safe mode
-    Pair<Boolean, SQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
+    Pair<Boolean, SupportSQLiteDatabase> _status=openDatabaseThreadSafeMode(writeMode);
     DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
     currentDaoFactory.onSessionOpened();
     try {
@@ -606,7 +606,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
    * onCreate
    */
   @Override
-  public void onCreate(SQLiteDatabase database) {
+  protected void onCreate(SupportSQLiteDatabase database) {
     // generate tables
     // log section create BEGIN
     if (this.logEnabled) {
@@ -633,7 +633,8 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
    * onUpgrade
    */
   @Override
-  public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
+  protected void onUpgrade(SupportSQLiteDatabase database, int previousVersion,
+      int currentVersion) {
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("Update database '%s' from version %s to version %s",this.name, previousVersion, currentVersion);
@@ -674,14 +675,11 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   }
 
   /**
-   * onConfigure
+   * Returns <code>true</code> if database needs foreign keys.
    */
   @Override
-  public void onConfigure(SQLiteDatabase database) {
-    // configure database
-    if (options.databaseLifecycleHandler != null) {
-      options.databaseLifecycleHandler.onConfigure(database);
-    }
+  public boolean hasForeignKeys() {
+    return false;
   }
 
   public void clearCompiledStatements() {
@@ -692,6 +690,10 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindKripton180RawInsertSelectDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindKripton180RawInsertSelectDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindKripton180RawInsertSelectDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -719,13 +721,14 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
     } else {
       throw new KriptonRuntimeException("Datasource BindKripton180RawInsertSelectDataSource is already builded");
     }
+    Logger.info("Datasource BindKripton180RawInsertSelectDataSource is created");
     return result;
   }
 
   /**
    * List of tables compose datasource:
    */
-  public static SQLiteTable[] tables() {
+  public static SQLiteTable[] getTables() {
     return TABLES;
   }
 
@@ -816,7 +819,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
     }
 
     @Override
-    public SQLContext context() {
+    public SQLContext getContext() {
       return _context;
     }
 

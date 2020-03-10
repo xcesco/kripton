@@ -1,12 +1,13 @@
 package sqlite.feature.javadoc.delete.bean;
 
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
+import java.io.IOException;
 import sqlite.feature.javadoc.Person;
 
 /**
@@ -19,16 +20,16 @@ import sqlite.feature.javadoc.Person;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao {
-  private static SQLiteStatement deleteOneBeanPreparedStatement0;
+  private static SupportSQLiteStatement deleteOneBeanPreparedStatement0;
 
-  private static SQLiteStatement deleteAllBeansJQLPreparedStatement1;
+  private static SupportSQLiteStatement deleteAllBeansJQLPreparedStatement1;
 
-  private static SQLiteStatement deleteFromSelectAllBeansJQLPreparedStatement2;
+  private static SupportSQLiteStatement deleteFromSelectAllBeansJQLPreparedStatement2;
 
-  private static SQLiteStatement deleteBeanPreparedStatement3;
+  private static SupportSQLiteStatement deleteBeanPreparedStatement3;
 
   public DeleteBeanPersonDaoImpl(BindDeleteBeanPersonDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -50,7 +51,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     if (deleteOneBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
-      deleteOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteOneBeanPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteOneBeanPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -71,7 +72,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteOneBeanPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteOneBeanPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -131,7 +132,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -153,7 +154,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     if (deleteAllBeansJQLPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person WHERE person_name=? AND person_surname=? AND student = 0";
-      deleteAllBeansJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllBeansJQLPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllBeansJQLPreparedStatement1);
     _contentValues.addWhereArgs((bean.getPersonName()==null?"":bean.getPersonName()));
@@ -175,7 +176,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllBeansJQLPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllBeansJQLPreparedStatement1, _contentValues);
   }
 
   /**
@@ -198,7 +199,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     if (deleteFromSelectAllBeansJQLPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person WHERE person_surname=? and student = (select student from person where person_name=?)";
-      deleteFromSelectAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteFromSelectAllBeansJQLPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteFromSelectAllBeansJQLPreparedStatement2);
     _contentValues.addWhereArgs((bean.getPersonSurname()==null?"":bean.getPersonSurname()));
@@ -220,7 +221,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteFromSelectAllBeansJQLPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteFromSelectAllBeansJQLPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -284,7 +285,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -307,7 +308,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     if (deleteBeanPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person WHERE id=?";
-      deleteBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteBeanPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteBeanPreparedStatement3);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -328,7 +329,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteBeanPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteBeanPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -388,7 +389,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -448,7 +449,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -508,7 +509,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
@@ -577,7 +578,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
 
@@ -650,26 +651,30 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // log section END
 
     // execute SQL
-    int result = database().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
+    int result = getDatabase().delete("person", _sqlWhereStatement, _contentValues.whereArgsAsArray());
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (deleteOneBeanPreparedStatement0!=null) {
-      deleteOneBeanPreparedStatement0.close();
-      deleteOneBeanPreparedStatement0=null;
-    }
-    if (deleteAllBeansJQLPreparedStatement1!=null) {
-      deleteAllBeansJQLPreparedStatement1.close();
-      deleteAllBeansJQLPreparedStatement1=null;
-    }
-    if (deleteFromSelectAllBeansJQLPreparedStatement2!=null) {
-      deleteFromSelectAllBeansJQLPreparedStatement2.close();
-      deleteFromSelectAllBeansJQLPreparedStatement2=null;
-    }
-    if (deleteBeanPreparedStatement3!=null) {
-      deleteBeanPreparedStatement3.close();
-      deleteBeanPreparedStatement3=null;
+    try {
+      if (deleteOneBeanPreparedStatement0!=null) {
+        deleteOneBeanPreparedStatement0.close();
+        deleteOneBeanPreparedStatement0=null;
+      }
+      if (deleteAllBeansJQLPreparedStatement1!=null) {
+        deleteAllBeansJQLPreparedStatement1.close();
+        deleteAllBeansJQLPreparedStatement1=null;
+      }
+      if (deleteFromSelectAllBeansJQLPreparedStatement2!=null) {
+        deleteFromSelectAllBeansJQLPreparedStatement2.close();
+        deleteFromSelectAllBeansJQLPreparedStatement2=null;
+      }
+      if (deleteBeanPreparedStatement3!=null) {
+        deleteBeanPreparedStatement3.close();
+        deleteBeanPreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

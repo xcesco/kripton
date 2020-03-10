@@ -1,13 +1,14 @@
 package sqlite.feature.many2many.case5.persistence;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import sqlite.feature.many2many.case5.model.PrefixConfig;
 
 /**
@@ -20,26 +21,26 @@ import sqlite.feature.many2many.case5.model.PrefixConfig;
  *  @see sqlite.feature.many2many.case5.model.PrefixConfigTable
  */
 public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
   /**
    * SQL definition for method selectById
    */
   private static final String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config WHERE id = ?";
 
-  private static SQLiteStatement deleteByIdPreparedStatement1;
+  private static SupportSQLiteStatement deleteByIdPreparedStatement1;
 
-  private static SQLiteStatement updateByIdPreparedStatement2;
+  private static SupportSQLiteStatement updateByIdPreparedStatement2;
 
   /**
    * SQL definition for method selectOne
    */
   private static final String SELECT_ONE_SQL5 = "SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config";
 
-  private static SQLiteStatement updatePreparedStatement3;
+  private static SupportSQLiteStatement updatePreparedStatement3;
 
   public PrefixConfigDaoImpl(BindXenoDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -67,7 +68,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (?, ?, ?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("default_country", bean.defaultCountry);
@@ -111,7 +112,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -167,7 +168,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -219,7 +220,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     if (deleteByIdPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM prefix_config WHERE id = ?";
-      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByIdPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -240,7 +241,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     return result!=0;
   }
 
@@ -263,7 +264,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     if (updateByIdPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM prefix_config WHERE id = ?";
-      updateByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateByIdPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -284,7 +285,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     return result!=0;
   }
 
@@ -328,7 +329,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -388,7 +389,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     if (updatePreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="UPDATE prefix_config SET default_country=?, dialog_timeout=?, dual_billing_prefix=?, enabled=? WHERE id = ? ";
-      updatePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement3);
     _contentValues.put("default_country", bean.defaultCountry);
@@ -426,26 +427,30 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement3, _contentValues);
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (deleteByIdPreparedStatement1!=null) {
-      deleteByIdPreparedStatement1.close();
-      deleteByIdPreparedStatement1=null;
-    }
-    if (updateByIdPreparedStatement2!=null) {
-      updateByIdPreparedStatement2.close();
-      updateByIdPreparedStatement2=null;
-    }
-    if (updatePreparedStatement3!=null) {
-      updatePreparedStatement3.close();
-      updatePreparedStatement3=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (deleteByIdPreparedStatement1!=null) {
+        deleteByIdPreparedStatement1.close();
+        deleteByIdPreparedStatement1=null;
+      }
+      if (updateByIdPreparedStatement2!=null) {
+        updateByIdPreparedStatement2.close();
+        updateByIdPreparedStatement2=null;
+      }
+      if (updatePreparedStatement3!=null) {
+        updatePreparedStatement3.close();
+        updatePreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

@@ -1,18 +1,19 @@
 package sqlite.feature.livedatax.persistence0;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
 import androidx.lifecycle.LiveData;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,16 +36,16 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    */
   private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement updatePreparedStatement1;
+  private static SupportSQLiteStatement updatePreparedStatement1;
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public DaoPerson0Impl(BindApp0DaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -92,7 +93,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -195,7 +196,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("name", bean.name);
@@ -237,7 +238,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     if (result>0) {
@@ -272,7 +273,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     if (updatePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
     _contentValues.put("name", bean.name);
@@ -308,7 +309,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement1, _contentValues);
     if (result>0) {
       // rx management 
       subject.onNext(SQLiteEvent.createUpdate(result));
@@ -357,13 +358,17 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (updatePreparedStatement1!=null) {
-      updatePreparedStatement1.close();
-      updatePreparedStatement1=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (updatePreparedStatement1!=null) {
+        updatePreparedStatement1.close();
+        updatePreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

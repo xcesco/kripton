@@ -24,10 +24,9 @@ import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.arch.lifecycle.Observer;
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.feature.datasourceoptions.livedata.BindAppWithConfigDataSource;
 import sqlite.feature.datasourceoptions.livedata.Person;
@@ -58,27 +57,39 @@ public class TestDataSourceOptionsLiveDataRuntime extends BaseAndroidTest {
 		optionsBuilder.databaseLifecycleHandler(new DatabaseLifecycleHandler() {
 			
 			@Override
-			public void onUpdate(SQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
+			public void onUpdate(SupportSQLiteDatabase database, int oldVersion, int newVersion, boolean upgrade) {
 				log("databaseLifecycleHandler - onUpdate");
 				
 			}
 			
 			@Override
-			public void onCreate(SQLiteDatabase database) {
+			public void onCreate(SupportSQLiteDatabase database) {
 				log("databaseLifecycleHandler - onCreate "+database.getVersion());
 				
 			}
 			
 			@Override
-			public void onConfigure(SQLiteDatabase database) {
+			public void onConfigure(SupportSQLiteDatabase database) {
 				log("databaseLifecycleHandler - onConfigure");
+				
+			}
+
+			@Override
+			public void onOpen(SupportSQLiteDatabase database) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onCorruption(SupportSQLiteDatabase database) {
+				// TODO Auto-generated method stub
 				
 			}
 		});
 		optionsBuilder.addUpdateTask(1, new SQLiteUpdateTask() {
 			
 			@Override
-			public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+			public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
 				log("aaaaaaaaa");
 				
 			}

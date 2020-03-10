@@ -2,16 +2,17 @@ package sqlite.feature.custombean.case1;
 
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,14 +45,14 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    */
   private static final String FIND_LOANS_BY_NAME_AFTER_SQL12 = "SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
 
-  private static SQLiteStatement insertLoanPreparedStatement0;
+  private static SupportSQLiteStatement insertLoanPreparedStatement0;
 
-  private static SQLiteStatement deleteAllPreparedStatement1;
+  private static SupportSQLiteStatement deleteAllPreparedStatement1;
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public LoanDaoImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -93,7 +94,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -212,7 +213,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -343,7 +344,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -459,7 +460,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     if (insertLoanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO loan (id, book_id, end_time, start_time, user_id) VALUES (?, ?, ?, ?, ?)";
-      insertLoanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertLoanPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertLoanPreparedStatement0);
     _contentValues.put("id", loan.id);
@@ -504,7 +505,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertLoanPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertLoanPreparedStatement0, _contentValues);
     // support for livedata
     registryEvent(result>0?1:0);
     // Specialized Insert - InsertType - END
@@ -522,7 +523,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     if (deleteAllPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM loan";
-      deleteAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteAllPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement1);
 
@@ -542,7 +543,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteAllPreparedStatement1, _contentValues);
     // support for livedata
     registryEvent(result);
   }
@@ -583,13 +584,17 @@ public class LoanDaoImpl extends Dao implements LoanDao {
   }
 
   public static void clearCompiledStatements() {
-    if (insertLoanPreparedStatement0!=null) {
-      insertLoanPreparedStatement0.close();
-      insertLoanPreparedStatement0=null;
-    }
-    if (deleteAllPreparedStatement1!=null) {
-      deleteAllPreparedStatement1.close();
-      deleteAllPreparedStatement1=null;
+    try {
+      if (insertLoanPreparedStatement0!=null) {
+        insertLoanPreparedStatement0.close();
+        insertLoanPreparedStatement0=null;
+      }
+      if (deleteAllPreparedStatement1!=null) {
+        deleteAllPreparedStatement1.close();
+        deleteAllPreparedStatement1=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

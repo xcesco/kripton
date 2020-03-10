@@ -1,15 +1,16 @@
 package sqlite.feature.typeadapter.kripton180.bean;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import sqlite.feature.typeadapter.kripton180.Employee;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterAddress;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
@@ -53,26 +54,26 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   private static final String SELECT_BY_ALL_J_Q_L_SQL4 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
-  private static SQLiteStatement insertPreparedStatement0;
+  private static SupportSQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement insertJQLPreparedStatement1;
+  private static SupportSQLiteStatement insertJQLPreparedStatement1;
 
-  private static SQLiteStatement updatePreparedStatement2;
+  private static SupportSQLiteStatement updatePreparedStatement2;
 
-  private static SQLiteStatement updateByIdPreparedStatement3;
+  private static SupportSQLiteStatement updateByIdPreparedStatement3;
 
-  private static SQLiteStatement updateJQLPreparedStatement4;
+  private static SupportSQLiteStatement updateJQLPreparedStatement4;
 
-  private static SQLiteStatement updateByIdJQLPreparedStatement5;
+  private static SupportSQLiteStatement updateByIdJQLPreparedStatement5;
 
-  private static SQLiteStatement deletePreparedStatement6;
+  private static SupportSQLiteStatement deletePreparedStatement6;
 
-  private static SQLiteStatement deleteJQLPreparedStatement7;
+  private static SupportSQLiteStatement deleteJQLPreparedStatement7;
 
-  private static SQLiteStatement deleteByIdPreparedStatement8;
+  private static SupportSQLiteStatement deleteByIdPreparedStatement8;
 
   public EmployeeBeanDaoImpl(BindKripton180BeanDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -134,7 +135,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -259,7 +260,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -404,7 +405,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -549,7 +550,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -651,7 +652,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
@@ -706,7 +707,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement0, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -745,7 +746,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (insertJQLPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      insertJQLPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertJQLPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertJQLPreparedStatement1);
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
@@ -795,7 +796,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertJQLPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertJQLPreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -850,7 +851,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (updatePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE employees SET address=?, birth_date=?, field_boolean=?, field_byte=?, field_byte_array=?, field_character=?, field_double=?, field_float=?, field_integer=?, field_long=?, field_short=?, field_string=?, first_name=?, hire_date=?, last_name=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-      updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
@@ -908,7 +909,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement2, _contentValues);
     return result;
   }
 
@@ -950,7 +951,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (updateByIdPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="UPDATE employees SET address=?, birth_date=?, field_boolean=?, field_byte=?, field_byte_array=?, field_character=?, field_double=?, field_float=?, field_integer=?, field_long=?, field_short=?, field_string=?, first_name=?, hire_date=?, last_name=? WHERE id=?";
-      updateByIdPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateByIdPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement3);
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
@@ -999,7 +1000,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement3, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateByIdPreparedStatement3, _contentValues);
     return result;
   }
 
@@ -1040,7 +1041,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (updateJQLPreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-      updateJQLPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateJQLPreparedStatement4 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLPreparedStatement4);
     _contentValues.put("last_name", bean.lastName);
@@ -1088,7 +1089,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateJQLPreparedStatement4, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateJQLPreparedStatement4, _contentValues);
     return result;
   }
 
@@ -1120,7 +1121,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (updateByIdJQLPreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=? WHERE id=?";
-      updateByIdJQLPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updateByIdJQLPreparedStatement5 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdJQLPreparedStatement5);
     _contentValues.put("last_name", bean.lastName);
@@ -1159,7 +1160,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updateByIdJQLPreparedStatement5, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updateByIdJQLPreparedStatement5, _contentValues);
     return result;
   }
 
@@ -1191,7 +1192,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (deletePreparedStatement6==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-      deletePreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deletePreparedStatement6 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deletePreparedStatement6);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -1221,7 +1222,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deletePreparedStatement6, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deletePreparedStatement6, _contentValues);
     return result;
   }
 
@@ -1253,7 +1254,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (deleteJQLPreparedStatement7==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM employees WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
-      deleteJQLPreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteJQLPreparedStatement7 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteJQLPreparedStatement7);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -1283,7 +1284,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteJQLPreparedStatement7, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteJQLPreparedStatement7, _contentValues);
     return result;
   }
 
@@ -1306,7 +1307,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (deleteByIdPreparedStatement8==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM employees WHERE id=?";
-      deleteByIdPreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByIdPreparedStatement8 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement8);
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -1327,46 +1328,50 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement8, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByIdPreparedStatement8, _contentValues);
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (insertPreparedStatement0!=null) {
-      insertPreparedStatement0.close();
-      insertPreparedStatement0=null;
-    }
-    if (insertJQLPreparedStatement1!=null) {
-      insertJQLPreparedStatement1.close();
-      insertJQLPreparedStatement1=null;
-    }
-    if (updatePreparedStatement2!=null) {
-      updatePreparedStatement2.close();
-      updatePreparedStatement2=null;
-    }
-    if (updateByIdPreparedStatement3!=null) {
-      updateByIdPreparedStatement3.close();
-      updateByIdPreparedStatement3=null;
-    }
-    if (updateJQLPreparedStatement4!=null) {
-      updateJQLPreparedStatement4.close();
-      updateJQLPreparedStatement4=null;
-    }
-    if (updateByIdJQLPreparedStatement5!=null) {
-      updateByIdJQLPreparedStatement5.close();
-      updateByIdJQLPreparedStatement5=null;
-    }
-    if (deletePreparedStatement6!=null) {
-      deletePreparedStatement6.close();
-      deletePreparedStatement6=null;
-    }
-    if (deleteJQLPreparedStatement7!=null) {
-      deleteJQLPreparedStatement7.close();
-      deleteJQLPreparedStatement7=null;
-    }
-    if (deleteByIdPreparedStatement8!=null) {
-      deleteByIdPreparedStatement8.close();
-      deleteByIdPreparedStatement8=null;
+    try {
+      if (insertPreparedStatement0!=null) {
+        insertPreparedStatement0.close();
+        insertPreparedStatement0=null;
+      }
+      if (insertJQLPreparedStatement1!=null) {
+        insertJQLPreparedStatement1.close();
+        insertJQLPreparedStatement1=null;
+      }
+      if (updatePreparedStatement2!=null) {
+        updatePreparedStatement2.close();
+        updatePreparedStatement2=null;
+      }
+      if (updateByIdPreparedStatement3!=null) {
+        updateByIdPreparedStatement3.close();
+        updateByIdPreparedStatement3=null;
+      }
+      if (updateJQLPreparedStatement4!=null) {
+        updateJQLPreparedStatement4.close();
+        updateJQLPreparedStatement4=null;
+      }
+      if (updateByIdJQLPreparedStatement5!=null) {
+        updateByIdJQLPreparedStatement5.close();
+        updateByIdJQLPreparedStatement5=null;
+      }
+      if (deletePreparedStatement6!=null) {
+        deletePreparedStatement6.close();
+        deletePreparedStatement6=null;
+      }
+      if (deleteJQLPreparedStatement7!=null) {
+        deleteJQLPreparedStatement7.close();
+        deleteJQLPreparedStatement7=null;
+      }
+      if (deleteByIdPreparedStatement8!=null) {
+        deleteByIdPreparedStatement8.close();
+        deleteByIdPreparedStatement8=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

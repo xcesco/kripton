@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.update.raw.err2;
+package bind.listoflist;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
+import java.util.List;
 
+import com.abubusoft.kripton.annotation.BindType;
+
+// TODO: Auto-generated Javadoc
 /**
- * The Interface Example01DataSource.
+ * The Class Bean81V4.
  */
-@BindDataSource(daoSet=PersonDAO.class, fileName = "example.db")
-public interface Example01DataSource {
-
+@BindType
+public class BeanListList {
+	
+	public List<List<String>> value;
+			
 }

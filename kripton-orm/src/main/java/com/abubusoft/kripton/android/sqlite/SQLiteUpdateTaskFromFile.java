@@ -21,9 +21,8 @@ import java.util.List;
 
 import com.abubusoft.kripton.android.Logger;
 
-import android.database.sqlite.SQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Database schema upgrade
@@ -61,7 +60,7 @@ public class SQLiteUpdateTaskFromFile implements SQLiteUpdateTask {
 	 * @see com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask#execute(android.database.sqlite.SQLiteDatabase, int, int)
 	 */
 	@Override
-	public void execute(SQLiteDatabase database, int previuosVersion, int currentVersion) {
+	public void execute(SupportSQLiteDatabase database, int previuosVersion, int targetVersion) {
 		List<String> executionList=null;
 	
 		if (inputStream==null) {

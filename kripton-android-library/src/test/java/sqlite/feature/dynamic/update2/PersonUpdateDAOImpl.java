@@ -3,7 +3,7 @@ package sqlite.feature.dynamic.update2;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -20,7 +20,7 @@ import sqlite.feature.dynamic.Person;
  */
 public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   public PersonUpdateDAOImpl(BindPersonUpdateDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -102,7 +102,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(_context, _sql, _contentValues);
   }
 
   public static void clearCompiledStatements() {

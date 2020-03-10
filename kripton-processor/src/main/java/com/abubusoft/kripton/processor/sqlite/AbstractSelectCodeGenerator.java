@@ -624,9 +624,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 			ClassName cursorClass = ClassName.bestGuess("android.database.Cursor");
 			if (generationType.generateCloseableCursor) {
-				methodBuilder.beginControlFlow("try ($T _cursor = database().rawQuery(_sql, _sqlArgs))", cursorClass);
+				methodBuilder.beginControlFlow("try ($T _cursor = getDatabase().query(_sql, _sqlArgs))", cursorClass);
 			} else {
-				methodBuilder.addStatement("$T _cursor = database().rawQuery(_sql, _sqlArgs)", cursorClass);
+				methodBuilder.addStatement("$T _cursor = getDatabase().query(_sql, _sqlArgs)", cursorClass);
 			}
 
 			if (daoDefinition.isLogEnabled()) {

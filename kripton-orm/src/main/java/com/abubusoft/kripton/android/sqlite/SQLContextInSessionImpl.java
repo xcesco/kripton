@@ -16,10 +16,9 @@
 package com.abubusoft.kripton.android.sqlite;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteStatement;
 
-// TODO: Auto-generated Javadoc
 /**
  * Works on single thread. No thread local is needed.
  * 
@@ -69,7 +68,7 @@ public class SQLContextInSessionImpl extends AbstractSQLContext {
 	 * @see com.abubusoft.kripton.android.sqlite.SQLContext#contentValuesForUpdate(android.database.sqlite.SQLiteStatement)
 	 */
 	@Override
-	public KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
+	public KriptonContentValues contentValuesForUpdate(SupportSQLiteStatement compiledStatement) {
 		this.contentValuesForUpdate.clear(compiledStatement);
 		
 		return this.contentValuesForUpdate;
@@ -79,7 +78,7 @@ public class SQLContextInSessionImpl extends AbstractSQLContext {
 	 * @see com.abubusoft.kripton.android.sqlite.SQLContext#contentValues(android.database.sqlite.SQLiteStatement)
 	 */
 	@Override
-	public KriptonContentValues contentValues(SQLiteStatement compiledStatement) {
+	public KriptonContentValues contentValues(SupportSQLiteStatement compiledStatement) {
 		this.contentValues.clear(compiledStatement);
 		
 		return this.contentValues;
@@ -109,8 +108,8 @@ public class SQLContextInSessionImpl extends AbstractSQLContext {
 	 * @see com.abubusoft.kripton.android.sqlite.SQLContext#database()
 	 */
 	@Override
-	public SQLiteDatabase database() {
-		return dataSource.database();
+	public SupportSQLiteDatabase getDatabase() {
+		return dataSource.getDatabase();
 	}
 
 	/* (non-Javadoc)

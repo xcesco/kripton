@@ -1,13 +1,14 @@
 package sqlite.feature.many2many.case7;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,16 +38,16 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    */
   private static final String SELECT_BY_PERSON_ID_SQL5 = "SELECT id, city_id, person_id FROM city_person WHERE person_id=?";
 
-  private static SQLiteStatement deleteByIdPreparedStatement0;
+  private static SupportSQLiteStatement deleteByIdPreparedStatement0;
 
-  private static SQLiteStatement deleteByCityIdPreparedStatement1;
+  private static SupportSQLiteStatement deleteByCityIdPreparedStatement1;
 
-  private static SQLiteStatement deleteByPersonIdPreparedStatement2;
+  private static SupportSQLiteStatement deleteByPersonIdPreparedStatement2;
 
-  private static SQLiteStatement insertPreparedStatement3;
+  private static SupportSQLiteStatement insertPreparedStatement3;
 
   public City2PersonDaoImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -95,7 +96,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -182,7 +183,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -275,7 +276,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -341,7 +342,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     if (deleteByIdPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM city_person WHERE id=?";
-      deleteByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByIdPreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement0);
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -362,7 +363,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
     return result;
   }
 
@@ -385,7 +386,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     if (deleteByCityIdPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM city_person WHERE city_id=?";
-      deleteByCityIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByCityIdPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByCityIdPreparedStatement1);
     _contentValues.addWhereArgs(String.valueOf(cityId));
@@ -406,7 +407,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByCityIdPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByCityIdPreparedStatement1, _contentValues);
     return result;
   }
 
@@ -429,7 +430,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     if (deleteByPersonIdPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM city_person WHERE person_id=?";
-      deleteByPersonIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByPersonIdPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByPersonIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(personId));
@@ -450,7 +451,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByPersonIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByPersonIdPreparedStatement2, _contentValues);
     return result;
   }
 
@@ -477,7 +478,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO city_person (city_id, person_id) VALUES (?, ?)";
-      insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement3 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
     _contentValues.put("city_id", bean.getCityId());
@@ -519,28 +520,32 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement3, _contentValues);
 
     return (int)result;
     // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {
-    if (deleteByIdPreparedStatement0!=null) {
-      deleteByIdPreparedStatement0.close();
-      deleteByIdPreparedStatement0=null;
-    }
-    if (deleteByCityIdPreparedStatement1!=null) {
-      deleteByCityIdPreparedStatement1.close();
-      deleteByCityIdPreparedStatement1=null;
-    }
-    if (deleteByPersonIdPreparedStatement2!=null) {
-      deleteByPersonIdPreparedStatement2.close();
-      deleteByPersonIdPreparedStatement2=null;
-    }
-    if (insertPreparedStatement3!=null) {
-      insertPreparedStatement3.close();
-      insertPreparedStatement3=null;
+    try {
+      if (deleteByIdPreparedStatement0!=null) {
+        deleteByIdPreparedStatement0.close();
+        deleteByIdPreparedStatement0=null;
+      }
+      if (deleteByCityIdPreparedStatement1!=null) {
+        deleteByCityIdPreparedStatement1.close();
+        deleteByCityIdPreparedStatement1=null;
+      }
+      if (deleteByPersonIdPreparedStatement2!=null) {
+        deleteByPersonIdPreparedStatement2.close();
+        deleteByPersonIdPreparedStatement2=null;
+      }
+      if (insertPreparedStatement3!=null) {
+        insertPreparedStatement3.close();
+        insertPreparedStatement3=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

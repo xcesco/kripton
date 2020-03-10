@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Map.Entry;
@@ -153,7 +154,9 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor# visit(com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition)
+	 * @see
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor#
+	 * visit(com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition)
 	 */
 	@Override
 	public void visit(SQLiteDaoDefinition value) throws Exception {
@@ -197,7 +200,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			// constructor
 			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC)
 					.addParameter(BindDaoFactoryBuilder.generateDaoFactoryClassName(value.getParent()), "daoFactory");
-			methodBuilder.addStatement("super(daoFactory.context())");
+			methodBuilder.addStatement("super(daoFactory.getContext())");
 
 			if (value.hasRelations()) {
 				methodBuilder.addStatement("this.daoFactory=daoFactory");
@@ -327,10 +330,19 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements")
 					.addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(Void.TYPE);
-			for (String item : value.preparedStatementNames) {
-				methodBuilder.beginControlFlow("if ($L!=null)", item);
-				methodBuilder.addStatement("$L.close()", item);
-				methodBuilder.addStatement("$L=null", item);
+
+			if (value.preparedStatementNames.size() > 0) {
+				methodBuilder.beginControlFlow("try");
+
+				for (String item : value.preparedStatementNames) {
+					methodBuilder.beginControlFlow("if ($L!=null)", item);
+					methodBuilder.addStatement("$L.close()", item);
+					methodBuilder.addStatement("$L=null", item);
+					methodBuilder.endControlFlow();
+				}
+
+				methodBuilder.nextControlFlow("catch($T e)", IOException.class);
+				methodBuilder.addStatement("e.printStackTrace()");
 				methodBuilder.endControlFlow();
 			}
 
@@ -380,7 +392,9 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor# visit(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
+	 * @see
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor#
+	 * visit(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
 	 */
 	@Override
 	public void visit(SQLiteModelMethod value) throws Exception {

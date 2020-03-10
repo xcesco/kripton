@@ -1,13 +1,14 @@
 package sqlite.feature.foreignkeyaction;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
+import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +32,14 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    */
   private static final String SELECT_ALL_SQL4 = "SELECT id, artist_id, name FROM album";
 
-  private static SQLiteStatement updatePreparedStatement0;
+  private static SupportSQLiteStatement updatePreparedStatement0;
 
-  private static SQLiteStatement insertPreparedStatement1;
+  private static SupportSQLiteStatement insertPreparedStatement1;
 
-  private static SQLiteStatement deleteByIdPreparedStatement2;
+  private static SupportSQLiteStatement deleteByIdPreparedStatement2;
 
   public AlbumDaoImpl(BindArtistDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -87,7 +88,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -154,7 +155,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
@@ -214,7 +215,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     if (updatePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="UPDATE album SET artist_id=?, name=? WHERE id=?";
-      updatePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement0 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement0);
     _contentValues.put("artist_id", bean.artistId);
@@ -250,7 +251,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement0, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(updatePreparedStatement0, _contentValues);
     return result;
   }
 
@@ -277,7 +278,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (artist_id, name) VALUES (?, ?)";
-      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      insertPreparedStatement1 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("artist_id", bean.artistId);
@@ -319,7 +320,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     }
     // log section END
     // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    long result = KriptonDatabaseHelper.insert(insertPreparedStatement1, _contentValues);
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
@@ -346,7 +347,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     if (deleteByIdPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM album WHERE id=?";
-      deleteByIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
+      deleteByIdPreparedStatement2 = KriptonDatabaseHelper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement2);
     _contentValues.addWhereArgs(String.valueOf(id));
@@ -367,22 +368,26 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement2, _contentValues);
+    int result = KriptonDatabaseHelper.updateDelete(deleteByIdPreparedStatement2, _contentValues);
     return result;
   }
 
   public static void clearCompiledStatements() {
-    if (updatePreparedStatement0!=null) {
-      updatePreparedStatement0.close();
-      updatePreparedStatement0=null;
-    }
-    if (insertPreparedStatement1!=null) {
-      insertPreparedStatement1.close();
-      insertPreparedStatement1=null;
-    }
-    if (deleteByIdPreparedStatement2!=null) {
-      deleteByIdPreparedStatement2.close();
-      deleteByIdPreparedStatement2=null;
+    try {
+      if (updatePreparedStatement0!=null) {
+        updatePreparedStatement0.close();
+        updatePreparedStatement0=null;
+      }
+      if (insertPreparedStatement1!=null) {
+        insertPreparedStatement1.close();
+        insertPreparedStatement1=null;
+      }
+      if (deleteByIdPreparedStatement2!=null) {
+        deleteByIdPreparedStatement2.close();
+        deleteByIdPreparedStatement2=null;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

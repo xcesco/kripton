@@ -24,7 +24,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   private static final String SELECT_ALL_SQL2 = "SELECT id, album_id, name FROM song";
 
   public DaoSongImpl(BindAppDaoFactory daoFactory) {
-    super(daoFactory.context());
+    super(daoFactory.getContext());
   }
 
   /**
@@ -65,7 +65,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
       // log for where parameters -- END
     }
     // log section for select END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = getDatabase().query(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
