@@ -18,6 +18,8 @@ package com.abubusoft.kripton.android;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.abubusoft.kripton.KriptonVersion;
+
 import android.content.Context;
 
 /**
@@ -27,6 +29,8 @@ import android.content.Context;
  *
  */
 public class KriptonLibrary {
+
+	public static final String VERSION = KriptonVersion.VERSION;
 
 	/**
 	 * Context.
@@ -65,7 +69,6 @@ public class KriptonLibrary {
 		init(contextValue, null);
 	}
 
-
 	/**
 	 * Method to invoke during application initialization.
 	 *
@@ -76,6 +79,7 @@ public class KriptonLibrary {
 	 */
 	public static void init(Context contextValue, ExecutorService service) {
 		context = contextValue;
+		Logger.info("Kripton persistence library ver. %s initialized", VERSION);
 
 		if (service == null) {
 			executerService = Executors.newFixedThreadPool(THREAD_POOL_SIZE_DEFAULT);
