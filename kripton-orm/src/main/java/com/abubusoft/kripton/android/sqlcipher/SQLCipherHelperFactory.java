@@ -287,7 +287,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
       return new Builder();
     } 
 
-    /**
+    /** 
      * A builder of Options objects. Use the builder() method on Options to create
      * one of these, call various setters to configure it, then call build() to
      * create the Options matching your requested specifications.
