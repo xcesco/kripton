@@ -285,7 +285,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
      */
     public static Builder builder() {
       return new Builder();
-    }
+    } 
 
     /**
      * A builder of Options objects. Use the builder() method on Options to create
