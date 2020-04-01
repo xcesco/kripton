@@ -32,216 +32,222 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
  * SupportSQLiteOpenHelper implementation that works with SQLCipher for Android
  */
 class SQLCipherHelper implements SupportSQLiteOpenHelper {
-  private final OpenHelper delegate;
-  private final byte[] passphrase;
-  private final boolean clearPassphrase;
+	private final OpenHelper delegate;
+	private final byte[] passphrase;
+	private final boolean clearPassphrase;
+	private final boolean requiredPassphrase;
 
-  SQLCipherHelper(Context context, String name, Callback callback, byte[] passphrase,
-         SQLCipherHelperFactory.Options options) {
-    SQLiteDatabase.loadLibs(context);
-    clearPassphrase=options.clearPassphrase;
-    delegate=createDelegate(context, name, callback, options);
-    this.passphrase=passphrase;
-  }
+	SQLCipherHelper(Context context, String name, Callback callback, byte[] passphrase,
+			SQLCipherHelperFactory.Options options) {
+		SQLiteDatabase.loadLibs(context);
+		clearPassphrase = options.clearPassphrase;
+		delegate = createDelegate(context, name, callback, options);
+		this.passphrase = passphrase;
+		this.requiredPassphrase = options.requiredPassphrase;
+	}
 
-  private OpenHelper createDelegate(Context context, String name,
-                                    final Callback callback, SQLCipherHelperFactory.Options options) {
-    final Database[] dbRef = new Database[1];
+	private OpenHelper createDelegate(Context context, String name, final Callback callback,
+			SQLCipherHelperFactory.Options options) {
+		final Database[] dbRef = new Database[1];
 
-    return(new OpenHelper(context, name, dbRef, callback, options));
-  }
+		return (new OpenHelper(context, name, dbRef, callback, options));
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  synchronized public String getDatabaseName() {
-    return delegate.getDatabaseName();
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	synchronized public String getDatabaseName() {
+		return delegate.getDatabaseName();
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-  synchronized public void setWriteAheadLoggingEnabled(boolean enabled) {
-    delegate.setWriteAheadLoggingEnabled(enabled);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+	synchronized public void setWriteAheadLoggingEnabled(boolean enabled) {
+		delegate.setWriteAheadLoggingEnabled(enabled);
+	}
 
-  /**
-   * {@inheritDoc}
-   *
-   * NOTE: by default, this implementation zeros out the passphrase after opening the
-   * database
-   */
-  @Override
-  synchronized public SupportSQLiteDatabase getWritableDatabase() {
-    SupportSQLiteDatabase result;
+	/**
+	 * {@inheritDoc}
+	 *
+	 * NOTE: by default, this implementation zeros out the passphrase after
+	 * opening the database
+	 */
+	@Override
+	synchronized public SupportSQLiteDatabase getWritableDatabase() {
+		SupportSQLiteDatabase result;
 
-    try {
-      result = delegate.getWritableSupportDatabase(passphrase);
-    }
-    catch (SQLiteException e) {
-      if (passphrase != null) {
-        boolean isCleared = true;
+		// if we don't have a passphrase, an exception will be thrown
+		if (requiredPassphrase && passphrase == null) {
+			throw new SQLCipherPassphraseRequiredException();
+		}
+		try {
+			result = delegate.getWritableSupportDatabase(passphrase);
+		} catch (SQLiteException e) {
+			if (passphrase != null) {
+				boolean isCleared = true;
 
-        for (byte b : passphrase) {
-          isCleared = isCleared && (b == (byte) 0);
-        }
+				for (byte b : passphrase) {
+					isCleared = isCleared && (b == (byte) 0);
+				}
 
-        if (isCleared) {
-          throw new IllegalStateException("The passphrase appears to be cleared. This happens by" +
-              "default the first time you use the factory to open a database, so we can remove the" +
-              "cleartext passphrase from memory. If you close the database yourself, please use a" +
-              "fresh SafeHelperFactory to reopen it. If something else (e.g., Room) closed the" +
-              "database, and you cannot control that, use SafeHelperFactory.Options to opt out of" +
-              "the automatic password clearing step. See the project README for more information.");
-        }
-      }
+				if (isCleared) {
+					throw new IllegalStateException("The passphrase appears to be cleared. This happens by"
+							+ "default the first time you use the factory to open a database, so we can remove the"
+							+ "cleartext passphrase from memory. If you close the database yourself, please use a"
+							+ "fresh SafeHelperFactory to reopen it. If something else (e.g., Room) closed the"
+							+ "database, and you cannot control that, use SafeHelperFactory.Options to opt out of"
+							+ "the automatic password clearing step. See the project README for more information.");
+				}
+			}
 
-      throw e;
-    }
+			throw e;
+		}
 
-    if (clearPassphrase && passphrase != null) {
-      for (int i = 0; i < passphrase.length; i++) {
-        passphrase[i] = (byte) 0;
-      }
-    }
+		if (clearPassphrase && passphrase != null) {
+			for (int i = 0; i < passphrase.length; i++) {
+				passphrase[i] = (byte) 0;
+			}
+		}
 
-    return(result);
-  }
+		return (result);
+	}
 
-  /**
-   * {@inheritDoc}
-   *
-   * NOTE: this implementation delegates to getWritableDatabase(), to ensure
-   * that we only need the passphrase once
-   */
-  @Override
-  public SupportSQLiteDatabase getReadableDatabase() {
-    return(getWritableDatabase());
-  }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * NOTE: this implementation delegates to getWritableDatabase(), to ensure
+	 * that we only need the passphrase once
+	 */
+	@Override
+	public SupportSQLiteDatabase getReadableDatabase() {
+		return (getWritableDatabase());
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  synchronized public void close() {
-    delegate.close();
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	synchronized public void close() {
+		delegate.close();
+	}
 
-  static class OpenHelper extends SQLiteOpenHelper {
-    private final Database[] dbRef;
-    private volatile Callback callback;
-    private volatile boolean migrated;
+	static class OpenHelper extends SQLiteOpenHelper {
+		private final Database[] dbRef;
+		private volatile Callback callback;
+		private volatile boolean migrated;
 
-    OpenHelper(Context context, String name, Database[] dbRef, Callback callback,
-               SQLCipherHelperFactory.Options options) {
-      super(context, name, null, callback.version, new SQLiteDatabaseHook() {
-        @Override
-        public void preKey(SQLiteDatabase database) {
-          if (options!=null && options.preKeySql!=null) {
-            database.rawExecSQL(options.preKeySql);
-          }
-        }
+		OpenHelper(Context context, String name, Database[] dbRef, Callback callback,
+				SQLCipherHelperFactory.Options options) {
+			super(context, name, null, callback.version, new SQLiteDatabaseHook() {
+				@Override
+				public void preKey(SQLiteDatabase database) {
+					if (options != null && options.preKeySql != null) {
+						database.rawExecSQL(options.preKeySql);
+					}
+				}
 
-        @Override
-        public void postKey(SQLiteDatabase database) {
-          if (options!=null && options.postKeySql!=null) {
-            database.rawExecSQL(options.postKeySql);
-          }
-        }
-      }, new DatabaseErrorHandler() {
-        @Override
-        public void onCorruption(SQLiteDatabase dbObj) {
-          Database db = dbRef[0];
+				@Override
+				public void postKey(SQLiteDatabase database) {
+					if (options != null && options.postKeySql != null) {
+						database.rawExecSQL(options.postKeySql);
+					}
+				}
+			}, new DatabaseErrorHandler() {
+				@Override
+				public void onCorruption(SQLiteDatabase dbObj) {
+					Database db = dbRef[0];
 
-          if (db != null) {
-            callback.onCorruption(db);
-          }
-        }
-      });
+					if (db != null) {
+						callback.onCorruption(db);
+					}
+				}
+			});
 
-      this.dbRef = dbRef;
-      this.callback=callback;
-    }
+			this.dbRef = dbRef;
+			this.callback = callback;
+		}
 
-	synchronized SupportSQLiteDatabase getWritableSupportDatabase(byte[] passphrase) {
-      migrated = false;
+		synchronized SupportSQLiteDatabase getWritableSupportDatabase(byte[] passphrase) {
+			migrated = false;
 
-      SQLiteDatabase db=super.getWritableDatabase(passphrase);
+			SQLiteDatabase db = super.getWritableDatabase(passphrase);
 
-      if (migrated) {
-        close();
-        return getWritableSupportDatabase(passphrase);
-      }
+			if (migrated) {
+				close();
+				return getWritableSupportDatabase(passphrase);
+			}
 
-      return getWrappedDb(db);
-    }
+			return getWrappedDb(db);
+		}
 
-    synchronized Database getWrappedDb(SQLiteDatabase db) {
-      Database wrappedDb = dbRef[0];
+		synchronized Database getWrappedDb(SQLiteDatabase db) {
+			Database wrappedDb = dbRef[0];
 
-      if (wrappedDb == null) {
-        wrappedDb = new Database(db);
-        dbRef[0] = wrappedDb;
-      }
+			if (wrappedDb == null) {
+				wrappedDb = new Database(db);
+				dbRef[0] = wrappedDb;
+			}
 
-      return(dbRef[0]);
-    }
+			return (dbRef[0]);
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-      callback.onCreate(getWrappedDb(sqLiteDatabase));
-    }
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onCreate(SQLiteDatabase sqLiteDatabase) {
+			callback.onCreate(getWrappedDb(sqLiteDatabase));
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-      migrated = true;
-      callback.onUpgrade(getWrappedDb(sqLiteDatabase), oldVersion, newVersion);
-    }
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+			migrated = true;
+			callback.onUpgrade(getWrappedDb(sqLiteDatabase), oldVersion, newVersion);
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onConfigure(SQLiteDatabase db) {
-      callback.onConfigure(getWrappedDb(db));
-    }
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onConfigure(SQLiteDatabase db) {
+			callback.onConfigure(getWrappedDb(db));
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-      migrated = true;
-      callback.onDowngrade(getWrappedDb(db), oldVersion, newVersion);
-    }
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			migrated = true;
+			callback.onDowngrade(getWrappedDb(db), oldVersion, newVersion);
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onOpen(SQLiteDatabase db) {
-      if (!migrated) {
-        // from Google: "if we've migrated, we'll re-open the db so we  should not call the callback."
-        callback.onOpen(getWrappedDb(db));
-      }
-    }
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void onOpen(SQLiteDatabase db) {
+			if (!migrated) {
+				// from Google: "if we've migrated, we'll re-open the db so we
+				// should not call the callback."
+				callback.onOpen(getWrappedDb(db));
+			}
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public synchronized void close() {
-      super.close();
-      dbRef[0] = null;
-    }
-  }
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public synchronized void close() {
+			super.close();
+			dbRef[0] = null;
+		}
+	}
 }
