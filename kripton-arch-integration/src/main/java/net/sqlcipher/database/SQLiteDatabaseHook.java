@@ -1,15 +1,9 @@
 package net.sqlcipher.database;
 
-public class SQLiteDatabaseHook {
+public interface SQLiteDatabaseHook {
 
-	public void preKey(SQLiteDatabase database) {
-		// TODO Auto-generated method stub
-		
-	}
+	void preKey(SQLiteDatabase database);
 
-	public void postKey(SQLiteDatabase database) {
-		// TODO Auto-generated method stub
-		
-	}
+	void postKey(SQLiteDatabase database);
 
 }

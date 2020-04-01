@@ -201,6 +201,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 		this.options = optionsValue;
 		this.logEnabled = optionsValue.logEnabled;
+
+		if (this.logEnabled) {
+			Logger.debug("%s is created with %s", getClass().getName(), options.toString());
+		}
 	}
 
 	protected void beginLock() {
@@ -268,7 +272,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					if (database != null) {
 						clearCompiledStatements();
 						sqliteHelper.close();
-						//database.close();
+						// database.close();
 					}
 					database = null;
 				}
@@ -280,7 +284,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
-			throw(e);
+			throw (e);
 		} finally {
 			manageStatus();
 			endLock();
@@ -395,11 +399,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 		sqliteHelper = options.openHelperFactory.create(config.build());
 
-		/*
-		 * sqliteHelper = new
-		 * KriptonSQLiteOpenHelper(KriptonLibrary.getContext(), name,
-		 * options.cursorFactory, version, options.errorHandler, this);
-		 */
+		if (this.logEnabled) {
+			Logger.debug("Database helper factory class is %s", options.openHelperFactory.getClass().getName());
+			Logger.debug("Database helper class is %s", sqliteHelper.getClass().getName());
+		}
 	}
 
 	private void deleteDatabaseFile(String fileName) {
@@ -522,13 +525,15 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	public boolean isOpen() {
 		return database != null && database.isOpen() && database.isDbLockedByCurrentThread();
 	}
-	
+
 	/**
-	 * Return <code>true</code> if any operation is running on datasource, <code>false</code> if database is currently closed.
+	 * Return <code>true</code> if any operation is running on datasource,
+	 * <code>false</code> if database is currently closed.
+	 * 
 	 * @return
 	 */
 	public boolean isAnyPendingOperation() {
-		return openCounter.get()>0;
+		return openCounter.get() > 0;
 	}
 
 	/**
@@ -576,11 +581,12 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			break;
 		}
 	}
-	
+
 	/**
 	 * Returns <code>true</code> if the database need foreign keys
+	 * 
 	 * @return
-	 * 	
+	 * 
 	 */
 	public abstract boolean hasForeignKeys();
 
@@ -591,13 +597,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 *            the database
 	 */
 	protected void onConfigure(SupportSQLiteDatabase database) {
-		// configure database		
-		//database.setForeignKeyConstraintsEnabled(true);
+		// configure database
+		// database.setForeignKeyConstraintsEnabled(true);
 		if (options.databaseLifecycleHandler != null) {
 			options.databaseLifecycleHandler.onConfigure(database);
 		}
 	}
-	//protected abstract void onConfigure(SupportSQLiteDatabase database);
+	// protected abstract void onConfigure(SupportSQLiteDatabase database);
 
 	/**
 	 * The method invoked when database corruption is detected. Default
@@ -822,7 +828,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				Logger.fatal("database error during open operation: %s", e.getMessage());
 				e.printStackTrace();
 			}
-			throw(e);
+			throw (e);
 		} finally {
 			if (lock)
 				endLock();
@@ -860,8 +866,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			if (openCounter.incrementAndGet() == 1) {
 				// open new write database
 				if (database == null) {
-					sqliteHelper.setWriteAheadLoggingEnabled(true);					
-					database = sqliteHelper.getWritableDatabase();				
+					sqliteHelper.setWriteAheadLoggingEnabled(true);
+					database = sqliteHelper.getWritableDatabase();
 					database.setForeignKeyConstraintsEnabled(hasForeignKeys());
 				}
 				if (logEnabled)
@@ -875,7 +881,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				Logger.fatal("database error during open operation: %s", e.getMessage());
 				e.printStackTrace();
 			}
-			throw(e);
+			throw (e);
 		} finally {
 			if (lock)
 				endLock();

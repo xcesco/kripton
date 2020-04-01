@@ -2,11 +2,8 @@ package net.sqlcipher;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
-public class DatabaseErrorHandler {
+public interface DatabaseErrorHandler {
 
-	public void onCorruption(SQLiteDatabase dbObj) {
-		// TODO Auto-generated method stub
-		
-	}
+	void onCorruption(SQLiteDatabase dbObj);
 
 }

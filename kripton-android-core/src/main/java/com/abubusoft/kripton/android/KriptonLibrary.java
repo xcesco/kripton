@@ -79,7 +79,7 @@ public class KriptonLibrary {
 	 */
 	public static void init(Context contextValue, ExecutorService service) {
 		context = contextValue;
-		Logger.info("Kripton persistence library ver. %s initialized", VERSION);
+		Logger.info("Initializing Kripton Persistence Library %s", VERSION);
 
 		if (service == null) {
 			executerService = Executors.newFixedThreadPool(THREAD_POOL_SIZE_DEFAULT);

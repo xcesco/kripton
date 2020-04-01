@@ -50,12 +50,22 @@ public class DataSourceOptions {
 	/** The in memory. */
 	public final boolean inMemory;
 
+	/**
+	 * Factory used to create the helper object.
+	 */
 	public final Factory openHelperFactory;
 
 	/**
-	 * If database is builded with the build method, forces the instance to be created
+	 * If database is builded with the build method, forces the instance to be
+	 * created
 	 */
 	public final boolean forceBuild;
+
+	@Override
+	public String toString() {
+		return "DataSourceOptions [logEnabled=" + logEnabled + ", inMemory=" + inMemory + ", openHelperFactory="
+				+ openHelperFactory.getClass().getName() + ", forceBuild=" + forceBuild + "]";
+	}
 
 	/**
 	 * Builder.
@@ -87,9 +97,10 @@ public class DataSourceOptions {
 		private boolean inMemory;
 
 		/**
-		 * If <code>true</code> force instance to be created. Default is <code>false</code>.
+		 * If <code>true</code> force instance to be created. Default is
+		 * <code>false</code>.
 		 */
-		private boolean forceBuild=false;
+		private boolean forceBuild = false;
 
 		/**
 		 * OpenHelper factory. Default is provided with kripton
@@ -114,8 +125,20 @@ public class DataSourceOptions {
 		}
 
 		/**
-		 * If <code>true</code> force instance to be created. Default is <code>false</code>.
-		 *
+		 * <p>
+		 * If <code>true</code> force instance to be created. Default is
+		 * <code>false</code>.
+		 * </p>
+		 * <p>
+		 * Add force instance properties to force instance creation during
+		 * datasource build.
+		 * </p>
+		 * <p>
+		 * It can be very usefull when you need to cipher an existing database
+		 * and you need to open the db before set the upgrade
+		 * </p>
+		 * .
+		 * 
 		 * @param value
 		 *            the value
 		 * @return the builder
@@ -302,7 +325,7 @@ public class DataSourceOptions {
 	 *            the in memory
 	 * @param openHelperFactory
 	 * @param forceBuild
-	 * 			force the build method to rebuild the instance
+	 *            force the build method to rebuild the instance
 	 */
 	private DataSourceOptions(DatabaseLifecycleHandler databaseLifecycleHandler,
 			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator,
@@ -313,7 +336,7 @@ public class DataSourceOptions {
 		this.populator = populator;
 		this.inMemory = inMemory;
 		this.openHelperFactory = openHelperFactory;
-		this.forceBuild=forceBuild;
+		this.forceBuild = forceBuild;
 	}
 
 }

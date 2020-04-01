@@ -159,8 +159,11 @@ public @interface BindDataSourceOptions {
 	boolean logEnabled() default true;
 
 	/**
-	 * Add force instance properties to force instance creation during
-	 * datasource build
+	 * <p>Add force instance properties to force instance creation during
+	 * datasource build.</p>
+	 * 
+	 * <p>It can be very usefull when you need to cipher an existing database and you need to
+	 * open the db before set the upgrade</p>.
 	 * 
 	 * @return forces instance properties to force instance creation during
 	 *         datasource build
