@@ -14,7 +14,12 @@
 
 package com.abubusoft.kripton.android.sqlcipher;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.Editable;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -26,12 +31,20 @@ import net.sqlcipher.database.SQLiteDatabase;
  * SupportSQLiteOpenHelper.Factory implementation, for use with Room and similar
  * libraries, that supports SQLCipher for Android.
  */
-public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
+public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {	
 	public static final String POST_KEY_SQL_MIGRATE = "PRAGMA cipher_migrate;";
 	public static final String POST_KEY_SQL_V3 = "PRAGMA cipher_compatibility = 3;";
 
 	final private byte[] passphrase;
 	final private Options options;
+
+	private static boolean debugMode = false;
+	private static final String DEBUG_SHARED_PREFS_NAME = SQLCipherHelperFactory.class.getName();
+
+	public static void setDebugMode(boolean value) {
+		Logger.debug("debug mode for SQLCipherHelperFactory is %s", value);
+		debugMode = value;
+	}
 
 	/**
 	 * Creates a SafeHelperFactory from an Editable, such as what you get by
@@ -198,6 +211,12 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 		}
 	}
 
+	public SQLCipherHelperFactory() {
+		// no data is stored
+		this.passphrase = new byte[0];
+		this.options = SQLCipherHelperFactory.Options.builder().build();
+	}
+
 	/**
 	 * Standard constructor.
 	 *
@@ -259,7 +278,26 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	}
 
 	public SupportSQLiteOpenHelper create(Context context, String name, SupportSQLiteOpenHelper.Callback callback) {
-		return (new SQLCipherHelper(context, name, callback, passphrase, options));
+		// in debug mode we need to store
+		byte[] recoveryPassphrase = this.passphrase;
+		if (debugMode) {
+			if (recoveryPassphrase.length == 0) {
+				// recover passphrase
+				SharedPreferences prefs = KriptonLibrary.getContext().getSharedPreferences(DEBUG_SHARED_PREFS_NAME, 0);
+				recoveryPassphrase = prefs.getString(name, "").getBytes();
+				Logger.debug("retrieve passphrase for datasource %s", name);
+			} else {
+				// store passphrase
+				SharedPreferences prefs = KriptonLibrary.getContext().getSharedPreferences(DEBUG_SHARED_PREFS_NAME, 0);
+				prefs.edit().putString(name, new String(passphrase)).commit();
+				Logger.debug("store passphrase for datasource %s", name);
+			}
+		} else if (!debugMode && recoveryPassphrase.length == 0){
+			throw new KriptonRuntimeException(String.format(
+					"Without passphrase, %s can not used to open a datasource. Set debugMode to use it in development phase.",
+					getClass().getName()));
+		}
+		return (new SQLCipherHelper(context, name, callback, recoveryPassphrase, options));
 	}
 
 	private void clearPassphrase(char[] passphrase) {
@@ -289,18 +327,17 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 		 * after opening the database; false otherwise. Defaults to true.
 		 */
 		public final boolean clearPassphrase;
-		
+
 		/**
 		 * A passphrase is required to open the database
 		 */
 		public final boolean requiredPassphrase;
 
-
 		private Options(String preKeySql, String postKeySql, boolean clearPassphrase, boolean requiredPassphrase) {
 			this.preKeySql = preKeySql;
 			this.postKeySql = postKeySql;
 			this.clearPassphrase = clearPassphrase;
-			this.requiredPassphrase=requiredPassphrase;
+			this.requiredPassphrase = requiredPassphrase;
 		}
 
 		/**

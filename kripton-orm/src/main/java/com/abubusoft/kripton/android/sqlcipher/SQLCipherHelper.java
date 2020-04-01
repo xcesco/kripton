@@ -17,6 +17,8 @@
 
 package com.abubusoft.kripton.android.sqlcipher;
 
+import com.abubusoft.kripton.android.Logger;
+
 import android.content.Context;
 import android.os.Build;
 import net.sqlcipher.DatabaseErrorHandler;
@@ -82,6 +84,8 @@ class SQLCipherHelper implements SupportSQLiteOpenHelper {
 
 		// if we don't have a passphrase, an exception will be thrown
 		if (requiredPassphrase && passphrase == null) {
+			Logger.fatal("Try to open ciphered database %s without any passphrase", getDatabaseName());
+
 			throw new SQLCipherPassphraseRequiredException();
 		}
 		try {
