@@ -205,7 +205,7 @@
 							<goal>antlr4</goal>
 						</goals>
 					</execution>
-				</executions>
+				</executions> 
 				<dependencies> 
 					<!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
 					<dependency>
