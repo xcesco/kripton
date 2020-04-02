@@ -9,18 +9,18 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration;
  * @author Francesco Benincasa (xcesco@gmail.com)
  *
  */
-public class KriptonSQLiteOpenHelperFactory implements SupportSQLiteOpenHelper.Factory {
+public class KriptonSQLiteHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	
-	public KriptonSQLiteOpenHelperFactory() {		
+	public KriptonSQLiteHelperFactory() {		
 	}
 
-	public static KriptonSQLiteOpenHelperFactory build() {
-		return new KriptonSQLiteOpenHelperFactory();
+	public static KriptonSQLiteHelperFactory build() {
+		return new KriptonSQLiteHelperFactory();
 	}
 
 	@Override
 	public SupportSQLiteOpenHelper create(Configuration configuration) {
-		return new KriptonSQLiteOpenHelper(configuration);		
+		return new KriptonSQLiteHelper(configuration);		
 	}
 
 }

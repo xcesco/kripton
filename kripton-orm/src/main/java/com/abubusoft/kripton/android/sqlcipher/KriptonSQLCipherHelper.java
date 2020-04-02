@@ -33,14 +33,14 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 /**
  * SupportSQLiteOpenHelper implementation that works with SQLCipher for Android
  */
-class SQLCipherHelper implements SupportSQLiteOpenHelper {
+class KriptonSQLCipherHelper implements SupportSQLiteOpenHelper {
 	private final OpenHelper delegate;
 	private final byte[] passphrase;
 	private final boolean clearPassphrase;
 	private final boolean requiredPassphrase;
 
-	SQLCipherHelper(Context context, String name, Callback callback, byte[] passphrase,
-			SQLCipherHelperFactory.Options options) {
+	KriptonSQLCipherHelper(Context context, String name, Callback callback, byte[] passphrase,
+			KriptonSQLCipherHelperFactory.Options options) {
 		SQLiteDatabase.loadLibs(context);
 		clearPassphrase = options.clearPassphrase;
 		delegate = createDelegate(context, name, callback, options);
@@ -49,7 +49,7 @@ class SQLCipherHelper implements SupportSQLiteOpenHelper {
 	}
 
 	private OpenHelper createDelegate(Context context, String name, final Callback callback,
-			SQLCipherHelperFactory.Options options) {
+			KriptonSQLCipherHelperFactory.Options options) {
 		final Database[] dbRef = new Database[1];
 
 		return (new OpenHelper(context, name, dbRef, callback, options));
@@ -145,7 +145,7 @@ class SQLCipherHelper implements SupportSQLiteOpenHelper {
 		private volatile boolean migrated;
 
 		OpenHelper(Context context, String name, Database[] dbRef, Callback callback,
-				SQLCipherHelperFactory.Options options) {
+				KriptonSQLCipherHelperFactory.Options options) {
 			super(context, name, null, callback.version, new SQLiteDatabaseHook() {
 				@Override
 				public void preKey(SQLiteDatabase database) {

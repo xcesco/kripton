@@ -18,12 +18,12 @@ package sqlite.feature.datasourceoptions.livedata;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindDataSourceUpdateTask;
-import com.abubusoft.kripton.android.sqlite.KriptonSQLiteOpenHelperFactory;
+import com.abubusoft.kripton.android.sqlite.KriptonSQLiteHelperFactory;
 
 /**
  * The Interface AppWithConfigDataSource.
  */
-@BindDataSourceOptions(logEnabled = true, populator = PersonPopulator.class, openHelperFactory = KriptonSQLiteOpenHelperFactory.class, databaseLifecycleHandler=PersonLifecycleHandler.class, updateTasks = {
+@BindDataSourceOptions(logEnabled = true, populator = PersonPopulator.class, openHelperFactory = KriptonSQLiteHelperFactory.class, databaseLifecycleHandler=PersonLifecycleHandler.class, updateTasks = {
 		@BindDataSourceUpdateTask(version = 2, task = PersonUpdateTask.class) })
 @BindDataSource(daoSet = { DaoPerson.class }, fileName = "app.db")
 public interface AppWithConfigDataSource {

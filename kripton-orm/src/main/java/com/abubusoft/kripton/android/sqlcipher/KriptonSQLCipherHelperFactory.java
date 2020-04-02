@@ -31,7 +31,7 @@ import net.sqlcipher.database.SQLiteDatabase;
  * SupportSQLiteOpenHelper.Factory implementation, for use with Room and similar
  * libraries, that supports SQLCipher for Android.
  */
-public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {	
+public class KriptonSQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {	
 	public static final String POST_KEY_SQL_MIGRATE = "PRAGMA cipher_migrate;";
 	public static final String POST_KEY_SQL_V3 = "PRAGMA cipher_compatibility = 3;";
 
@@ -39,10 +39,10 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	final private Options options;
 
 	private static boolean debugMode = false;
-	private static final String DEBUG_SHARED_PREFS_NAME = SQLCipherHelperFactory.class.getName();
+	private static final String DEBUG_SHARED_PREFS_NAME = KriptonSQLCipherHelperFactory.class.getName();
 
 	public static void setDebugMode(boolean value) {
-		Logger.debug("debug mode for SQLCipherHelperFactory is %s", value);
+		Logger.debug("debug mode for %s is %s", KriptonSQLCipherHelperFactory.class.getSimpleName(), value);
 		debugMode = value;
 	}
 
@@ -56,7 +56,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 *            the user's supplied passphrase
 	 * @return a SafeHelperFactory
 	 */
-	public static SQLCipherHelperFactory fromUser(Editable editor) {
+	public static KriptonSQLCipherHelperFactory fromUser(Editable editor) {
 		return fromUser(editor, (String) null);
 	}
 
@@ -73,7 +73,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 *            but before any other database access is performed
 	 * @return a SafeHelperFactory
 	 */
-	public static SQLCipherHelperFactory fromUser(Editable editor, String postKeySql) {
+	public static KriptonSQLCipherHelperFactory fromUser(Editable editor, String postKeySql) {
 		return fromUser(editor, Options.builder().setPostKeySql(postKeySql).build());
 	}
 
@@ -89,14 +89,14 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 *            options for pre-key, post-key SQL
 	 * @return a SafeHelperFactory
 	 */
-	public static SQLCipherHelperFactory fromUser(Editable editor, Options options) {
+	public static KriptonSQLCipherHelperFactory fromUser(Editable editor, Options options) {
 		char[] passphrase = new char[editor.length()];
-		SQLCipherHelperFactory result;
+		KriptonSQLCipherHelperFactory result;
 
 		editor.getChars(0, editor.length(), passphrase, 0);
 
 		try {
-			result = new SQLCipherHelperFactory(passphrase, options);
+			result = new KriptonSQLCipherHelperFactory(passphrase, options);
 		} finally {
 			editor.clear();
 		}
@@ -158,7 +158,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 * @param passphrase
 	 *            user-supplied passphrase to use for the database
 	 */
-	public SQLCipherHelperFactory(char[] passphrase) {
+	public KriptonSQLCipherHelperFactory(char[] passphrase) {
 		this(passphrase, (String) null);
 	}
 
@@ -179,7 +179,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 *            optional callback to be called after database has been "keyed"
 	 *            but before any database access is performed
 	 */
-	public SQLCipherHelperFactory(char[] passphrase, String postKeySql) {
+	public KriptonSQLCipherHelperFactory(char[] passphrase, String postKeySql) {
 		this(SQLiteDatabase.getBytes(passphrase), postKeySql);
 
 		if (options.clearPassphrase) {
@@ -203,7 +203,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 * @param options
 	 *            options for pre-key, post-key SQL
 	 */
-	public SQLCipherHelperFactory(char[] passphrase, Options options) {
+	public KriptonSQLCipherHelperFactory(char[] passphrase, Options options) {
 		this(SQLiteDatabase.getBytes(passphrase), options);
 
 		if (options.clearPassphrase) {
@@ -211,10 +211,10 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 		}
 	}
 
-	public SQLCipherHelperFactory() {
+	public KriptonSQLCipherHelperFactory() {
 		// no data is stored
 		this.passphrase = new byte[0];
-		this.options = SQLCipherHelperFactory.Options.builder().build();
+		this.options = KriptonSQLCipherHelperFactory.Options.builder().build();
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 * @param passphrase
 	 *            user-supplied passphrase to use for the database
 	 */
-	public SQLCipherHelperFactory(byte[] passphrase) {
+	public KriptonSQLCipherHelperFactory(byte[] passphrase) {
 		this(passphrase, new Options.Builder().build());
 	}
 
@@ -244,7 +244,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 *            optional callback to be called after database has been "keyed"
 	 *            but before any database access is performed
 	 */
-	public SQLCipherHelperFactory(byte[] passphrase, String postKeySql) {
+	public KriptonSQLCipherHelperFactory(byte[] passphrase, String postKeySql) {
 		this(passphrase, new Options.Builder().setPostKeySql(postKeySql).build());
 	}
 
@@ -264,7 +264,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 	 * @param options
 	 *            options for pre-key, post-key SQL
 	 */
-	public SQLCipherHelperFactory(byte[] passphrase, Options options) {
+	public KriptonSQLCipherHelperFactory(byte[] passphrase, Options options) {
 		this.passphrase = passphrase;
 		this.options = options;
 	}
@@ -297,7 +297,7 @@ public class SQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {
 					"Without passphrase, %s can not used to open a datasource. Set debugMode to use it in development phase.",
 					getClass().getName()));
 		}
-		return (new SQLCipherHelper(context, name, callback, recoveryPassphrase, options));
+		return (new KriptonSQLCipherHelper(context, name, callback, recoveryPassphrase, options));
 	}
 
 	private void clearPassphrase(char[] passphrase) {

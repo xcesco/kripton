@@ -105,7 +105,7 @@ public class DataSourceOptions {
 		/**
 		 * OpenHelper factory. Default is provided with kripton
 		 */
-		private SupportSQLiteOpenHelper.Factory openHelperFactory = new KriptonSQLiteOpenHelperFactory();
+		private SupportSQLiteOpenHelper.Factory openHelperFactory = new KriptonSQLiteHelperFactory();
 
 		public Builder openHelperFactory(SupportSQLiteOpenHelper.Factory openHelperFactory) {
 			this.openHelperFactory = openHelperFactory;

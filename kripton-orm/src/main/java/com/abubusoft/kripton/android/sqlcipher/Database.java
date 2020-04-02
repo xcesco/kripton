@@ -282,7 +282,6 @@ class Database implements SupportSQLiteDatabase {
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("ThrowFromFinallyBlock")
 	@Override
 	public int delete(String table, String whereClause, Object[] whereArgs) {
 		String query = "DELETE FROM " + table + (TextUtils.isEmpty(whereClause) ? "" : " WHERE " + whereClause);
@@ -303,7 +302,6 @@ class Database implements SupportSQLiteDatabase {
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("ThrowFromFinallyBlock")
 	@Override
 	public int update(String table, int conflictAlgorithm, ContentValues values, String whereClause,
 			Object[] whereArgs) {
