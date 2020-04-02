@@ -28,7 +28,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import net.sqlcipher.database.SQLiteDatabase;
 
 /**
- * SupportSQLiteOpenHelper.Factory implementation, for use with Room and similar
+ * KriptonSQLCipherHelperFactory.Factory implementation, for use with Room and similar
  * libraries, that supports SQLCipher for Android.
  */
 public class KriptonSQLCipherHelperFactory implements SupportSQLiteOpenHelper.Factory {	
