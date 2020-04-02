@@ -206,7 +206,7 @@
 						</goals>
 					</execution>
 				</executions>
-				<dependencies>
+				<dependencies> 
 					<!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
 					<dependency>
 						<groupId>org.antlr</groupId>
