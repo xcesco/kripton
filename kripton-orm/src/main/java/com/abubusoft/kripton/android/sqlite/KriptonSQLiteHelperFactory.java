@@ -10,8 +10,8 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration;
  *
  */
 public class KriptonSQLiteHelperFactory implements SupportSQLiteOpenHelper.Factory {
-	
-	public KriptonSQLiteHelperFactory() {		
+
+	public KriptonSQLiteHelperFactory() {
 	}
 
 	public static KriptonSQLiteHelperFactory build() {
@@ -20,7 +20,7 @@ public class KriptonSQLiteHelperFactory implements SupportSQLiteOpenHelper.Facto
 
 	@Override
 	public SupportSQLiteOpenHelper create(Configuration configuration) {
-		return new KriptonSQLiteHelper(configuration);		
+		return new KriptonSQLiteHelper(configuration);
 	}
 
 }
