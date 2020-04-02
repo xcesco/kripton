@@ -157,11 +157,11 @@ public class ChannelTable implements SQLiteTable {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
       jacksonParser.nextToken();
-      Image result=null;
+      Image __image=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=imageBindMap.parseOnJackson(jacksonParser);
+        __image=imageBindMap.parseOnJackson(jacksonParser);
       }
-      return result;
+      return __image;
     } catch(Exception e) {
       e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));

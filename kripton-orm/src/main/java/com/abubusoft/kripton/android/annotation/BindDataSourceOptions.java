@@ -21,7 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
-import com.abubusoft.kripton.android.sqlite.KriptonSQLiteOpenHelperFactory;
+import com.abubusoft.kripton.android.sqlite.KriptonSQLiteHelperFactory;
 import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
 import com.abubusoft.kripton.android.sqlite.NoDatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.NoPopulator;
@@ -128,7 +128,7 @@ public @interface BindDataSourceOptions {
 	 * @return the class&lt;? extends open helper factory&gt;. Default
 	 *         constructor must be defined and public.
 	 */
-	public Class<? extends SupportSQLiteOpenHelper.Factory> openHelperFactory() default KriptonSQLiteOpenHelperFactory.class;
+	public Class<? extends SupportSQLiteOpenHelper.Factory> openHelperFactory() default KriptonSQLiteHelperFactory.class;
 
 	/**
 	 * Database error handler.
@@ -159,8 +159,11 @@ public @interface BindDataSourceOptions {
 	boolean logEnabled() default true;
 
 	/**
-	 * Add force instance properties to force instance creation during
-	 * datasource build
+	 * <p>Add force instance properties to force instance creation during
+	 * datasource build.</p>
+	 * 
+	 * <p>It can be very usefull when you need to cipher an existing database and you need to
+	 * open the db before set the upgrade</p>.
 	 * 
 	 * @return forces instance properties to force instance creation during
 	 *         datasource build

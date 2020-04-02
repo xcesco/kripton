@@ -265,7 +265,7 @@ public class SQLiteTestDatabase {
 			}
 		
 		}).build();					
-		sqlite = KriptonSQLiteOpenHelperFactory.build().create(configuration);
+		sqlite = KriptonSQLiteHelperFactory.build().create(configuration);
 				
 		sqlite.getWritableDatabase();
 
@@ -311,7 +311,7 @@ public class SQLiteTestDatabase {
 			}
 		
 		}).build();					
-		sqlite = KriptonSQLiteOpenHelperFactory.build().create(configuration);
+		sqlite = KriptonSQLiteHelperFactory.build().create(configuration);
 		
 		SQLiteTestUtils.verifySchema(sqlite.getWritableDatabase(), schemaDefinitionInputStream);
 

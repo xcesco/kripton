@@ -19,6 +19,7 @@ Kripton is a java library, for Android platform, that provides a simple and unif
 - generate all the code necessary to convert POJO object in different data format: JSON, XML, CBOR, properties, YAML
 - generate all the code to persist your POJO in Shared Preferences. It's support Live Data and Androidx JetPack.
 - Kripton can be integrated to Retrofit library to generate all code necessary to JSON-2-Java convertion without any reflection code.
+- You can use Kripton with Kotlin too.
 
 Does it sound interesting? I hope so! :)
 
@@ -50,6 +51,26 @@ Kripton uses the DAO pattern to approach the database management. In the DAO pat
 * Data Access Object implementation that implements the DAO interfaces
 * A database that is composed of DAOs and data model.
 
+## Support for ciphered database
+In version 7 Kripton supports the [SQLCipher database](https://github.com/sqlcipher/android-database-sqlcipher). To enable this feature, just
+include in your dependencies the sqlcipher aar:
+
+```gradle
+implementation "net.zetetic:android-database-sqlcipher:4.3.0"
+```
+
+And use the `KriptonSQLCipherHelperFactory` to as factory in your DataSources:
+
+```java
+KriptonSQLCipherHelperFactory factory = new KriptonSQLCipherHelperFactory(password.toCharArray());
+
+BindAppDataSource.build(DataSourceOptions.builder()
+        .populator(new AppPopulator())
+        .openHelperFactory(factory)
+        .build());
+```
+
+## Model definition example
 Kripton needs the developer defines the data model with `@BindTable` annotated java classes, the DAO’s interfaces with BindDao annotated Java interface and a data source (the database) by a `BindDataSource `annotated Java interface. At compile time, Kripton will generate all needed code to implements DAO interfaces and for managing data source.
 
 Suppose that our app data model has a `Person` entity that need to be persisted on a SQLite databas. In the following example it is explained how to define an SQLite database with a person table, and a DAO interface with some methods to do CRUD operations (Create Read Update Delete). The data model:
@@ -122,19 +143,16 @@ In the application, to use generated an implementation of data-source you can us
 ```java
 // typically Kripton library is done in Application#onCreate
 KriptonLibrary.init(context);
-// usage example 1: open data source and insert somedata
-try (BindPersonDataSource dataSource = BindPersonDataSource.open())
-{
-  dataSource.getPersonDAO().insert(person);
-}
-// usage example 2: using transaction
+
+// usage example 1: using a transaction
 BindPersonDataSource.instance().execute(daoFactory -> {
     PersonDao dao=daoFactory.getPersonDao();
     dao.insert(person);
     ...
     return TransactionResult.COMMIT;
 });
-// usage example 3: using shared connection
+
+// usage example 2: using shared connection
 BindPersonDataSource.instance().executeBatch(daoFactory -> {
     PersonDao dao=daoFactory.getPersonDao();
     dao.selectAll();
@@ -273,49 +291,13 @@ You can use Kritpon Annotation Processor and Kripton Persistence Library via gra
 
 ```
 // annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:6.0.0"
+annotationProcessor "com.abubusoft:kripton-processor:7.0.0"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-implements "com.abubusoft:kripton-android-library:6.0.0"
+implements "com.abubusoft:kripton-android-library:7.0.0"
+// if you want to use ciphered database, uncomment following line
+// implementation "net.zetetic:android-database-sqlcipher:4.3.0"
 ```
-
-or via maven
-
-```xml
-<dependencies>
-  ...    
-  <dependency>
-    <groupId>com.abubusoft</groupId>
-    <artifactId>kripton</artifactId>
-    <version>6.0.0</version>
-  </dependency>
-  ...
-</dependencies>
-...		
-<build> 
-  <plugins>
-    ...
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-	  <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.6.0</version>
-	  <configuration>
-	    <source>1.7</source>
-		<target>1.7</target>
-		<annotationProcessorPaths>
-		  <path>
-		    <groupId>com.abubusoft</groupId>
-		    <artifactId>kripton-processor</artifactId>
-		    <version>6.0.0</version>
-		</path>
-	    </annotationProcessorPaths>
-	  </configuration>
-    </plugin>
-    ...
-  </plugins>
-</build>
-```
-
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
 
@@ -337,7 +319,7 @@ There are two supported platforms: the android environment and generic Java envi
 # License
 
 ```
-Copyright 2015-2019 Francesco Benincasa.
+Copyright 2015-2020 Francesco Benincasa.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

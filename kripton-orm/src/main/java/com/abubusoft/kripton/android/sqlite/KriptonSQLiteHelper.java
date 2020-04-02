@@ -8,13 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-public class KriptonSQLiteOpenHelper implements SupportSQLiteOpenHelper {
+public class KriptonSQLiteHelper implements SupportSQLiteOpenHelper {
 	
 	final KriptonSQLiteDatabaseWrapperImpl[] dbRef = new KriptonSQLiteDatabaseWrapperImpl[1];
 
 	private SQLiteOpenHelper delegate;
 	
-	public KriptonSQLiteOpenHelper(Configuration configuration) {
+	public KriptonSQLiteHelper(Configuration configuration) {
 		delegate = new SQLiteOpenHelper(configuration.context, configuration.name, null, configuration.callback.version,
 				new DatabaseErrorHandler() {
 					

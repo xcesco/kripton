@@ -5,13 +5,31 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>7.0.0-rc.3</version>
+		<version>7.0.0-rc.4</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
-	
-	<artifactId>kripton-core</artifactId>	
+
+	<artifactId>kripton-core</artifactId>
 	<name>Kripton Core</name>
 	<packaging>jar</packaging>
 	<description>Kripton Persistence Library - core module </description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>templating-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<id>filtering-java-templates</id>
+						<goals>
+							<goal>filter-sources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

@@ -8,7 +8,7 @@ public abstract class ReferredClasses {
 	/**
 	 * Default open helper factory
 	 */
-	public static final String DEFAULT_OPEN_HELPER_FACTORY_CLASS_NAME = "com.abubusoft.kripton.android.sqlite.KriptonSQLiteOpenHelperFactory";
+	public static final String DEFAULT_OPEN_HELPER_FACTORY_CLASS_NAME = "com.abubusoft.kripton.android.sqlite.KriptonSQLiteHelperFactory";
 	
 	public static final String NO_POPULATOR_CLASS_NAME = "com.abubusoft.kripton.android.sqlite.NoPopulator";
 
