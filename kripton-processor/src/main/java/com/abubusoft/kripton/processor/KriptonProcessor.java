@@ -28,7 +28,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.StringUtils;
-import com.sun.source.util.Trees;
+//import com.sun.source.util.Trees;
 
 /**
  * Annotation processor for json/xml/etc.
@@ -62,7 +62,7 @@ public class KriptonProcessor extends BaseProcessor {
 	/** The type processor. */
 	private BindTypeSubProcessor typeProcessor = new BindTypeSubProcessor();
 
-	public static Trees trees;
+	//public static Trees trees;
 
 	/*
 	 * (non-Javadoc)
@@ -100,7 +100,7 @@ public class KriptonProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 
-		KriptonProcessor.trees = Trees.instance(processingEnv);
+		//KriptonProcessor.trees = Trees.instance(processingEnv);
 
 		KriptonOptions.init(this, processingEnv);
 
