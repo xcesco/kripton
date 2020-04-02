@@ -2,8 +2,6 @@
 --
 -- Filename: xeno_schema_1.sql
 --
--- Date: Wed Apr 01 15:05:18 CEST 2020
---
 ------------------------------------------------------------------------------------
 
 CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, default_country TEXT, dialog_timeout INTEGER, dual_billing_prefix TEXT, enabled INTEGER);

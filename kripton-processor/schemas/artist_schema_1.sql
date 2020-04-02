@@ -2,8 +2,6 @@
 --
 -- Filename: artist_schema_1.sql
 --
--- Date: Wed Apr 01 15:05:15 CEST 2020
---
 ------------------------------------------------------------------------------------
 
 CREATE TABLE artist (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);

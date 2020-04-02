@@ -24,7 +24,6 @@ import base.BaseAndroidTest;
 import shared.feature.typeadapter.case4.App4Preferences;
 import shared.feature.typeadapter.case4.BindApp4Preferences;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestTypeAdapterCase4Runtime.
  */

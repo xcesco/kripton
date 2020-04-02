@@ -2,8 +2,6 @@
 --
 -- Filename: school_schema_2.sql
 --
--- Date: Wed Apr 01 15:04:38 CEST 2020
---
 ------------------------------------------------------------------------------------
 
 CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, location TEXT, name TEXT);
