@@ -2,6 +2,7 @@ package sqlite.kripton58.list;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -375,11 +376,11 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Double> collection=new ArrayList<>();
+                    ArrayList<Double> collection=CollectionUtils.merge(new ArrayList<>(), instance.value);
                     Double item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -390,7 +391,7 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -405,11 +406,11 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    LinkedList<Double> collection=new LinkedList<>();
+                    LinkedList<Double> collection=CollectionUtils.merge(new LinkedList<>(), instance.value2);
                     Double item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -420,7 +421,7 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value2")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

@@ -3,6 +3,7 @@ package sqlite.feature.kotlin.immutable;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -380,11 +381,11 @@ public class RssFeedBindMap extends AbstractMapper<RssFeed> {
                 case "channel":
                   // property channels (mapped on "channel")
                    {
-                    ArrayList<Channel> collection=new ArrayList<>();
+                    ArrayList<Channel> collection=CollectionUtils.merge(new ArrayList<>(), __channels);
                     Channel item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -395,7 +396,7 @@ public class RssFeedBindMap extends AbstractMapper<RssFeed> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("channel")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

@@ -8,6 +8,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
+import com.abubusoft.kripton.xml.XmlAttributeUtils;
 import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -503,10 +504,10 @@ public class Bean81V3BindMap extends AbstractMapper<Bean81V3> {
                 case "valueByteArray":
                   // property valueByteArray (mapped on "valueByteArray")
                    {
-                    ArrayList<Byte> collection=new ArrayList<>();
+                    ArrayList<Byte> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueByteArray);
                     Byte item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -520,10 +521,10 @@ public class Bean81V3BindMap extends AbstractMapper<Bean81V3> {
                 case "valueIntegerList":
                   // property valueIntegerList (mapped on "valueIntegerList")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueIntegerList);
                     Integer item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

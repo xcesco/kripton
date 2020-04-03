@@ -5,6 +5,7 @@ import bind.feature.generichierarchy.case1.model.ChannelUserBindMap;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -327,11 +328,11 @@ public class ChannelUserListResponseBindMap extends AbstractMapper<ChannelUserLi
                 case "list":
                   // property list (mapped on "list")
                    {
-                    ArrayList<ChannelUser> collection=new ArrayList<>();
+                    ArrayList<ChannelUser> collection=CollectionUtils.merge(new ArrayList<>(), instance.getList());
                     ChannelUser item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -342,7 +343,7 @@ public class ChannelUserListResponseBindMap extends AbstractMapper<ChannelUserLi
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("list")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

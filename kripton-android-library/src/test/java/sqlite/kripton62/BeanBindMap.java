@@ -3,6 +3,7 @@ package sqlite.kripton62;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.BigDecimalUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -1164,11 +1165,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueBeanSet":
                   // property valueBeanSet (mapped on "valueBeanSet")
                    {
-                    LinkedHashSet<Bean> collection=new LinkedHashSet<>();
+                    LinkedHashSet<Bean> collection=CollectionUtils.merge(new LinkedHashSet<>(), instance.valueBeanSet);
                     Bean item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1179,7 +1180,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBeanSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1194,11 +1195,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueBigDecimalSet":
                   // property valueBigDecimalSet (mapped on "valueBigDecimalSet")
                    {
-                    HashSet<BigDecimal> collection=new HashSet<>();
+                    HashSet<BigDecimal> collection=CollectionUtils.merge(new HashSet<>(), instance.valueBigDecimalSet);
                     BigDecimal item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1209,7 +1210,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBigDecimalSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1224,11 +1225,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueByteSet":
                   // property valueByteSet (mapped on "valueByteSet")
                    {
-                    HashSet<Byte> collection=new HashSet<>();
+                    HashSet<Byte> collection=CollectionUtils.merge(new HashSet<>(), instance.valueByteSet);
                     Byte item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1239,7 +1240,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueByteSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1254,11 +1255,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueCharacterSet":
                   // property valueCharacterSet (mapped on "valueCharacterSet")
                    {
-                    HashSet<Character> collection=new HashSet<>();
+                    HashSet<Character> collection=CollectionUtils.merge(new HashSet<>(), instance.valueCharacterSet);
                     Character item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1269,7 +1270,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueCharacterSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1284,11 +1285,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueDoubleSet":
                   // property valueDoubleSet (mapped on "valueDoubleSet")
                    {
-                    HashSet<Double> collection=new HashSet<>();
+                    HashSet<Double> collection=CollectionUtils.merge(new HashSet<>(), instance.valueDoubleSet);
                     Double item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1299,7 +1300,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueDoubleSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1314,11 +1315,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueEnumTypeSet":
                   // property valueEnumTypeSet (mapped on "valueEnumTypeSet")
                    {
-                    HashSet<EnumType> collection=new HashSet<>();
+                    HashSet<EnumType> collection=CollectionUtils.merge(new HashSet<>(), instance.valueEnumTypeSet);
                     EnumType item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1329,7 +1330,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueEnumTypeSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1344,11 +1345,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueFloatSet":
                   // property valueFloatSet (mapped on "valueFloatSet")
                    {
-                    HashSet<Float> collection=new HashSet<>();
+                    HashSet<Float> collection=CollectionUtils.merge(new HashSet<>(), instance.valueFloatSet);
                     Float item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1359,7 +1360,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueFloatSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1374,11 +1375,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueIntegerSet":
                   // property valueIntegerSet (mapped on "valueIntegerSet")
                    {
-                    LinkedHashSet<Integer> collection=new LinkedHashSet<>();
+                    LinkedHashSet<Integer> collection=CollectionUtils.merge(new LinkedHashSet<>(), instance.valueIntegerSet);
                     Integer item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1389,7 +1390,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueIntegerSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1404,11 +1405,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueShortSet":
                   // property valueShortSet (mapped on "valueShortSet")
                    {
-                    HashSet<Short> collection=new HashSet<>();
+                    HashSet<Short> collection=CollectionUtils.merge(new HashSet<>(), instance.valueShortSet);
                     Short item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1419,7 +1420,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueShortSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1434,11 +1435,11 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "valueStringSet":
                   // property valueStringSet (mapped on "valueStringSet")
                    {
-                    HashSet<String> collection=new HashSet<>();
+                    HashSet<String> collection=CollectionUtils.merge(new HashSet<>(), instance.valueStringSet);
                     String item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1449,7 +1450,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueStringSet")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

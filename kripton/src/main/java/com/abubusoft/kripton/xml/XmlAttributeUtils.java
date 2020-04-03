@@ -17,24 +17,31 @@ package com.abubusoft.kripton.xml;
 
 import com.abubusoft.kripton.common.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class XmlAttributeUtils.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class XmlAttributeUtils {
+	
+	/** The Constant EMPTY_COLLECTION_ATTRIBUTE_NAME. */
+	public static final String EMPTY_COLLECTION_ATTRIBUTE_NAME = "emptyCollection";
 
 	/**
 	 * Gets the attribute as boolean.
 	 *
-	 * @param parser the parser
-	 * @param attributeName the attribute name
-	 * @param defaultValue the default value
+	 * @param parser
+	 *            the parser
+	 * @param attributeName
+	 *            the attribute name
+	 * @param defaultValue
+	 *            the default value
 	 * @return get attribute as boolean
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
-	public static boolean getAttributeAsBoolean(XmlPullParser parser, String attributeName, boolean defaultValue) throws Exception {
+	public static boolean getAttributeAsBoolean(XmlPullParser parser, String attributeName, boolean defaultValue)
+			throws Exception {
 		// parser.getText()
 		String value = parser.getAttributeValue(null, attributeName);
 
@@ -43,6 +50,26 @@ public class XmlAttributeUtils {
 		}
 
 		return Boolean.parseBoolean(value);
+	}
+
+	public static boolean hasAttribute(XmlPullParser parser, String attributeName) {
+		// parser.getText()
+		String value = parser.getAttributeValue(null, attributeName);
+
+		if (!StringUtils.hasText(value)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public static boolean isEmptyTag(XMLParser xmlParser) {
+		if (xmlParser.isEmptyElement() && (xmlParser.getAttributeCount() == 0 || (xmlParser.getAttributeCount() == 1
+				&& XmlAttributeUtils.hasAttribute(xmlParser, EMPTY_COLLECTION_ATTRIBUTE_NAME)))) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

@@ -3,6 +3,7 @@ package sqlite.feature.relations.case4.model;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TypeAdapterUtils;
@@ -583,11 +584,11 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
                 case "item":
                   // property articles (mapped on "item")
                    {
-                    ArrayList<Article> collection=new ArrayList<>();
+                    ArrayList<Article> collection=CollectionUtils.merge(new ArrayList<>(), instance.articles);
                     Article item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -598,7 +599,7 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

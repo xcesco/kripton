@@ -3,6 +3,7 @@ package bind.feature.generichierarchy.kripton109.animations;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -440,10 +441,10 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
                 case "frames":
                   // property frames (mapped on "frames")
                    {
-                    ArrayList<MockKeyFrame> collection=new ArrayList<>();
+                    ArrayList<MockKeyFrame> collection=CollectionUtils.merge(new ArrayList<>(), instance.frames);
                     MockKeyFrame item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("frame")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -457,11 +458,11 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
                 case "frame1":
                   // property frames1 (mapped on "frame1")
                    {
-                    ArrayList<MockKeyFrame> collection=new ArrayList<>();
+                    ArrayList<MockKeyFrame> collection=CollectionUtils.merge(new ArrayList<>(), instance.frames1);
                     MockKeyFrame item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -472,7 +473,7 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("frame1")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

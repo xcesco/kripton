@@ -362,11 +362,11 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Long> collection=new ArrayList<>();
+                    ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue());
                     Long item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -377,7 +377,7 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -392,11 +392,11 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    ArrayList<Long> collection=new ArrayList<>();
+                    ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue2());
                     Long item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -407,7 +407,7 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value2")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

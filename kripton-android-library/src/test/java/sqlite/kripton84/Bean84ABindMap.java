@@ -820,11 +820,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                 case "columnArrayChar":
                   // property columnArrayChar (mapped on "columnArrayChar")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.columnArrayChar);
                     Character item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -835,7 +835,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("columnArrayChar")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -850,11 +850,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                 case "columnArrayCharType":
                   // property columnArrayCharType (mapped on "columnArrayCharType")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.columnArrayCharType);
                     Character item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -865,7 +865,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("columnArrayCharType")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -884,11 +884,11 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                 case "columnListString":
                   // property columnListString (mapped on "columnListString")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.columnListString);
                     String item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -899,7 +899,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("columnListString")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

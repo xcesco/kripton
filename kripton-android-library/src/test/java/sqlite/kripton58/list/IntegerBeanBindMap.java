@@ -2,6 +2,7 @@ package sqlite.kripton58.list;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -375,11 +376,11 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.value);
                     Integer item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -390,7 +391,7 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -405,11 +406,11 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    LinkedList<Integer> collection=new LinkedList<>();
+                    LinkedList<Integer> collection=CollectionUtils.merge(new LinkedList<>(), instance.value2);
                     Integer item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -420,7 +421,7 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value2")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

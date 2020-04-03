@@ -3,6 +3,7 @@ package sqlite.test03;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -450,11 +451,11 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                 case "beanList":
                   // property beanList (mapped on "beanList")
                    {
-                    ArrayList<Bean02> collection=new ArrayList<>();
+                    ArrayList<Bean02> collection=CollectionUtils.merge(new ArrayList<>(), instance.getBeanList());
                     Bean02 item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -465,7 +466,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("beanList")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -484,11 +485,11 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                 case "lista":
                   // property lista (mapped on "lista")
                    {
-                    ArrayList<Bean02> collection=new ArrayList<>();
+                    ArrayList<Bean02> collection=CollectionUtils.merge(new ArrayList<>(), instance.getLista());
                     Bean02 item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -499,7 +500,7 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("lista")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

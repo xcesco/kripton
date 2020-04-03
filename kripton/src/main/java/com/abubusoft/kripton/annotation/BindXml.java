@@ -41,23 +41,25 @@ public @interface BindXml {
 	 * Allows to specify the namespace of the element
 	 * </p>
 	 * 
-	 * @return namespace of the tag or the attribute that rapresents the
-	 *         element.
+	 * @return namespace of the tag or the attribute that rapresents the element.
 	 */
 	String namespace() default "";
 
 	/**
 	 * <p>
-	 * Used with collections and maps. It's the name of elements contained in
-	 * the collection or array, except byte array. Thus, name specified in
-	 * attribute value will be used for container.
+	 * Used with collections and maps. It's the name of elements contained in the
+	 * collection or array, except byte array. Thus, name specified in attribute
+	 * value will be used for container.
 	 * </p>
 	 * 
 	 * <p>
 	 * <strong>To specify tag name, use {@link Bind} annotation.</strong>
 	 * </p>
 	 * 
-	 * <p>For examples, using <code>BindXml(elementTag="item")</code> and <code>Bind("list")</code> for an element:
+	 * <p>
+	 * For examples, using <code>BindXml(elementTag="item")</code> and
+	 * <code>Bind("list")</code> for an element:
+	 * 
 	 * <pre>
 	...
 	&lt;list&gt;
@@ -80,9 +82,9 @@ public @interface BindXml {
 	XmlType xmlType() default XmlType.TAG;
 
 	/**
-	 * Type of mapping of element of a map. <strong>Valid only for
-	 * maps</strong>. If used with a field who does not implement map interface,
-	 * an runtime exception will be thrown. See {@link MapEntryType}.
+	 * Type of mapping of element of a map. <strong>Valid only for maps</strong>. If
+	 * used with a field who does not implement map interface, an runtime exception
+	 * will be thrown. See {@link MapEntryType}.
 	 * 
 	 * @return Type of mapping of element of a map
 	 */

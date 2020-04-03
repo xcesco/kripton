@@ -22,6 +22,7 @@ import bind.bindenum.TestEnumSuite;
 import bind.directmap.TestDirectMapSuite;
 import bind.feature.generichierarchy.TestGenericHierarchySuite;
 import bind.feature.generichierarchy.kripton109.Test109CompileSuite;
+import bind.feature.git45.TestGit43Suite;
 import bind.feature.immutable.TestImmutableCompileSuite;
 import bind.feature.kotlin.TestBindTypeKotlinCompileSuite;
 import bind.feature.namespace.CompileNamespaceTestSuite;
@@ -53,6 +54,7 @@ import bind.rss.TestRSSCompile;
 			// feature
 			TestImmutableCompileSuite.class, 
 			TestBindTypeKotlinCompileSuite.class, 
+			TestGit43Suite.class, 
 			
 		Test42CompileSuite.class,
 		Test70CompileSuite.class,

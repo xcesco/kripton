@@ -3,6 +3,7 @@ package bind.retrofit.film.model;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -1149,11 +1150,11 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
                 case "ratings":
                   // property ratings (mapped on "ratings")
                    {
-                    ArrayList<Rating> collection=new ArrayList<>();
+                    ArrayList<Rating> collection=CollectionUtils.merge(new ArrayList<>(), __ratings);
                     Rating item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1164,7 +1165,7 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("ratings")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

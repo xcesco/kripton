@@ -32,6 +32,8 @@ import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
+import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
@@ -51,9 +53,6 @@ import com.squareup.javapoet.TypeName;
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class AbstractCollectionBindTransform extends AbstractBindTransform {
-
-	/** The Constant EMPTY_COLLECTION_ATTRIBUTE_NAME. */
-	private static final String EMPTY_COLLECTION_ATTRIBUTE_NAME = "emptyCollection";
 
 	/**
 	 * The Enum CollectionType.
@@ -94,10 +93,6 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	 */
 	public AbstractCollectionBindTransform(ParameterizedTypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
-
-		// this.collectionTypeName = clazz;
-		// for now, it supports only parameterized type with 1 argument
-		// this.elementTypeName = clazz.typeArguments.get(0);
 	}
 
 	/**
@@ -110,10 +105,6 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	 */
 	public AbstractCollectionBindTransform(TypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
-
-		// this.collectionTypeName = null;
-		// for now, it supports only parameterized type with 1 argument
-		// this.elementTypeName = clazz;
 	}
 
 	/** The collection clazz. */
@@ -145,14 +136,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#
-	 * generateParseOnJackson(com.abubusoft.kripton.processor.bind.
-	 * BindTypeContext, com.squareup.javapoet.MethodSpec.Builder,
-	 * java.lang.String, com.squareup.javapoet.TypeName, java.lang.String,
-	 * com.abubusoft.kripton.processor.bind.model.BindProperty)
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
 	 */
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName,
@@ -160,14 +145,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, false);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#
-	 * generateParseOnJacksonAsString(com.abubusoft.kripton.processor.bind.
-	 * BindTypeContext, com.squareup.javapoet.MethodSpec.Builder,
-	 * java.lang.String, com.squareup.javapoet.TypeName, java.lang.String,
-	 * com.abubusoft.kripton.processor.bind.model.BindProperty)
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
 	 */
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder,
@@ -320,18 +299,24 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		TypeName elementTypeName = extractTypeParameterName(property);
 		// @formatter:off
 		methodBuilder.beginControlFlow("");
-
 		switch (collectionType) {
 		case ARRAY:
-			methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(),
-					ArrayList.class);
+			methodBuilder.addStatement("$T<$T> collection=$T.merge(new $T<>(), $L)", 
+					ArrayList.class, elementTypeName.box(),
+					CollectionUtils.class,
+					ArrayList.class,
+					((ModelClass<?>) property.getParent()).isImmutablePojo()? ImmutableUtility.IMMUTABLE_PREFIX + property.getName() : getter(beanName, beanClass, property));
 			break;
 		case LIST:
 		case SET:
 			// it's for sure a parametrized type
 			ParameterizedTypeName collectionTypeName = (ParameterizedTypeName) property.getPropertyType().getTypeName();
-			methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName),
-					elementTypeName.box(), defineCollectionClass(collectionTypeName));
+			methodBuilder.addStatement("$T<$T> collection=$T.merge(new $T<>(), $L)", 
+					defineCollectionClass(collectionTypeName),
+					elementTypeName.box(), 
+					CollectionUtils.class,			
+					defineCollectionClass(collectionTypeName),
+					((ModelClass<?>) property.getParent()).isImmutablePojo()? ImmutableUtility.IMMUTABLE_PREFIX + property.getName() : getter(beanName, beanClass, property));
 			break;
 		}
 
@@ -348,10 +333,10 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			// no wrap element
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
+			methodBuilder.beginControlFlow("if ($T.isEmptyTag($L))", XmlAttributeUtils.class, parserName);
 			methodBuilder.addCode("// if there's a an empty collection it marked with attribute emptyCollection\n");
 			methodBuilder.beginControlFlow("if ($T.getAttributeAsBoolean($L, $S, false)==false)",
-					XmlAttributeUtils.class, parserName, EMPTY_COLLECTION_ATTRIBUTE_NAME);
+					XmlAttributeUtils.class, parserName, XmlAttributeUtils.EMPTY_COLLECTION_ATTRIBUTE_NAME);
 			methodBuilder.addStatement("collection.add(item)");
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$L.nextTag()", parserName);
@@ -364,8 +349,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 					parserName, XmlPullParser.class, parserName, BindProperty.xmlName(property));
 		}
 
-		// for all
-		methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
+		// for all		
+		methodBuilder.beginControlFlow("if ($T.isEmptyTag($L))", XmlAttributeUtils.class, parserName);
 		methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
 		methodBuilder.addStatement("$L.nextTag()", parserName);
 		methodBuilder.nextControlFlow("else");
@@ -375,6 +360,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 		methodBuilder.endControlFlow();
 
+		//getter(beanName, beanClass, property);
 		if (collectionType == CollectionType.ARRAY) {
 			if (TypeUtility.isTypePrimitive(elementTypeName)) {
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"),
@@ -626,7 +612,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 					"// to distinguish between first empty element and empty collection, we write an attribute emptyCollection\n");
 			methodBuilder.beginControlFlow("if (n==0)");
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlNameForItem(property));
-			methodBuilder.addStatement("$L.writeAttribute($S, $S)", serializerName, EMPTY_COLLECTION_ATTRIBUTE_NAME,
+			methodBuilder.addStatement("$L.writeAttribute($S, $S)", serializerName, XmlAttributeUtils.EMPTY_COLLECTION_ATTRIBUTE_NAME,
 					"true");
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			methodBuilder.endControlFlow();

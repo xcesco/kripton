@@ -2,6 +2,7 @@ package bind.directmap;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -356,11 +357,11 @@ public class PersonBindMap extends AbstractMapper<Person> {
                 case "tags":
                   // property tags (mapped on "tags")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.tags);
                     String item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -371,7 +372,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("tags")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

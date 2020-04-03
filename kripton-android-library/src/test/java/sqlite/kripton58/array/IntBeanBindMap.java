@@ -362,11 +362,11 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.value);
                     Integer item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -377,7 +377,7 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -392,11 +392,11 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.value2);
                     Integer item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -407,7 +407,7 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value2")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
