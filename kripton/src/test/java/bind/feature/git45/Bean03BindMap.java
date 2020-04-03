@@ -1,9 +1,11 @@
-package bind.feature.git43;
+package bind.feature.git45;
 
 import com.abubusoft.kripton.AbstractMapper;
-import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
+import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
@@ -14,41 +16,42 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
 /**
- * This class is binder map for ContainerBean
+ * This class is binder map for Bean03
  *
- * @see ContainerBean
+ * @see Bean03
  */
-@BindMap(ContainerBean.class)
-public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
-  /**
-   * Bean01BindMap */
-  private Bean01BindMap bean01BindMap = BinderUtils.mapperFor(Bean01.class);
-
+@BindMap(Bean03.class)
+public class Bean03BindMap extends AbstractMapper<Bean03> {
   @Override
-  public int serializeOnJackson(ContainerBean object, JsonGenerator jacksonSerializer) throws
-      Exception {
+  public int serializeOnJackson(Bean03 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
-    // field elements (mapped with "elements")
-    if (object.elements!=null)  {
+    // field miscellaneus (mapped with "miscellaneus")
+    if (object.getMiscellaneus()!=null)  {
       fieldCount++;
-      int n=object.elements.size();
-      Bean01 item;
+      int n=object.getMiscellaneus().size();
+      Integer item;
       // write wrapper tag
-      jacksonSerializer.writeFieldName("elements");
+      jacksonSerializer.writeFieldName("miscellaneus");
       jacksonSerializer.writeStartArray();
       for (int i=0; i<n; i++) {
-        item=object.elements.get(i);
+        item=object.getMiscellaneus().get(i);
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          bean01BindMap.serializeOnJackson(item, jacksonSerializer);
+          jacksonSerializer.writeNumber(item);
         }
       }
       jacksonSerializer.writeEndArray();
+    }
+
+    // field type (mapped with "type")
+    if (object.getType()!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("type", object.getType());
     }
 
     jacksonSerializer.writeEndObject();
@@ -56,36 +59,40 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(ContainerBean object, JsonGenerator jacksonSerializer)
-      throws Exception {
+  public int serializeOnJacksonAsString(Bean03 object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
-    // field elements (mapped with "elements")
-    if (object.elements!=null)  {
+    // field miscellaneus (mapped with "miscellaneus")
+    if (object.getMiscellaneus()!=null)  {
       fieldCount++;
-      int n=object.elements.size();
-      Bean01 item;
+      int n=object.getMiscellaneus().size();
+      Integer item;
       // write wrapper tag
-      jacksonSerializer.writeFieldName("elements");
+      jacksonSerializer.writeFieldName("miscellaneus");
       if (n>0) {
         jacksonSerializer.writeStartArray();
         for (int i=0; i<n; i++) {
-          item=object.elements.get(i);
+          item=object.getMiscellaneus().get(i);
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            if (bean01BindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
-              jacksonSerializer.writeNullField("elements");
-            }
+            jacksonSerializer.writeString(PrimitiveUtils.writeInteger(item));
           }
         }
         jacksonSerializer.writeEndArray();
       } else {
         jacksonSerializer.writeString("");
       }
+    }
+
+    // field type (mapped with "type")
+    if (object.getType()!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("type", object.getType());
     }
 
     jacksonSerializer.writeEndObject();
@@ -96,34 +103,41 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(ContainerBean object, XMLSerializer xmlSerializer,
-      int currentEventType) throws Exception {
+  public void serializeOnXml(Bean03 object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("containerBean");
+      xmlSerializer.writeStartElement("bean03");
     }
 
     // Persisted fields:
 
-    // field elements (mapped with "elements")
-    if (object.elements!=null)  {
-      int n=object.elements.size();
-      Bean01 item;
+    // field miscellaneus (mapped with "miscellaneus")
+    if (object.getMiscellaneus()!=null)  {
+      int n=object.getMiscellaneus().size();
+      Integer item;
       for (int i=0; i<n; i++) {
-        item=object.elements.get(i);
+        item=object.getMiscellaneus().get(i);
         if (item==null) {
-          xmlSerializer.writeEmptyElement("elements");
+          xmlSerializer.writeEmptyElement("miscellaneus");
         } else {
-          xmlSerializer.writeStartElement("elements");
-          bean01BindMap.serializeOnXml(item, xmlSerializer, 2);
+          xmlSerializer.writeStartElement("miscellaneus");
+          xmlSerializer.writeInt(item);
           xmlSerializer.writeEndElement();
         }
       }
       // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
       if (n==0) {
-        xmlSerializer.writeStartElement("elements");
+        xmlSerializer.writeStartElement("miscellaneus");
         xmlSerializer.writeAttribute("emptyCollection", "true");
         xmlSerializer.writeEndElement();
       }
+    }
+
+    // field type (mapped with "type")
+    if (object.getType()!=null) {
+      xmlSerializer.writeStartElement("type");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getType()));
+      xmlSerializer.writeEndElement();
     }
 
     if (currentEventType == 0) {
@@ -135,8 +149,8 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
    * parse with jackson
    */
   @Override
-  public ContainerBean parseOnJackson(JsonParser jacksonParser) throws Exception {
-    ContainerBean instance = new ContainerBean();
+  public Bean03 parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Bean03 instance = new Bean03();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -151,20 +165,26 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
 
       // Parse fields:
       switch (fieldName) {
-          case "elements":
-            // field elements (mapped with "elements")
+          case "miscellaneus":
+            // field miscellaneus (mapped with "miscellaneus")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-              ArrayList<Bean01> collection=new ArrayList<>();
-              Bean01 item=null;
+              ArrayList<Integer> collection=new ArrayList<>();
+              Integer item=null;
               while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=bean01BindMap.parseOnJackson(jacksonParser);
+                  item=jacksonParser.getIntValue();
                 }
                 collection.add(item);
               }
-              instance.elements=collection;
+              instance.setMiscellaneus(collection);
+            }
+          break;
+          case "type":
+            // field type (mapped with "type")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.setType(jacksonParser.getText());
             }
           break;
           default:
@@ -178,8 +198,8 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
    * parse with jackson
    */
   @Override
-  public ContainerBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    ContainerBean instance = new ContainerBean();
+  public Bean03 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    Bean03 instance = new Bean03();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -194,25 +214,31 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
 
       // Parse fields:
       switch (fieldName) {
-          case "elements":
-            // field elements (mapped with "elements")
+          case "miscellaneus":
+            // field miscellaneus (mapped with "miscellaneus")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-              ArrayList<Bean01> collection=new ArrayList<>();
-              Bean01 item=null;
+              ArrayList<Integer> collection=new ArrayList<>();
+              Integer item=null;
               String tempValue=null;
               while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                 tempValue=jacksonParser.getValueAsString();
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  item=bean01BindMap.parseOnJacksonAsString(jacksonParser);
+                  item=PrimitiveUtils.readInteger(jacksonParser.getText(), null);
                 }
                 collection.add(item);
               }
-              instance.elements=collection;
+              instance.setMiscellaneus(collection);
             } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
-              ArrayList<Bean01> collection=new ArrayList<>();
-              instance.elements=collection;
+              ArrayList<Integer> collection=new ArrayList<>();
+              instance.setMiscellaneus(collection);
+            }
+          break;
+          case "type":
+            // field type (mapped with "type")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.setType(jacksonParser.getText());
             }
           break;
           default:
@@ -226,8 +252,8 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
    * parse xml
    */
   @Override
-  public ContainerBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    ContainerBean instance = new ContainerBean();
+  public Bean03 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    Bean03 instance = new Bean03();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -252,11 +278,11 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
-                case "elements":
-                  // property elements (mapped on "elements")
+                case "miscellaneus":
+                  // property miscellaneus (mapped on "miscellaneus")
                    {
-                    ArrayList<Bean01> collection=new ArrayList<>();
-                    Bean01 item;
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.getMiscellaneus());
+                    Integer item;
                     // add first element
                     item=null;
                     if (xmlParser.isEmptyElement()) {
@@ -266,21 +292,25 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=bean01BindMap.parseOnXml(xmlParser, eventType);
+                      item=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("elements")) {
+                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("miscellaneus")) {
                       if (xmlParser.isEmptyElement()) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=bean01BindMap.parseOnXml(xmlParser, eventType);
+                        item=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
                       }
                       collection.add(item);
                     }
-                    instance.elements=collection;
+                    instance.setMiscellaneus(collection);
                     read=false;
                   }
+                break;
+                case "type":
+                  // property type (mapped on "type")
+                  instance.setType(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 default:
                 break;

@@ -1,10 +1,19 @@
-package bind.feature.git43;
+package bind.feature.git45;
 
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class Bean01 {
 	private String name;
+	private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getName() {
 		return name;

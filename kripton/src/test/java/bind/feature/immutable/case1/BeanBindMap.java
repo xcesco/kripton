@@ -1019,7 +1019,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "bufferString":
                   // property bufferString (mapped on "bufferString")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), __bufferString);
                     String item;
                     // add first element
                     item=null;
@@ -1049,7 +1049,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "items":
                   // property items (mapped on "items")
                    {
-                    ArrayList<Long> collection=new ArrayList<>();
+                    ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), __items);
                     Long item;
                     // add first element
                     item=null;
@@ -1079,7 +1079,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "itemsString":
                   // property itemsString (mapped on "itemsString")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), __itemsString);
                     String item;
                     // add first element
                     item=null;
@@ -1187,7 +1187,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "sortableSet":
                   // property sortableSet (mapped on "sortableSet")
                    {
-                    TreeSet<String> collection=new TreeSet<>();
+                    TreeSet<String> collection=CollectionUtils.merge(new TreeSet<>(), __sortableSet);
                     String item;
                     // add first element
                     item=null;

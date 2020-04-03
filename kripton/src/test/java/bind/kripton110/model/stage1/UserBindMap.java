@@ -3,6 +3,7 @@ package bind.kripton110.model.stage1;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -1141,7 +1142,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 case "friends":
                   // property friends (mapped on "friends")
                    {
-                    ArrayList<Friend> collection=new ArrayList<>();
+                    ArrayList<Friend> collection=CollectionUtils.merge(new ArrayList<>(), instance.friends);
                     Friend item;
                     // add first element
                     item=null;
@@ -1179,7 +1180,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 case "images":
                   // property images (mapped on "images")
                    {
-                    ArrayList<Image> collection=new ArrayList<>();
+                    ArrayList<Image> collection=CollectionUtils.merge(new ArrayList<>(), instance.images);
                     Image item;
                     // add first element
                     item=null;
@@ -1233,7 +1234,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 case "range":
                   // property range (mapped on "range")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.range);
                     Integer item;
                     // add first element
                     item=null;
@@ -1267,7 +1268,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 case "tags":
                   // property tags (mapped on "tags")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.tags);
                     String item;
                     // add first element
                     item=null;

@@ -13,33 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.git43;
+package bind.feature.git45;
 
-import java.io.IOException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import org.junit.Test;
-
-import bind.AbstractBindTypeProcessorTest;
-
-
-/**
- * Test bean field.
- *
- * @author Francesco Benincasa (info@abubusoft.com)
- */
-public class TestListGit43 extends AbstractBindTypeProcessorTest {
-
-	/**
-	 * Test compile.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
-	@Test
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(Bean01.class, Bean02.class, ContainerBean.class);
-	}
-	
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{
+			TestListGit43.class
+		 })
+//@formatter:on
+public class TestGit43Suite {
 
 }

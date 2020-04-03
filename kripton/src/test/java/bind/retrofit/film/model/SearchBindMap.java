@@ -3,6 +3,7 @@ package bind.retrofit.film.model;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -340,7 +341,7 @@ public class SearchBindMap extends AbstractMapper<Search> {
                 case "search":
                   // property search (mapped on "search")
                    {
-                    ArrayList<Film> collection=new ArrayList<>();
+                    ArrayList<Film> collection=CollectionUtils.merge(new ArrayList<>(), __search);
                     Film item;
                     // add first element
                     item=null;

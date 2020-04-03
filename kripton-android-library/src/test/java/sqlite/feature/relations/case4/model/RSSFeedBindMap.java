@@ -3,6 +3,7 @@ package sqlite.feature.relations.case4.model;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -298,7 +299,7 @@ public class RSSFeedBindMap extends AbstractMapper<RSSFeed> {
                 case "channel":
                   // property channels (mapped on "channel")
                    {
-                    ArrayList<Channel> collection=new ArrayList<>();
+                    ArrayList<Channel> collection=CollectionUtils.merge(new ArrayList<>(), instance.channels);
                     Channel item;
                     // add first element
                     item=null;

@@ -362,7 +362,7 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Long> collection=new ArrayList<>();
+                    ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), instance.value);
                     Long item;
                     // add first element
                     item=null;
@@ -392,7 +392,7 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    ArrayList<Long> collection=new ArrayList<>();
+                    ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), instance.value2);
                     Long item;
                     // add first element
                     item=null;

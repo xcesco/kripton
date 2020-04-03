@@ -5,6 +5,7 @@ import bind.feature.generichierarchy.case1.model.MessageBindMap;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -327,7 +328,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
                 case "list":
                   // property list (mapped on "list")
                    {
-                    ArrayList<Message> collection=new ArrayList<>();
+                    ArrayList<Message> collection=CollectionUtils.merge(new ArrayList<>(), instance.getList());
                     Message item;
                     // add first element
                     item=null;

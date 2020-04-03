@@ -21,7 +21,7 @@ import org.junit.runners.Suite;
 import bind.bindenum.TestRuntimeEnumSuite;
 import bind.directmap.TestRuntimeDirectMapSuite;
 import bind.feature.generichierarchy.TestRuntimeHierarchySuite;
-import bind.feature.git43.TestRuntimeGit43;
+import bind.feature.git45.TestRuntimeGit43;
 import bind.feature.namespace.TestRuntimeNamespaceSuite;
 import bind.feature.typeadapter.kripton87.TestRuntime87Suite;
 import bind.kripton42faster.TestRuntime42Suite;

@@ -32,6 +32,8 @@ import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
+import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
@@ -94,10 +96,6 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	 */
 	public AbstractCollectionBindTransform(ParameterizedTypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
-
-		// this.collectionTypeName = clazz;
-		// for now, it supports only parameterized type with 1 argument
-		// this.elementTypeName = clazz.typeArguments.get(0);
 	}
 
 	/**
@@ -110,10 +108,6 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	 */
 	public AbstractCollectionBindTransform(TypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
-
-		// this.collectionTypeName = null;
-		// for now, it supports only parameterized type with 1 argument
-		// this.elementTypeName = clazz;
 	}
 
 	/** The collection clazz. */
@@ -145,14 +139,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#
-	 * generateParseOnJackson(com.abubusoft.kripton.processor.bind.
-	 * BindTypeContext, com.squareup.javapoet.MethodSpec.Builder,
-	 * java.lang.String, com.squareup.javapoet.TypeName, java.lang.String,
-	 * com.abubusoft.kripton.processor.bind.model.BindProperty)
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
 	 */
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName,
@@ -160,14 +148,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, false);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#
-	 * generateParseOnJacksonAsString(com.abubusoft.kripton.processor.bind.
-	 * BindTypeContext, com.squareup.javapoet.MethodSpec.Builder,
-	 * java.lang.String, com.squareup.javapoet.TypeName, java.lang.String,
-	 * com.abubusoft.kripton.processor.bind.model.BindProperty)
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
 	 */
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder,
@@ -320,18 +302,24 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		TypeName elementTypeName = extractTypeParameterName(property);
 		// @formatter:off
 		methodBuilder.beginControlFlow("");
-
 		switch (collectionType) {
 		case ARRAY:
-			methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(),
-					ArrayList.class);
+			methodBuilder.addStatement("$T<$T> collection=$T.merge(new $T<>(), $L)", 
+					ArrayList.class, elementTypeName.box(),
+					CollectionUtils.class,
+					ArrayList.class,
+					((ModelClass<?>) property.getParent()).isImmutablePojo()? ImmutableUtility.IMMUTABLE_PREFIX + property.getName() : getter(beanName, beanClass, property));
 			break;
 		case LIST:
 		case SET:
 			// it's for sure a parametrized type
 			ParameterizedTypeName collectionTypeName = (ParameterizedTypeName) property.getPropertyType().getTypeName();
-			methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName),
-					elementTypeName.box(), defineCollectionClass(collectionTypeName));
+			methodBuilder.addStatement("$T<$T> collection=$T.merge(new $T<>(), $L)", 
+					defineCollectionClass(collectionTypeName),
+					elementTypeName.box(), 
+					CollectionUtils.class,			
+					defineCollectionClass(collectionTypeName),
+					((ModelClass<?>) property.getParent()).isImmutablePojo()? ImmutableUtility.IMMUTABLE_PREFIX + property.getName() : getter(beanName, beanClass, property));
 			break;
 		}
 
@@ -375,6 +363,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 		methodBuilder.endControlFlow();
 
+		//getter(beanName, beanClass, property);
 		if (collectionType == CollectionType.ARRAY) {
 			if (TypeUtility.isTypePrimitive(elementTypeName)) {
 				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"),

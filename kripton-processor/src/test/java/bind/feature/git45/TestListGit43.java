@@ -13,18 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.git43;
+package bind.feature.git45;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.io.IOException;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{
-			TestListGit43.class
-		 })
-//@formatter:on
-public class TestGit43Suite {
+import org.junit.Test;
+
+import bind.AbstractBindTypeProcessorTest;
+import bind.feature.git45.Bean01;
+import bind.feature.git45.Bean02;
+import bind.feature.git45.ContainerBean;
+
+
+public class TestListGit43 extends AbstractBindTypeProcessorTest {
+
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(Bean01.class, Bean02.class, Bean03.class, ContainerBean.class);
+	}
+	
 
 }

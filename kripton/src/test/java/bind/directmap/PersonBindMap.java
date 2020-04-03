@@ -2,6 +2,7 @@ package bind.directmap;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -356,7 +357,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
                 case "tags":
                   // property tags (mapped on "tags")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.tags);
                     String item;
                     // add first element
                     item=null;

@@ -1,4 +1,4 @@
-package bind.feature.git43;
+package bind.feature.git45;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
@@ -30,6 +30,12 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
       jacksonSerializer.writeStringField("name", object.getName());
     }
 
+    // field type (mapped with "type")
+    if (object.getType()!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("type", object.getType());
+    }
+
     jacksonSerializer.writeEndObject();
     return fieldCount;
   }
@@ -46,6 +52,12 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
     if (object.getName()!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("name", object.getName());
+    }
+
+    // field type (mapped with "type")
+    if (object.getType()!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("type", object.getType());
     }
 
     jacksonSerializer.writeEndObject();
@@ -68,6 +80,13 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
     if (object.getName()!=null) {
       xmlSerializer.writeStartElement("name");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getName()));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field type (mapped with "type")
+    if (object.getType()!=null) {
+      xmlSerializer.writeStartElement("type");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getType()));
       xmlSerializer.writeEndElement();
     }
 
@@ -102,6 +121,12 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
               instance.setName(jacksonParser.getText());
             }
           break;
+          case "type":
+            // field type (mapped with "type")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.setType(jacksonParser.getText());
+            }
+          break;
           default:
             jacksonParser.skipChildren();
           break;}
@@ -133,6 +158,12 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
             // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.setName(jacksonParser.getText());
+            }
+          break;
+          case "type":
+            // field type (mapped with "type")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.setType(jacksonParser.getText());
             }
           break;
           default:
@@ -175,6 +206,10 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                 case "name":
                   // property name (mapped on "name")
                   instance.setName(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "type":
+                  // property type (mapped on "type")
+                  instance.setType(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 default:
                 break;

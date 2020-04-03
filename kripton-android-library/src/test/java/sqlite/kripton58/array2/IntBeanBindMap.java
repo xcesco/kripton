@@ -362,7 +362,7 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue());
                     Integer item;
                     // add first element
                     item=null;
@@ -392,7 +392,7 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue2());
                     Integer item;
                     // add first element
                     item=null;

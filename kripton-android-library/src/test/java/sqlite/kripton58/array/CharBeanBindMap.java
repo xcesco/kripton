@@ -362,7 +362,7 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.value);
                     Character item;
                     // add first element
                     item=null;
@@ -392,7 +392,7 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.value2);
                     Character item;
                     // add first element
                     item=null;

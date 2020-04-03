@@ -4,6 +4,7 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.BigDecimalUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -1165,7 +1166,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueBeanSet":
                   // property valueBeanSet (mapped on "valueBeanSet")
                    {
-                    LinkedHashSet<Bean> collection=new LinkedHashSet<>();
+                    LinkedHashSet<Bean> collection=CollectionUtils.merge(new LinkedHashSet<>(), instance.getValueBeanSet());
                     Bean item;
                     // add first element
                     item=null;
@@ -1195,7 +1196,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueBigDecimalSet":
                   // property valueBigDecimalSet (mapped on "valueBigDecimalSet")
                    {
-                    HashSet<BigDecimal> collection=new HashSet<>();
+                    HashSet<BigDecimal> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueBigDecimalSet());
                     BigDecimal item;
                     // add first element
                     item=null;
@@ -1225,7 +1226,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueByteSet":
                   // property valueByteSet (mapped on "valueByteSet")
                    {
-                    HashSet<Byte> collection=new HashSet<>();
+                    HashSet<Byte> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueByteSet());
                     Byte item;
                     // add first element
                     item=null;
@@ -1255,7 +1256,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueCharacterSet":
                   // property valueCharacterSet (mapped on "valueCharacterSet")
                    {
-                    HashSet<Character> collection=new HashSet<>();
+                    HashSet<Character> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueCharacterSet());
                     Character item;
                     // add first element
                     item=null;
@@ -1285,7 +1286,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueDoubleSet":
                   // property valueDoubleSet (mapped on "valueDoubleSet")
                    {
-                    HashSet<Double> collection=new HashSet<>();
+                    HashSet<Double> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueDoubleSet());
                     Double item;
                     // add first element
                     item=null;
@@ -1315,7 +1316,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueEnumTypeSet":
                   // property valueEnumTypeSet (mapped on "valueEnumTypeSet")
                    {
-                    HashSet<EnumType> collection=new HashSet<>();
+                    HashSet<EnumType> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueEnumTypeSet());
                     EnumType item;
                     // add first element
                     item=null;
@@ -1345,7 +1346,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueFloatSet":
                   // property valueFloatSet (mapped on "valueFloatSet")
                    {
-                    HashSet<Float> collection=new HashSet<>();
+                    HashSet<Float> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueFloatSet());
                     Float item;
                     // add first element
                     item=null;
@@ -1375,7 +1376,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueIntegerSet":
                   // property valueIntegerSet (mapped on "valueIntegerSet")
                    {
-                    LinkedHashSet<Integer> collection=new LinkedHashSet<>();
+                    LinkedHashSet<Integer> collection=CollectionUtils.merge(new LinkedHashSet<>(), instance.getValueIntegerSet());
                     Integer item;
                     // add first element
                     item=null;
@@ -1405,7 +1406,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueShortSet":
                   // property valueShortSet (mapped on "valueShortSet")
                    {
-                    HashSet<Short> collection=new HashSet<>();
+                    HashSet<Short> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueShortSet());
                     Short item;
                     // add first element
                     item=null;
@@ -1435,7 +1436,7 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
                 case "valueStringSet":
                   // property valueStringSet (mapped on "valueStringSet")
                    {
-                    HashSet<String> collection=new HashSet<>();
+                    HashSet<String> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueStringSet());
                     String item;
                     // add first element
                     item=null;

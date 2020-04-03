@@ -2362,7 +2362,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueBeanArray":
                   // property valueBeanArray (mapped on "valueBeanArray")
                    {
-                    ArrayList<Bean64> collection=new ArrayList<>();
+                    ArrayList<Bean64> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueBeanArray);
                     Bean64 item;
                     // add first element
                     item=null;
@@ -2428,7 +2428,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueCharArray":
                   // property valueCharArray (mapped on "valueCharArray")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueCharArray);
                     Character item;
                     // add first element
                     item=null;
@@ -2458,7 +2458,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueCharList":
                   // property valueCharList (mapped on "valueCharList")
                    {
-                    LinkedList<Character> collection=new LinkedList<>();
+                    LinkedList<Character> collection=CollectionUtils.merge(new LinkedList<>(), instance.valueCharList);
                     Character item;
                     // add first element
                     item=null;
@@ -2492,7 +2492,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueCharTypeArray":
                   // property valueCharTypeArray (mapped on "valueCharTypeArray")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueCharTypeArray);
                     Character item;
                     // add first element
                     item=null;
@@ -2601,7 +2601,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueLongArray":
                   // property valueLongArray (mapped on "valueLongArray")
                    {
-                    ArrayList<Long> collection=new ArrayList<>();
+                    ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueLongArray);
                     Long item;
                     // add first element
                     item=null;
@@ -2631,7 +2631,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueLongList":
                   // property valueLongList (mapped on "valueLongList")
                    {
-                    LinkedList<Long> collection=new LinkedList<>();
+                    LinkedList<Long> collection=CollectionUtils.merge(new LinkedList<>(), instance.valueLongList);
                     Long item;
                     // add first element
                     item=null;
@@ -2665,7 +2665,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueLongTypeArray":
                   // property valueLongTypeArray (mapped on "valueLongTypeArray")
                    {
-                    ArrayList<Long> collection=new ArrayList<>();
+                    ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueLongTypeArray);
                     Long item;
                     // add first element
                     item=null;
@@ -2730,7 +2730,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueSetString":
                   // property valueSetString (mapped on "valueSetString")
                    {
-                    HashSet<String> collection=new HashSet<>();
+                    HashSet<String> collection=CollectionUtils.merge(new HashSet<>(), instance.valueSetString);
                     String item;
                     // add first element
                     item=null;
@@ -2768,7 +2768,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueStrinList":
                   // property valueStrinList (mapped on "valueStrinList")
                    {
-                    LinkedList<String> collection=new LinkedList<>();
+                    LinkedList<String> collection=CollectionUtils.merge(new LinkedList<>(), instance.valueStrinList);
                     String item;
                     // add first element
                     item=null;
@@ -2802,7 +2802,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueStringArray":
                   // property valueStringArray (mapped on "valueStringArray")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueStringArray);
                     String item;
                     // add first element
                     item=null;
@@ -2836,7 +2836,7 @@ public class Bean64BindMap extends AbstractMapper<Bean64> {
                 case "valueTimeList":
                   // property valueTimeList (mapped on "valueTimeList")
                    {
-                    ArrayList<Time> collection=new ArrayList<>();
+                    ArrayList<Time> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueTimeList);
                     Time item;
                     // add first element
                     item=null;

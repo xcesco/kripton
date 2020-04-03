@@ -385,7 +385,7 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<BeanInner> collection=new ArrayList<>();
+                    ArrayList<BeanInner> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue());
                     BeanInner item;
                     // add first element
                     item=null;
@@ -415,7 +415,7 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    ArrayList<BeanInner> collection=new ArrayList<>();
+                    ArrayList<BeanInner> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue2());
                     BeanInner item;
                     // add first element
                     item=null;

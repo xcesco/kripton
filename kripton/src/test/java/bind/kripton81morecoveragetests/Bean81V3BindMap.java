@@ -503,7 +503,7 @@ public class Bean81V3BindMap extends AbstractMapper<Bean81V3> {
                 case "valueByteArray":
                   // property valueByteArray (mapped on "valueByteArray")
                    {
-                    ArrayList<Byte> collection=new ArrayList<>();
+                    ArrayList<Byte> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueByteArray);
                     Byte item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -520,7 +520,7 @@ public class Bean81V3BindMap extends AbstractMapper<Bean81V3> {
                 case "valueIntegerList":
                   // property valueIntegerList (mapped on "valueIntegerList")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueIntegerList);
                     Integer item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {

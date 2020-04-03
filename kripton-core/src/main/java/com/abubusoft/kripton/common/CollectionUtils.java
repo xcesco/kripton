@@ -22,7 +22,6 @@ import java.util.Set;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Utility to work with list and array Json conversion.
  * 
@@ -31,12 +30,175 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
  */
 public class CollectionUtils {
 
+	public static <L extends Collection<T>, E extends Collection<T>, T> L merge(L collection, E initialValue) {
+		if (initialValue != null && initialValue.size() > 0) {
+			collection.addAll(initialValue);
+		}
+
+		return collection;
+	}
+
+	public static <L extends Collection<T>, T> L merge(L collection, T[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (T item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Byte>> L merge(L collection, byte[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (byte item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Byte>> L merge(L collection, Byte[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (byte item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Short>> L merge(L collection, short[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (short item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Short>> L merge(L collection, Short[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (Short item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Character>> L merge(L collection, char[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (char item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Character>> L merge(L collection, Character[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (char item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+
+	public static <L extends Collection<Double>> L merge(L collection, double[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (double item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Double>> L merge(L collection, Double[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (Double item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Float>> L merge(L collection, float[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (float item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Float>> L merge(L collection, Float[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (Float item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Integer>> L merge(L collection, int[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (int item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Integer>> L merge(L collection, Integer[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (Integer item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Long>> L merge(L collection, long[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (long item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+	
+	public static <L extends Collection<Long>> L merge(L collection, Long[] initialValue) {
+		if (initialValue != null && initialValue.length > 0) {
+			for (Long item : initialValue) {
+				collection.add(item);
+			}
+		}
+
+		return collection;
+	}
+
+	
+
 	/**
 	 * create a collection set, with initial values.
 	 *
-	 * @param <T> the generic type
-	 * @param itemType the item type
-	 * @param objects the objects
+	 * @param <T>
+	 *            the generic type
+	 * @param itemType
+	 *            the item type
+	 * @param objects
+	 *            the objects
 	 * @return the sets the
 	 */
 	@SuppressWarnings("unchecked")
@@ -53,9 +215,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	public static <E extends List<Byte>> E asList(Byte[] array, Class<E> listType) {
@@ -77,9 +242,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	//
@@ -102,9 +270,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	public static <E extends List<Character>> E asList(Character[] array, Class<E> listType) {
@@ -126,10 +297,14 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param <T> the generic type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param <T>
+	 *            the generic type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	@SuppressWarnings("unchecked")
@@ -152,9 +327,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	public static <E extends List<Short>> E asList(Short[] array, Class<E> listType) {
@@ -176,9 +354,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	public static <E extends List<Integer>> E asList(Integer[] array, Class<E> listType) {
@@ -200,9 +381,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the list
 	 */
 	public static <E extends List<Long>> List<Long> asList(Long[] array, Class<E> listType) {
@@ -224,9 +408,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the list
 	 */
 	public static <E extends List<Float>> List<Float> asList(Float[] array, Class<E> listType) {
@@ -248,9 +435,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the list
 	 */
 	public static <E extends List<Double>> List<Double> asList(Double[] array, Class<E> listType) {
@@ -274,9 +464,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	public static <E extends List<Boolean>> E asList(boolean[] array, Class<E> listType) {
@@ -298,9 +491,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	public static <E extends Collection<Character>> E asList(char[] array, Class<E> listType) {
@@ -322,9 +518,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	public static <E extends List<Short>> E asList(short[] array, Class<E> listType) {
@@ -346,9 +545,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the e
 	 */
 	public static <E extends List<Integer>> E asList(int[] array, Class<E> listType) {
@@ -370,9 +572,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the list
 	 */
 	public static <E extends List<Long>> List<Long> asList(long[] array, Class<E> listType) {
@@ -394,9 +599,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the list
 	 */
 	public static <E extends List<Float>> List<Float> asList(float[] array, Class<E> listType) {
@@ -418,9 +626,12 @@ public class CollectionUtils {
 	/**
 	 * As list.
 	 *
-	 * @param <E> the element type
-	 * @param array the array
-	 * @param listType the list type
+	 * @param <E>
+	 *            the element type
+	 * @param array
+	 *            the array
+	 * @param listType
+	 *            the list type
 	 * @return the list
 	 */
 	public static <E extends List<Double>> List<Double> asList(double[] array, Class<E> listType) {
@@ -442,7 +653,8 @@ public class CollectionUtils {
 	/**
 	 * As boolean type array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the boolean[]
 	 */
 	public static boolean[] asBooleanTypeArray(List<Boolean> input) {
@@ -458,7 +670,8 @@ public class CollectionUtils {
 	/**
 	 * As byte type array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the byte[]
 	 */
 	public static byte[] asByteTypeArray(List<Byte> input) {
@@ -474,7 +687,8 @@ public class CollectionUtils {
 	/**
 	 * As character type array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the char[]
 	 */
 	public static char[] asCharacterTypeArray(List<Character> input) {
@@ -490,7 +704,8 @@ public class CollectionUtils {
 	/**
 	 * As short type array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the short[]
 	 */
 	public static short[] asShortTypeArray(List<Short> input) {
@@ -506,7 +721,8 @@ public class CollectionUtils {
 	/**
 	 * As integer type array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the int[]
 	 */
 	public static int[] asIntegerTypeArray(List<Integer> input) {
@@ -522,7 +738,8 @@ public class CollectionUtils {
 	/**
 	 * As long type array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the long[]
 	 */
 	public static long[] asLongTypeArray(List<Long> input) {
@@ -538,7 +755,8 @@ public class CollectionUtils {
 	/**
 	 * As float type array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the float[]
 	 */
 	public static float[] asFloatTypeArray(List<Float> input) {
@@ -554,7 +772,8 @@ public class CollectionUtils {
 	/**
 	 * As double type array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the double[]
 	 */
 	public static double[] asDoubleTypeArray(List<Double> input) {
@@ -570,7 +789,8 @@ public class CollectionUtils {
 	/**
 	 * As string array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the string[]
 	 */
 	public static String[] asStringArray(List<String> input) {
@@ -586,7 +806,8 @@ public class CollectionUtils {
 	/**
 	 * As boolean array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the boolean[]
 	 */
 	public static Boolean[] asBooleanArray(List<Boolean> input) {
@@ -602,7 +823,8 @@ public class CollectionUtils {
 	/**
 	 * As byte array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the byte[]
 	 */
 	public static Byte[] asByteArray(List<Byte> input) {
@@ -618,7 +840,8 @@ public class CollectionUtils {
 	/**
 	 * As character array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the character[]
 	 */
 	public static Character[] asCharacterArray(List<Character> input) {
@@ -634,7 +857,8 @@ public class CollectionUtils {
 	/**
 	 * As short array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the short[]
 	 */
 	public static Short[] asShortArray(List<Short> input) {
@@ -650,7 +874,8 @@ public class CollectionUtils {
 	/**
 	 * As integer array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the integer[]
 	 */
 	public static Integer[] asIntegerArray(List<Integer> input) {
@@ -666,7 +891,8 @@ public class CollectionUtils {
 	/**
 	 * As long array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the long[]
 	 */
 	public static Long[] asLongArray(List<Long> input) {
@@ -682,9 +908,12 @@ public class CollectionUtils {
 	/**
 	 * As array.
 	 *
-	 * @param <E> the element type
-	 * @param input the input
-	 * @param newArray the new array
+	 * @param <E>
+	 *            the element type
+	 * @param input
+	 *            the input
+	 * @param newArray
+	 *            the new array
 	 * @return the e[]
 	 */
 	public static <E> E[] asArray(List<E> input, E[] newArray) {
@@ -694,7 +923,8 @@ public class CollectionUtils {
 	/**
 	 * As float array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the float[]
 	 */
 	public static Float[] asFloatArray(List<Float> input) {
@@ -710,7 +940,8 @@ public class CollectionUtils {
 	/**
 	 * As double array.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the double[]
 	 */
 	public static Double[] asDoubleArray(List<Double> input) {
@@ -726,14 +957,16 @@ public class CollectionUtils {
 	/**
 	 * trim each element of lists.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 */
 	public static void trim(List<String> value) {
-		if (value==null) return;
-		for (int i=0; i<value.size(); i++) {
+		if (value == null)
+			return;
+		for (int i = 0; i < value.size(); i++) {
 			value.set(i, value.get(i).trim());
 		}
-		
+
 	}
 
 }

@@ -4,6 +4,7 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.BigIntegerUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -1360,7 +1361,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueBeanSet":
                   // property valueBeanSet (mapped on "valueBeanSet")
                    {
-                    HashSet<Bean72A> collection=new HashSet<>();
+                    HashSet<Bean72A> collection=CollectionUtils.merge(new HashSet<>(), instance.valueBeanSet);
                     Bean72A item;
                     // add first element
                     item=null;
@@ -1390,7 +1391,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueBigDecimalSet":
                   // property valueBigDecimalSet (mapped on "valueBigDecimalSet")
                    {
-                    HashSet<BigDecimal> collection=new HashSet<>();
+                    HashSet<BigDecimal> collection=CollectionUtils.merge(new HashSet<>(), instance.valueBigDecimalSet);
                     BigDecimal item;
                     // add first element
                     item=null;
@@ -1420,7 +1421,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueBigIntegerSet":
                   // property valueBigIntegerSet (mapped on "valueBigIntegerSet")
                    {
-                    HashSet<BigInteger> collection=new HashSet<>();
+                    HashSet<BigInteger> collection=CollectionUtils.merge(new HashSet<>(), instance.valueBigIntegerSet);
                     BigInteger item;
                     // add first element
                     item=null;
@@ -1450,7 +1451,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueByteSet":
                   // property valueByteSet (mapped on "valueByteSet")
                    {
-                    HashSet<Byte> collection=new HashSet<>();
+                    HashSet<Byte> collection=CollectionUtils.merge(new HashSet<>(), instance.valueByteSet);
                     Byte item;
                     // add first element
                     item=null;
@@ -1480,7 +1481,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueCharacterSet":
                   // property valueCharacterSet (mapped on "valueCharacterSet")
                    {
-                    HashSet<Character> collection=new HashSet<>();
+                    HashSet<Character> collection=CollectionUtils.merge(new HashSet<>(), instance.valueCharacterSet);
                     Character item;
                     // add first element
                     item=null;
@@ -1510,7 +1511,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueDoubleSet":
                   // property valueDoubleSet (mapped on "valueDoubleSet")
                    {
-                    HashSet<Double> collection=new HashSet<>();
+                    HashSet<Double> collection=CollectionUtils.merge(new HashSet<>(), instance.valueDoubleSet);
                     Double item;
                     // add first element
                     item=null;
@@ -1540,7 +1541,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueEnumSet":
                   // property valueEnumSet (mapped on "valueEnumSet")
                    {
-                    HashSet<Enum72> collection=new HashSet<>();
+                    HashSet<Enum72> collection=CollectionUtils.merge(new HashSet<>(), instance.valueEnumSet);
                     Enum72 item;
                     // add first element
                     item=null;
@@ -1570,7 +1571,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueFloatSet":
                   // property valueFloatSet (mapped on "valueFloatSet")
                    {
-                    HashSet<Float> collection=new HashSet<>();
+                    HashSet<Float> collection=CollectionUtils.merge(new HashSet<>(), instance.valueFloatSet);
                     Float item;
                     // add first element
                     item=null;
@@ -1600,7 +1601,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueIntSet":
                   // property valueIntSet (mapped on "valueIntSet")
                    {
-                    HashSet<Integer> collection=new HashSet<>();
+                    HashSet<Integer> collection=CollectionUtils.merge(new HashSet<>(), instance.getValueIntSet());
                     Integer item;
                     // add first element
                     item=null;
@@ -1630,7 +1631,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueLongSet":
                   // property valueLongSet (mapped on "valueLongSet")
                    {
-                    HashSet<Long> collection=new HashSet<>();
+                    HashSet<Long> collection=CollectionUtils.merge(new HashSet<>(), instance.valueLongSet);
                     Long item;
                     // add first element
                     item=null;
@@ -1660,7 +1661,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueShortSet":
                   // property valueShortSet (mapped on "valueShortSet")
                    {
-                    HashSet<Short> collection=new HashSet<>();
+                    HashSet<Short> collection=CollectionUtils.merge(new HashSet<>(), instance.valueShortSet);
                     Short item;
                     // add first element
                     item=null;
@@ -1690,7 +1691,7 @@ public class Bean72ABindMap extends AbstractMapper<Bean72A> {
                 case "valueStringSet":
                   // property valueStringSet (mapped on "valueStringSet")
                    {
-                    HashSet<String> collection=new HashSet<>();
+                    HashSet<String> collection=CollectionUtils.merge(new HashSet<>(), instance.valueStringSet);
                     String item;
                     // add first element
                     item=null;

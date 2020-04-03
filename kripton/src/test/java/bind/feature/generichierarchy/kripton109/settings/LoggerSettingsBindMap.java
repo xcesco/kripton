@@ -4,6 +4,7 @@ import bind.feature.generichierarchy.kripton109.settings.logger.ElioLoggerLevelT
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -302,7 +303,7 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
                 case "appenders":
                   // property appenders (mapped on "appenders")
                    {
-                    ArrayList<LoggerAppenderSettings> collection=new ArrayList<>();
+                    ArrayList<LoggerAppenderSettings> collection=CollectionUtils.merge(new ArrayList<>(), instance.appenders);
                     LoggerAppenderSettings item;
                     // add first element
                     item=null;

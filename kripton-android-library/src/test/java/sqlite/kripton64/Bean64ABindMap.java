@@ -2,6 +2,7 @@ package sqlite.kripton64;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -474,7 +475,7 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
                 case "valueSetString":
                   // property valueSetString (mapped on "valueSetString")
                    {
-                    HashSet<String> collection=new HashSet<>();
+                    HashSet<String> collection=CollectionUtils.merge(new HashSet<>(), instance.valueSetString);
                     String item;
                     // add first element
                     item=null;

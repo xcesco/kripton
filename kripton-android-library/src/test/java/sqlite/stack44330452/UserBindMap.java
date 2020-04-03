@@ -3,6 +3,7 @@ package sqlite.stack44330452;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -279,7 +280,7 @@ public class UserBindMap extends AbstractMapper<User> {
                 case "pets":
                   // property pets (mapped on "pets")
                    {
-                    ArrayList<Pet> collection=new ArrayList<>();
+                    ArrayList<Pet> collection=CollectionUtils.merge(new ArrayList<>(), instance.pets);
                     Pet item;
                     // add first element
                     item=null;

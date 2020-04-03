@@ -3,6 +3,7 @@ package sqlite.feature.kotlin.immutable;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TypeAdapterUtils;
@@ -651,7 +652,7 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
                 case "item":
                   // property articles (mapped on "item")
                    {
-                    ArrayList<Article> collection=new ArrayList<>();
+                    ArrayList<Article> collection=CollectionUtils.merge(new ArrayList<>(), __articles);
                     Article item;
                     // add first element
                     item=null;

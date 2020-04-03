@@ -4,6 +4,7 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.BigIntegerUtils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -1380,7 +1381,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueBigIntegerList":
                   // property valueBigIntegerList (mapped on "valueBigIntegerList")
                    {
-                    LinkedList<BigInteger> collection=new LinkedList<>();
+                    LinkedList<BigInteger> collection=CollectionUtils.merge(new LinkedList<>(), instance.valueBigIntegerList);
                     BigInteger item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1397,7 +1398,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueByteList":
                   // property valueByteList (mapped on "valueByteList")
                    {
-                    ArrayList<Byte> collection=new ArrayList<>();
+                    ArrayList<Byte> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueByteList);
                     Byte item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1414,7 +1415,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueCharacterList":
                   // property valueCharacterList (mapped on "valueCharacterList")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueCharacterList);
                     Character item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1431,7 +1432,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueDoubleList":
                   // property valueDoubleList (mapped on "valueDoubleList")
                    {
-                    ArrayList<Double> collection=new ArrayList<>();
+                    ArrayList<Double> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueDoubleList);
                     Double item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1448,7 +1449,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueEnumList":
                   // property valueEnumList (mapped on "valueEnumList")
                    {
-                    LinkedList<Enum71> collection=new LinkedList<>();
+                    LinkedList<Enum71> collection=CollectionUtils.merge(new LinkedList<>(), instance.valueEnumList);
                     Enum71 item;
                     // add first element
                     item=null;
@@ -1478,7 +1479,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueFloatList":
                   // property valueFloatList (mapped on "valueFloatList")
                    {
-                    ArrayList<Float> collection=new ArrayList<>();
+                    ArrayList<Float> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueFloatList);
                     Float item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1495,7 +1496,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueIntList":
                   // property valueIntList (mapped on "valueIntList")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValueIntList());
                     Integer item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1512,7 +1513,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueLongList":
                   // property valueLongList (mapped on "valueLongList")
                    {
-                    ArrayList<Long> collection=new ArrayList<>();
+                    ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueLongList);
                     Long item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1529,7 +1530,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueShortList":
                   // property valueShortList (mapped on "valueShortList")
                    {
-                    ArrayList<Short> collection=new ArrayList<>();
+                    ArrayList<Short> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueShortList);
                     Short item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1546,7 +1547,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueStringList":
                   // property valueStringList (mapped on "valueStringList")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueStringList);
                     String item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1563,7 +1564,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueBeanList":
                   // property valueBeanList (mapped on "valueBeanList")
                    {
-                    LinkedList<Bean71> collection=new LinkedList<>();
+                    LinkedList<Bean71> collection=CollectionUtils.merge(new LinkedList<>(), instance.valueBeanList);
                     Bean71 item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {
@@ -1580,7 +1581,7 @@ public class Bean71BindMap extends AbstractMapper<Bean71> {
                 case "valueBigDecimalList":
                   // property valueBigDecimalList (mapped on "valueBigDecimalList")
                    {
-                    LinkedList<BigDecimal> collection=new LinkedList<>();
+                    LinkedList<BigDecimal> collection=CollectionUtils.merge(new LinkedList<>(), instance.valueBigDecimalList);
                     BigDecimal item;
                     // add first element
                     item=null;

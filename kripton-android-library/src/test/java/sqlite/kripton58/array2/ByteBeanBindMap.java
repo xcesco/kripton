@@ -309,7 +309,7 @@ public class ByteBeanBindMap extends AbstractMapper<ByteBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    ArrayList<Byte> collection=new ArrayList<>();
+                    ArrayList<Byte> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue2());
                     Byte item;
                     // add first element
                     item=null;

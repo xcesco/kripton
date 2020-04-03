@@ -3,6 +3,7 @@ package bind.feature.generichierarchy;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -496,7 +497,7 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
                 case "list":
                   // property list (mapped on "list")
                    {
-                    ArrayList<Channel> collection=new ArrayList<>();
+                    ArrayList<Channel> collection=CollectionUtils.merge(new ArrayList<>(), instance.getList());
                     Channel item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
                       if (xmlParser.isEmptyElement()) {

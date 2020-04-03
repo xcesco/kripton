@@ -2,6 +2,7 @@ package sqlite.kripton58.list;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -375,7 +376,7 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Short> collection=new ArrayList<>();
+                    ArrayList<Short> collection=CollectionUtils.merge(new ArrayList<>(), instance.value);
                     Short item;
                     // add first element
                     item=null;
@@ -405,7 +406,7 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    LinkedList<Short> collection=new LinkedList<>();
+                    LinkedList<Short> collection=CollectionUtils.merge(new LinkedList<>(), instance.value2);
                     Short item;
                     // add first element
                     item=null;

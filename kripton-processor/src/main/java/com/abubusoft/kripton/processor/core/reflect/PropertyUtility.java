@@ -151,18 +151,22 @@ public abstract class PropertyUtility {
 		for (P p : propertyMap.values()) {
 			entity.add(p);
 		}
-		
-//		int i=0;
-//		AnnotationProcessorUtilis.printMessage(String.format((i++) + "entity %s ",entity.getName())); 
-//		
+
+		// int i=0;
+		// AnnotationProcessorUtilis.printMessage(String.format((i++) + "entity
+		// %s ",entity.getName()));
+		//
 		// restore original methods and fields
 		list = new ArrayList<Element>(listA);
 		for (Element item : list) {
 			methodName = item.getSimpleName().toString();
-			
+
 			// cus
-			//AnnotationProcessorUtilis.printMessage(String.format((i++) + "item %s type %s modifiers [%s] ", item.getSimpleName().toString(), item.getKind(), item.getModifiers())); 
-			
+			// AnnotationProcessorUtilis.printMessage(String.format((i++) +
+			// "item %s type %s modifiers [%s] ",
+			// item.getSimpleName().toString(), item.getKind(),
+			// item.getModifiers()));
+
 			if (item.getKind() == ElementKind.METHOD && item.getModifiers().contains(Modifier.PUBLIC)) {
 				ExecutableElement method = (ExecutableElement) item;
 
@@ -209,8 +213,9 @@ public abstract class PropertyUtility {
 
 		if (listener != null) {
 			List<P> listPropertiesToFilter = new ArrayList<P>(entity.getCollection());
-			
-			// copy all properties (included the excluded one) into immutable collection
+
+			// copy all properties (included the excluded one) into immutable
+			// collection
 			entity.getImmutableCollection().addAll(entity.getCollection());
 
 			for (P item : listPropertiesToFilter) {
@@ -237,10 +242,10 @@ public abstract class PropertyUtility {
 				// insert only if it does not already exists
 				if (!propertyMap.containsKey(item.getSimpleName().toString())) {
 					field = factoryProperty.createProperty(entity, item);
-					
-					//TreePath treePath = KriptonProcessor.trees.getPath(item);
-					//AnnotationVisitor visitor = new AnnotationVisitor();
-					//TypeMirror recognizerType = visitor. (treePath, null);
+
+					// TreePath treePath = KriptonProcessor.trees.getPath(item);
+					// AnnotationVisitor visitor = new AnnotationVisitor();
+					// TypeMirror recognizerType = visitor. (treePath, null);
 
 					// put properties in a map
 					propertyMap.put(field.getName(), field);
@@ -258,7 +263,8 @@ public abstract class PropertyUtility {
 	 */
 	static boolean modifierIsAcceptable(Element item) {
 		// kotlin define properties as final
-		Object[] values = { Modifier.NATIVE, Modifier.STATIC, /* Modifier.FINAL, */  Modifier.ABSTRACT };
+		Object[] values = { Modifier.NATIVE, Modifier.STATIC,
+				/* Modifier.FINAL, */ Modifier.ABSTRACT };
 
 		for (Object i : values) {
 			if (item.getModifiers().contains(i))
@@ -315,19 +321,19 @@ public abstract class PropertyUtility {
 	 *            the property
 	 * @return the string
 	 */
-	public static String setter(TypeName beanClass, String beanName, ModelProperty property) {		
-		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+	public static String setter(TypeName beanClass, String beanName, ModelProperty property) {
+		if (property.getParent() != null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
 			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName();
 		} else {
-			String prefix=""; 
-			if (beanName!=null) {
-				prefix=beanName+".";
+			String prefix = "";
+			if (beanName != null) {
+				prefix = beanName + ".";
 			}
 			if (property.isPublicField()) {
-				return prefix+property.getName();
+				return prefix + property.getName();
 			} else if (property.isFieldWithSetter()) {
-				return prefix+"set" + converterField2Method.convert(property.getName());
-			} else {				
+				return prefix + "set" + converterField2Method.convert(property.getName());
+			} else {
 				throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
 						property.getName(), property.getParent().getElement().asType()));
 			}
@@ -348,7 +354,7 @@ public abstract class PropertyUtility {
 	 * @return the string
 	 */
 	public static String setter(TypeName beanClass, String beanName, ModelProperty property, String value) {
-		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+		if (property.getParent() != null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
 			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName() + "=" + value;
 		} else {
 			return beanName + (beanClass != null ? "." + setter(property, value) : "=" + value);
@@ -367,7 +373,7 @@ public abstract class PropertyUtility {
 	 * @return the string
 	 */
 	private static String setter(ModelProperty property, String value) {
-		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+		if (property.getParent() != null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
 			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName() + "=" + value;
 		} else {
 			if (property.isPublicField())

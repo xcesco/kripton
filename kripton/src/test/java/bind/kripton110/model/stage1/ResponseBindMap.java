@@ -3,6 +3,7 @@ package bind.kripton110.model.stage1;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -311,7 +312,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
                 case "users":
                   // property users (mapped on "users")
                    {
-                    ArrayList<User> collection=new ArrayList<>();
+                    ArrayList<User> collection=CollectionUtils.merge(new ArrayList<>(), instance.users);
                     User item;
                     // add first element
                     item=null;

@@ -820,7 +820,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                 case "columnArrayChar":
                   // property columnArrayChar (mapped on "columnArrayChar")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.columnArrayChar);
                     Character item;
                     // add first element
                     item=null;
@@ -850,7 +850,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                 case "columnArrayCharType":
                   // property columnArrayCharType (mapped on "columnArrayCharType")
                    {
-                    ArrayList<Character> collection=new ArrayList<>();
+                    ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.columnArrayCharType);
                     Character item;
                     // add first element
                     item=null;
@@ -884,7 +884,7 @@ public class Bean84ABindMap extends AbstractMapper<Bean84A> {
                 case "columnListString":
                   // property columnListString (mapped on "columnListString")
                    {
-                    ArrayList<String> collection=new ArrayList<>();
+                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.columnListString);
                     String item;
                     // add first element
                     item=null;

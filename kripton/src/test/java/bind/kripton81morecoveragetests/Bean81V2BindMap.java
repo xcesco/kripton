@@ -507,7 +507,7 @@ public class Bean81V2BindMap extends AbstractMapper<Bean81V2> {
                 case "array":
                   // property valueByteArray (mapped on "array")
                    {
-                    ArrayList<Byte> collection=new ArrayList<>();
+                    ArrayList<Byte> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueByteArray);
                     Byte item;
                     // add first element
                     item=null;
@@ -537,7 +537,7 @@ public class Bean81V2BindMap extends AbstractMapper<Bean81V2> {
                 case "list":
                   // property valueIntegerList (mapped on "list")
                    {
-                    ArrayList<Integer> collection=new ArrayList<>();
+                    ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueIntegerList);
                     Integer item;
                     // add first element
                     item=null;

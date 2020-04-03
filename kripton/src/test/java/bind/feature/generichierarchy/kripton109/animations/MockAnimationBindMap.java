@@ -3,6 +3,7 @@ package bind.feature.generichierarchy.kripton109.animations;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -336,7 +337,7 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
                 case "frames":
                   // property frames (mapped on "frames")
                    {
-                    ArrayList<MockKeyFrame> collection=new ArrayList<>();
+                    ArrayList<MockKeyFrame> collection=CollectionUtils.merge(new ArrayList<>(), instance.frames);
                     MockKeyFrame item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("frame")) {
                       if (xmlParser.isEmptyElement()) {

@@ -90,9 +90,4 @@ public @interface BindXml {
 	 */
 	MapEntryType mapEntryType() default MapEntryType.TAG;
 
-	/**
-	 * Collection of @{@link BindXmlElement} annotations
-	 */
-	BindXmlElement[] elements() default {};
-
 }

@@ -363,7 +363,7 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
                 case "value":
                   // property value (mapped on "value")
                    {
-                    ArrayList<Double> collection=new ArrayList<>();
+                    ArrayList<Double> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue());
                     Double item;
                     // add first element
                     item=null;
@@ -393,7 +393,7 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
                 case "value2":
                   // property value2 (mapped on "value2")
                    {
-                    ArrayList<Double> collection=new ArrayList<>();
+                    ArrayList<Double> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValue2());
                     Double item;
                     // add first element
                     item=null;
