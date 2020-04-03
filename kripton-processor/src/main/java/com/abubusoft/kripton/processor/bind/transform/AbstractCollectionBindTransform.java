@@ -54,9 +54,6 @@ import com.squareup.javapoet.TypeName;
  */
 public abstract class AbstractCollectionBindTransform extends AbstractBindTransform {
 
-	/** The Constant EMPTY_COLLECTION_ATTRIBUTE_NAME. */
-	private static final String EMPTY_COLLECTION_ATTRIBUTE_NAME = "emptyCollection";
-
 	/**
 	 * The Enum CollectionType.
 	 */
@@ -336,10 +333,10 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			// no wrap element
 			methodBuilder.addCode("// add first element\n");
 			methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
-			methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
+			methodBuilder.beginControlFlow("if ($T.isEmptyTag($L))", XmlAttributeUtils.class, parserName);
 			methodBuilder.addCode("// if there's a an empty collection it marked with attribute emptyCollection\n");
 			methodBuilder.beginControlFlow("if ($T.getAttributeAsBoolean($L, $S, false)==false)",
-					XmlAttributeUtils.class, parserName, EMPTY_COLLECTION_ATTRIBUTE_NAME);
+					XmlAttributeUtils.class, parserName, XmlAttributeUtils.EMPTY_COLLECTION_ATTRIBUTE_NAME);
 			methodBuilder.addStatement("collection.add(item)");
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$L.nextTag()", parserName);
@@ -352,8 +349,8 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 					parserName, XmlPullParser.class, parserName, BindProperty.xmlName(property));
 		}
 
-		// for all
-		methodBuilder.beginControlFlow("if ($L.isEmptyElement())", parserName);
+		// for all		
+		methodBuilder.beginControlFlow("if ($T.isEmptyTag($L))", XmlAttributeUtils.class, parserName);
 		methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
 		methodBuilder.addStatement("$L.nextTag()", parserName);
 		methodBuilder.nextControlFlow("else");
@@ -615,7 +612,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 					"// to distinguish between first empty element and empty collection, we write an attribute emptyCollection\n");
 			methodBuilder.beginControlFlow("if (n==0)");
 			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlNameForItem(property));
-			methodBuilder.addStatement("$L.writeAttribute($S, $S)", serializerName, EMPTY_COLLECTION_ATTRIBUTE_NAME,
+			methodBuilder.addStatement("$L.writeAttribute($S, $S)", serializerName, XmlAttributeUtils.EMPTY_COLLECTION_ATTRIBUTE_NAME,
 					"true");
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 			methodBuilder.endControlFlow();

@@ -1,11 +1,10 @@
-package sqlite.kripton38;
+package bind.feature.git45.bug01;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.CollectionUtils;
-import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
@@ -16,48 +15,41 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
 /**
- * This class is binder map for Bean01
+ * This class is binder map for JasperReport
  *
- * @see Bean01
+ * @see JasperReport
  */
-@BindMap(Bean01.class)
-public class Bean01BindMap extends AbstractMapper<Bean01> {
+@BindMap(JasperReport.class)
+public class JasperReportBindMap extends AbstractMapper<JasperReport> {
+  /**
+   * PropertyBindMap */
+  private PropertyBindMap propertyBindMap = BinderUtils.mapperFor(Property.class);
+
   @Override
-  public int serializeOnJackson(Bean01 object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(JasperReport object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
-    // field id (mapped with "id")
-    if (object.getId()!=null)  {
+    // field property (mapped with "property")
+    if (object.property!=null)  {
       fieldCount++;
-      jacksonSerializer.writeNumberField("id", object.getId());
-    }
-
-    // field temp (mapped with "temp")
-    if (object.temp!=null)  {
-      fieldCount++;
-      int n=object.temp.size();
-      String item;
+      int n=object.property.size();
+      Property item;
       // write wrapper tag
-      jacksonSerializer.writeFieldName("temp");
+      jacksonSerializer.writeFieldName("property");
       jacksonSerializer.writeStartArray();
       for (int i=0; i<n; i++) {
-        item=object.temp.get(i);
+        item=object.property.get(i);
         if (item==null) {
           jacksonSerializer.writeNull();
         } else {
-          jacksonSerializer.writeString(item);
+          propertyBindMap.serializeOnJackson(item, jacksonSerializer);
         }
       }
       jacksonSerializer.writeEndArray();
-    }
-
-    // field text (mapped with "text")
-    if (object.getText()!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("text", object.getText());
     }
 
     jacksonSerializer.writeEndObject();
@@ -65,45 +57,36 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Bean01 object, JsonGenerator jacksonSerializer) throws
+  public int serializeOnJacksonAsString(JasperReport object, JsonGenerator jacksonSerializer) throws
       Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
     // Serialized Field:
 
-    // field id (mapped with "id")
-    if (object.getId()!=null)  {
-      jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.getId()));
-    }
-
-    // field temp (mapped with "temp")
-    if (object.temp!=null)  {
+    // field property (mapped with "property")
+    if (object.property!=null)  {
       fieldCount++;
-      int n=object.temp.size();
-      String item;
+      int n=object.property.size();
+      Property item;
       // write wrapper tag
-      jacksonSerializer.writeFieldName("temp");
+      jacksonSerializer.writeFieldName("property");
       if (n>0) {
         jacksonSerializer.writeStartArray();
         for (int i=0; i<n; i++) {
-          item=object.temp.get(i);
+          item=object.property.get(i);
           if (item==null) {
             jacksonSerializer.writeString("null");
           } else {
-            jacksonSerializer.writeString(item);
+            if (propertyBindMap.serializeOnJacksonAsString(item, jacksonSerializer)==0) {
+              jacksonSerializer.writeNullField("property");
+            }
           }
         }
         jacksonSerializer.writeEndArray();
       } else {
         jacksonSerializer.writeString("");
       }
-    }
-
-    // field text (mapped with "text")
-    if (object.getText()!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("text", object.getText());
     }
 
     jacksonSerializer.writeEndObject();
@@ -114,48 +97,34 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Bean01 object, XMLSerializer xmlSerializer, int currentEventType)
+  public void serializeOnXml(JasperReport object, XMLSerializer xmlSerializer, int currentEventType)
       throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("bean01");
+      xmlSerializer.writeStartElement("jasperReport");
     }
 
     // Persisted fields:
 
-    // field id (mapped with "id")
-    if (object.getId()!=null)  {
-      xmlSerializer.writeStartElement("id");
-      xmlSerializer.writeLong(object.getId());
-      xmlSerializer.writeEndElement();
-    }
-
-    // field temp (mapped with "temp")
-    if (object.temp!=null)  {
-      int n=object.temp.size();
-      String item;
+    // field property (mapped with "property")
+    if (object.property!=null)  {
+      int n=object.property.size();
+      Property item;
       for (int i=0; i<n; i++) {
-        item=object.temp.get(i);
+        item=object.property.get(i);
         if (item==null) {
-          xmlSerializer.writeEmptyElement("temp");
+          xmlSerializer.writeEmptyElement("property");
         } else {
-          xmlSerializer.writeStartElement("temp");
-          xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item));
+          xmlSerializer.writeStartElement("property");
+          propertyBindMap.serializeOnXml(item, xmlSerializer, 2);
           xmlSerializer.writeEndElement();
         }
       }
       // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
       if (n==0) {
-        xmlSerializer.writeStartElement("temp");
+        xmlSerializer.writeStartElement("property");
         xmlSerializer.writeAttribute("emptyCollection", "true");
         xmlSerializer.writeEndElement();
       }
-    }
-
-    // field text (mapped with "text")
-    if (object.getText()!=null) {
-      xmlSerializer.writeStartElement("text");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getText()));
-      xmlSerializer.writeEndElement();
     }
 
     if (currentEventType == 0) {
@@ -167,8 +136,8 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
    * parse with jackson
    */
   @Override
-  public Bean01 parseOnJackson(JsonParser jacksonParser) throws Exception {
-    Bean01 instance = new Bean01();
+  public JasperReport parseOnJackson(JsonParser jacksonParser) throws Exception {
+    JasperReport instance = new JasperReport();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -183,32 +152,20 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
 
       // Parse fields:
       switch (fieldName) {
-          case "id":
-            // field id (mapped with "id")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setId(jacksonParser.getLongValue());
-            }
-          break;
-          case "temp":
-            // field temp (mapped with "temp")
+          case "property":
+            // field property (mapped with "property")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-              ArrayList<String> collection=new ArrayList<>();
-              String item=null;
+              ArrayList<Property> collection=new ArrayList<>();
+              Property item=null;
               while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                 if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
                   item=null;
                 } else {
-                  item=jacksonParser.getText();
+                  item=propertyBindMap.parseOnJackson(jacksonParser);
                 }
                 collection.add(item);
               }
-              instance.temp=collection;
-            }
-          break;
-          case "text":
-            // field text (mapped with "text")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setText(jacksonParser.getText());
+              instance.property=collection;
             }
           break;
           default:
@@ -222,8 +179,8 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
    * parse with jackson
    */
   @Override
-  public Bean01 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    Bean01 instance = new Bean01();
+  public JasperReport parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    JasperReport instance = new JasperReport();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -238,39 +195,25 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
 
       // Parse fields:
       switch (fieldName) {
-          case "id":
-            // field id (mapped with "id")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setId(PrimitiveUtils.readLong(jacksonParser.getText(), null));
-            }
-          break;
-          case "temp":
-            // field temp (mapped with "temp")
+          case "property":
+            // field property (mapped with "property")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-              ArrayList<String> collection=new ArrayList<>();
-              String item=null;
+              ArrayList<Property> collection=new ArrayList<>();
+              Property item=null;
               String tempValue=null;
               while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
                 tempValue=jacksonParser.getValueAsString();
                 if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
                   item=null;
                 } else {
-                  if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-                    item=jacksonParser.getText();
-                  }
+                  item=propertyBindMap.parseOnJacksonAsString(jacksonParser);
                 }
                 collection.add(item);
               }
-              instance.temp=collection;
+              instance.property=collection;
             } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
-              ArrayList<String> collection=new ArrayList<>();
-              instance.temp=collection;
-            }
-          break;
-          case "text":
-            // field text (mapped with "text")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setText(jacksonParser.getText());
+              ArrayList<Property> collection=new ArrayList<>();
+              instance.property=collection;
             }
           break;
           default:
@@ -284,8 +227,8 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
    * parse xml
    */
   @Override
-  public Bean01 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    Bean01 instance = new Bean01();
+  public JasperReport parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    JasperReport instance = new JasperReport();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -310,15 +253,11 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
-                case "id":
-                  // property id (mapped on "id")
-                  instance.setId(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null));
-                break;
-                case "temp":
-                  // property temp (mapped on "temp")
+                case "property":
+                  // property property (mapped on "property")
                    {
-                    ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.temp);
-                    String item;
+                    ArrayList<Property> collection=CollectionUtils.merge(new ArrayList<>(), instance.property);
+                    Property item;
                     // add first element
                     item=null;
                     if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
@@ -328,25 +267,21 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
                       }
                       xmlParser.nextTag();
                     } else {
-                      item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                      item=propertyBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("temp")) {
+                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("property")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
-                        item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                        item=propertyBindMap.parseOnXml(xmlParser, eventType);
                       }
                       collection.add(item);
                     }
-                    instance.temp=collection;
+                    instance.property=collection;
                     read=false;
                   }
-                break;
-                case "text":
-                  // property text (mapped on "text")
-                  instance.setText(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 default:
                 break;

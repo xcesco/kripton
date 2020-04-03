@@ -448,7 +448,7 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
                     ArrayList<TranslationFrame> collection=CollectionUtils.merge(new ArrayList<>(), instance.frames);
                     TranslationFrame item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("frame")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -466,7 +466,7 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
                     TextureKeyFrame item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -477,7 +477,7 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("frame1")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

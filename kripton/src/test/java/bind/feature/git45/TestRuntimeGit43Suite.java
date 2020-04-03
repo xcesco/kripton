@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,17 @@ package bind.feature.git45;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.feature.git45.bug01.TestGit43Bug01;
+import bind.feature.git45.bug01.TestRuntimeGit43Bug01;
 
+/**
+ * The Class TestRuntime73Suite.
+ */
 @RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{
-			TestListGit43.class,
-			TestGit43Bug01.class
-		 })
-//@formatter:on
-public class TestGit43Suite {
+// @formatter:off
+@Suite.SuiteClasses({ 
+	TestRuntimeGit43.class, 
+	TestRuntimeGit43Bug01.class })
+// @formatter:on
+public class TestRuntimeGit43Suite {
 
 }

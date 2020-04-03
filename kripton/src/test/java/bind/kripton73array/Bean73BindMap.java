@@ -1387,7 +1387,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<Bean73> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueBeanArray);
                     Bean73 item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1404,7 +1404,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<Byte> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueByteArray);
                     Byte item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1421,7 +1421,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<Character> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueCharacterArray);
                     Character item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1438,7 +1438,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<Double> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueDoubleArray);
                     Double item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1456,7 +1456,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     Enum73 item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1467,7 +1467,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueEnumArray")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1485,7 +1485,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<Float> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueFloatArray);
                     Float item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1502,7 +1502,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<Integer> collection=CollectionUtils.merge(new ArrayList<>(), instance.getValueIntArray());
                     Integer item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1519,7 +1519,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<Long> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueLongArray);
                     Long item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1536,7 +1536,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<Short> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueShortArray);
                     Short item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1553,7 +1553,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<String> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueStringArray);
                     String item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1571,7 +1571,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     BigDecimal item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -1582,7 +1582,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                       collection.add(item);
                     }
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBigDecimalArray")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -1600,7 +1600,7 @@ public class Bean73BindMap extends AbstractMapper<Bean73> {
                     ArrayList<BigInteger> collection=CollectionUtils.merge(new ArrayList<>(), instance.valueBigIntegerArray);
                     BigInteger item;
                     while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item")) {
-                      if (xmlParser.isEmptyElement()) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {

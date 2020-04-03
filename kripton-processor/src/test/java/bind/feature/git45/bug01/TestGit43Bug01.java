@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.git45;
+package bind.feature.git45.bug01;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.io.IOException;
 
-import bind.feature.git45.bug01.TestGit43Bug01;
+import org.junit.Test;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{
-			TestListGit43.class,
-			TestGit43Bug01.class
-		 })
-//@formatter:on
-public class TestGit43Suite {
+import bind.AbstractBindTypeProcessorTest;
+
+
+public class TestGit43Bug01 extends AbstractBindTypeProcessorTest {
+
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(JasperReport.class, Property.class);
+	}
+	
 
 }

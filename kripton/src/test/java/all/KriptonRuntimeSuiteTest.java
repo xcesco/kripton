@@ -60,7 +60,6 @@ import bind.kripton81morecoveragetests.TestRuntime81Suite;
 		TestRuntimeHierarchySuite.class,
 		TestRuntimeDirectMapSuite.class,
 		
-		
 		TestRuntimeNamespaceSuite.class
 		 })
 //@formatter:on
