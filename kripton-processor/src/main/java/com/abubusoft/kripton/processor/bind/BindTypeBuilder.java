@@ -50,16 +50,15 @@ import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.abubusoft.kripton.xml.XmlType;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -259,7 +258,7 @@ public abstract class BindTypeBuilder {
 				.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
 				// .addParameter(typeName(KriptonXmlContext.class), "context")
 				.addParameter(typeName(XMLParser.class), "xmlParser")
-				.addParameter(typeName(Integer.TYPE), "currentEventType").returns(typeName(entity.getElement()))
+				.addParameter(EventType.class, "currentEventType").returns(typeName(entity.getElement()))
 				.addException(Exception.class);
 		// @formatter:on
 
@@ -271,11 +270,11 @@ public abstract class BindTypeBuilder {
 			ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
 		}
 
-		methodBuilder.addStatement("int eventType = currentEventType");
+		methodBuilder.addStatement("$T eventType = currentEventType", EventType.class);
 		methodBuilder.addStatement("boolean read=true");
 
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("if (currentEventType == 0)");
+		methodBuilder.beginControlFlow("if (currentEventType == $T.$L)", EventType.class, EventType.START_DOCUMENT);
 		methodBuilder.addStatement("eventType = xmlParser.next()");
 		methodBuilder.nextControlFlow("else");
 		methodBuilder.addStatement("eventType = xmlParser.getEventType()");
@@ -298,16 +297,16 @@ public abstract class BindTypeBuilder {
 		methodBuilder.addStatement("read=true");
 
 		methodBuilder.beginControlFlow("switch(eventType)$>");
-		methodBuilder.addCode("case $T.START_TAG:\n$>", XmlPullParser.class);
+		methodBuilder.addCode("case $L:\n$>", EventType.START_TAG);
 		generateParserOnXmlStartElement(context, methodBuilder, "instance", "xmlParser", entity);
 		methodBuilder.addStatement("$<break");
 
-		methodBuilder.addCode("case $T.END_TAG:\n$>", XmlPullParser.class);
+		methodBuilder.addCode("case $L:\n$>", EventType.END_TAG);
 		generateParserOnXmlEndElement(context, methodBuilder, "instance", "xmlParser", entity);
 		methodBuilder.addStatement("$<break");
 
-		methodBuilder.addCode("case $T.CDSECT:\n", XmlPullParser.class);
-		methodBuilder.addCode("case $T.TEXT:\n$>", XmlPullParser.class);
+		methodBuilder.addCode("case $L:\n", EventType.CDSECT);
+		methodBuilder.addCode("case $L:\n$>", EventType.TEXT);
 		generateParserOnXmlCharacters(context, methodBuilder, "instance", "xmlParser", entity);
 		methodBuilder.addStatement("$<break");
 
@@ -484,7 +483,7 @@ public abstract class BindTypeBuilder {
 			}
 
 			methodBuilder.addCode("default:\n$>");
-			// methodBuilder.addStatement("$L.skipElement()", parserName);
+			methodBuilder.addStatement("$L.skipChildren()", parserName);
 
 			methodBuilder.addStatement("$<break");
 			methodBuilder.endControlFlow();
@@ -818,11 +817,11 @@ public abstract class BindTypeBuilder {
 				// .addParameter(typeName(KriptonXmlContext.class), "context")
 				.addParameter(typeName(entity.getElement()), "object")
 				.addParameter(typeName(XMLSerializer.class), "xmlSerializer")
-				.addParameter(typeName(Integer.TYPE), "currentEventType").returns(Void.TYPE)
+				.addParameter(typeName(EventType.class), "currentEventType").returns(Void.TYPE)
 				.addException(Exception.class);
 		// @formatter:on
 
-		methodBuilder.beginControlFlow("if (currentEventType == 0)");
+		methodBuilder.beginControlFlow("if (currentEventType == $T.$L)",EventType.class, EventType.START_DOCUMENT);
 		methodBuilder.addStatement("xmlSerializer.writeStartElement(\"$L\")", entity.xmlInfo.label);
 
 		// write namespace
@@ -857,7 +856,7 @@ public abstract class BindTypeBuilder {
 			methodBuilder.addCode("\n");
 		}
 
-		methodBuilder.beginControlFlow("if (currentEventType == 0)");
+		methodBuilder.beginControlFlow("if (currentEventType == $T.$L)",EventType.class, EventType.START_DOCUMENT);
 		methodBuilder.addStatement("xmlSerializer.writeEndElement()");
 		methodBuilder.endControlFlow();
 

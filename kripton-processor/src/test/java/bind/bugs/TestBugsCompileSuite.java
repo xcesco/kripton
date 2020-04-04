@@ -13,23 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.kripton1110.model.stage2;
+package bind.bugs;
 
-import com.abubusoft.kripton.annotation.BindType;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Nld.
- */
-@BindType
-public class Nld {
+import bind.bugs.git46.TestGit46;
 
-
-/** The official. */
-public String official;
-
-/** The common. */
-public String common;
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{
+			TestGit46.class
+		 })
+//@formatter:on
+public class TestBugsCompileSuite {
 
 }
-

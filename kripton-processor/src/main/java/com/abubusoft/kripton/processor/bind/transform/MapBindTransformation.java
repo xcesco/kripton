@@ -28,8 +28,8 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.MapEntryType;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -111,7 +111,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 		
 		if (property.xmlInfo.isWrappedCollection())
 		{					
-			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, XmlPullParser.class, parserName, property.xmlInfo.labelItem);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, EventType.class, parserName, property.xmlInfo.labelItem);
 		} else {
 			methodBuilder.addCode("// add first element\n");			
 			switch (property.xmlInfo.mapEntryType)
@@ -137,7 +137,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 			}
 			
 			methodBuilder.addStatement("collection.put(key, value)");
-			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, XmlPullParser.class, parserName, property.xmlInfo.labelItem);
+			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))", parserName, EventType.class, parserName, property.xmlInfo.labelItem);
 		}
 		
 		switch (property.xmlInfo.mapEntryType)

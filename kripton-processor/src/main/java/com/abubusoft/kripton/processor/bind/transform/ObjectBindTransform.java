@@ -20,6 +20,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
@@ -81,7 +82,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 		}
 				
 		methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
-		methodBuilder.addStatement("$L.serializeOnXml($L, xmlSerializer, $L)", bindName, getter(beanName, beanClass, property), XmlPullParser.START_TAG);
+		methodBuilder.addStatement("$L.serializeOnXml($L, xmlSerializer, $T.$L)", bindName, getter(beanName, beanClass, property), EventType.class, EventType.START_TAG);
 		methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 
 		if (property.isNullable() && !property.isInCollection()) {

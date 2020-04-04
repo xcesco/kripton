@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xmlns="http://jasperreports.sourceforge.net/jasperreports"
+			  xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+			  name="ricetta" pageWidth="595" pageHeight="421" columnWidth="555" leftMargin="20" rightMargin="20"
+			  topMargin="20" bottomMargin="20" uuid="dfcc67f8-27a8-4010-90a8-70d1d9f2f28d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sanita Ricetta"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="regione" class="java.lang.String">
+		<fieldDescription><![CDATA[regione]]></fieldDescription>
+	</field>
+	<field name="cognomeNome" class="java.lang.String">
+		<fieldDescription><![CDATA[cognomeNome]]></fieldDescription>
+	</field>
+	<field name="indirizzo" class="java.lang.String">
+		<fieldDescription><![CDATA[indirizzo]]></fieldDescription>
+	</field>
+	<field name="cap" class="java.lang.String">
+		<fieldDescription><![CDATA[cap]]></fieldDescription>
+	</field>
+	<field name="citta" class="java.lang.String">
+		<fieldDescription><![CDATA[citta]]></fieldDescription>
+	</field>
+	<field name="provincia" class="java.lang.String">
+		<fieldDescription><![CDATA[provincia]]></fieldDescription>
+	</field>
+	<field name="codiceFiscale" class="java.lang.String">
+		<fieldDescription><![CDATA[codiceFiscale]]></fieldDescription>
+	</field>
+	<field name="nreRegioneProvincia" class="java.lang.String">
+		<fieldDescription><![CDATA[nreCodiceRegioneProvincia]]></fieldDescription>
+	</field>
+	<field name="nreLottoProgressivo" class="java.lang.String">
+		<fieldDescription><![CDATA[nreLottoProgressivo]]></fieldDescription>
+	</field>
+	<field name="esenzione" class="java.lang.String">
+		<fieldDescription><![CDATA[esenzione]]></fieldDescription>
+	</field>
+	<field name="assistitoProvincia" class="java.lang.String">
+		<fieldDescription><![CDATA[assistito provincia]]></fieldDescription>
+	</field>
+	<field name="codiceASL" class="java.lang.String">
+		<fieldDescription><![CDATA[codice ASL]]></fieldDescription>
+	</field>
+	<field name="disposizioniRegionali" class="java.lang.String">
+		<fieldDescription><![CDATA[disposizioni regionali]]></fieldDescription>
+	</field>
+	<field name="tipologiaPrescrizione" class="java.lang.String">
+		<fieldDescription><![CDATA[tipologiaPrescizione]]></fieldDescription>
+	</field>
+	<field name="altro" class="java.lang.String">
+		<fieldDescription><![CDATA[altro]]></fieldDescription>
+	</field>
+	<field name="priorita" class="java.lang.String">
+		<fieldDescription><![CDATA[priorita]]></fieldDescription>
+	</field>
+	<field name="diagnosi" class="java.lang.String">
+		<fieldDescription><![CDATA[diagnosi]]></fieldDescription>
+	</field>
+	<field name="tipoRicetta" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo ricetta]]></fieldDescription>
+	</field>
+	<field name="totaleConfezioni" class="java.lang.String">
+		<fieldDescription><![CDATA[totaleConfezioni]]></fieldDescription>
+	</field>
+	<field name="dataCompilazione" class="java.lang.String">
+		<fieldDescription><![CDATA[dataCompilazione]]></fieldDescription>
+	</field>
+	<field name="medicoPrescrittoreCodiceFiscale" class="java.lang.String">
+		<fieldDescription><![CDATA[medico prescrittore codice fiscale]]></fieldDescription>
+	</field>
+	<field name="medicoPrescrittoreCognomeNome" class="java.lang.String">
+		<fieldDescription><![CDATA[medico prescrittore cognome nome]]></fieldDescription>
+	</field>
+	<field name="codiceAutenticazione" class="java.lang.String">
+		<fieldDescription><![CDATA[codiceAutenticazione]]></fieldDescription>
+	</field>
+	<field name="promemoria" class="java.lang.String">
+		<fieldDescription><![CDATA[promemoria]]></fieldDescription>
+	</field>
+	<field name="righe" class="java.util.List">
+		<fieldDescription><![CDATA[Elenco delle righe]]></fieldDescription>
+	</field>
+	<field name="riga1" class="java.lang.String">
+		<fieldDescription><![CDATA[Riga 1]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="210" splitType="Stretch">
+			<rectangle>
+				<reportElement x="8" y="16" width="542" height="60" uuid="f68be353-a14c-4502-bdc6-324d7d0aadea">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="13" y="24" width="180" height="30" uuid="020e3373-1778-4347-80c0-a79d9605e0fd"/>
+				<textFieldExpression><![CDATA[$F{regione}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="0" width="214" height="16" uuid="5afbf083-2e2c-4a44-bef3-dace4d6a289c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[SERVIZIO SANITARIO NAZIONALE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="230" height="16" uuid="43881300-c76b-4af7-852d-46ed539d8c92"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[RICETTA ELETTRONICA - PROMEMORIA PER L'ASSISTITO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="213" y="16" width="1" height="60" uuid="67fabd44-30fa-464e-a8f6-bfb4e51de81c">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+			<componentElement>
+				<reportElement x="222" y="20" width="110" height="30" uuid="9efded0e-07e8-4a6f-807c-59a1628c7b1a">
+					<property name="com.jaspersoft.studio.unit.barHeight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components"
+							 xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd"
+							 type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{nreRegioneProvincia}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="222" y="57" width="110" height="16" uuid="ccf51acf-421b-457b-9565-d0e222b96c48"/>
+				<textFieldExpression><![CDATA["*"+$F{nreRegioneProvincia}+"*"]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="341" y="20" width="190" height="30" uuid="9627d7dd-5bc9-4d31-baad-635ac940f6d9">
+					<property name="com.jaspersoft.studio.unit.barHeight" value="pixel"/>
+				</reportElement>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components"
+							 xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd"
+							 type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{nreLottoProgressivo}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="341" y="56" width="190" height="16" uuid="7068510e-e7b5-45a7-a122-464756a55ab9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["*"+$F{nreLottoProgressivo}+"*"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="80" width="275" height="18" uuid="b7f67928-dae2-4b3c-b6a6-c5823f3db118"/>
+				<textFieldExpression><![CDATA[$F{cognomeNome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="111" width="270" height="28" uuid="acd9ac3e-86a7-4d30-8d89-480275eb5a52"/>
+				<textFieldExpression><![CDATA[$F{indirizzo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="121" width="92" height="18" uuid="55ed3d45-c7ec-4967-9e30-bc301a310803"/>
+				<textFieldExpression><![CDATA[$F{citta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="121" width="38" height="18" uuid="f3af7712-57d5-4a97-b9f6-a33a304ba10c"/>
+				<textFieldExpression><![CDATA[$F{provincia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="274" y="120" width="66" height="18" uuid="9c8b2d0f-142a-4645-8d0b-f14b2b4e33d7"/>
+				<textFieldExpression><![CDATA[$F{cap}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="283" y="80" width="268" height="20" uuid="af26822a-b685-4bf7-bf48-fc1e371857f5">
+					<property name="com.jaspersoft.studio.unit.barHeight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components"
+							 xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd"
+							 type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{codiceFiscale}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="280" y="111" width="270" height="16" uuid="486ef37e-a78c-416d-8e02-ca68560bb88d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["*"+$F{codiceFiscale}+"*"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="138" width="550" height="1" uuid="f96f04f9-c8aa-4517-ac63-bb164e606ace"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="145" width="66" height="18" uuid="dbd178d6-5e24-4cc9-87de-a26d08f002ae"/>
+				<textFieldExpression><![CDATA[$F{esenzione}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="145" width="66" height="18" uuid="254c9237-25aa-45c9-b768-b8ef43941350"/>
+				<textFieldExpression><![CDATA[$F{assistitoProvincia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="145" width="66" height="18" uuid="51bbd7bb-48ef-4819-afaf-c162eb950415"/>
+				<textFieldExpression><![CDATA[$F{codiceASL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="145" width="186" height="18" uuid="bad76e0c-6dee-4b1f-a285-a2c0dfe6ceb7"/>
+				<textFieldExpression><![CDATA[$F{disposizioniRegionali}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="170" width="270" height="18" uuid="ccbe7033-dee5-40bb-aa4c-fef4cb3880ce"/>
+				<textFieldExpression><![CDATA[$F{tipologiaPrescrizione}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="170" width="66" height="18" uuid="27582967-d8b4-43c2-9b28-cfeb3a809c76"/>
+				<textFieldExpression><![CDATA[$F{altro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="171" width="66" height="18" uuid="7844d148-0d92-4ac0-b17c-97cfe54be725"/>
+				<textFieldExpression><![CDATA[$F{priorita}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="381" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement stretchType="ContainerHeight" x="0" y="0" width="551" height="381"
+							   uuid="0ccf626f-1294-4f9b-aeea-936d892dae92"/>
+				<dataSourceExpression>
+					<![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{righe})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["./ricetta_riga.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="120" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="80" width="545" height="14" uuid="5ca19a6d-a018-49bb-a0cb-dbe5888ed393"/>
+				<textFieldExpression><![CDATA[$F{promemoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="260" height="14" uuid="71df866e-cbe5-4729-beec-4a7c77cdf8b7"/>
+				<textFieldExpression><![CDATA[$F{codiceAutenticazione}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="40" width="260" height="14" uuid="379e434f-7615-416b-a418-c4b1891054ef"/>
+				<textFieldExpression><![CDATA[$F{medicoPrescrittoreCognomeNome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="20" width="170" height="14" uuid="d85403c5-3df2-444a-b1f6-688a42e5dd6a"/>
+				<textFieldExpression><![CDATA[$F{medicoPrescrittoreCodiceFiscale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="20" width="85" height="14" uuid="1e05a597-0f8b-4375-9a9d-3b09e7dea35c"/>
+				<textFieldExpression><![CDATA[$F{dataCompilazione}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="20" width="130" height="14" uuid="ae345781-8258-474e-b48d-4b8ca7b1b9f9"/>
+				<textFieldExpression><![CDATA[$F{tipoRicetta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="130" height="14" uuid="9538bb42-5aa6-4452-af4e-842e575d94bb"/>
+				<textFieldExpression><![CDATA[$F{totaleConfezioni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="550" height="17" uuid="aca2d50c-2611-41df-817e-222c56375c39"/>
+				<textElement textAlignment="Center"/>
+				<text>
+					<![CDATA[Rilasciato ai sensi dell'art. 11, comma 16 del DL 31 mag 2010, n. 78 e dell'art.1, comma 4 del DM 2 nov 2011]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="6" width="550" height="14" uuid="3782d2ad-ae9d-4b27-87b8-793f7e6d3255"/>
+				<textFieldExpression><![CDATA[$F{diagnosi}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="102" width="544" height="1" uuid="cf889d8e-c816-4b77-80ee-daa9b2c41eb0">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.kripton1110.model.stage2;
+package bind.bugs.git46;
 
-import com.abubusoft.kripton.annotation.BindType;
+import java.io.IOException;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Native.
- */
-@BindType
-public class Native {
+import org.junit.Test;
 
-	/** The nld. */
-	public Nld nld;
+import bind.AbstractBindTypeProcessorTest;
 
-	/** The pap. */
-	public Pap pap;
+public class TestGit46 extends AbstractBindTypeProcessorTest {
+
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(JasperReport.class, Property.class);
+	}
 
 }

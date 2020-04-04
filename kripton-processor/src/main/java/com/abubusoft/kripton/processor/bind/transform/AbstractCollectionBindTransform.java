@@ -39,6 +39,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
 import com.abubusoft.kripton.xml.XmlPullParser;
+import com.abubusoft.kripton.xml.EventType;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -328,7 +329,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		if (property.xmlInfo.isWrappedCollection()) {
 			// with wrap element
 			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))",
-					parserName, XmlPullParser.class, parserName, property.xmlInfo.labelItem);
+					parserName, EventType.class, parserName, property.xmlInfo.labelItem);
 		} else {
 			// no wrap element
 			methodBuilder.addCode("// add first element\n");
@@ -346,7 +347,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			methodBuilder.endControlFlow();
 
 			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))",
-					parserName, XmlPullParser.class, parserName, BindProperty.xmlName(property));
+					parserName, EventType.class, parserName, BindProperty.xmlName(property));
 		}
 
 		// for all		

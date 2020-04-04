@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import bind.bindenum.TestEnumSuite;
+import bind.bugs.TestBugsCompileSuite;
 import bind.directmap.TestDirectMapSuite;
 import bind.feature.generichierarchy.TestGenericHierarchySuite;
 import bind.feature.generichierarchy.kripton109.Test109CompileSuite;
@@ -55,6 +56,9 @@ import bind.rss.TestRSSCompile;
 			TestImmutableCompileSuite.class, 
 			TestBindTypeKotlinCompileSuite.class, 
 			TestGit43Suite.class, 
+			
+			// bugs
+			TestBugsCompileSuite.class,
 			
 		Test42CompileSuite.class,
 		Test70CompileSuite.class,

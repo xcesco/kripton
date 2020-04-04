@@ -185,165 +185,7 @@ public interface XmlPullParser {
 	// ----------------------------------------------------------------------------
 	// EVENT TYPES as reported by next()
 
-	/**
-	 * Signalize that parser is at the very beginning of the document and
-	 * nothing was read yet. This event type can only be observed by calling
-	 * getEvent() before the first call to next(), nextToken, or nextTag()).
-	 *
-	 * @see #next
-	 * @see #nextToken
-	 */
-	int START_DOCUMENT = 0;
-
-	/**
-	 * Logical end of the xml document. Returned from getEventType, next() and
-	 * nextToken() when the end of the input document has been reached.
-	 * <p>
-	 * <strong>NOTE:</strong> subsequent calls to <a href="#next()">next()</a>
-	 * or <a href="#nextToken()">nextToken()</a> may result in exception being
-	 * thrown.
-	 *
-	 * @see #next
-	 * @see #nextToken
-	 */
-	int END_DOCUMENT = 1;
-
-	/**
-	 * Returned from getEventType(), <a href="#next()">next()</a>,
-	 * <a href="#nextToken()">nextToken()</a> when a start tag was read. The
-	 * name of start tag is available from getName(), its namespace and prefix
-	 * are available from getNamespace() and getPrefix() if
-	 * <a href='#FEATURE_PROCESS_NAMESPACES'>namespaces are enabled</a>. See
-	 * getAttribute* methods to retrieve element attributes. See getNamespace*
-	 * methods to retrieve newly declared namespaces.
-	 *
-	 * @see #next
-	 * @see #nextToken
-	 * @see #getName
-	 * @see #getPrefix
-	 * @see #getNamespace
-	 * @see #getAttributeCount
-	 * @see #getDepth
-	 * @see #getNamespaceCount
-	 * @see #getNamespace
-	 * @see #FEATURE_PROCESS_NAMESPACES
-	 */
-	int START_TAG = 2;
-
-	/**
-	 * Returned from getEventType(), <a href="#next()">next()</a>, or
-	 * <a href="#nextToken()">nextToken()</a> when an end tag was read. The name
-	 * of start tag is available from getName(), its namespace and prefix are
-	 * available from getNamespace() and getPrefix().
-	 *
-	 * @see #next
-	 * @see #nextToken
-	 * @see #getName
-	 * @see #getPrefix
-	 * @see #getNamespace
-	 * @see #FEATURE_PROCESS_NAMESPACES
-	 */
-	int END_TAG = 3;
-
-	/**
-	 * Character data was read and will is available by calling getText().
-	 * <p>
-	 * <strong>Please note:</strong> <a href="#next()">next()</a> will
-	 * accumulate multiple events into one TEXT event, skipping
-	 * IGNORABLE_WHITESPACE, PROCESSING_INSTRUCTION and COMMENT events, In
-	 * contrast, <a href="#nextToken()">nextToken()</a> will stop reading text
-	 * when any other event is observed. Also, when the state was reached by
-	 * calling next(), the text value will be normalized, whereas getText() will
-	 * return unnormalized content in the case of nextToken(). This allows an
-	 * exact roundtrip without changing line ends when examining low level
-	 * events, whereas for high level applications the text is normalized
-	 * appropriately.
-	 *
-	 * @see #next
-	 * @see #nextToken
-	 * @see #getText
-	 */
-	int TEXT = 4;
-
-	// ----------------------------------------------------------------------------
-	// additional events exposed by lower level nextToken()
-
-	/**
-	 * A CDATA sections was just read; this token is available only from calls
-	 * to <a href="#nextToken()">nextToken()</a>. A call to next() will
-	 * accumulate various text events into a single event of type TEXT. The text
-	 * contained in the CDATA section is available by calling getText().
-	 *
-	 * @see #nextToken
-	 * @see #getText
-	 */
-	int CDSECT = 5;
-
-	/**
-	 * An entity reference was just read; this token is available from
-	 * <a href="#nextToken()">nextToken()</a> only. The entity name is available
-	 * by calling getName(). If available, the replacement text can be obtained
-	 * by calling getText(); otherwise, the user is responsible for resolving
-	 * the entity reference. This event type is never returned from next();
-	 * next() will accumulate the replacement text and other text events to a
-	 * single TEXT event.
-	 *
-	 * @see #nextToken
-	 * @see #getText
-	 */
-	int ENTITY_REF = 6;
-
-	/**
-	 * Ignorable whitespace was just read. This token is available only from
-	 * <a href="#nextToken()">nextToken()</a>). For non-validating parsers, this
-	 * event is only reported by nextToken() when outside the root element.
-	 * Validating parsers may be able to detect ignorable whitespace at other
-	 * locations. The ignorable whitespace string is available by calling
-	 * getText()
-	 *
-	 * <p>
-	 * <strong>NOTE:</strong> this is different from calling the isWhitespace()
-	 * method, since text content may be whitespace but not ignorable.
-	 *
-	 * Ignorable whitespace is skipped by next() automatically; this event type
-	 * is never returned from next().
-	 *
-	 * @see #nextToken
-	 * @see #getText
-	 */
-	int IGNORABLE_WHITESPACE = 7;
-
-	/**
-	 * An XML processing instruction declaration was just read. This event type
-	 * is available only via <a href="#nextToken()">nextToken()</a>. getText()
-	 * will return text that is inside the processing instruction. Calls to
-	 * next() will skip processing instructions automatically.
-	 * 
-	 * @see #nextToken
-	 * @see #getText
-	 */
-	int PROCESSING_INSTRUCTION = 8;
-
-	/**
-	 * An XML comment was just read. This event type is this token is available
-	 * via <a href="#nextToken()">nextToken()</a> only; calls to next() will
-	 * skip comments automatically. The content of the comment can be accessed
-	 * using the getText() method.
-	 *
-	 * @see #nextToken
-	 * @see #getText
-	 */
-	int COMMENT = 9;
-
-	/**
-	 * An XML document type declaration was just read. This token is available
-	 * from <a href="#nextToken()">nextToken()</a> only. The unparsed text
-	 * inside the doctype is available via the getText() method.
-	 *
-	 * @see #nextToken
-	 * @see #getText
-	 */
-	int DOCDECL = 10;
+	
 
 	/**
 	 * This array can be used to convert the event type integer constants such
@@ -978,7 +820,7 @@ public interface XmlPullParser {
 	 * @see #next()
 	 * @see #nextToken()
 	 */
-	int getEventType();
+	EventType getEventType();
 
 	/**
 	 * Get next parsing event - element content wil be coalesced and only one
@@ -1003,7 +845,7 @@ public interface XmlPullParser {
 	 * @see #END_TAG
 	 * @see #END_DOCUMENT
 	 */
-	int next() throws IOException;
+	EventType next() throws IOException;
 
 	/**
 	 * This method works similarly to next() but will expose additional event
@@ -1125,7 +967,7 @@ public interface XmlPullParser {
 	 * @see #ENTITY_REF
 	 * @see #IGNORABLE_WHITESPACE
 	 */
-	int nextToken() throws IOException;
+	EventType nextToken() throws IOException;
 
 	// -----------------------------------------------------------------------------
 	// utility methods to mak XML parsing easier ...
@@ -1154,7 +996,7 @@ public interface XmlPullParser {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	void require(int type, String namespace, String name) throws IOException;
+	void require(EventType type, String namespace, String name) throws IOException;
 
 	/**
 	 * If current event is START_TAG then if next element is TEXT then element
@@ -1249,7 +1091,7 @@ public interface XmlPullParser {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	int nextTag() throws IOException;
+	EventType nextTag() throws IOException;
 
 	/**
 	 * Checks for next.

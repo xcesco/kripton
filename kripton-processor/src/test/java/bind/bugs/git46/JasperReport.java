@@ -1,4 +1,4 @@
-package bind.feature.git45.bug01;
+package bind.bugs.git46;
 
 import java.util.ArrayList;
 import java.util.List;

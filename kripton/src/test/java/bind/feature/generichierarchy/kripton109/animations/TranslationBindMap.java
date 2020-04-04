@@ -7,10 +7,10 @@ import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -125,9 +125,9 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Translation object, XMLSerializer xmlSerializer, int currentEventType)
-      throws Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(Translation object, XMLSerializer xmlSerializer,
+      EventType currentEventType) throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("translateAnimation");
     }
 
@@ -162,14 +162,14 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
           xmlSerializer.writeEmptyElement("frame");
         } else {
           xmlSerializer.writeStartElement("frame");
-          translationFrameBindMap.serializeOnXml(item, xmlSerializer, 2);
+          translationFrameBindMap.serializeOnXml(item, xmlSerializer, EventType.START_TAG);
           xmlSerializer.writeEndElement();
         }
       }
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -297,12 +297,12 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
    * parse xml
    */
   @Override
-  public Translation parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Translation parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Translation instance = new Translation();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -320,7 +320,7 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "name":
@@ -340,7 +340,7 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
                    {
                     ArrayList<TranslationFrame> collection=CollectionUtils.merge(new ArrayList<>(), instance.frames);
                     TranslationFrame item;
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("frame")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("frame")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -353,17 +353,18 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
                   }
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

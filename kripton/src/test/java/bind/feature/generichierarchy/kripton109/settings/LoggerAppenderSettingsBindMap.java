@@ -5,9 +5,9 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -72,8 +72,8 @@ public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppender
    */
   @Override
   public void serializeOnXml(LoggerAppenderSettings object, XMLSerializer xmlSerializer,
-      int currentEventType) throws Exception {
-    if (currentEventType == 0) {
+      EventType currentEventType) throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("loggerAppenderSettings");
     }
 
@@ -89,7 +89,7 @@ public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppender
       xmlSerializer.writeAttribute("tag", StringEscapeUtils.escapeXml10(object.tag));
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -178,13 +178,13 @@ public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppender
    * parse xml
    */
   @Override
-  public LoggerAppenderSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws
+  public LoggerAppenderSettings parseOnXml(XMLParser xmlParser, EventType currentEventType) throws
       Exception {
     LoggerAppenderSettings instance = new LoggerAppenderSettings();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -220,18 +220,18 @@ public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppender
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             // No property to manage here
           break;
-          case XmlPullParser.END_TAG:
+          case END_TAG:
             if (elementName.equals(xmlParser.getName())) {
               currentTag = elementName;
               elementName = null;
             }
           break;
-          case XmlPullParser.CDSECT:
-          case XmlPullParser.TEXT:
+          case CDSECT:
+          case TEXT:
             // no property is binded to VALUE o CDATA break;
           default:
           break;

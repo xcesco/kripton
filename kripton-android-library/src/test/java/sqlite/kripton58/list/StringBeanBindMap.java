@@ -6,10 +6,10 @@ import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -142,9 +142,9 @@ public class StringBeanBindMap extends AbstractMapper<StringBean> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(StringBean object, XMLSerializer xmlSerializer, int currentEventType)
-      throws Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(StringBean object, XMLSerializer xmlSerializer,
+      EventType currentEventType) throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("stringBean");
     }
 
@@ -199,7 +199,7 @@ public class StringBeanBindMap extends AbstractMapper<StringBean> {
       }
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -348,12 +348,12 @@ public class StringBeanBindMap extends AbstractMapper<StringBean> {
    * parse xml
    */
   @Override
-  public StringBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public StringBean parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     StringBean instance = new StringBean();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -371,7 +371,7 @@ public class StringBeanBindMap extends AbstractMapper<StringBean> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "id":
@@ -395,7 +395,7 @@ public class StringBeanBindMap extends AbstractMapper<StringBean> {
                       item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("value")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -425,7 +425,7 @@ public class StringBeanBindMap extends AbstractMapper<StringBean> {
                       item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("value2")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("value2")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -439,17 +439,18 @@ public class StringBeanBindMap extends AbstractMapper<StringBean> {
                   }
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

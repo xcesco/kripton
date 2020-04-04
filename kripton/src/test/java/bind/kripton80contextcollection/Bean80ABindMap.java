@@ -4,9 +4,9 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -84,9 +84,9 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Bean80A object, XMLSerializer xmlSerializer, int currentEventType)
-      throws Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(Bean80A object, XMLSerializer xmlSerializer,
+      EventType currentEventType) throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("bean80A");
     }
 
@@ -100,7 +100,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
     // field valueBean (mapped with "valueBean")
     if (object.valueBean!=null)  {
       xmlSerializer.writeStartElement("valueBean");
-      bean80ABindMap.serializeOnXml(object.valueBean, xmlSerializer, 2);
+      bean80ABindMap.serializeOnXml(object.valueBean, xmlSerializer, EventType.START_TAG);
       xmlSerializer.writeEndElement();
     }
 
@@ -111,7 +111,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -206,12 +206,12 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
    * parse xml
    */
   @Override
-  public Bean80A parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Bean80A parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Bean80A instance = new Bean80A();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -229,7 +229,7 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "id":
@@ -245,17 +245,18 @@ public class Bean80ABindMap extends AbstractMapper<Bean80A> {
                   instance.valueString=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

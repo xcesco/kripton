@@ -1,4 +1,4 @@
-package bind.feature.git45.bug01;
+package bind.bugs.git46;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;

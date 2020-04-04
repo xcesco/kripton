@@ -25,12 +25,13 @@ import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.abubusoft.kripton.persistence.SerializerWrapper;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class AbstractMapper.
  *
@@ -48,7 +49,7 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 
 		switch (context.getSupportedFormat()) {
 		case XML:
-			instance = parseOnXml(((XmlWrapperParser) parserWrapper).xmlParser, 0);
+			instance = parseOnXml(((XmlWrapperParser) parserWrapper).xmlParser, EventType.START_DOCUMENT);
 			break;
 		default:
 			if (context.getSupportedFormat().onlyText)
@@ -119,7 +120,7 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
 				if (writeStartAndEnd) {
 					xmlSerializer.writeStartDocument();
 				}
-				serializeOnXml(object, xmlSerializer, 0);
+				serializeOnXml(object, xmlSerializer, EventType.START_DOCUMENT);
 
 				if (writeStartAndEnd) {
 					xmlSerializer.writeEndDocument();

@@ -7,10 +7,10 @@ import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -448,9 +448,9 @@ public class UserBindMap extends AbstractMapper<User> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(User object, XMLSerializer xmlSerializer, int currentEventType) throws
-      Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(User object, XMLSerializer xmlSerializer, EventType currentEventType)
+      throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("user");
     }
 
@@ -520,7 +520,7 @@ public class UserBindMap extends AbstractMapper<User> {
           xmlSerializer.writeEmptyElement("friends");
         } else {
           xmlSerializer.writeStartElement("friends");
-          friendBindMap.serializeOnXml(item, xmlSerializer, 2);
+          friendBindMap.serializeOnXml(item, xmlSerializer, EventType.START_TAG);
           xmlSerializer.writeEndElement();
         }
       }
@@ -556,7 +556,7 @@ public class UserBindMap extends AbstractMapper<User> {
           xmlSerializer.writeEmptyElement("images");
         } else {
           xmlSerializer.writeStartElement("images");
-          imageBindMap.serializeOnXml(item, xmlSerializer, 2);
+          imageBindMap.serializeOnXml(item, xmlSerializer, EventType.START_TAG);
           xmlSerializer.writeEndElement();
         }
       }
@@ -591,7 +591,7 @@ public class UserBindMap extends AbstractMapper<User> {
     // field name (mapped with "name")
     if (object.name!=null)  {
       xmlSerializer.writeStartElement("name");
-      nameBindMap.serializeOnXml(object.name, xmlSerializer, 2);
+      nameBindMap.serializeOnXml(object.name, xmlSerializer, EventType.START_TAG);
       xmlSerializer.writeEndElement();
     }
 
@@ -672,7 +672,7 @@ public class UserBindMap extends AbstractMapper<User> {
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -1101,12 +1101,12 @@ public class UserBindMap extends AbstractMapper<User> {
    * parse xml
    */
   @Override
-  public User parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public User parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     User instance = new User();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -1124,7 +1124,7 @@ public class UserBindMap extends AbstractMapper<User> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "about":
@@ -1176,7 +1176,7 @@ public class UserBindMap extends AbstractMapper<User> {
                       item=friendBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("friends")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("friends")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -1214,7 +1214,7 @@ public class UserBindMap extends AbstractMapper<User> {
                       item=imageBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("images")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("images")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -1268,7 +1268,7 @@ public class UserBindMap extends AbstractMapper<User> {
                       item=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("range")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("range")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -1302,7 +1302,7 @@ public class UserBindMap extends AbstractMapper<User> {
                       item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("tags")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("tags")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -1328,17 +1328,18 @@ public class UserBindMap extends AbstractMapper<User> {
                   instance.pictureUrl=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

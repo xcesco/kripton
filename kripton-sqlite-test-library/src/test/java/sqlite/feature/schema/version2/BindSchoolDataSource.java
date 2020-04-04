@@ -438,7 +438,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * Returns <code>true</code> if database need foreign keys.
+   * Returns <code>true</code> if database needs foreign keys.
    */
   @Override
   public boolean hasForeignKeys() {
@@ -456,6 +456,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
   public static BindSchoolDataSource build(DataSourceOptions options) {
+    if (options.forceBuild && instance!=null) {
+      Logger.info("Datasource BindSchoolDataSource is forced to be (re)builded");
+      instance=null;
+    }
     BindSchoolDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -483,6 +487,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     } else {
       throw new KriptonRuntimeException("Datasource BindSchoolDataSource is already builded");
     }
+    Logger.info("Datasource BindSchoolDataSource is created");
     return result;
   }
 

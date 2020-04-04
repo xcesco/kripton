@@ -1,10 +1,6 @@
-package bind.feature.git45.bug01;
+package bind.bugs.git46;
 
 import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -14,7 +10,7 @@ import com.abubusoft.kripton.KriptonBinder;
 
 import bind.AbstractBaseTest;
 
-public class TestRuntimeGit43Bug01 extends AbstractBaseTest {
+public class TestRuntimeGit46_01 extends AbstractBaseTest {
 
 	@Test
 	public void testRun() throws Exception {

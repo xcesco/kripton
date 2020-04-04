@@ -4,9 +4,9 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -88,9 +88,9 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Bean93 object, XMLSerializer xmlSerializer, int currentEventType)
+  public void serializeOnXml(Bean93 object, XMLSerializer xmlSerializer, EventType currentEventType)
       throws Exception {
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("bean93");
     }
 
@@ -122,7 +122,7 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -229,12 +229,12 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
    * parse xml
    */
   @Override
-  public Bean93 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Bean93 parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Bean93 instance = new Bean93();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -252,7 +252,7 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "id":
@@ -272,17 +272,18 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
                   instance.typeName=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

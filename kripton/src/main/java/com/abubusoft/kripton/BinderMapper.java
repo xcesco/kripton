@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.abubusoft.kripton.persistence.SerializerWrapper;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -84,7 +85,7 @@ public interface BinderMapper<E> {
 	 * @return parsed object
 	 * @throws Exception the exception
 	 */
-	E parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception;
+	E parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception;
 
 	/**
 	 * Serialize an object.
@@ -134,6 +135,6 @@ public interface BinderMapper<E> {
 	 * @param currentEventType the current event type
 	 * @throws Exception the exception
 	 */
-	void serializeOnXml(E object, XMLSerializer xmlSerializer, int currentEventType) throws Exception;
+	void serializeOnXml(E object, XMLSerializer xmlSerializer, EventType currentEventType) throws Exception;
 
 }

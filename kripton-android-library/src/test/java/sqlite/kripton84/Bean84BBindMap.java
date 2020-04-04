@@ -4,9 +4,9 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -72,9 +72,9 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Bean84B object, XMLSerializer xmlSerializer, int currentEventType)
-      throws Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(Bean84B object, XMLSerializer xmlSerializer,
+      EventType currentEventType) throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("bean84B");
     }
 
@@ -83,7 +83,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
     // field columnBean (mapped with "columnBean")
     if (object.columnBean!=null)  {
       xmlSerializer.writeStartElement("columnBean");
-      bean84B2BindMap.serializeOnXml(object.columnBean, xmlSerializer, 2);
+      bean84B2BindMap.serializeOnXml(object.columnBean, xmlSerializer, EventType.START_TAG);
       xmlSerializer.writeEndElement();
     }
 
@@ -92,7 +92,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
     xmlSerializer.writeLong(object.id);
     xmlSerializer.writeEndElement();
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -175,12 +175,12 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
    * parse xml
    */
   @Override
-  public Bean84B parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Bean84B parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Bean84B instance = new Bean84B();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -198,7 +198,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "columnBean":
@@ -210,17 +210,18 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
                   instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

@@ -3,9 +3,9 @@ package bind.feature.generichierarchy.kripton109.animations.math;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -65,9 +65,9 @@ public class Point3BindMap extends AbstractMapper<Point3> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Point3 object, XMLSerializer xmlSerializer, int currentEventType)
+  public void serializeOnXml(Point3 object, XMLSerializer xmlSerializer, EventType currentEventType)
       throws Exception {
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("point3");
     }
 
@@ -82,7 +82,7 @@ public class Point3BindMap extends AbstractMapper<Point3> {
     // field z (mapped with "z")
     xmlSerializer.writeAttribute("z", PrimitiveUtils.writeFloat(object.z));
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -169,12 +169,12 @@ public class Point3BindMap extends AbstractMapper<Point3> {
    * parse xml
    */
   @Override
-  public Point3 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Point3 parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Point3 instance = new Point3();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -214,18 +214,18 @@ public class Point3BindMap extends AbstractMapper<Point3> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             // No property to manage here
           break;
-          case XmlPullParser.END_TAG:
+          case END_TAG:
             if (elementName.equals(xmlParser.getName())) {
               currentTag = elementName;
               elementName = null;
             }
           break;
-          case XmlPullParser.CDSECT:
-          case XmlPullParser.TEXT:
+          case CDSECT:
+          case TEXT:
             // no property is binded to VALUE o CDATA break;
           default:
           break;

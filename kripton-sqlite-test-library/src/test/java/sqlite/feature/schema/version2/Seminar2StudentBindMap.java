@@ -3,9 +3,9 @@ package sqlite.feature.schema.version2;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -67,8 +67,8 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
    */
   @Override
   public void serializeOnXml(Seminar2Student object, XMLSerializer xmlSerializer,
-      int currentEventType) throws Exception {
-    if (currentEventType == 0) {
+      EventType currentEventType) throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("seminar2Student");
     }
 
@@ -89,7 +89,7 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
     xmlSerializer.writeLong(object.studentId);
     xmlSerializer.writeEndElement();
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -176,12 +176,13 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
    * parse xml
    */
   @Override
-  public Seminar2Student parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Seminar2Student parseOnXml(XMLParser xmlParser, EventType currentEventType) throws
+      Exception {
     Seminar2Student instance = new Seminar2Student();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -199,7 +200,7 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "id":
@@ -218,14 +219,14 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

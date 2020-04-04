@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,26 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.kripton1110.model.stage2;
+package bind.bugs.git46;
 
-import com.abubusoft.kripton.annotation.Bind;
-import com.abubusoft.kripton.annotation.BindType;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Name.
+ * The Class TestRuntime73Suite.
  */
-@BindType
-public class Name {
-
-	/** The common. */
-	public String common;
-	
-	/** The official. */
-	public String official;
-
-	/** The native. */
-	@Bind("native")
-	public Native _native;
+@RunWith(Suite.class)
+// @formatter:off
+@Suite.SuiteClasses({ TestRuntimeGit46_01.class })
+// @formatter:on
+public class TestRuntimeGit46Suite {
 
 }

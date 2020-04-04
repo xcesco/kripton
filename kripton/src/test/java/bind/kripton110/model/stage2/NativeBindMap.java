@@ -3,9 +3,9 @@ package bind.kripton110.model.stage2;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -84,9 +84,9 @@ public class NativeBindMap extends AbstractMapper<Native> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Native object, XMLSerializer xmlSerializer, int currentEventType)
+  public void serializeOnXml(Native object, XMLSerializer xmlSerializer, EventType currentEventType)
       throws Exception {
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("native");
     }
 
@@ -95,18 +95,18 @@ public class NativeBindMap extends AbstractMapper<Native> {
     // field nld (mapped with "nld")
     if (object.nld!=null)  {
       xmlSerializer.writeStartElement("nld");
-      nldBindMap.serializeOnXml(object.nld, xmlSerializer, 2);
+      nldBindMap.serializeOnXml(object.nld, xmlSerializer, EventType.START_TAG);
       xmlSerializer.writeEndElement();
     }
 
     // field pap (mapped with "pap")
     if (object.pap!=null)  {
       xmlSerializer.writeStartElement("pap");
-      papBindMap.serializeOnXml(object.pap, xmlSerializer, 2);
+      papBindMap.serializeOnXml(object.pap, xmlSerializer, EventType.START_TAG);
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -193,12 +193,12 @@ public class NativeBindMap extends AbstractMapper<Native> {
    * parse xml
    */
   @Override
-  public Native parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Native parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Native instance = new Native();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -216,7 +216,7 @@ public class NativeBindMap extends AbstractMapper<Native> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "nld":
@@ -228,17 +228,18 @@ public class NativeBindMap extends AbstractMapper<Native> {
                   instance.pap=papBindMap.parseOnXml(xmlParser, eventType);
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;
