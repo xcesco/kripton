@@ -3,12 +3,13 @@ package bind.retrofit.film.model;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -122,9 +123,9 @@ public class SearchBindMap extends AbstractMapper<Search> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Search object, XMLSerializer xmlSerializer, int currentEventType)
+  public void serializeOnXml(Search object, XMLSerializer xmlSerializer, EventType currentEventType)
       throws Exception {
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("search");
     }
 
@@ -147,7 +148,7 @@ public class SearchBindMap extends AbstractMapper<Search> {
           xmlSerializer.writeEmptyElement("search");
         } else {
           xmlSerializer.writeStartElement("search");
-          filmBindMap.serializeOnXml(item, xmlSerializer, 2);
+          filmBindMap.serializeOnXml(item, xmlSerializer, EventType.START_TAG);
           xmlSerializer.writeEndElement();
         }
       }
@@ -166,7 +167,7 @@ public class SearchBindMap extends AbstractMapper<Search> {
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -176,11 +177,10 @@ public class SearchBindMap extends AbstractMapper<Search> {
    */
   @Override
   public Search parseOnJackson(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __response=null;
     List<Film> __search=null;
     String __totalResults=null;
-
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -239,11 +239,10 @@ public class SearchBindMap extends AbstractMapper<Search> {
    */
   @Override
   public Search parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __response=null;
     List<Film> __search=null;
     String __totalResults=null;
-
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -306,16 +305,15 @@ public class SearchBindMap extends AbstractMapper<Search> {
    * parse xml
    */
   @Override
-  public Search parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+  public Search parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
+    // immutable object: initialize temporary variables for properties
     String __response=null;
     List<Film> __search=null;
     String __totalResults=null;
-
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -333,7 +331,7 @@ public class SearchBindMap extends AbstractMapper<Search> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "response":
@@ -343,11 +341,11 @@ public class SearchBindMap extends AbstractMapper<Search> {
                 case "search":
                   // property search (mapped on "search")
                    {
-                    ArrayList<Film> collection=new ArrayList<>();
+                    ArrayList<Film> collection=CollectionUtils.merge(new ArrayList<>(), __search);
                     Film item;
                     // add first element
                     item=null;
-                    if (xmlParser.isEmptyElement()) {
+                    if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                       // if there's a an empty collection it marked with attribute emptyCollection
                       if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
                         collection.add(item);
@@ -357,8 +355,8 @@ public class SearchBindMap extends AbstractMapper<Search> {
                       item=filmBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("search")) {
-                      if (xmlParser.isEmptyElement()) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("search")) {
+                      if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
                       } else {
@@ -378,14 +376,14 @@ public class SearchBindMap extends AbstractMapper<Search> {
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

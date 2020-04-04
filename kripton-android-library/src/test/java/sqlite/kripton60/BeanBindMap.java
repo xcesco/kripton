@@ -16,10 +16,10 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TimeZoneUtils;
 import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -923,9 +923,9 @@ public class BeanBindMap extends AbstractMapper<Bean> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Bean object, XMLSerializer xmlSerializer, int currentEventType) throws
-      Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(Bean object, XMLSerializer xmlSerializer, EventType currentEventType)
+      throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("bean");
     }
 
@@ -939,7 +939,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     // field valueBean (mapped with "valueBean")
     if (object.valueBean!=null)  {
       xmlSerializer.writeStartElement("valueBean");
-      beanBindMap.serializeOnXml(object.valueBean, xmlSerializer, 2);
+      beanBindMap.serializeOnXml(object.valueBean, xmlSerializer, EventType.START_TAG);
       xmlSerializer.writeEndElement();
     }
 
@@ -953,7 +953,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           xmlSerializer.writeEmptyElement("valueBeanArray");
         } else {
           xmlSerializer.writeStartElement("valueBeanArray");
-          beanBindMap.serializeOnXml(item, xmlSerializer, 2);
+          beanBindMap.serializeOnXml(item, xmlSerializer, EventType.START_TAG);
           xmlSerializer.writeEndElement();
         }
       }
@@ -1162,7 +1162,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           } else {
             if (item.getValue()!=null)  {
               xmlSerializer.writeStartElement("value");
-              beanBindMap.serializeOnXml(item.getValue(), xmlSerializer, 2);
+              beanBindMap.serializeOnXml(item.getValue(), xmlSerializer, EventType.START_TAG);
               xmlSerializer.writeEndElement();
             }
           }
@@ -1265,7 +1265,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           } else {
             if (item.getValue()!=null)  {
               xmlSerializer.writeStartElement("value");
-              beanBindMap.serializeOnXml(item.getValue(), xmlSerializer, 2);
+              beanBindMap.serializeOnXml(item.getValue(), xmlSerializer, EventType.START_TAG);
               xmlSerializer.writeEndElement();
             }
           }
@@ -1399,7 +1399,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       }
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -2325,12 +2325,12 @@ public class BeanBindMap extends AbstractMapper<Bean> {
    * parse xml
    */
   @Override
-  public Bean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Bean parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Bean instance = new Bean();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -2348,7 +2348,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "id":
@@ -2376,7 +2376,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=beanBindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueBeanArray")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueBeanArray")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2442,7 +2442,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), null);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueCharArray")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueCharArray")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2472,7 +2472,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), null);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueCharList")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueCharList")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2506,7 +2506,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=(char)PrimitiveUtils.readCharacter(xmlParser.getElementAsInt(), ' ');
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueCharTypeArray")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueCharTypeArray")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2573,7 +2573,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                     }
                     xmlParser.nextTag();
                     collection.put(key, value);
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueLinkedMapStringBean")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueLinkedMapStringBean")) {
                       xmlParser.nextTag();
                       key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       xmlParser.nextTag();
@@ -2615,7 +2615,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueLongArray")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueLongArray")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2645,7 +2645,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueLongList")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueLongList")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2679,7 +2679,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueLongTypeArray")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueLongTypeArray")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2710,7 +2710,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                     }
                     xmlParser.nextTag();
                     collection.put(key, value);
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueMapStringBean")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueMapStringBean")) {
                       xmlParser.nextTag();
                       key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       xmlParser.nextTag();
@@ -2744,7 +2744,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueSetString")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueSetString")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2782,7 +2782,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueStrinList")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueStrinList")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2816,7 +2816,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueStringArray")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueStringArray")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2858,7 +2858,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                       item=SQLTimeUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("valueTimeList")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("valueTimeList")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -2872,17 +2872,18 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                   }
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

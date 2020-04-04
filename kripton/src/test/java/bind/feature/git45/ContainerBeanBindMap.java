@@ -5,10 +5,10 @@ import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlAttributeUtils;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -190,8 +190,8 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
    */
   @Override
   public void serializeOnXml(ContainerBean object, XMLSerializer xmlSerializer,
-      int currentEventType) throws Exception {
-    if (currentEventType == 0) {
+      EventType currentEventType) throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("containerBean");
     }
 
@@ -207,7 +207,7 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
           xmlSerializer.writeEmptyElement("item1");
         } else {
           xmlSerializer.writeStartElement("item1");
-          bean01BindMap.serializeOnXml(item, xmlSerializer, 2);
+          bean01BindMap.serializeOnXml(item, xmlSerializer, EventType.START_TAG);
           xmlSerializer.writeEndElement();
         }
       }
@@ -229,7 +229,7 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
           xmlSerializer.writeEmptyElement("item3");
         } else {
           xmlSerializer.writeStartElement("item3");
-          bean03BindMap.serializeOnXml(item, xmlSerializer, 2);
+          bean03BindMap.serializeOnXml(item, xmlSerializer, EventType.START_TAG);
           xmlSerializer.writeEndElement();
         }
       }
@@ -251,14 +251,14 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
           xmlSerializer.writeEmptyElement("item2");
         } else {
           xmlSerializer.writeStartElement("item2");
-          bean02BindMap.serializeOnXml(item, xmlSerializer, 2);
+          bean02BindMap.serializeOnXml(item, xmlSerializer, EventType.START_TAG);
           xmlSerializer.writeEndElement();
         }
       }
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -432,12 +432,13 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
    * parse xml
    */
   @Override
-  public ContainerBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public ContainerBean parseOnXml(XMLParser xmlParser, EventType currentEventType) throws
+      Exception {
     ContainerBean instance = new ContainerBean();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -455,7 +456,7 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "item1":
@@ -475,7 +476,7 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
                       item=bean01BindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item1")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("item1")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -505,7 +506,7 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
                       item=bean03BindMap.parseOnXml(xmlParser, eventType);
                       collection.add(item);
                     }
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item3")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("item3")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -523,7 +524,7 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
                    {
                     HashSet<Bean02> collection=CollectionUtils.merge(new HashSet<>(), instance.getElements2());
                     Bean02 item;
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("item2")) {
+                    while (xmlParser.nextTag() != EventType.END_TAG && xmlParser.getName().toString().equals("item2")) {
                       if (XmlAttributeUtils.isEmptyTag(xmlParser)) {
                         item=null;
                         xmlParser.nextTag();
@@ -536,17 +537,18 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
                   }
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

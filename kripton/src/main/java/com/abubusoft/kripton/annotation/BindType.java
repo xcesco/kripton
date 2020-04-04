@@ -65,7 +65,7 @@ public class ImageBindMap extends AbstractMapper&lt;Image&gt; {
   }
 
   &#64;Override
-  public void serializeOnXml(Image object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
+  public void serializeOnXml(Image object, XMLSerializer xmlSerializer, EventType currentEventType) throws Exception {
     ...
   }
 
@@ -80,7 +80,7 @@ public class ImageBindMap extends AbstractMapper&lt;Image&gt; {
   }
 
   &#64;Override
-  public Image parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Image parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     ...
   }
 }

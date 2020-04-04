@@ -18,7 +18,9 @@ package com.abubusoft.kripton.processor.bind.model;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.squareup.javapoet.TypeName;
+
 /**
  * The Class BindModel.
  */
@@ -43,6 +45,21 @@ public class BindModel {
 	 */
 	public void entityAdd(BindEntity item) {
 		entities.add(item);
+	}
+
+	/**
+	 * Check if type element is present in set of class 
+	 * @param typeName
+	 * @return
+	 */
+	public boolean hasEntityOfType(TypeName typeName) {
+		for (BindEntity item: entities) {
+			if (TypeUtility.isEquals(typeName, item.getElement().asType().toString())) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }

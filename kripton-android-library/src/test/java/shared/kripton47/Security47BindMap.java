@@ -4,9 +4,9 @@ import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -110,9 +110,9 @@ public class Security47BindMap extends AbstractMapper<Security47> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Security47 object, XMLSerializer xmlSerializer, int currentEventType)
-      throws Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(Security47 object, XMLSerializer xmlSerializer,
+      EventType currentEventType) throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("security47");
     }
 
@@ -121,7 +121,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     // field authorizationToken (mapped with "authorizationToken")
     if (object.authorizationToken!=null)  {
       xmlSerializer.writeStartElement("authorizationToken");
-      deviceAccessTokenBindMap.serializeOnXml(object.authorizationToken, xmlSerializer, 2);
+      deviceAccessTokenBindMap.serializeOnXml(object.authorizationToken, xmlSerializer, EventType.START_TAG);
       xmlSerializer.writeEndElement();
     }
 
@@ -142,11 +142,11 @@ public class Security47BindMap extends AbstractMapper<Security47> {
     // field userIdentity (mapped with "userIdentity")
     if (object.userIdentity!=null)  {
       xmlSerializer.writeStartElement("userIdentity");
-      userIdentityBindMap.serializeOnXml(object.userIdentity, xmlSerializer, 2);
+      userIdentityBindMap.serializeOnXml(object.userIdentity, xmlSerializer, EventType.START_TAG);
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -257,12 +257,12 @@ public class Security47BindMap extends AbstractMapper<Security47> {
    * parse xml
    */
   @Override
-  public Security47 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Security47 parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Security47 instance = new Security47();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -280,7 +280,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "authorizationToken":
@@ -300,17 +300,18 @@ public class Security47BindMap extends AbstractMapper<Security47> {
                   instance.userIdentity=userIdentityBindMap.parseOnXml(xmlParser, eventType);
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

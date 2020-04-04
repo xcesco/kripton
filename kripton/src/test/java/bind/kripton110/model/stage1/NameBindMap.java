@@ -3,9 +3,9 @@ package bind.kripton110.model.stage1;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -68,9 +68,9 @@ public class NameBindMap extends AbstractMapper<Name> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Name object, XMLSerializer xmlSerializer, int currentEventType) throws
-      Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(Name object, XMLSerializer xmlSerializer, EventType currentEventType)
+      throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("name");
     }
 
@@ -90,7 +90,7 @@ public class NameBindMap extends AbstractMapper<Name> {
       xmlSerializer.writeEndElement();
     }
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
@@ -177,12 +177,12 @@ public class NameBindMap extends AbstractMapper<Name> {
    * parse xml
    */
   @Override
-  public Name parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Name parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Name instance = new Name();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -200,7 +200,7 @@ public class NameBindMap extends AbstractMapper<Name> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "first":
@@ -212,17 +212,18 @@ public class NameBindMap extends AbstractMapper<Name> {
                   instance.last=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

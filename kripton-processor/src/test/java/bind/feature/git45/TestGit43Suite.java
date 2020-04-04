@@ -18,14 +18,11 @@ package bind.feature.git45;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.feature.git45.bug01.TestGit43Bug01;
-
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{
-			TestListGit43.class,
-			TestGit43Bug01.class
+			TestListGit43.class
 		 })
 //@formatter:on
 public class TestGit43Suite {

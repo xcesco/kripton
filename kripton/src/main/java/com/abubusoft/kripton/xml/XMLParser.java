@@ -37,7 +37,27 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.xml.internal.StringPool;
 
-// TODO: Auto-generated Javadoc
+import static com.abubusoft.kripton.xml.EventType.START_DOCUMENT;
+import static com.abubusoft.kripton.xml.EventType.END_DOCUMENT;
+import static com.abubusoft.kripton.xml.EventType.START_TAG;
+import static com.abubusoft.kripton.xml.EventType.END_TAG;
+import static com.abubusoft.kripton.xml.EventType.TEXT;
+import static com.abubusoft.kripton.xml.EventType.CDSECT;
+import static com.abubusoft.kripton.xml.EventType.ENTITY_REF;
+import static com.abubusoft.kripton.xml.EventType.IGNORABLE_WHITESPACE;
+import static com.abubusoft.kripton.xml.EventType.PROCESSING_INSTRUCTION;
+import static com.abubusoft.kripton.xml.EventType.COMMENT;
+import static com.abubusoft.kripton.xml.EventType.DOCDECL;
+
+import static com.abubusoft.kripton.xml.EventType.ELEMENTDECL;
+import static com.abubusoft.kripton.xml.EventType.ENTITYDECL;
+import static com.abubusoft.kripton.xml.EventType.ATTLISTDECL;
+import static com.abubusoft.kripton.xml.EventType.NOTATIONDECL;
+import static com.abubusoft.kripton.xml.EventType.PARAMETER_ENTITY_REF;
+
+import static com.abubusoft.kripton.xml.EventType.XML_DECLARATION;
+
+
 /**
  * An XML pull parser with limited support for parsing internal DTDs.
  */
@@ -65,20 +85,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 		DEFAULT_ENTITIES.put("quot", "\"");
 	}
 
-	/** The Constant ELEMENTDECL. */
-	private static final int ELEMENTDECL = 11;
-	
-	/** The Constant ENTITYDECL. */
-	private static final int ENTITYDECL = 12;
-	
-	/** The Constant ATTLISTDECL. */
-	private static final int ATTLISTDECL = 13;
-	
-	/** The Constant NOTATIONDECL. */
-	private static final int NOTATIONDECL = 14;
-	
-	/** The Constant PARAMETER_ENTITY_REF. */
-	private static final int PARAMETER_ENTITY_REF = 15;
+
 	
 	/** The Constant START_COMMENT. */
 	private static final char[] START_COMMENT = { '<', '!', '-', '-' };
@@ -148,9 +155,6 @@ public class XMLParser implements XmlPullParser, Closeable {
 	
 	/** The Constant ILLEGAL_TYPE. */
 	static final private String ILLEGAL_TYPE = "Wrong event type";
-	
-	/** The Constant XML_DECLARATION. */
-	static final private int XML_DECLARATION = 998;
 
 	/** The location. */
 	// general
@@ -258,7 +262,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	// the current token
 
 	/** The type. */
-	private int type;
+	private EventType type;
 	
 	/** The is whitespace. */
 	private boolean isWhitespace;
@@ -442,7 +446,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * @see com.abubusoft.kripton.xml.XmlPullParser#next()
 	 */
 	@Override
-	public int next() throws KriptonRuntimeException, IOException {
+	public EventType next() throws KriptonRuntimeException, IOException {
 		return next(false);
 	}
 
@@ -450,7 +454,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * @see com.abubusoft.kripton.xml.XmlPullParser#nextToken()
 	 */
 	@Override
-	public int nextToken() throws KriptonRuntimeException, IOException {
+	public EventType nextToken() throws KriptonRuntimeException, IOException {
 		return next(true);
 	}
 
@@ -462,7 +466,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
-	private int next(boolean justOneToken) throws IOException, KriptonRuntimeException {
+	private EventType next(boolean justOneToken) throws IOException, KriptonRuntimeException {
 		if (reader == null) {
 			throw new KriptonRuntimeException("setInput() must be called first.", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
@@ -587,8 +591,8 @@ public class XMLParser implements XmlPullParser, Closeable {
 			 * report this as text, even if it was a CDATA block or entity
 			 * reference.
 			 */
-			int peek = peekType(false);
-			if (text != null && !text.isEmpty() && peek < TEXT) {
+			EventType peek = peekType(false);
+			if (text != null && !text.isEmpty() && peek.ordinal() < TEXT.ordinal()) {
 				type = TEXT;
 				return type;
 			}
@@ -860,7 +864,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 				return;
 			}
 
-			int declarationType = peekType(true);
+			EventType declarationType = peekType(true);
 			switch (declarationType) {
 			case ELEMENTDECL:
 				readElementDeclaration();
@@ -1192,7 +1196,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
-	private int peekType(boolean inDeclaration) throws IOException, KriptonRuntimeException {
+	private EventType peekType(boolean inDeclaration) throws IOException, KriptonRuntimeException {
 		if (position >= limit && !fillBuffer(1)) {
 			return END_DOCUMENT;
 		}
@@ -2149,7 +2153,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 */
 	@Override
 	public String getPositionDescription() {
-		StringBuilder buf = new StringBuilder(type < TYPES.length ? TYPES[type] : "unknown");
+		StringBuilder buf = new StringBuilder(type.toString());
 		buf.append(' ');
 
 		if (type == START_TAG || type == END_TAG) {
@@ -2247,7 +2251,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 */
 	@Override
 	public String getText() {
-		if (type < TEXT || (type == ENTITY_REF && unresolved)) {
+		if (type.ordinal() < TEXT.ordinal() || (type == ENTITY_REF && unresolved)) {
 			return null;
 		} else if (text == null) {
 			return "";
@@ -2408,7 +2412,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * @see com.abubusoft.kripton.xml.XmlPullParser#getEventType()
 	 */
 	@Override
-	public int getEventType() {
+	public EventType getEventType() {
 		return type;
 	}
 
@@ -2418,7 +2422,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * @see com.abubusoft.kripton.xml.XmlPullParser#nextTag()
 	 */
 	@Override
-	public int nextTag() throws KriptonRuntimeException, IOException {
+	public EventType nextTag() throws KriptonRuntimeException, IOException {
 		next();
 		if (type == TEXT && isWhitespace) {
 			next();
@@ -2435,9 +2439,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * @see com.abubusoft.kripton.xml.XmlPullParser#require(int, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void require(int type, String namespace, String name) throws KriptonRuntimeException, IOException {
+	public void require(EventType type, String namespace, String name) throws KriptonRuntimeException, IOException {
 		if (type != this.type || (namespace != null && !namespace.equals(getNamespace())) || (name != null && !name.equals(getName()))) {
-			throw new KriptonRuntimeException("expected: " + TYPES[type] + " {" + namespace + "}" + name, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
+			throw new KriptonRuntimeException("expected: " + type + " {" + namespace + "}" + name, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 	}
 
@@ -2688,5 +2692,21 @@ public class XMLParser implements XmlPullParser, Closeable {
 	@Override
 	public BigInteger getAttributeAsInteger(int index) {
 		return new BigInteger(getAttributeValue(index).trim());
+	}
+
+	/**
+	 * Skip the entire tag and position the parser to the its end.
+	 *  
+	 * @throws KriptonRuntimeException
+	 * @throws IOException
+	 */
+	public void skipChildren() throws KriptonRuntimeException, IOException {
+		int startDepth=getDepth();
+		String startName=getName();
+		int currentDepth;
+		do {
+			nextTag();
+			currentDepth=getDepth();
+		} while (this.hasNext() && currentDepth>startDepth && !startName.equals(getName()));
 	}
 }

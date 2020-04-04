@@ -1,43 +1,23 @@
-/*******************************************************************************
- * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package com.abubusoft.kripton.retrofit2;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.EventType;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Post.
+ * This class is binder map for Post
  *
  * @see Post
  */
 @BindMap(Post.class)
 public class PostBindMap extends AbstractMapper<Post> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(Post object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -69,9 +49,6 @@ public class PostBindMap extends AbstractMapper<Post> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(Post object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -103,17 +80,12 @@ public class PostBindMap extends AbstractMapper<Post> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Post object, XMLSerializer xmlSerializer, int currentEventType) throws
-      Exception {
-    if (currentEventType == 0) {
+  public void serializeOnXml(Post object, XMLSerializer xmlSerializer, EventType currentEventType)
+      throws Exception {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeStartElement("post");
     }
 
@@ -143,17 +115,13 @@ public class PostBindMap extends AbstractMapper<Post> {
     xmlSerializer.writeLong(object.userId);
     xmlSerializer.writeEndElement();
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       xmlSerializer.writeEndElement();
     }
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the post
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public Post parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -200,11 +168,7 @@ public class PostBindMap extends AbstractMapper<Post> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the post
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public Post parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -251,20 +215,15 @@ public class PostBindMap extends AbstractMapper<Post> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the post
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
-  public Post parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+  public Post parseOnXml(XMLParser xmlParser, EventType currentEventType) throws Exception {
     Post instance = new Post();
-    int eventType = currentEventType;
+    EventType eventType = currentEventType;
     boolean read=true;
 
-    if (currentEventType == 0) {
+    if (currentEventType == EventType.START_DOCUMENT) {
       eventType = xmlParser.next();
     } else {
       eventType = xmlParser.getEventType();
@@ -282,7 +241,7 @@ public class PostBindMap extends AbstractMapper<Post> {
       }
       read=true;
       switch(eventType) {
-          case XmlPullParser.START_TAG:
+          case START_TAG:
             currentTag = xmlParser.getName().toString();
             switch(currentTag) {
                 case "body":
@@ -305,14 +264,14 @@ public class PostBindMap extends AbstractMapper<Post> {
                 break;
               }
             break;
-            case XmlPullParser.END_TAG:
+            case END_TAG:
               if (elementName.equals(xmlParser.getName())) {
                 currentTag = elementName;
                 elementName = null;
               }
             break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
+            case CDSECT:
+            case TEXT:
               // no property is binded to VALUE o CDATA break;
             default:
             break;

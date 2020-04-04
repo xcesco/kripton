@@ -18,16 +18,12 @@ package bind.feature.git45;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import bind.feature.git45.bug01.TestRuntimeGit43Bug01;
-
 /**
  * The Class TestRuntime73Suite.
  */
 @RunWith(Suite.class)
 // @formatter:off
-@Suite.SuiteClasses({ 
-	TestRuntimeGit43.class, 
-	TestRuntimeGit43Bug01.class })
+@Suite.SuiteClasses({ TestRuntimeGit43.class })
 // @formatter:on
 public class TestRuntimeGit43Suite {
 

@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.xml;
 
-// TODO: Auto-generated Javadoc
 /**
  * Mapping type of map entry.
  *
