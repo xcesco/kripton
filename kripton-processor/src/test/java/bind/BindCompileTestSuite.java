@@ -29,6 +29,7 @@ import bind.feature.kotlin.TestBindTypeKotlinCompileSuite;
 import bind.feature.namespace.CompileNamespaceTestSuite;
 import bind.feature.typeadapter.kripton87.Test87CompileSuite;
 import bind.git18.TestCompileGit18;
+import bind.git49.TestCompileGit49;
 import bind.kripton110.TestCompile110;
 import bind.kripton42faster.Test42CompileSuite;
 import bind.kripton70.Test70CompileSuite;
@@ -59,6 +60,9 @@ import bind.rss.TestRSSCompile;
 			
 			// bugs
 			TestBugsCompileSuite.class,
+			
+			// improvemens
+			TestCompileGit49.class,
 			
 		Test42CompileSuite.class,
 		Test70CompileSuite.class,

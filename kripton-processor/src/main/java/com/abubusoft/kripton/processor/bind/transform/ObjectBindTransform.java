@@ -27,7 +27,6 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * Transformer for generic object. For XML binding no Attribute o Value is
  * allowed.
