@@ -6,8 +6,6 @@ public enum EventType {
 	 * nothing was read yet. This event type can only be observed by calling
 	 * getEvent() before the first call to next(), nextToken, or nextTag()).
 	 *
-	 * @see #next
-	 * @see #nextToken
 	 */
 	START_DOCUMENT,
 
@@ -19,8 +17,6 @@ public enum EventType {
 	 * or <a href="#nextToken()">nextToken()</a> may result in exception being
 	 * thrown.
 	 *
-	 * @see #next
-	 * @see #nextToken
 	 */
 	END_DOCUMENT,
 
@@ -33,16 +29,6 @@ public enum EventType {
 	 * getAttribute* methods to retrieve element attributes. See getNamespace*
 	 * methods to retrieve newly declared namespaces.
 	 *
-	 * @see #next
-	 * @see #nextToken
-	 * @see #getName
-	 * @see #getPrefix
-	 * @see #getNamespace
-	 * @see #getAttributeCount
-	 * @see #getDepth
-	 * @see #getNamespaceCount
-	 * @see #getNamespace
-	 * @see #FEATURE_PROCESS_NAMESPACES
 	 */
 	START_TAG,
 
@@ -52,12 +38,6 @@ public enum EventType {
 	 * of start tag is available from getName(), its namespace and prefix are
 	 * available from getNamespace() and getPrefix().
 	 *
-	 * @see #next
-	 * @see #nextToken
-	 * @see #getName
-	 * @see #getPrefix
-	 * @see #getNamespace
-	 * @see #FEATURE_PROCESS_NAMESPACES
 	 */
 	END_TAG,
 
@@ -74,24 +54,16 @@ public enum EventType {
 	 * exact roundtrip without changing line ends when examining low level
 	 * events, whereas for high level applications the text is normalized
 	 * appropriately.
-	 *
-	 * @see #next
-	 * @see #nextToken
-	 * @see #getText
 	 */
 	TEXT,
 
-	// ----------------------------------------------------------------------------
-	// additional events exposed by lower level nextToken()
+	
 
 	/**
 	 * A CDATA sections was just read; this token is available only from calls
 	 * to <a href="#nextToken()">nextToken()</a>. A call to next() will
 	 * accumulate various text events into a single event of type TEXT. The text
 	 * contained in the CDATA section is available by calling getText().
-	 *
-	 * @see #nextToken
-	 * @see #getText
 	 */
 	CDSECT,
 
@@ -103,9 +75,6 @@ public enum EventType {
 	 * the entity reference. This event type is never returned from next();
 	 * next() will accumulate the replacement text and other text events to a
 	 * single TEXT event.
-	 *
-	 * @see #nextToken
-	 * @see #getText
 	 */
 	ENTITY_REF,
 
@@ -123,9 +92,6 @@ public enum EventType {
 	 *
 	 * Ignorable whitespace is skipped by next() automatically; this event type
 	 * is never returned from next().
-	 *
-	 * @see #nextToken
-	 * @see #getText
 	 */
 	IGNORABLE_WHITESPACE,
 
@@ -134,9 +100,6 @@ public enum EventType {
 	 * is available only via <a href="#nextToken()">nextToken()</a>. getText()
 	 * will return text that is inside the processing instruction. Calls to
 	 * next() will skip processing instructions automatically.
-	 * 
-	 * @see #nextToken
-	 * @see #getText
 	 */
 	PROCESSING_INSTRUCTION,
 
@@ -145,9 +108,6 @@ public enum EventType {
 	 * via <a href="#nextToken()">nextToken()</a> only; calls to next() will
 	 * skip comments automatically. The content of the comment can be accessed
 	 * using the getText() method.
-	 *
-	 * @see #nextToken
-	 * @see #getText
 	 */
 	COMMENT,
 
@@ -155,9 +115,6 @@ public enum EventType {
 	 * An XML document type declaration was just read. This token is available
 	 * from <a href="#nextToken()">nextToken()</a> only. The unparsed text
 	 * inside the doctype is available via the getText() method.
-	 *
-	 * @see #nextToken
-	 * @see #getText
 	 */
 	DOCDECL,
 	

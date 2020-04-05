@@ -6,10 +6,11 @@
 	is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY 
 	KIND, either express or implied. See the License for the specific language 
 	governing permissions and limitations under the License. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
- 
+
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
@@ -49,7 +50,7 @@
 		<!-- processor libraries -->
 		<javapoet.version>1.9.0</javapoet.version>
 		<antlr.version>4.7.1</antlr.version>
-		
+
 		<!-- sonar -->
 		<sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
@@ -202,17 +203,17 @@
 				<groupId>org.antlr</groupId>
 				<artifactId>antlr4-maven-plugin</artifactId>
 				<version>${antlr.version}</version>
-				<executions> 
+				<executions>
 					<execution>
 						<goals>
 							<goal>antlr4</goal>
 						</goals>
 					</execution>
-				</executions> 
-				<dependencies> 
+				</executions>
+				<dependencies>
 					<!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
 					<dependency>
-						<groupId>org.antlr</groupId> 
+						<groupId>org.antlr</groupId>
 						<artifactId>antlr4-runtime</artifactId>
 						<version>${antlr.version}</version>
 					</dependency>
@@ -275,24 +276,37 @@
 
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.eluder.coveralls</groupId>
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.3.0</version>
 			</plugin>
 
-			
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-           
-            </plugin>
-        
-			
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
 		</plugins>
 
 	</build>
-	
-		
+
+
 </project>
