@@ -49,6 +49,9 @@
 		<!-- processor libraries -->
 		<javapoet.version>1.9.0</javapoet.version>
 		<antlr.version>4.7.1</antlr.version>
+		
+		<!-- sonar -->
+		<sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 
 	<dependencies>
@@ -283,6 +286,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+           
             </plugin>
         
 			

@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +14,7 @@
 	<artifactId>kripton-parent</artifactId>
 	<version>7.0.0-rc.4</version>
 	<packaging>pom</packaging>
-	
+
 	<name>Kripton (Parent)</name>
 	<description>Kripton persistence library - parent pom</description>
 	<url>https://github.com/xcesco/kripton</url>
@@ -21,9 +22,9 @@
 	<!-- common part - BEGIN -->
 	<properties>
 		<skipTests>false</skipTests>
-	
+
 		<kripton.debug>false</kripton.debug>
-			
+
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,22 +37,22 @@
 		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
 		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-		
+
 		<kripton.version>7.0.0-rc.4</kripton.version>
-		
+
 		<!-- dependencies version -->
 		<jackson.version>2.10.3</jackson.version>
 		<retrofit.version>2.8.1</retrofit.version>
-		<rx.version>2.2.19</rx.version>	
-		
+		<rx.version>2.2.19</rx.version>
+
 		<!-- test version -->
 		<junit.version>4.12</junit.version>
 		<unitils.version>3.4.2</unitils.version>
 		<jsr305.version>3.0.1</jsr305.version>
-		<guava.version>23.0</guava.version>		
+		<guava.version>23.0</guava.version>
 		<robolectric.version>3.1.4</robolectric.version>
 		<roboletricAndroidAll.version>7.0.0-rc.4_r1-robolectric-0</roboletricAndroidAll.version>
-		
+
 		<!-- processor libraries -->
 		<javapoet.version>1.9.0</javapoet.version>
 		<antlr.version>4.7.1</antlr.version>
@@ -89,7 +90,7 @@
 	</developers>
 
 	<profiles>
-		<!--  Profile deploy -->
+		<!-- Profile deploy -->
 		<profile>
 			<id>deploy</id>
 			<build>
@@ -210,39 +211,39 @@
 						<target>${java.version}</target>
 					</configuration>
 				</plugin>
-				
+
 				<plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.5</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>report</id>
-                            <phase>test</phase>
-                            <goals>
-                                <goal>report</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.5</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>report</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
 	</build>
-	
-	    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
-            </plugin>
-        </plugins>
-    </reporting>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+			</plugin>
+		</plugins>
+	</reporting>
 	<!-- common part - END -->
 </project>
