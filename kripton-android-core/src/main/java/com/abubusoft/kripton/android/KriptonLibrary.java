@@ -43,7 +43,7 @@ public final class KriptonLibrary {
 	 */
 	public static Context getContext() {
 		return context;
-	};
+	}
 
 	/**
 	 * Executor service.
@@ -52,7 +52,7 @@ public final class KriptonLibrary {
 	 */
 	public static ExecutorService getExecutorService() {
 		return executerService;
-	};
+	}
 
 	/** The context. */
 	private static Context context;
