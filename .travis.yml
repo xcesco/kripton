@@ -4,7 +4,16 @@ sudo: true
 dist: trusty
 
 script:
-  -  mvn -Dkripton.debug=false cobertura:cobertura
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - mvn -Dkripton.debug=false cobertura:cobertura
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  
+
+addons:
+  sonarcloud:
+    organization: "xcesco"
+    token:
+      secure: "c34a57e13fec91372ecd4b827e2b1bbadeda734e" # encrypted value of your token
