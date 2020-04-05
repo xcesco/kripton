@@ -31,19 +31,19 @@ import java.util.TimeZone;
 public class CalendarUtils {
 
 	/** The full. */
-	public static String FULL = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+	public final static String FULL = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
 	/** The long. */
-	public static String LONG = "yyyy-MM-dd HH:mm:ss z";
+	public final static String LONG = "yyyy-MM-dd HH:mm:ss z";
 
 	/** The normal. */
-	public static String NORMAL = "yyyy-MM-dd z";
+	public final static String NORMAL = "yyyy-MM-dd z";
 
 	/** The short. */
-	public static String SHORT = "yyyy-MM-dd";
+	public final static String SHORT = "yyyy-MM-dd";
 
 	/** The time zone. */
-	public static String TIME_ZONE = "GMT";
+	public final static String TIME_ZONE = "GMT";
 	
 	/**
 	 * Read.

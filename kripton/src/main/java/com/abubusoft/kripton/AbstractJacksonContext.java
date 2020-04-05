@@ -30,7 +30,6 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 
-// TODO: Auto-generated Javadoc
 /**
  * Context implementation for Jackson derived mapping context.
  *
@@ -55,7 +54,9 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 	 */
 	protected abstract JsonFactory createInnerFactory();
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.AbstractContext#createParser(byte[])
 	 */
 	@Override
@@ -63,7 +64,9 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 		return createParser(new ByteArrayInputStream(data));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.AbstractContext#createParser(java.io.File)
 	 */
 	@Override
@@ -76,7 +79,9 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.AbstractContext#createParser(java.io.InputStream)
 	 */
 	@Override
@@ -89,7 +94,9 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.AbstractContext#createParser(java.io.Reader)
 	 */
 	@Override
@@ -102,7 +109,9 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.AbstractContext#createParser(java.lang.String)
 	 */
 	@Override
@@ -115,7 +124,9 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.AbstractContext#createSerializer(java.io.File)
 	 */
 	@Override
@@ -123,52 +134,59 @@ public abstract class AbstractJacksonContext extends AbstractContext {
 		return createSerializer(file, JsonEncoding.UTF8);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.AbstractContext#createSerializer(java.io.File, com.fasterxml.jackson.core.JsonEncoding)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.AbstractContext#createSerializer(java.io.File,
+	 * com.fasterxml.jackson.core.JsonEncoding)
 	 */
 	@Override
 	public JacksonWrapperSerializer createSerializer(File file, JsonEncoding encoding) {
 		try {
-			JsonGenerator generator = innerFactory.createGenerator(file, encoding);
-			return new JacksonWrapperSerializer(generator, getSupportedFormat());
+			return new JacksonWrapperSerializer(innerFactory.createGenerator(file, encoding), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.AbstractContext#createSerializer(java.io.OutputStream)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.AbstractContext#createSerializer(java.io.OutputStream)
 	 */
 	@Override
 	public JacksonWrapperSerializer createSerializer(OutputStream out) {
 		return createSerializer(out, JsonEncoding.UTF8);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.AbstractContext#createSerializer(java.io.OutputStream, com.fasterxml.jackson.core.JsonEncoding)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.AbstractContext#createSerializer(java.io.OutputStream,
+	 * com.fasterxml.jackson.core.JsonEncoding)
 	 */
 	@Override
 	public JacksonWrapperSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
 		try {
-			JsonGenerator generator = innerFactory.createGenerator(out, encoding);
-			// generator.setPrettyPrinter(new MinimalPrettyPrinter());
-			return new JacksonWrapperSerializer(generator, getSupportedFormat());
+			return new JacksonWrapperSerializer(innerFactory.createGenerator(out, encoding), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.AbstractContext#createSerializer(java.io.Writer)
 	 */
 	@Override
 	public JacksonWrapperSerializer createSerializer(Writer writer) {
 		try {
-			JsonGenerator generator = innerFactory.createGenerator(writer);
-			// generator.setPrettyPrinter(new MinimalPrettyPrinter());
-			return new JacksonWrapperSerializer(generator, getSupportedFormat());
+			return new JacksonWrapperSerializer(innerFactory.createGenerator(writer), getSupportedFormat());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

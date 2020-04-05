@@ -31,7 +31,7 @@ import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.fasterxml.jackson.core.JsonEncoding;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class KriptonXmlContext.
  *
@@ -44,8 +44,7 @@ public class KriptonXmlContext extends AbstractContext {
 	 */
 	public XmlWrapperParser createParser(byte[] data) {		
         try {
-        	ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
-			return new XmlWrapperParser(this,inputStream, getSupportedFormat());
+			return new XmlWrapperParser(this,new ByteArrayInputStream(data), getSupportedFormat());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -57,8 +56,7 @@ public class KriptonXmlContext extends AbstractContext {
 	 */
 	public XmlWrapperParser createParser(File file) {
         try {
-        	FileInputStream inputStream = new FileInputStream(file);
-			return new XmlWrapperParser(this,inputStream, getSupportedFormat());
+			return new XmlWrapperParser(this,new FileInputStream(file), getSupportedFormat());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -94,8 +92,7 @@ public class KriptonXmlContext extends AbstractContext {
 	 */
 	public XmlWrapperParser createParser(String content) {		
         try {
-        	ByteArrayInputStream inputStream = new ByteArrayInputStream(content.getBytes(JsonEncoding.UTF8.toString()));
-			return new XmlWrapperParser(this, inputStream, getSupportedFormat());
+			return new XmlWrapperParser(this, new ByteArrayInputStream(content.getBytes(JsonEncoding.UTF8.toString())), getSupportedFormat());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -114,9 +111,7 @@ public class KriptonXmlContext extends AbstractContext {
 	 */
 	public XmlWrapperSerializer createSerializer(File file, JsonEncoding encoding) {
         try {
-        	
-        	XMLSerializer xmlStreamWriter=new XMLSerializer(new FileWriter(file));
-			return new XmlWrapperSerializer(xmlStreamWriter);
+			return new XmlWrapperSerializer(new XMLSerializer(new FileWriter(file)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -135,8 +130,7 @@ public class KriptonXmlContext extends AbstractContext {
 	 */
 	public XmlWrapperSerializer createSerializer(OutputStream out, JsonEncoding encoding) {
         try {
-        	XMLSerializer xmlStreamWriter=new XMLSerializer(new OutputStreamWriter(out, encoding.getJavaName()));
-			return new XmlWrapperSerializer(xmlStreamWriter);
+			return new XmlWrapperSerializer(new XMLSerializer(new OutputStreamWriter(out, encoding.getJavaName())));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);
@@ -148,8 +142,7 @@ public class KriptonXmlContext extends AbstractContext {
 	 */
 	public XmlWrapperSerializer createSerializer(Writer output) {
         try {
-        	XMLSerializer xmlStreamWriter=new XMLSerializer(output);
-			return new XmlWrapperSerializer(xmlStreamWriter);
+			return new XmlWrapperSerializer(new XMLSerializer(output));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new KriptonRuntimeException(e);

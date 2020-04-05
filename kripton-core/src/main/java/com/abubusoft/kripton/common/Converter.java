@@ -20,7 +20,6 @@ import static com.abubusoft.kripton.common.Preconditions.checkNotNull;
 import java.io.Serializable;
 import java.util.Iterator;
 
-// TODO: Auto-generated Javadoc
 /**
  * A function from {@code A} to {@code B} with an associated <i>reverse</i>
  * function from {@code B} to {@code A}; used for converting back and forth
@@ -560,30 +559,22 @@ public abstract class Converter<A, B> implements Function<A, B> {
 		return convert(a);
 	}
 
-	/**
-	 * Indicates whether another object is equal to this converter.
-	 * 
-	 * <p>
-	 * Most implementations will have no reason to override the behavior of
-	 * {@link Object#equals}. However, an implementation may also choose to
-	 * return {@code true} whenever {@code object} is a {@link Converter} that
-	 * it considers <i>interchangeable</i> with this one. "Interchangeable"
-	 * <i>typically</i> means that
-	 * {@code Objects.equal(this.convert(a), that.convert(a))} is true for all
-	 * {@code a} of type {@code A} (and similarly for {@code reverse}). Note
-	 * that a {@code false} result from this method does not imply that the
-	 * converters are known <i>not</i> to be interchangeable.
-	 *
-	 * @param object
-	 *            the object
-	 * @return true, if successful
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object object) {
 		return super.equals(object);
 	}
 
-	// Static converters
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 
 	/**
 	 * Returns a converter based on <i>existing</i> forward and backward
