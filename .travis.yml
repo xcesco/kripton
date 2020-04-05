@@ -9,8 +9,7 @@ after_success:
 addons:
   sonarcloud:
     organization: "xcesco"
-    token:
-      secure: "c34a57e13fec91372ecd4b827e2b1bbadeda734e" # encrypted value of your token
+    token: "c34a57e13fec91372ecd4b827e2b1bbadeda734e" # encrypted value of your token
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
