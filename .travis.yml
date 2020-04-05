@@ -1,6 +1,6 @@
 language: java
 jdk: oraclejdk8
-sudo: true 
+sudo: true
 dist: trusty
 after_success:
   - bash <(curl -s https://codecov.io/bash)
@@ -8,8 +8,9 @@ after_success:
 addons:
   sonarcloud:
     organization: "xcesco"
-    token:
-      secure: "63066afe8a701735f80fe06539464dc0c9df2fd1" # encrypted value of your token
+    token: "c34a57e13fec91372ecd4b827e2b1bbadeda734e" # encrypted value of your token
+
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - mvn -Dkripton.debug=false clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  
