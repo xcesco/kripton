@@ -95,7 +95,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	/**
 	 * The Enum TypeStatus.
 	 */
-	public static enum TypeStatus {
+	public enum TypeStatus {
 
 		/** The closed. */
 		CLOSED,
@@ -143,12 +143,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	protected final String name;
 
 	/** The on error listener. */
-	protected OnErrorListener onErrorListener = new OnErrorListener() {
-		@Override
-		public void onError(Throwable e) {
-			throw (new KriptonRuntimeException(e));
-		}
-	};
+	protected OnErrorListener onErrorListener = (Throwable e) -> { throw (new KriptonRuntimeException(e));};
+
 
 	/** The open counter. */
 	private AtomicInteger openCounter = new AtomicInteger();
@@ -193,7 +189,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
 		DataSourceOptions optionsValue = (options == null) ? DataSourceOptions.builder().build() : options;
 
-		this.name = options.inMemory ? null : name;
+		this.name = optionsValue.inMemory ? null : name;
 		this.version = version;
 
 		// create new SQLContext
@@ -272,7 +268,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					if (database != null) {
 						clearCompiledStatements();
 						sqliteHelper.close();
-						// database.close();
 					}
 					database = null;
 				}
@@ -282,7 +277,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 				if (logEnabled)
 					Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			}
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw (e);
 		} finally {
@@ -293,7 +288,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	}
 
 	protected void closeThreadSafeMode(Pair<Boolean, SupportSQLiteDatabase> status) {
-		if (status.value0) {
+		if (status.value0==true) {
 			close();
 		} else {
 			beginLock();
