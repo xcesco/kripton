@@ -44,6 +44,7 @@ public @interface BindXmlNamespace {
 	/**
 	 * Associated uri
 	 * @return
+	 * 		uri
 	 */
 	String uri();
 

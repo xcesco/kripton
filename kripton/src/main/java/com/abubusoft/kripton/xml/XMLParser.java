@@ -2699,6 +2699,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 *  
 	 * @throws KriptonRuntimeException
 	 * @throws IOException
+	 * @throws KriptonRuntimeException
 	 */
 	public void skipChildren() throws KriptonRuntimeException, IOException {
 		int startDepth=getDepth();

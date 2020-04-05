@@ -58,7 +58,7 @@
 		<antlr.version>4.7.1</antlr.version>
 		
 		<!-- sonar -->
-		 <aggregate.report.dir>tests/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+		 <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
 	</properties>
 
 	<licenses>
