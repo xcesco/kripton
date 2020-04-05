@@ -1,8 +1,7 @@
 language: java
 jdk: oraclejdk8
-sudo: true 
+sudo: true
 dist: trusty
-
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
@@ -13,5 +12,6 @@ addons:
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn -Dkripton.debug=false clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - mvn -Dkripton.debug=false clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectName="kripton"
+ 
   
