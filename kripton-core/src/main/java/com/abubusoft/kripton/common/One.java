@@ -48,7 +48,7 @@ public class One<V0> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		One other = (One) obj;
+		One<?> other = (One<?>) obj;
 		if (value0 == null) {
 			if (other.value0 != null)
 				return false;
@@ -56,10 +56,7 @@ public class One<V0> {
 			return false;
 		return true;
 	}
-
-	/**
-	 * Instantiates a new one.
-	 */
+	
 	public One() {
 		
 	}
