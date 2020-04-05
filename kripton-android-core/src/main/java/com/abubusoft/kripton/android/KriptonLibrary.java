@@ -28,7 +28,11 @@ import android.content.Context;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class KriptonLibrary {
+public final class KriptonLibrary {
+	
+	private KriptonLibrary() {
+		
+	}
 
 	public static final String VERSION = KriptonVersion.VERSION;
 
