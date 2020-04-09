@@ -1,8 +1,8 @@
 package shared.feature.livedatax.case1;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import androidx.lifecycle.MutableLiveData;
+import androidx.preference.PreferenceManager;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;

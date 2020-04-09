@@ -71,7 +71,6 @@ import com.squareup.javapoet.TypeSpec.Builder;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.preference.PreferenceManager;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
@@ -214,7 +213,7 @@ public abstract class BindSharedPreferencesBuilder {
 			method.addStatement("prefs=$T.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
 		} else {
 			method.addCode("// no typeName specified, using default shared preferences\n");
-			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.getContext())", PreferenceManager.class, KriptonLibrary.class);
+			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.getContext())", KriptonDynamicClassManager.getInstance().getPreferenceManagerClazz(), KriptonLibrary.class);
 		}
 
 		if (generateRx) {
