@@ -10,7 +10,10 @@ import com.squareup.javapoet.TypeName;
 public class KriptonDynamicClassManager {
 
 	private static final String KRIPTON_X_DATABASE_CLASS_NAME = "androidx.sqlite.db.SupportSQLiteDatabase";
+
 	private static final String KRIPTON_X_STATEMENT_CLASS_NAME = "androidx.sqlite.db.SupportSQLiteStatement";
+	
+	private static final String KRIPTON_X_PREFERENCE_MANAGER_CLASS_NAME = "androidx.preference.PreferenceManager";
 	/*
 	 * private static final String
 	 * KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME =
@@ -37,6 +40,8 @@ public class KriptonDynamicClassManager {
 	}
 
 	private Set<String> liveDataClazzSet = new HashSet<>();
+
+	private ClassName preferenceManagerClazz;
 
 	public static void init(String androidxSupportValue, String androidxDbSupportValue) {
 		boolean bAndroidXSupportVale = "true".equals(androidxSupportValue) ? true : false;
@@ -66,6 +71,8 @@ public class KriptonDynamicClassManager {
 						.bestGuess(KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
 
 				instance.liveDataClazzSet.add("androidx.lifecycle.LiveData");
+				
+				instance.preferenceManagerClazz=ClassName.bestGuess(KRIPTON_X_PREFERENCE_MANAGER_CLASS_NAME);
 			} else {
 				instance.liveDataHandlerClazz = ClassName
 						.bestGuess("com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl");
@@ -78,12 +85,18 @@ public class KriptonDynamicClassManager {
 						.bestGuess("com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl");
 
 				instance.liveDataClazzSet.add("android.arch.lifecycle.LiveData");
+				
+				instance.preferenceManagerClazz=ClassName.bestGuess("android.preference.PreferenceManager");
 			}
 
 			instance.liveDataClazzSet.add(instance.liveDataClazz.toString());
 			instance.liveDataClazzSet.add(instance.mutableLiveDataClazz.toString());
 			instance.liveDataClazzSet.add(instance.pagedLiveDataClazz.toString());
 		}
+	}
+
+	public ClassName getPreferenceManagerClazz() {
+		return preferenceManagerClazz;
 	}
 
 	/**
