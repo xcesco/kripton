@@ -12,4 +12,4 @@ addons:
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn -Dkripton.debug=false clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectName="kripton"
+  - mvn -Dkripton.debug=false clean cobertura:cobertura org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectName="kripton"
