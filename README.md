@@ -133,9 +133,9 @@ When the project is compiled, Kripton annotation processor will generate for us 
 
 The need annotations to define a data source with Kripton are:
 
-* **[BindDataSource](@BindDataSource)**: defines a data-source
-* **[BindDao](@BindDao)**: define the DAO interface
-* **[BindSqlType](@BindSqlType)**: associate a class to a table
+* **[BindDataSource](https://github.com/xcesco/kripton/wiki/%40BindDataSource)**: defines a data-source
+* **[BindDao](https://github.com/xcesco/kripton/wiki/%40BindDao)**: define the DAO interface
+* **[BindSqlType](https://github.com/xcesco/kripton/wiki/%40BindSqlType)**: associate a class to a table
 * **[BindInsert](https://github.com/xcesco/kripton/wiki/SQL-Insert)|[BindUpdate](https://github.com/xcesco/kripton/wiki/SQL-Update)|[BindSelect](https://github.com/xcesco/kripton/wiki/SQL-Select)|[BindDelete](https://github.com/xcesco/kripton/wiki/SQL-Delete)**: defines SQL to manage tables
 
 In the application, to use generated an implementation of data-source you can use code like this:
