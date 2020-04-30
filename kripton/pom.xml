@@ -62,7 +62,7 @@
 				</configuration>
 			</plugin>
 			
-			<plugin>
+		<!-- 	<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<executions>
@@ -74,26 +74,8 @@
 						<phase>verify</phase>
 					</execution>
 				</executions>
-			</plugin>
-
-			<!-- <plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin> -->
+
 
 		</plugins>
 	</build>
