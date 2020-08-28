@@ -56,13 +56,11 @@
 	</properties>
 
 	<dependencies>
-
-
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-arch-integration</artifactId>
 			<version>${kripton.version}</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
