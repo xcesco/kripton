@@ -42,7 +42,7 @@ public class TestSharedLiveDataXCompile extends AbstractBindSharedPreferenceProc
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		KriptonDynamicClassManager.reset();
-		KriptonDynamicClassManager.init("true","false");
+		KriptonDynamicClassManager.init();
 		buildSharedPreferencesProcessorTest(AppPreferences.class);
 		KriptonDynamicClassManager.reset();
 	}

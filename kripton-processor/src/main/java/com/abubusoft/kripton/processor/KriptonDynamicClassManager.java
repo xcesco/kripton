@@ -12,7 +12,7 @@ public class KriptonDynamicClassManager {
 	private static final String KRIPTON_X_DATABASE_CLASS_NAME = "androidx.sqlite.db.SupportSQLiteDatabase";
 
 	private static final String KRIPTON_X_STATEMENT_CLASS_NAME = "androidx.sqlite.db.SupportSQLiteStatement";
-	
+
 	private static final String KRIPTON_X_PREFERENCE_MANAGER_CLASS_NAME = "androidx.preference.PreferenceManager";
 	/*
 	 * private static final String
@@ -43,47 +43,29 @@ public class KriptonDynamicClassManager {
 
 	private ClassName preferenceManagerClazz;
 
-	public static void init(String androidxSupportValue, String androidxDbSupportValue) {
-		boolean bAndroidXSupportVale = "true".equals(androidxSupportValue) ? true : false;
-		boolean bAndroidXDBSupportVale = "true".equals(androidxDbSupportValue) ? true : false;
+	// public static void init(String androidxSupportValue, String
+	// androidxDbSupportValue) {
+	public static void init() {
 
 		if (instance == null) {
-			instance = new KriptonDynamicClassManager(bAndroidXSupportVale, bAndroidXDBSupportVale);
+			instance = new KriptonDynamicClassManager();
 
 			instance.liveDataClazzSet.clear();
 
 			// define database support layer classes
 			instance.databaseClazz = ClassName.bestGuess(KRIPTON_X_DATABASE_CLASS_NAME);
 			instance.statementClazz = ClassName.bestGuess(KRIPTON_X_STATEMENT_CLASS_NAME);
-			
-			if (instance.androidxSupport) {
-				instance.liveDataHandlerClazz = ClassName.bestGuess(KRIPTON_X_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
-				instance.liveDataClazz = ClassName.bestGuess(KRIPTON_X_LIVE_DATA_CLASS_NAME);
-				instance.mutableLiveDataClazz = ClassName.bestGuess(KRIPTON_X_MUTABLE_LIVE_DATA_CLASS_NAME);
 
-				instance.pagedLiveDataClazz = ClassName.bestGuess(KRIPTON_X_PAGED_LIVE_DATA_CLASS_NAME);
-				instance.pagedLiveDataHandlerClazz = ClassName
-						.bestGuess(KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
+			instance.liveDataHandlerClazz = ClassName.bestGuess(KRIPTON_X_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
+			instance.liveDataClazz = ClassName.bestGuess(KRIPTON_X_LIVE_DATA_CLASS_NAME);
+			instance.mutableLiveDataClazz = ClassName.bestGuess(KRIPTON_X_MUTABLE_LIVE_DATA_CLASS_NAME);
 
-				instance.liveDataClazzSet.add("androidx.lifecycle.LiveData");
-				
-				instance.preferenceManagerClazz=ClassName.bestGuess(KRIPTON_X_PREFERENCE_MANAGER_CLASS_NAME);
-			} else {
-				// SUPPORT REMOVED
-//				instance.liveDataHandlerClazz = ClassName
-//						.bestGuess("com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl");
-//				instance.liveDataClazz = ClassName.bestGuess("com.abubusoft.kripton.android.livedata.KriptonLiveData");
-//				instance.mutableLiveDataClazz = ClassName.bestGuess("android.arch.lifecycle.MutableLiveData");
-//
-//				instance.pagedLiveDataClazz = ClassName
-//						.bestGuess("com.abubusoft.kripton.android.livedata.PagedLiveData");
-//				instance.pagedLiveDataHandlerClazz = ClassName
-//						.bestGuess("com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl");
-//
-//				instance.liveDataClazzSet.add("android.arch.lifecycle.LiveData");
-//				
-//				instance.preferenceManagerClazz=ClassName.bestGuess("android.preference.PreferenceManager");
-			}
+			instance.pagedLiveDataClazz = ClassName.bestGuess(KRIPTON_X_PAGED_LIVE_DATA_CLASS_NAME);
+			instance.pagedLiveDataHandlerClazz = ClassName.bestGuess(KRIPTON_X_PAGED_LIVE_DATA_HANDLER_IMPL_CLASS_NAME);
+
+			instance.liveDataClazzSet.add("androidx.lifecycle.LiveData");
+
+			instance.preferenceManagerClazz = ClassName.bestGuess(KRIPTON_X_PREFERENCE_MANAGER_CLASS_NAME);
 
 			instance.liveDataClazzSet.add(instance.liveDataClazz.toString());
 			instance.liveDataClazzSet.add(instance.mutableLiveDataClazz.toString());
@@ -100,18 +82,6 @@ public class KriptonDynamicClassManager {
 	 */
 	public static void reset() {
 		instance = null;
-	}
-
-	private boolean androidxSupport;
-
-	public boolean isAndroidxSupport() {
-		return androidxSupport;
-	}
-
-	private boolean androidXDB;
-
-	public boolean isAndroidXDB() {
-		return androidXDB;
 	}
 
 	private ClassName liveDataClazz;
@@ -131,11 +101,8 @@ public class KriptonDynamicClassManager {
 		return databaseClazz;
 	}
 
-	private KriptonDynamicClassManager(boolean value, boolean bAndroidXDBSupportVale) {
-		// SUPPORT REMOVED
-//		androidxSupport = value;
-		androidxSupport = true;
-		androidXDB = bAndroidXDBSupportVale;
+	private KriptonDynamicClassManager() {
+
 	}
 
 	public ClassName getLiveDataClazz() {
