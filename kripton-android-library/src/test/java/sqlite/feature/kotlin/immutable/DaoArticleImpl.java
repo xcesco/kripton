@@ -1,14 +1,14 @@
 package sqlite.feature.kotlin.immutable;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.database.Cursor;
+import androidx.lifecycle.MutableLiveData;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.common.UrlUtils;
@@ -383,7 +383,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   public MutableLiveData<List<Article>> selectByChannel(final String where) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<Article>> builder=new KriptonLiveDataHandlerImpl<List<Article>>() {
+    final KriptonXLiveDataHandlerImpl<List<Article>> builder=new KriptonXLiveDataHandlerImpl<List<Article>>() {
       @Override
       protected List<Article> compute() {
         return BindRssDataSource.getInstance().executeBatch(new BindRssDataSource.Batch<List<Article>>() {

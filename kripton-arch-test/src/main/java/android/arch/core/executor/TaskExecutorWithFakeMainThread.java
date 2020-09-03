@@ -25,6 +25,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
+import androidx.arch.core.executor.TaskExecutor;
+
 /**
  * A TaskExecutor that has a real thread for main thread operations and can wait for execution etc.
  *

@@ -16,9 +16,6 @@
 
 package com.abubusoft.kripton.android.executor;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,12 +25,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
+
 /**
  * A TaskExecutor that has a real thread for main thread operations and can wait for execution etc.
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class KriptonTaskExecutorWithFakeMainThread extends TaskExecutor {
     private List<Throwable> mCaughtExceptions = Collections.synchronizedList(new ArrayList
             <Throwable>());

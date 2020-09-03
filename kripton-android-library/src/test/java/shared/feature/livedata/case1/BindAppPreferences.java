@@ -1,14 +1,14 @@
 package shared.feature.livedata.case1;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.lifecycle.MutableLiveData;
+import androidx.preference.PreferenceManager;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.LiveDataHandler;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.Pair;
@@ -166,7 +166,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>valueBoolean</code> property
    */
   public MutableLiveData<Boolean> getValueBooleanAsLiveData() {
-    KriptonLiveDataHandlerImpl<Boolean> liveData=new KriptonLiveDataHandlerImpl<Boolean>() {
+    KriptonXLiveDataHandlerImpl<Boolean> liveData=new KriptonXLiveDataHandlerImpl<Boolean>() {
       @Override
       protected Boolean compute() {
         BindAppPreferences.this.refresh();
@@ -184,7 +184,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>valueLong</code> property
    */
   public MutableLiveData<Long> getValueLongAsLiveData() {
-    KriptonLiveDataHandlerImpl<Long> liveData=new KriptonLiveDataHandlerImpl<Long>() {
+    KriptonXLiveDataHandlerImpl<Long> liveData=new KriptonXLiveDataHandlerImpl<Long>() {
       @Override
       protected Long compute() {
         BindAppPreferences.this.refresh();
@@ -202,7 +202,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>stringList</code> property
    */
   public MutableLiveData<List<String>> getStringListAsLiveData() {
-    KriptonLiveDataHandlerImpl<List<String>> liveData=new KriptonLiveDataHandlerImpl<List<String>>() {
+    KriptonXLiveDataHandlerImpl<List<String>> liveData=new KriptonXLiveDataHandlerImpl<List<String>>() {
       @Override
       protected List<String> compute() {
         BindAppPreferences.this.refresh();
@@ -220,7 +220,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>name</code> property
    */
   public MutableLiveData<String> getNameAsLiveData() {
-    KriptonLiveDataHandlerImpl<String> liveData=new KriptonLiveDataHandlerImpl<String>() {
+    KriptonXLiveDataHandlerImpl<String> liveData=new KriptonXLiveDataHandlerImpl<String>() {
       @Override
       protected String compute() {
         BindAppPreferences.this.refresh();
@@ -238,7 +238,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>description</code> property
    */
   public MutableLiveData<String> getDescriptionAsLiveData() {
-    KriptonLiveDataHandlerImpl<String> liveData=new KriptonLiveDataHandlerImpl<String>() {
+    KriptonXLiveDataHandlerImpl<String> liveData=new KriptonXLiveDataHandlerImpl<String>() {
       @Override
       protected String compute() {
         BindAppPreferences.this.refresh();
@@ -256,7 +256,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>stringArray</code> property
    */
   public MutableLiveData<String[]> getStringArrayAsLiveData() {
-    KriptonLiveDataHandlerImpl<String[]> liveData=new KriptonLiveDataHandlerImpl<String[]>() {
+    KriptonXLiveDataHandlerImpl<String[]> liveData=new KriptonXLiveDataHandlerImpl<String[]>() {
       @Override
       protected String[] compute() {
         BindAppPreferences.this.refresh();
@@ -274,7 +274,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>valueInt</code> property
    */
   public MutableLiveData<Integer> getValueIntAsLiveData() {
-    KriptonLiveDataHandlerImpl<Integer> liveData=new KriptonLiveDataHandlerImpl<Integer>() {
+    KriptonXLiveDataHandlerImpl<Integer> liveData=new KriptonXLiveDataHandlerImpl<Integer>() {
       @Override
       protected Integer compute() {
         BindAppPreferences.this.refresh();
@@ -292,7 +292,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>valueFloat</code> property
    */
   public MutableLiveData<Float> getValueFloatAsLiveData() {
-    KriptonLiveDataHandlerImpl<Float> liveData=new KriptonLiveDataHandlerImpl<Float>() {
+    KriptonXLiveDataHandlerImpl<Float> liveData=new KriptonXLiveDataHandlerImpl<Float>() {
       @Override
       protected Float compute() {
         BindAppPreferences.this.refresh();

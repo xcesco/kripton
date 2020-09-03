@@ -3,10 +3,10 @@ package com.abubusoft.kripton.androidx.livedata;
 import java.util.Collections;
 import java.util.List;
 
-import android.arch.paging.DataSource;
-import android.arch.paging.PositionalDataSource;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
+import androidx.paging.DataSource;
+import androidx.paging.PositionalDataSource;
 
 /**
  * A {@link PositionalDataSource} that loads entities based on an ObjectBox

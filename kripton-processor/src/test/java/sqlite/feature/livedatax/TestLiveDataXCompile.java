@@ -42,7 +42,7 @@ public class TestLiveDataXCompile extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testOK() throws Throwable {
 		KriptonDynamicClassManager.reset();
-		KriptonDynamicClassManager.init("true", "false");
+		KriptonDynamicClassManager.init();
 		//formatter:off
 		buildDataSourceProcessorTest(Person.class, DaoPerson0.class, App0DataSource.class);
 		//formatter:on
@@ -58,7 +58,7 @@ public class TestLiveDataXCompile extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testCompile1() throws Throwable {
 		KriptonDynamicClassManager.reset();
-		KriptonDynamicClassManager.init("true", "false");
+		KriptonDynamicClassManager.init();
 		//formatter:off
 		buildDataSourceProcessorTest(Person.class, DaoPerson1.class, App1DataSource.class);
 		//formatter:on

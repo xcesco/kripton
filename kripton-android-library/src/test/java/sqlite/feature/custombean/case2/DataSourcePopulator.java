@@ -6,8 +6,8 @@ import java.util.Date;
 import com.abubusoft.kripton.android.sqlite.SQLitePopulator;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import sqlite.feature.custombean.case2.BindAppDataSource.Transaction;
 
 public class DataSourcePopulator implements SQLitePopulator {

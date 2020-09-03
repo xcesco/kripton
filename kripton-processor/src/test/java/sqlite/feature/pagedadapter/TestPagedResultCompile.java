@@ -32,7 +32,7 @@ public class TestPagedResultCompile extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testOK() throws Throwable {
 		KriptonDynamicClassManager.reset();
-		KriptonDynamicClassManager.init("true", "false");
+		KriptonDynamicClassManager.init();
 		
 		
 		buildDataSourceProcessorTest(Person.class, DaoPerson.class, AppDataSource.class);

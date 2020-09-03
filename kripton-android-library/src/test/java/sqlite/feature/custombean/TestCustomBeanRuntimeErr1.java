@@ -35,7 +35,7 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import base.BaseAndroidTest;
 import sqlite.feature.custombean.case1.BindAppDaoFactory;
 import sqlite.feature.custombean.case1.BindAppDataSource;

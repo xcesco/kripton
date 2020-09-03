@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 import sqlite.feature.livedata.data.Person;
 
 /**

@@ -23,8 +23,8 @@ import org.junit.rules.TestRule;
 
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
-import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 import com.abubusoft.kripton.common.One;
 
 import base.BaseAndroidTest;

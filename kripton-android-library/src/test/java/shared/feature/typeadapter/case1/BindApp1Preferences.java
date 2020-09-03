@@ -1,12 +1,12 @@
 package shared.feature.typeadapter.case1;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.lifecycle.MutableLiveData;
+import androidx.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.LiveDataHandler;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.PrefsTypeAdapterUtils;
 import java.lang.ref.WeakReference;
@@ -120,7 +120,7 @@ public class BindApp1Preferences extends AbstractSharedPreference {
    * an LiveData to <code>valueSet</code> property
    */
   public MutableLiveData<HashSet<String>> getValueSetAsLiveData() {
-    KriptonLiveDataHandlerImpl<HashSet<String>> liveData=new KriptonLiveDataHandlerImpl<HashSet<String>>() {
+    KriptonXLiveDataHandlerImpl<HashSet<String>> liveData=new KriptonXLiveDataHandlerImpl<HashSet<String>>() {
       @Override
       protected HashSet<String> compute() {
         BindApp1Preferences.this.refresh();
@@ -138,7 +138,7 @@ public class BindApp1Preferences extends AbstractSharedPreference {
    * an LiveData to <code>right</code> property
    */
   public MutableLiveData<Integer> getRightAsLiveData() {
-    KriptonLiveDataHandlerImpl<Integer> liveData=new KriptonLiveDataHandlerImpl<Integer>() {
+    KriptonXLiveDataHandlerImpl<Integer> liveData=new KriptonXLiveDataHandlerImpl<Integer>() {
       @Override
       protected Integer compute() {
         BindApp1Preferences.this.refresh();

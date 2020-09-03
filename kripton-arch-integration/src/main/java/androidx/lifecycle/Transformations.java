@@ -16,10 +16,10 @@
 
 package androidx.lifecycle;
 
-import android.arch.core.util.Function;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.arch.core.util.Function;
 
 /**
  * Transformations for a {@link LiveData} class.

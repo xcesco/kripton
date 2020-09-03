@@ -22,12 +22,11 @@ import static androidx.lifecycle.Lifecycle.State.STARTED;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.arch.core.executor.internal.SafeIterableMap;
 
-import android.arch.core.executor.ArchTaskExecutor;
 import java.util.Iterator;
 import java.util.Map;
-
-import android.arch.core.internal.SafeIterableMap;
 
 /**
  * LiveData is a data holder class that can be observed within a given lifecycle.

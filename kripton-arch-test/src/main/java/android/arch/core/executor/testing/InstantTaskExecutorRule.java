@@ -16,11 +16,11 @@
 
 package android.arch.core.executor.testing;
 
-import android.arch.core.executor.ArchTaskExecutor;
-import android.arch.core.executor.TaskExecutor;
-
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.arch.core.executor.TaskExecutor;
 
 /**
  * A JUnit Test Rule that swaps the background executor used by the Architecture Components with a

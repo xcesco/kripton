@@ -1,16 +1,16 @@
 package sqlite.feature.immutable.adapter;
 
-import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
+import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -468,7 +468,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   public LiveData<List<Person>> select(final Date birthDay) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<Person>> builder=new KriptonLiveDataHandlerImpl<List<Person>>() {
+    final KriptonXLiveDataHandlerImpl<List<Person>> builder=new KriptonXLiveDataHandlerImpl<List<Person>>() {
       @Override
       protected List<Person> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Person>>() {

@@ -1,19 +1,19 @@
 package sqlite.feature.pkstring.rx;
 
-import android.arch.lifecycle.LiveData;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.PageRequest;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -449,7 +449,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   public LiveData<PagedResultImpl<User>> selectPaged() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<PagedResultImpl<User>> builder=new KriptonLiveDataHandlerImpl<PagedResultImpl<User>>() {
+    final KriptonXLiveDataHandlerImpl<PagedResultImpl<User>> builder=new KriptonXLiveDataHandlerImpl<PagedResultImpl<User>>() {
       @Override
       protected PagedResultImpl<User> compute() {
         return BindUserDataSource.getInstance().executeBatch(new BindUserDataSource.Batch<PagedResultImpl<User>>() {

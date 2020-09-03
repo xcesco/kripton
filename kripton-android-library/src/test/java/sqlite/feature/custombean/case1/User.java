@@ -20,7 +20,8 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+
 
 @BindSqlType
 public class User {

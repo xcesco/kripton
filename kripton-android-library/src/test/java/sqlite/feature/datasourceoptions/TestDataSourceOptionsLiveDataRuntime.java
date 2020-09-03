@@ -25,7 +25,7 @@ import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.feature.datasourceoptions.livedata.BindAppWithConfigDataSource;

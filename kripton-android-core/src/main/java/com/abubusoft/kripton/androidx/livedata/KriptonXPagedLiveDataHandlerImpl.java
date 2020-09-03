@@ -22,10 +22,10 @@ import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Paginator;
 import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
 
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.annotation.WorkerThread;
 
 /**
  * A PLiveData class that can be invalidated and computed on demand.

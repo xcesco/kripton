@@ -1,14 +1,14 @@
 package sqlite.feature.kotlin.immutable;
 
-import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
+import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -551,7 +551,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   public LiveData<Channel> selectOne() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<Channel> builder=new KriptonLiveDataHandlerImpl<Channel>() {
+    final KriptonXLiveDataHandlerImpl<Channel> builder=new KriptonXLiveDataHandlerImpl<Channel>() {
       @Override
       protected Channel compute() {
         return BindRssDataSource.getInstance().executeBatch(new BindRssDataSource.Batch<Channel>() {
