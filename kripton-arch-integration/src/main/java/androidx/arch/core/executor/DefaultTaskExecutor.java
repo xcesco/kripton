@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.arch.core.executor;
+package androidx.arch.core.executor;
 
 import android.os.Handler;
 import android.os.Looper;

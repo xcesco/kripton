@@ -16,9 +16,9 @@
 
 package android.arch.core.executor.testing;
 
-import android.arch.core.executor.ArchTaskExecutor;
-import android.arch.core.executor.DefaultTaskExecutor;
 import android.os.SystemClock;
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.arch.core.executor.DefaultTaskExecutor;
 
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;

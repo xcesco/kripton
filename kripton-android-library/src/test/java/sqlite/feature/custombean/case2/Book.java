@@ -18,7 +18,7 @@ package sqlite.feature.custombean.case2;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 @BindSqlType
 public class Book {

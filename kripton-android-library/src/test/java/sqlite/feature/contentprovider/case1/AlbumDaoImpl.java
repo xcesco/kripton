@@ -1,16 +1,16 @@
 package sqlite.feature.contentprovider.case1;
 
-import android.arch.lifecycle.LiveData;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -311,7 +311,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
   public LiveData<List<Album>> selectAll() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<Album>> builder=new KriptonLiveDataHandlerImpl<List<Album>>() {
+    final KriptonXLiveDataHandlerImpl<List<Album>> builder=new KriptonXLiveDataHandlerImpl<List<Album>>() {
       @Override
       protected List<Album> compute() {
         return BindArtistsDataSource.getInstance().executeBatch(new BindArtistsDataSource.Batch<List<Album>>() {

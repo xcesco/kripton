@@ -1,15 +1,15 @@
 package sqlite.feature.custombean.case2;
 
-import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
+import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.adapters.DateTime2LongTypeAdapter;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -268,7 +268,7 @@ public class BookDaoImpl extends Dao implements BookDao {
   public LiveData<List<Book>> findBooksBorrowedByName(final String userName) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<Book>> builder=new KriptonLiveDataHandlerImpl<List<Book>>() {
+    final KriptonXLiveDataHandlerImpl<List<Book>> builder=new KriptonXLiveDataHandlerImpl<List<Book>>() {
       @Override
       protected List<Book> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Book>>() {
@@ -398,7 +398,7 @@ public class BookDaoImpl extends Dao implements BookDao {
       final Date after) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<Book>> builder=new KriptonLiveDataHandlerImpl<List<Book>>() {
+    final KriptonXLiveDataHandlerImpl<List<Book>> builder=new KriptonXLiveDataHandlerImpl<List<Book>>() {
       @Override
       protected List<Book> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Book>>() {
@@ -598,7 +598,7 @@ public class BookDaoImpl extends Dao implements BookDao {
   public LiveData<List<Book>> findBooksBorrowedByUser(final String userId) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<Book>> builder=new KriptonLiveDataHandlerImpl<List<Book>>() {
+    final KriptonXLiveDataHandlerImpl<List<Book>> builder=new KriptonXLiveDataHandlerImpl<List<Book>>() {
       @Override
       protected List<Book> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Book>>() {
@@ -727,7 +727,7 @@ public class BookDaoImpl extends Dao implements BookDao {
   public LiveData<List<Book>> findBooksBorrowedByUserAfter(final String userId, final Date after) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<Book>> builder=new KriptonLiveDataHandlerImpl<List<Book>>() {
+    final KriptonXLiveDataHandlerImpl<List<Book>> builder=new KriptonXLiveDataHandlerImpl<List<Book>>() {
       @Override
       protected List<Book> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Book>>() {
@@ -912,7 +912,7 @@ public class BookDaoImpl extends Dao implements BookDao {
   public LiveData<List<Book>> findAllBooks() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<Book>> builder=new KriptonLiveDataHandlerImpl<List<Book>>() {
+    final KriptonXLiveDataHandlerImpl<List<Book>> builder=new KriptonXLiveDataHandlerImpl<List<Book>>() {
       @Override
       protected List<Book> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Book>>() {

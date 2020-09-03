@@ -5,13 +5,13 @@ import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.PageRequest;
-import com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl;
-import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
 import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
+import com.abubusoft.kripton.androidx.livedata.KriptonXPagedLiveDataHandlerImpl;
+import com.abubusoft.kripton.androidx.livedata.PagedLiveData;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
@@ -349,7 +349,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     // common part generation - END
     final PaginatedResult6 paginatedResult=new PaginatedResult6(name);
-    final KriptonPagedLiveDataHandlerImpl<List<Person>> builder=new KriptonPagedLiveDataHandlerImpl<List<Person>>(paginatedResult) {
+    final KriptonXPagedLiveDataHandlerImpl<List<Person>> builder=new KriptonXPagedLiveDataHandlerImpl<List<Person>>(paginatedResult) {
       @Override
       protected List<Person> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Person>>() {
@@ -624,7 +624,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     // common part generation - END
     final PaginatedResult7 paginatedResult=new PaginatedResult7();
-    final KriptonPagedLiveDataHandlerImpl<List<Person>> builder=new KriptonPagedLiveDataHandlerImpl<List<Person>>(paginatedResult) {
+    final KriptonXPagedLiveDataHandlerImpl<List<Person>> builder=new KriptonXPagedLiveDataHandlerImpl<List<Person>>(paginatedResult) {
       @Override
       protected List<Person> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Person>>() {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.arch.core.executor;
+package androidx.arch.core.executor;
 
 /**
  * A task executor that can divide tasks into logical groups.

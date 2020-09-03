@@ -23,7 +23,7 @@ import org.junit.rules.TestRule;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import base.BaseAndroidTest;
 
 /**

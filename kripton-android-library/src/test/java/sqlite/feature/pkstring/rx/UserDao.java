@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 @BindContentProviderPath(path="user")
 @BindDao(User.class)

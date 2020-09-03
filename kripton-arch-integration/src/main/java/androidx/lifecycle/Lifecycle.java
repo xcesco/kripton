@@ -16,8 +16,8 @@
 
 package androidx.lifecycle;
 
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 
 /**
  * Defines an object that has an Android Lifecycle. {@link android.support.v4.app.Fragment Fragment}

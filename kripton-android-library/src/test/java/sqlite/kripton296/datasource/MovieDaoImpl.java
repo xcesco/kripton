@@ -1,14 +1,14 @@
 package sqlite.kripton296.datasource;
 
-import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
+import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.io.IOException;
@@ -461,7 +461,7 @@ public class MovieDaoImpl extends Dao implements MovieDao {
   public LiveData<List<MovieWithDirector>> getAllMovies() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<MovieWithDirector>> builder=new KriptonLiveDataHandlerImpl<List<MovieWithDirector>>() {
+    final KriptonXLiveDataHandlerImpl<List<MovieWithDirector>> builder=new KriptonXLiveDataHandlerImpl<List<MovieWithDirector>>() {
       @Override
       protected List<MovieWithDirector> compute() {
         return BindMovieDataSource.getInstance().executeBatch(new BindMovieDataSource.Batch<List<MovieWithDirector>>() {

@@ -1,12 +1,12 @@
 package sqlite.feature.custombean.case3;
 
-import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
+import androidx.lifecycle.LiveData;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.StringUtils;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -142,7 +142,7 @@ public class BookDaoImpl extends Dao implements BookDao {
   public LiveData<List<BookNoIsbn>> findBooksNoIsbn(final String isbn) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<List<BookNoIsbn>> builder=new KriptonLiveDataHandlerImpl<List<BookNoIsbn>>() {
+    final KriptonXLiveDataHandlerImpl<List<BookNoIsbn>> builder=new KriptonXLiveDataHandlerImpl<List<BookNoIsbn>>() {
       @Override
       protected List<BookNoIsbn> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<BookNoIsbn>>() {

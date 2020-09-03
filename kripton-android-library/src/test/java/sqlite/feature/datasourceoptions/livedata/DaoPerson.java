@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -1,12 +1,12 @@
 package sqlite.kripton296.model;
 
-import android.support.annotation.NonNull;
-
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
+
+import androidx.annotation.NonNull;
 
 @BindSqlType(name = "movie",
         indexes = {@BindIndex("title"), @BindIndex("directorId")})

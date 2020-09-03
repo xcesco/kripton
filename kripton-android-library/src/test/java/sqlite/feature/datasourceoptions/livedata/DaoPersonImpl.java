@@ -1,14 +1,14 @@
 package sqlite.feature.datasourceoptions.livedata;
 
-import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
+import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseHelper;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.io.IOException;
@@ -125,7 +125,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   public LiveData<Person> selectAll() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonLiveDataHandlerImpl<Person> builder=new KriptonLiveDataHandlerImpl<Person>() {
+    final KriptonXLiveDataHandlerImpl<Person> builder=new KriptonXLiveDataHandlerImpl<Person>() {
       @Override
       protected Person compute() {
         return BindAppWithConfigDataSource.getInstance().executeBatch(new BindAppWithConfigDataSource.Batch<Person>() {

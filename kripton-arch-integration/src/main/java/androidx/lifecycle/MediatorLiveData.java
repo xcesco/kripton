@@ -16,11 +16,11 @@
 
 package androidx.lifecycle;
 
-import android.arch.core.internal.SafeIterableMap;
-import android.support.annotation.CallSuper;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.arch.core.executor.internal.SafeIterableMap;
 
 import java.util.Map;
 
@@ -115,7 +115,6 @@ public class MediatorLiveData<T> extends MutableLiveData<T> {
     /* (non-Javadoc)
      * @see android.arch.lifecycle.LiveData#onActive()
      */
-    @CallSuper
     @Override
     protected void onActive() {
         for (Map.Entry<LiveData<?>, Source<?>> source : mSources) {
@@ -126,7 +125,6 @@ public class MediatorLiveData<T> extends MutableLiveData<T> {
     /* (non-Javadoc)
      * @see android.arch.lifecycle.LiveData#onInactive()
      */
-    @CallSuper
     @Override
     protected void onInactive() {
         for (Map.Entry<LiveData<?>, Source<?>> source : mSources) {

@@ -16,7 +16,7 @@
 
 package com.abubusoft.kripton.android.executor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 // TODO: Auto-generated Javadoc
 /**

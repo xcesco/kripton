@@ -28,7 +28,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.adapters.DateTime2LongTypeAdapter;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 
 @BindDao(Book.class)

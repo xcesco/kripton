@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 @BindSqlType(indexes = { @BindIndex(value = { "bookId", "userId" }, unique = true) })
 public class Loan {

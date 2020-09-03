@@ -28,8 +28,8 @@ import org.robolectric.util.ContentProviderController;
 
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import android.content.ContentValues;
 import android.content.pm.ProviderInfo;
 import android.database.ContentObserver;

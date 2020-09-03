@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package android.arch.core.internal;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+package androidx.arch.core.executor.internal;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.WeakHashMap;
+
+import androidx.annotation.NonNull;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,7 +30,6 @@ import java.util.WeakHashMap;
  * @param <K> Key type
  * @param <V> Value type
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SafeIterableMap<K, V> implements Iterable<Map.Entry<K, V>> {
 
     /** The m start. */

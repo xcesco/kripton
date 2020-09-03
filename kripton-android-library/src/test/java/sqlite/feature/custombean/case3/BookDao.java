@@ -25,7 +25,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 
 @BindDao(Book.class)
