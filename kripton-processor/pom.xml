@@ -38,7 +38,7 @@
 		<reactive.version>1.0.3</reactive.version>
 
 		<!-- test version -->
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<unitils.version>3.4.2</unitils.version>
 		<jsr305.version>3.0.1</jsr305.version>
 		<guava.version>29.0-jre</guava.version>
