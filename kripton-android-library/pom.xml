@@ -33,7 +33,7 @@
 
 		<kripton.version>7.0.0-rc.7</kripton.version>
 		<robolectric.version>3.1.4</robolectric.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<unitils.version>3.4.2</unitils.version>
 	</properties>
 
