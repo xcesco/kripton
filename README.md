@@ -24,7 +24,7 @@ Kripton is a java library, for Android platform, that provides a simple and unif
 
 Does it sound interesting? I hope so! :)
 
-<img src="https://github.com/xcesco/wikis/blob/master/kripton/overview5.0.png">
+<img width="50%" alt="Screenshot 2020-11-06 at 21 56 58" src="https://user-images.githubusercontent.com/8819631/98414233-45db5380-207b-11eb-9456-69ed49263220.png">
 
 To get max performance and avoid boilerplate-code, Kripton use annotation processor. With the power of annotation processor is possible to create code to persist a java class, simply with an annotation. There are many other libraries that do this, but Kripton allows to persists java object without using reflection and with just few lines of code.
 
