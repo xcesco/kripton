@@ -22,7 +22,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 import androidx.annotation.NonNull;
 
-
 @BindSqlType
 public class User {
 	@NonNull

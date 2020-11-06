@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>7.0.0-rc.7</version>
+		<version>7.0.0-rc.8</version>
 		<relativePath>./kripton-parent/pom.xml</relativePath>
 	</parent>
 

@@ -1,5 +1,5 @@
 language: java
-jdk: oraclejdk11
+jdk: oraclejdk8
 os: linux
 dist: trusty
 after_success:
