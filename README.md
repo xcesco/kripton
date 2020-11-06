@@ -7,10 +7,11 @@
 [![Project Stats](https://www.openhub.net/p/kripton-persistence-library/widgets/project_thin_badge.gif)](https://www.openhub.net/p/kripton-persistence-library)
 [![Build Status](https://travis-ci.org/xcesco/kripton.svg?branch=master)](https://travis-ci.org/xcesco/kripton)
 
-<img width="128px" src="https://github.com/xcesco/wikis/blob/master/kripton/jetbrains-variant-3.png">
+<img width="148px" src="https://github.com/xcesco/wikis/blob/master/kripton/jetbrains-variant-3.png">
 
 <a href="https://www.jetbrains.com/?from=KritponPersistenceLibrary">Thanks to JetBrains for support Kripton Persistence Library project!</a>
 
+<img width="148px" src="https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png">
 
 
 # Kripton Persistence Library
@@ -36,15 +37,10 @@ See [benchmarks](https://github.com/xcesco/kripton/wiki/Performance) for more in
 
 If you are interested in Kripton Persistence Library, visit [abubusoft.com](http://www.abubusoft.com/wp/)
 
-Before use Kripton to persit on _SQLite_ and _Shared Preferences_, an Android app have to initialize Kripton library. To do this, just add
-the following code to `Application` class (usually on method onCreate):
-
-```java
-// set context for Kripton Library
-KriptonLibrary.init(this);
-```
-
 # Setup
+Kritpon requires at minimum Java 8 or Android 3.0.
+
+## Gradle configuration
 You can use Kritpon Annotation Processor and Kripton Persistence Library via gradle
 
 ```
@@ -55,11 +51,14 @@ annotationProcessor "com.abubusoft:kripton-processor:7.0.0-rc.8"
 implements "com.abubusoft:kripton-android-library:7.0.0-rc.8"
 ```
 
-Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
+## Code configuration
+Before use Kripton to persit on _SQLite_ and _Shared Preferences_, an Android app have to initialize Kripton library. To do this, just add
+the following code to `Application` class (usually on method onCreate):
 
-Kritpon requires at minimum Java 8 or Android 3.0.
-
-![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
+```java
+// set context for Kripton Library
+KriptonLibrary.init(this);
+```
 
 # Quickstart - Persistence on a SQLite database
 Kripton uses the DAO pattern to approach the database management. In the DAO pattern there are:
