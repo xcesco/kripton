@@ -44,6 +44,23 @@ the following code to `Application` class (usually on method onCreate):
 KriptonLibrary.init(this);
 ```
 
+# Setup
+You can use Kritpon Annotation Processor and Kripton Persistence Library via gradle
+
+```
+// annotation processor
+annotationProcessor "com.abubusoft:kripton-processor:7.0.0-rc.8"
+
+// https://mvnrepository.com/artifact/com.abubusoft/kripton
+implements "com.abubusoft:kripton-android-library:7.0.0-rc.8"
+```
+
+Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
+
+Kritpon requires at minimum Java 8 or Android 3.0.
+
+![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
+
 # Quickstart - Persistence on a SQLite database
 Kripton uses the DAO pattern to approach the database management. In the DAO pattern there are:
 
@@ -52,9 +69,17 @@ Kripton uses the DAO pattern to approach the database management. In the DAO pat
 * Data Access Object implementation that implements the DAO interfaces
 * A database that is composed of DAOs and data model.
 
-## Support for ciphered database
-In version 7 Kripton supports the [SQLCipher database](https://github.com/sqlcipher/android-database-sqlcipher). To enable this feature, just
-include in your dependencies the sqlcipher aar:
+## Choose the right database
+In version 7 Kripton you can choose to use plain SQLite databases or ciphered database through the [SQLCipher database](https://github.com/sqlcipher/android-database-sqlcipher). 
+
+### Use SQLite
+To use simple SQLite database, simply add to project's dependencies the sqlite aar
+
+```gradle
+implementation "androidx.sqlite:sqlite:2.1.0"
+```
+### Use SQLcipher
+To enable this feature, just include in your dependencies the sqlcipher aar:
 
 ```gradle
 implementation "net.zetetic:android-database-sqlcipher:4.3.0"
@@ -285,27 +310,6 @@ There some feature of generated shared preference that we want to underline:
  - `BindSecurityPreferences` is a singleton.
  - Shared Preferences can be managed with Live Data and Observable pattern (since version 4).
  - `BindSecurityPreferences` contains a [Editor](https://developer.android.com/reference/android/content/SharedPreferences.Editor.html) specialized to work with `SecurityPreferences` fields.
-
-
-# Setup
-You can use Kritpon Annotation Processor and Kripton Persistence Library via gradle
-
-```
-// annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:7.0.0"
-
-// https://mvnrepository.com/artifact/com.abubusoft/kripton
-implements "com.abubusoft:kripton-android-library:7.0.0"
-// if you want to use ciphered database, uncomment following line
-// implementation "net.zetetic:android-database-sqlcipher:4.3.0"
-```
-
-Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
-
-Kritpon requires at minimum Java 8 or Android 3.0.
-
-![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
-
 
 # Build
 To build entire library collections just download repository and launch from base directory 
