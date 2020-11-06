@@ -25,6 +25,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 import androidx.annotation.NonNull;
 
+
 @BindSqlType(indexes = { @BindIndex(value = { "bookId", "userId" }, unique = true) })
 public class Loan {
 	// Fields can be public or private with getters and setters.
