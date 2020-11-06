@@ -1,5 +1,5 @@
 language: java
-jdk: openjdk11
+jdk: oraclejdk8
 os: linux
 dist: trusty
 after_success:
@@ -8,7 +8,7 @@ after_success:
 addons:
   sonarcloud:
     organization: "xcesco"
-    token: "c34a57e13fec91372ecd4b827e2b1bbadeda734e" # encrypted value of your token
+    token: $SONAR_TOKEN # encrypted value of your token
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
