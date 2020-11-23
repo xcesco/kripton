@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -15,69 +15,53 @@
  ******************************************************************************/
 package sqlite.kripton84;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-
-import org.junit.Assert;
+import base.BaseAndroidTest;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import com.abubusoft.kripton.android.sqlite.TransactionResult;
-
-import base.BaseAndroidTest;
-import sqlite.kripton84.BindBean84BDataSource.Transaction;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class Test84RuntimeB.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
-@Config(manifest=Config.NONE)
+@Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class Test84RuntimeB extends BaseAndroidTest {
 
-	/**
-	 * Test run.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
-	@Test
-	public void testRun() throws IOException, InstantiationException, IllegalAccessException {
-		Assert.assertNotNull(Bean84BTable.class.getName() != null);
-		Assert.assertNotNull(Bean84BDaoImpl.class.getName() != null);
-		
-		BindBean84BDataSource dataSource = BindBean84BDataSource.getInstance();
+  /**
+   * Test run.
+   */
+  @Test
+  public void testRun() {
+    BindBean84BDataSource dataSource = BindBean84BDataSource.getInstance();
 
-		dataSource.execute(new Transaction() {
+    dataSource.execute(daoFactory -> {
+      Bean84BDaoImpl dao = daoFactory.getBean84BDao();
 
-			@Override
-			public TransactionResult onExecute(BindBean84BDaoFactory daoFactory) {
-				Bean84BDaoImpl dao = daoFactory.getBean84BDao();
+      Bean84B2 innerBean = new Bean84B2();
+      innerBean.columnString = "test01";
 
-				Bean84B2 innerBean = new Bean84B2();
-				innerBean.columnString = "test01";
+      Bean84B bean = new Bean84B();
+      bean.columnBean = innerBean;
+      dao.insert(bean);
 
-				Bean84B bean = new Bean84B();
-				bean.columnBean = innerBean;
-				dao.insert(bean);
+      Bean84B bean2 = dao.selectById(bean.id);
+      assertEquals(bean, bean2);
 
-				Bean84B bean2 = dao.selectById(bean.id);
-				assertTrue(bean.equals(bean2));
+      Bean84B bean3 = dao.selectByBean(innerBean);
+      assertEquals(bean, bean3);
 
-				Bean84B bean3 = dao.selectByBean(innerBean);
-				assertTrue(bean.equals(bean3));
+      return TransactionResult.COMMIT;
+    });
 
-				return TransactionResult.COMMIT;
-			}
-			
-		});
-
-	}
+  }
 
 }

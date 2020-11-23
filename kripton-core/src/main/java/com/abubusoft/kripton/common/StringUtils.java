@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
-// TODO: Auto-generated Javadoc
 /**
  * A few string utils.
  *
