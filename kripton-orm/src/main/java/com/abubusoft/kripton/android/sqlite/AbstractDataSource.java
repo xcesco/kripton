@@ -156,9 +156,15 @@ public abstract class AbstractDataSource implements AutoCloseable {
   /** The sqlite helper. */
   protected SupportSQLiteOpenHelper sqliteHelper;
 
-  /** The status. */
-  protected ThreadLocal<TypeStatus> status = ThreadLocal.withInitial(() -> TypeStatus.CLOSED);
+  /** The status. Do not replace with Initial, it does not work on Android.  */
+  protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
 
+    @Override
+    protected TypeStatus initialValue() {
+      return TypeStatus.CLOSED;
+    }
+
+  };
   /**
    * <p>
    * database version

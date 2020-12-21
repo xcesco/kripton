@@ -109,9 +109,12 @@ public class DateUtils {
 	 */
 	public static class ThreadLocalDateFormatter {
 
-		/** The Constant FORMATTERS. */
-		private static final ThreadLocal<Map<String, DateFormat>> FORMATTERS = ThreadLocal.withInitial(HashMap::new);
-
+		/** The Constant FORMATTERS. Do not replace with Initial, it does not work on Android. */
+		private static final ThreadLocal<Map<String, DateFormat>> FORMATTERS = new ThreadLocal<Map<String, DateFormat>>() {
+			protected Map<String, DateFormat> initialValue() {
+				return new HashMap<String, DateFormat>();
+			}
+		};
 		/**
 		 * Gets the formatter.
 		 *

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -17,32 +17,31 @@ package com.abubusoft.kripton.common;
 
 import java.sql.Time;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLTimeUtils.
  */
 public class SQLTimeUtils {
-	
-	/**
-	 * Write.
-	 *
-	 * @param value the value
-	 * @return the string
-	 */
-	public static String write(Time value) {
-		if (value==null) return null;
-		return value.toString();
-	}
-	
-	/**
-	 * Convert a string to relative locale.
-	 *
-	 * @param string the string
-	 * @return the time
-	 */
-	public static Time read(String value) {	
-		if (value == null)
-			return null;
-		return Time.valueOf(value);
-	}
+
+  /**
+   * Write.
+   *
+   * @param value the value
+   * @return the string
+   */
+  public static String write(Time value) {
+    if (value == null) return null;
+    return value.toString();
+  }
+
+  /**
+   * Convert a string to relative locale.
+   *
+   * @param value the string
+   * @return the time
+   */
+  public static Time read(String value) {
+    if (value == null)
+      return null;
+    return Time.valueOf(value);
+  }
 }
