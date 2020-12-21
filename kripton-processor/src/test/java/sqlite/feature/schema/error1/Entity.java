@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.schema.error1;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Entity.
  */

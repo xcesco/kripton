@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.SqlTypeAdapter;
 
 import sqlite.feature.typeadapter.kripton180.Address;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TypeAdapterAddress.
  */

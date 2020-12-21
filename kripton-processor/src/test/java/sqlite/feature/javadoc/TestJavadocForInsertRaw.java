@@ -23,7 +23,7 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.javadoc.insert.raw.InsertRawPersonDao;
 import sqlite.feature.javadoc.insert.raw.InsertRawPersonDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestJavadocForInsertRaw.
  */

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Listener to replace variable parts of a sql statement. 
  * 

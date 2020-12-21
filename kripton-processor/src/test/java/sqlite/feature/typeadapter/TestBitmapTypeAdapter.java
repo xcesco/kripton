@@ -25,7 +25,7 @@ import sqlite.feature.typeadapter.bitmap.BitmapTypeAdapter;
 import sqlite.feature.typeadapter.bitmap.DaoPerson;
 import sqlite.feature.typeadapter.bitmap.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestBitmapTypeAdapter.
  */

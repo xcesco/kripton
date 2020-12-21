@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface PersonCityOk1DaoGeneratedPart.
  */

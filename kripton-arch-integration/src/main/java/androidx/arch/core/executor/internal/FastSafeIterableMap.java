@@ -21,7 +21,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Poor's man LinkedHashMap, which supports modifications during iterations.
  * Takes more memory that SafeIterableMap

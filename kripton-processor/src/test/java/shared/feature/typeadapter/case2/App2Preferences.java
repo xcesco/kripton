@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class App2Preferences.
  */

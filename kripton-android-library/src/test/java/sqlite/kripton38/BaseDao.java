@@ -18,7 +18,7 @@ package sqlite.kripton38;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface BaseDao.
  *

@@ -28,7 +28,7 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BindTypeContext.
  */

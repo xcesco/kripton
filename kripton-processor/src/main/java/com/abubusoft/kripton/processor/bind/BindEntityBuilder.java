@@ -59,7 +59,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BindEntityBuilder.
  */

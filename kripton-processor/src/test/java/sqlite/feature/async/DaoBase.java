@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoBase.
  */

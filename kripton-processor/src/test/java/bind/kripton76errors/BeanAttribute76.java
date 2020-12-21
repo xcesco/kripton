@@ -32,7 +32,7 @@ import com.abubusoft.kripton.xml.XmlType;
 
 import bind.kripton76errors.BeanEnum;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BeanAttribute76.
  */

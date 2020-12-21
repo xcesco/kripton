@@ -18,7 +18,7 @@ package com.abubusoft.kripton;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.dataformat.smile.SmileFactory;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class KriptonSmileContext.
  *

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Rapresents a SQLite table. Every table exposes its column names
  * 

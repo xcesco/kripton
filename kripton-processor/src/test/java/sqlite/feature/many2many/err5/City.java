@@ -17,7 +17,7 @@ package sqlite.feature.many2many.err5;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class City.
  */

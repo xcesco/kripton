@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>Representation of a content provider</p>  .
  */

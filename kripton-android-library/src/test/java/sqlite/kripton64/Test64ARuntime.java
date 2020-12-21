@@ -28,7 +28,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import base.BaseAndroidTest;
 import sqlite.kripton64.BindBean64ADataSource.Transaction;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test64ARuntime.
  *

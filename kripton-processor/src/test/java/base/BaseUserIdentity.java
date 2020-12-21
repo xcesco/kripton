@@ -15,7 +15,7 @@
  *******************************************************************************/
 package base;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BaseUserIdentity.
  */

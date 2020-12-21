@@ -22,7 +22,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoChannel01.
  */

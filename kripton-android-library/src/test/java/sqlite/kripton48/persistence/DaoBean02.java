@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.kripton48.entities.Bean02;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoBean02.
  */

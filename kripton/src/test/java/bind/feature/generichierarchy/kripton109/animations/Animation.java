@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindXml;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Animation.
  *

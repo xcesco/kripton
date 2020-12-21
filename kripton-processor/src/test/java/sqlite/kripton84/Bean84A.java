@@ -21,7 +21,7 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean84A.
  */

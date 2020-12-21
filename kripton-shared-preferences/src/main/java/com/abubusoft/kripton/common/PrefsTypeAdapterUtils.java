@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceTypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PrefsTypeAdapterUtils.
  */

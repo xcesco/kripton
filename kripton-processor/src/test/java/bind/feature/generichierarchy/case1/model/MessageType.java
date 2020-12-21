@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.case1.model;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum MessageType.
  */

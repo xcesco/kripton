@@ -26,7 +26,7 @@ import com.abubusoft.kripton.processor.exceptions.NoDaoElementFound;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test38Compile.
  *

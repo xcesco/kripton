@@ -27,7 +27,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 import sqlite.kripton58.BeanInner;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface BeanDao.
  */

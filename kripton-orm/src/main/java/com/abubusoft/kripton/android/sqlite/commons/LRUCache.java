@@ -18,7 +18,7 @@ package com.abubusoft.kripton.android.sqlite.commons;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * http://badalb.blogspot.it/2016/09/implement-lru-cache-in-java.html
  *

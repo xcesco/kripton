@@ -26,7 +26,7 @@ import sqlite.kripton49.entities.Bean01Entity;
 import sqlite.kripton49.persistence.DaoBean01;
 import sqlite.kripton49.persistence.Dummy01DataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test49Compile.
  *

@@ -37,7 +37,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import bind.AbstractBaseTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestRuntime80All.
  */

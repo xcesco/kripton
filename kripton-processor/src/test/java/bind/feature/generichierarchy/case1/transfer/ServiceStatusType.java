@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.case1.transfer;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum ServiceStatusType.
  */

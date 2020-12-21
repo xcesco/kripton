@@ -33,7 +33,7 @@ import sqlite.feature.schema.version2.DaoStudentImpl;
 import sqlite.feature.schema.version2.Professor;
 import sqlite.feature.schema.version2.Student;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestSchemaRuntime.
  *

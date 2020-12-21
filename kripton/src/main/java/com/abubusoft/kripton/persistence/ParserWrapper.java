@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -17,16 +17,15 @@ package com.abubusoft.kripton.persistence;
 
 import java.io.Closeable;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface ParserWrapper.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
-public interface ParserWrapper extends Closeable{
+public interface ParserWrapper extends Closeable {
 
-	/* (non-Javadoc)
-	 * @see java.io.Closeable#close()
-	 */
-	void close();
+  /* (non-Javadoc)
+   * @see java.io.Closeable#close()
+   */
+  void close();
 }

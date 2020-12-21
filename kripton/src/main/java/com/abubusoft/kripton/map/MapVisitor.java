@@ -18,7 +18,7 @@ package com.abubusoft.kripton.map;
 import java.util.List;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface MapVisitor.
  *

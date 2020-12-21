@@ -23,7 +23,7 @@ import bind.AbstractBindTypeProcessorTest;
 import bind.kripton74map.Bean74;
 import bind.kripton74map.Enum74;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompile74.
  */

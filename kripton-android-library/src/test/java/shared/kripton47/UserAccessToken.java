@@ -19,7 +19,7 @@ import java.util.Date;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Token di accesso al sistema
  *

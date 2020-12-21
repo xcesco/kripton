@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The listener interface for receiving JQLBaseError events.
  * The class that is interested in processing a JQLBaseError

@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PersonLifecycleHandler.
  */

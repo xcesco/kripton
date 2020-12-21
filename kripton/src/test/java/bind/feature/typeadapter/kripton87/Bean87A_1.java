@@ -23,7 +23,7 @@ import com.abubusoft.kripton.annotation.BindType;
 import bind.feature.typeadapter.kripton87.DateLongTypeAdapter;
 import bind.feature.typeadapter.kripton87.StringInverterTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean87A_1.
  */

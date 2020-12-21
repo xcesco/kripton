@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface Err4PersonDAO.
  */

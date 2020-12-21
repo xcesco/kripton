@@ -30,7 +30,7 @@ import base.BaseAndroidTest;
 import sqlite.kripton93.BindBean93DataSource;
 import sqlite.kripton96.BindBean96DataSource.Batch;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test96Runtime.
  *

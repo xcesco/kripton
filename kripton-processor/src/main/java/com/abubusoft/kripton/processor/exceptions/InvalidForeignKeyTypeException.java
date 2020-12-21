@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class InvalidForeignKeyTypeException.
  */

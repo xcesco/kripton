@@ -21,7 +21,7 @@ import java.util.ServiceLoader;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class KriptonBinder.
  *

@@ -23,7 +23,7 @@ import com.abubusoft.kripton.annotation.BindType;
 import bind.feature.generichierarchy.case1.model.Message;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class MessageListResponse.
  */

@@ -20,7 +20,7 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class IncompatibleAttributesInAnnotationException.
  */

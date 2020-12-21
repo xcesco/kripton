@@ -30,7 +30,7 @@ import sqlite.feature.performance.simple.BindSimpleDataSource;
 import sqlite.feature.performance.simple.SimpleAddressDaoImpl;
 import sqlite.feature.performance.simple.SimpleAddressItem;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestPerformanceRuntime.
  *

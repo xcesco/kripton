@@ -19,7 +19,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.kripton80contextcollection.Bean80A;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean80A.
  */

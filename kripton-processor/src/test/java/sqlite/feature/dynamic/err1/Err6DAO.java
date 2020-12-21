@@ -27,7 +27,7 @@ import sqlite.feature.dynamic.Person;
 
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface Err6DAO.
  */

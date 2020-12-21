@@ -26,7 +26,7 @@ import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnota
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.foreignkeyaction.BaseDao;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestForeignKeyActionErr1Compile.
  *

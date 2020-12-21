@@ -17,7 +17,7 @@ package sqlite.feature.many2many.case5.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PrefixConfig.
  */

@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.kripton73array;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum Enum73.
  */

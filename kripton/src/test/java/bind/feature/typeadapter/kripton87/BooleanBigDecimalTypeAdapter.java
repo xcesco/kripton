@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 
 import com.abubusoft.kripton.TypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BooleanBigDecimalTypeAdapter.
  *

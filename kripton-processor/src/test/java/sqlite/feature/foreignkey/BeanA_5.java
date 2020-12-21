@@ -18,7 +18,7 @@ package sqlite.feature.foreignkey;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BeanA_5.
  */

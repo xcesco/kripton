@@ -17,7 +17,7 @@ package sqlite.feature.speed.model;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Person.
  */

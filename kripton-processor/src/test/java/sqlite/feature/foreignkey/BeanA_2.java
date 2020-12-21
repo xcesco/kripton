@@ -21,7 +21,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.feature.foreignkey.BeanA_2;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BeanA_2.
  */

@@ -35,7 +35,7 @@ import sqlite.feature.typeadapter.bitmap.BindAppDataSource;
 import sqlite.feature.typeadapter.bitmap.BindAppDataSource.Transaction;
 import sqlite.feature.typeadapter.bitmap.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestFeatureSQLTypeAdapterBitmapRuntime.
  *

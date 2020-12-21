@@ -27,7 +27,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import androidx.lifecycle.LiveData;
 import sqlite.feature.livedata.data.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoPerson1.
  */

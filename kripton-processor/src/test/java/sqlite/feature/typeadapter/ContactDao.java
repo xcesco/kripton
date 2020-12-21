@@ -26,7 +26,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface ContactDao.
  */

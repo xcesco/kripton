@@ -18,7 +18,7 @@ package com.abubusoft.kripton.persistence;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.xml.XMLSerializer;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class XmlWrapperSerializer.
  *

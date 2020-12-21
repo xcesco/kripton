@@ -17,7 +17,7 @@ package sqlite.feature.many2many.case6.model;
 
 import java.util.Date;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SMS.
  */

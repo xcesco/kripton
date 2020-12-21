@@ -41,7 +41,7 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 import sqlite.feature.typeadapter.kripton180.raw.err.EmployeeRawErrDao;
 import sqlite.feature.typeadapter.kripton180.raw.err.Kripton180RawErrDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestKripton180Raw.
  */

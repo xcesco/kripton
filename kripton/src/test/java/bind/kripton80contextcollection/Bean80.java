@@ -33,7 +33,7 @@ import com.abubusoft.kripton.xml.XmlType;
 import bind.kripton80contextcollection.Bean80;
 import bind.kripton80contextcollection.BeanEnum;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean80.
  */

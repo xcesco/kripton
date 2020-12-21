@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Transformer between a string and a Java Character object.
  *

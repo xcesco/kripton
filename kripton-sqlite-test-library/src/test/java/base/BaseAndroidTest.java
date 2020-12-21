@@ -32,7 +32,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.Context;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BaseAndroidTest.
  */

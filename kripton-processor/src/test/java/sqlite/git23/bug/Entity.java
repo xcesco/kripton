@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.git23.bug;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 02/10/2017.
  */

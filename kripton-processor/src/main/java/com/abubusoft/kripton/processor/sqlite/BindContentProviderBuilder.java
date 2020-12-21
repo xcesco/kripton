@@ -65,7 +65,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Generates content provider class.
  *

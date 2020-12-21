@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindTypeVariables;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Parallel2Animation.
  *

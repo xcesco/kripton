@@ -17,7 +17,7 @@ package sqlite.git23.bug;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Album.
  */

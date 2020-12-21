@@ -22,7 +22,7 @@ import com.abubusoft.kripton.xml.XmlType;
 
 import bind.feature.generichierarchy.kripton109.settings.logger.ElioLoggerLevelType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Configurazione di un appender di log.
  *

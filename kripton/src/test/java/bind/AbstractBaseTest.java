@@ -38,7 +38,7 @@ import com.abubusoft.kripton.KriptonSmileContext;
 import com.abubusoft.kripton.KriptonYamlContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class AbstractBaseTest.
  *

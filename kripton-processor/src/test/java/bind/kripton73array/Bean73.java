@@ -26,7 +26,7 @@ import com.abubusoft.kripton.annotation.BindXml;
 import bind.kripton73array.Bean73;
 import bind.kripton73array.Enum73;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean73.
  */

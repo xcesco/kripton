@@ -21,7 +21,7 @@ import com.abubusoft.kripton.annotation.BindType;
 import sqlite.feature.many2many.Entity;
 import sqlite.feature.many2many.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PersonCityErr2.
  */

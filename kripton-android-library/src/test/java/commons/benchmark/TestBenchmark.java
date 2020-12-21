@@ -29,7 +29,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import commons.benchmark.model.Response;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestBenchmark.
  *

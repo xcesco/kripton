@@ -30,7 +30,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import base.BaseAndroidTest;
 import sqlite.feature.pkstring.relations.*;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestFeatureSQLTypeAdapterRuntime.
  *

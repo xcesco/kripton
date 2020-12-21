@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.join.model;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 20/02/2018.
  */

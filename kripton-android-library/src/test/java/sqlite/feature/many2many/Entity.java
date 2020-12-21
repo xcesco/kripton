@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.many2many;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Entity.
  */

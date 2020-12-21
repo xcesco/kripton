@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface Bean84BDao.
  */

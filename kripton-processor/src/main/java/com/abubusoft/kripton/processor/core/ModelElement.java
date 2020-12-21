@@ -16,7 +16,7 @@
 package com.abubusoft.kripton.processor.core;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface ModelElement.
  */

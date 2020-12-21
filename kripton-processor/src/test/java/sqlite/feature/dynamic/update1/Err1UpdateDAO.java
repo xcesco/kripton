@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.feature.dynamic.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface Err1UpdateDAO.
  */

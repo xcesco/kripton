@@ -30,7 +30,7 @@ package com.abubusoft.kripton.common;
 
 import java.io.ByteArrayInputStream;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class DynamicByteBuffer.
  */

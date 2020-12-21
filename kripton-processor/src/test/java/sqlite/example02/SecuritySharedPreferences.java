@@ -17,7 +17,7 @@ package sqlite.example02;
 
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SecuritySharedPreferences.
  */

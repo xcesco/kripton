@@ -21,7 +21,7 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.EnumSet;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to 
  * the specific codepoint.

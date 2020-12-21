@@ -17,7 +17,7 @@ package sqlite.feature.async;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Entity.
  */

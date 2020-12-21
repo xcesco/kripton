@@ -24,7 +24,7 @@ import com.abubusoft.kripton.xml.XmlType;
 
 import bind.feature.generichierarchy.kripton109.settings.logger.ElioLoggerLevelType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class LoggerSettings.
  */

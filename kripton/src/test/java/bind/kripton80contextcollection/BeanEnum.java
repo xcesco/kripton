@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.kripton80contextcollection;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum BeanEnum.
  */

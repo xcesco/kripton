@@ -18,6 +18,9 @@ package com.abubusoft.kripton.retrofit2;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -30,6 +33,10 @@ public interface JsonPlaceHolderService {
 	 *
 	 * @return the all post
 	 */
-	@POST("/posts/")
+	@GET("/posts/")
 	Call<List<Post>> getAllPost();
+
+	@Headers("Content-Type: text/x-json")
+	@POST("/posts/")
+	Call<Post> insert(@Body Post post);
 }

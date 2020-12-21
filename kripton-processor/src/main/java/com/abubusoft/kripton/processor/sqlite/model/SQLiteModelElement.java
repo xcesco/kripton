@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface SQLiteModelElement.
  */

@@ -20,7 +20,7 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLong;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Employee.
  *

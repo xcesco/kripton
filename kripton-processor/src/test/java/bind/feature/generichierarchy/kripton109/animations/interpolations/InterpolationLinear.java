@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.animations.interpolations;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class InterpolationLinear.
  */

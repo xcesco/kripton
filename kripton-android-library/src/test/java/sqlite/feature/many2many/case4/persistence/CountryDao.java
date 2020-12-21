@@ -24,7 +24,7 @@ import sqlite.feature.many2many.case4.persistence.AbstractDao;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 26/02/2017.
  */

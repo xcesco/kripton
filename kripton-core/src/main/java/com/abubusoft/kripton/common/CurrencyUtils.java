@@ -17,7 +17,7 @@ package com.abubusoft.kripton.common;
 
 import java.util.Currency;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class CurrencyUtils.
  */

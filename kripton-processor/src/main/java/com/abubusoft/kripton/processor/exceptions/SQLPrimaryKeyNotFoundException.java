@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SQLPrimaryKeyNotFoundException.
  */

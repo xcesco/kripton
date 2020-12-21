@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoBean02.
  */

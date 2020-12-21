@@ -30,7 +30,7 @@ import sqlite.kripton48.persistence.DaoBean02;
 import sqlite.kripton48.persistence.Dummy01DataSource;
 import sqlite.kripton48.persistence.Dummy02DataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test48Compile.
  *

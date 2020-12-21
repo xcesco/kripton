@@ -16,7 +16,7 @@
  */
 package com.abubusoft.kripton.escape.text;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Class holding various entity data for HTML and XML - generally for use with
  * the LookupTranslator.

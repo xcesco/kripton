@@ -24,7 +24,7 @@ import com.abubusoft.kripton.xml.XmlType;
 
 import bind.feature.typeadapter.kripton87.UrlByteArrayTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean87A_2.
  */

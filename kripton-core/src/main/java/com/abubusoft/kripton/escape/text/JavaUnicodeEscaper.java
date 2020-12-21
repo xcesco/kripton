@@ -16,7 +16,7 @@
  */
 package com.abubusoft.kripton.escape.text;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Translates codepoints to their Unicode escaped value suitable for Java source.
  * 

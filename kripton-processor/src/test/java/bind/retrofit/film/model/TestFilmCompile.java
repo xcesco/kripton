@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  */
 public class TestFilmCompile extends AbstractBindTypeProcessorTest {

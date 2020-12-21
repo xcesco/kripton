@@ -17,7 +17,7 @@ package com.abubusoft.kripton.common;
 
 import java.math.BigDecimal;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BigDecimalUtils.
  */

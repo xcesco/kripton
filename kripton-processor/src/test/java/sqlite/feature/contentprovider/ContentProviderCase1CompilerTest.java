@@ -28,7 +28,7 @@ import sqlite.feature.contentprovider.case1.ArtistsDataSource;
 import sqlite.feature.contentprovider.case1.BaseDao;
 import sqlite.feature.contentprovider.case1.Entity;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ContentProviderCompilerTest.
  */

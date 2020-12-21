@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.abubusoft.kripton.common;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Determines a true or false value for a given input.
  * 

@@ -41,7 +41,7 @@ import com.squareup.javapoet.TypeName;
 
 import base.BaseProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestUriChecker.
  */

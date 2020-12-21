@@ -32,7 +32,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * This class is the shared preference binder defined for DataSharedPreferences.
  *

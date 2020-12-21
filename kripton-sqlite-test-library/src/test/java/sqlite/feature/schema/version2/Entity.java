@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.schema.version2;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Entity.
  */

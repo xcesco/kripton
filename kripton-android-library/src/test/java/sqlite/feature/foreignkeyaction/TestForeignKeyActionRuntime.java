@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import base.BaseAndroidTest;
 import sqlite.feature.foreignkeyaction.BindArtistDataSource.Transaction;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestForeignKeyActionRuntime.
  *

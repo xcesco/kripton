@@ -20,7 +20,7 @@ import org.junit.Test;
 import bind.AbstractBindTypeProcessorTest;
 import bind.kripton75bytearray.Bean75;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompile75.
  */

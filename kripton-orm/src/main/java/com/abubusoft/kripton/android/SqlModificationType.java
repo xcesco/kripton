@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum SqlModificationType.
  */

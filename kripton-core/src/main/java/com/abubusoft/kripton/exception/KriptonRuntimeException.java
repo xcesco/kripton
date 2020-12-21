@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.exception;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * This exception is a generic kripton exception. 
  * 

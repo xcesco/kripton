@@ -28,7 +28,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 
 import sqlite.feature.indexes.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface PersonDAO.
  */

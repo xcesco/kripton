@@ -21,7 +21,7 @@ import java.util.Set;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class JQL.
  */

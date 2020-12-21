@@ -22,7 +22,7 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class UnknownPropertyInJQLException.
  */

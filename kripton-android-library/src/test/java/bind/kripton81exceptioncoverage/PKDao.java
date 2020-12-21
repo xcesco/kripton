@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
 import bind.kripton81exceptioncoverage.PKBean;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface PKDao.
  */

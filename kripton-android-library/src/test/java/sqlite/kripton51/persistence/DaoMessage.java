@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.kripton51.entities.MessageEntity;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 27/09/2016.
  */

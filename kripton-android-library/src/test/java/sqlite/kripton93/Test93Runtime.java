@@ -29,7 +29,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import android.database.sqlite.SQLiteConstraintException;
 import base.BaseAndroidTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test93Runtime.
  *

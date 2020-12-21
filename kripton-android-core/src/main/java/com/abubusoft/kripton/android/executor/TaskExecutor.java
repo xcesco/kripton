@@ -18,7 +18,7 @@ package com.abubusoft.kripton.android.executor;
 
 import androidx.annotation.NonNull;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * A task executor that can divide tasks into logical groups.
  * <p>

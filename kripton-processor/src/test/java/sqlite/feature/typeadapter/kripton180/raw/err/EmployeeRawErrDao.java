@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import sqlite.feature.typeadapter.kripton180.Employee;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface EmployeeRawErrDao.
  */

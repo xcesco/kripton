@@ -33,7 +33,7 @@ import sqlite.feature.schema.version2.Seminar;
 import sqlite.feature.schema.version2.Seminar2Student;
 import sqlite.feature.schema.version2.Student;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestSchema.
  */

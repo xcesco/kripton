@@ -19,7 +19,7 @@ import java.util.Date;
 
 import com.abubusoft.kripton.TypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class DateLongTypeAdapter.
  */

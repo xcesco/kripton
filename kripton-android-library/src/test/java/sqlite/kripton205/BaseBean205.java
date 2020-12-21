@@ -17,7 +17,7 @@ package sqlite.kripton205;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BaseBean205.
  */

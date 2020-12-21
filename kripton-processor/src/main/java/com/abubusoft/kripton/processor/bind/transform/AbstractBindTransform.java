@@ -18,7 +18,7 @@
  */
 package com.abubusoft.kripton.processor.bind.transform;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class AbstractBindTransform.
  *

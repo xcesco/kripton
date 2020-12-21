@@ -17,7 +17,7 @@ package sqlite.kripton33;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Entity.
  */

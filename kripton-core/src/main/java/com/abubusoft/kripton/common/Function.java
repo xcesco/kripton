@@ -16,7 +16,7 @@
 package com.abubusoft.kripton.common;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Determines an output value based on an input value.
  * 

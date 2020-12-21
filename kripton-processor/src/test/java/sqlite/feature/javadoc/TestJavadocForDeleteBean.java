@@ -24,7 +24,7 @@ import sqlite.feature.javadoc.delete.bean.DeleteBeanPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestJavadocForDeleteBean.
  */

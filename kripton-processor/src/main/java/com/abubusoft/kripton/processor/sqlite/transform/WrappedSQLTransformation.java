@@ -10,7 +10,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class WrappedSQLTransformation.
  */

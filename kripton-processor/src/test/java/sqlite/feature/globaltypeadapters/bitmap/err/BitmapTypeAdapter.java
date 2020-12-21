@@ -23,7 +23,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BitmapTypeAdapter.
  */

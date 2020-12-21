@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.feature.typeadapter.kripton180.Employee;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface EmployeeBeanDao.
  */

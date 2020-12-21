@@ -17,7 +17,7 @@ package com.abubusoft.kripton.common;
 
 import java.sql.Time;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SQLTimeUtils.
  */
