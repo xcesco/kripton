@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>
  * Binder context is interface used to define a persistence context. Every
@@ -405,6 +405,24 @@ public interface BinderContext {
 	 *            output
 	 */
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream output);
+
+	/**
+	 * <p>
+	 * Serialize a collection on an output stream. The used data format is the
+	 * one supported by the binding context
+	 * </p>
+	 *
+	 * @param <E>
+	 *            the element type
+	 * @param list
+	 *            list to serialize
+	 * @param objectClazz
+	 *            type of object to persist
+	 * @param writer
+	 *            output writer
+	 */
+	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, Writer writer);
+
 
 	/**
 	 * <p>

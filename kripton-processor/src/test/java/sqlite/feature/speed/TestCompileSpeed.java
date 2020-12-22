@@ -24,7 +24,7 @@ import sqlite.feature.speed.model.Person;
 import sqlite.feature.speed.persistence.PersonDao;
 import sqlite.feature.speed.persistence.PersonDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileSpeed.
  */

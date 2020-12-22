@@ -26,7 +26,7 @@ import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundEx
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test33Compile.
  *

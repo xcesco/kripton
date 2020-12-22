@@ -33,7 +33,7 @@ import sqlite.feature.speed.persistence.BindPersonDataSource;
 import sqlite.feature.speed.persistence.BindPersonDataSource.Transaction;
 import sqlite.feature.speed.persistence.PersonDaoImpl;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestSpeedRuntime.
  */

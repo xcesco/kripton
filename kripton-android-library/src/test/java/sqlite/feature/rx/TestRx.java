@@ -42,7 +42,7 @@ import sqlite.feature.rx.persistence.BindXenoDaoFactory;
 import sqlite.feature.rx.persistence.BindXenoDataSource;
 import sqlite.feature.rx.persistence.CountryDaoImpl;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestRx.
  */

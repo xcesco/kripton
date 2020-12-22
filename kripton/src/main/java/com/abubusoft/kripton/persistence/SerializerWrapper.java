@@ -17,7 +17,7 @@ package com.abubusoft.kripton.persistence;
 
 import java.io.Closeable;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface SerializerWrapper.
  *

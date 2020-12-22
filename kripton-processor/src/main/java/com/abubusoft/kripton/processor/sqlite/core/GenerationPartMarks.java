@@ -3,7 +3,7 @@
  */
 package com.abubusoft.kripton.processor.sqlite.core;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>Needed to mark generation code methods.
  *

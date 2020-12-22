@@ -21,7 +21,7 @@ import java.util.Map;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ModelAnnotation.
  */

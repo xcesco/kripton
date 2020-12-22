@@ -1,0 +1,1 @@
+{"errori":{"xmlns":"http://insiel.it/siasiws/framework","descrizione":"Si è verificato un errore imprevisto. Se il problema dovesse persistere contattare i fornitori del servizio.","codice":"E000001"},"codiceRitorno":-1}

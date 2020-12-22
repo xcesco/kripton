@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 import base.BaseAndroidTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestFeatureSQLTypeAdapterRuntime.
  *

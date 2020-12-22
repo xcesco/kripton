@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestRuntime42.
  */

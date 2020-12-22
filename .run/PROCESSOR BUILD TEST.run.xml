@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PROCESSOR BUILD TEST" type="JUnit" factoryName="JUnit">
+    <module name="kripton-processor" />
+    <option name="PACKAGE_NAME" value="all" />
+    <option name="MAIN_CLASS_NAME" value="all.KriptonProcessorTestSuite" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <option name="VM_PARAMETERS" value="-ea -Dkripton.debug=true" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

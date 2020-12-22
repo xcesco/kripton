@@ -22,6 +22,15 @@ import com.abubusoft.kripton.annotation.BindType;
  */
 @BindType
 public class Post {
+
+	public static Post create(long userId, long id, String title, String body) {
+		Post result=new Post();
+		result.id=id;
+		result.title=title;
+		result.body=body;
+		result.userId=userId;
+		return result;
+	}
 	
 	/** The user id. */
 	public long userId;

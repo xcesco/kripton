@@ -18,7 +18,7 @@ package sqlite.feature.async;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoChannelMessage.
  */

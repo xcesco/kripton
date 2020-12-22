@@ -21,7 +21,7 @@ import java.util.BitSet;
 
 import com.abubusoft.kripton.common.CharMatcher.NamedFastMatcher;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * An immutable version of CharMatcher for smallish sets of characters that uses a hash table
  * with linear probing to check for matches.

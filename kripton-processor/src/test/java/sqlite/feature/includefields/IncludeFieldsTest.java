@@ -24,7 +24,7 @@ import sqlite.feature.includefields.Person;
 import sqlite.feature.includefields.PersonDAO;
 import sqlite.feature.includefields.PersonDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class IncludeFieldsTest.
  */

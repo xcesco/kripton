@@ -6,7 +6,7 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.squareup.javapoet.ClassName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ForeignKeyNotFoundException.
  *

@@ -28,7 +28,7 @@ import com.abubusoft.kripton.escape.text.StringUtils;
 import com.abubusoft.kripton.escape.text.UnicodeUnescaper;
 import com.abubusoft.kripton.escape.text.UnicodeUnpairedSurrogateRemover;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>Escapes and unescapes {@code String}s for
  * Java, Java Script, HTML and XML.</p>

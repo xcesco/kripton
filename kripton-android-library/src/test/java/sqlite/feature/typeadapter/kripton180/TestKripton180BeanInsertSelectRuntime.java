@@ -28,7 +28,7 @@ import sqlite.feature.typeadapter.kripton180.bean.insertselect.BindKripton180Bea
 import sqlite.feature.typeadapter.kripton180.bean.insertselect.BindKripton180BeanInsertSelectDataSource;
 import sqlite.feature.typeadapter.kripton180.bean.insertselect.EmployeeBeanInsertSelectDaoImpl;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestKripton180BeanInsertSelectRuntime.
  *

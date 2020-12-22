@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android.sharedprefs;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Supported preference type.
  *

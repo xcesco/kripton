@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 23/09/2017.
  */

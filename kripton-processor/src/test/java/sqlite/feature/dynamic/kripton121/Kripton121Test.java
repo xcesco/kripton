@@ -24,7 +24,7 @@ import sqlite.feature.dynamic.Person;
 import sqlite.feature.dynamic.kripton121.Person1DAO;
 import sqlite.feature.dynamic.kripton121.Person1DataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Kripton121Test.
  */

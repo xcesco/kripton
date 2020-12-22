@@ -26,7 +26,7 @@ import org.robolectric.annotation.Config;
 import base.BaseAndroidTest;
 import org.junit.Assert;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestRuntimeMany2Many.
  */

@@ -15,7 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton56.internal;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum MessageType.
  */

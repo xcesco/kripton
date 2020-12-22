@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PropertyNotFoundException.
  */

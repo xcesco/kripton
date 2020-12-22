@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.quickstart.model.Comment;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 04/01/2017.
  */

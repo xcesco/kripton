@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.rx.model;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum ActionType.
  */

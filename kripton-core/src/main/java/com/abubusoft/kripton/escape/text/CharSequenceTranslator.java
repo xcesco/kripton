@@ -23,7 +23,7 @@ import java.util.Locale;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * An API for translating text. 
  * Its core use is to escape and unescape text. Because escaping and unescaping 

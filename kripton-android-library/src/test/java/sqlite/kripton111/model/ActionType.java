@@ -15,7 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton111.model;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum ActionType.
  */

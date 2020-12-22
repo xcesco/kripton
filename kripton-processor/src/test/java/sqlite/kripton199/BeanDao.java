@@ -18,7 +18,7 @@ package sqlite.kripton199;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface BeanDao.
  */

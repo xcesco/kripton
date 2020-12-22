@@ -3,7 +3,7 @@
  */
 package com.abubusoft.kripton.processor.exceptions;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class MissedAnnotationOnClass.
  *

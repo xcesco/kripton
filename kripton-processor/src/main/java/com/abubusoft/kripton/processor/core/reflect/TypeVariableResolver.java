@@ -34,7 +34,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>Resolver for type variables used in class or interface hierarchy.</p> 
  * 

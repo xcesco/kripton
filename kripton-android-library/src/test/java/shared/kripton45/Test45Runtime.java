@@ -23,7 +23,7 @@ import org.unitils.reflectionassert.ReflectionComparatorMode;
 import base.BaseAndroidTest;
 import junit.framework.AssertionFailedError;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test45Runtime.
  */

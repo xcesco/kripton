@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompile78.
  */

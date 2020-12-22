@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.kripton186.model;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum Translation.
  *

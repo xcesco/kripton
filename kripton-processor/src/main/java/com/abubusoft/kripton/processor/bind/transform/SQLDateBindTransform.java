@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.abubusoft.kripton.common.SQLDateUtils;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Transformer between a string and a java.util.Date object
  * 

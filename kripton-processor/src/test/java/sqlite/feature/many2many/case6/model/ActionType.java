@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.many2many.case6.model;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum ActionType.
  */

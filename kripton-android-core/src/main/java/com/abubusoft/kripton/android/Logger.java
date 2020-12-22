@@ -20,7 +20,7 @@ package com.abubusoft.kripton.android;
 
 import android.util.Log;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Logger used in kripton library.
  *

@@ -24,7 +24,7 @@ import bind.feature.typeadapter.kripton87.BooleanByteArrayTypeAdapter;
 import bind.feature.typeadapter.kripton87.Enum87A;
 import bind.feature.typeadapter.kripton87.Enum87IntegerTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean87A_3.
  */

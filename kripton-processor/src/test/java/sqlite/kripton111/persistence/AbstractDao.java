@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface AbstractDao.
  *

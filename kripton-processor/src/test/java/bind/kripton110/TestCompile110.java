@@ -26,7 +26,7 @@ import bind.kripton110.model.stage1.Name;
 import bind.kripton110.model.stage1.Response;
 import bind.kripton110.model.stage1.User;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompile110.
  */

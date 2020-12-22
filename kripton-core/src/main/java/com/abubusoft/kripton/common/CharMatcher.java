@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Determines a true or false value for any Java {@code char} value, just as {@link Predicate} does
  * for any {@link Object}. Also offers basic text processing methods based on this function.

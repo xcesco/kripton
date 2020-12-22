@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.kripton70;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum BeanEnum.
  */

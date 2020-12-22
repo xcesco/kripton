@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
 import sqlite.feature.typeadapter.kripton180.Employee;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface EmployeeRawInsertSelectDao.
  */

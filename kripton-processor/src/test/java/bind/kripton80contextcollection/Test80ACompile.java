@@ -23,7 +23,7 @@ import bind.AbstractBindTypeProcessorTest;
 import bind.kripton80contextcollection.Bean80A;
 import bind.kripton80contextcollection.BeanEnum;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test80ACompile.
  */

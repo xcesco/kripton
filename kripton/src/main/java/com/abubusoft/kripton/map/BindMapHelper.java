@@ -28,7 +28,7 @@ import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Bind map helper.
  *
@@ -94,11 +94,11 @@ public abstract class BindMapHelper {
 				switch (token) {
 				case START_ARRAY:
 					// parse array
-					value = parseList(context, parser, new ArrayList<Object>(), true);
+					value = parseList(context, parser, new ArrayList<>(), true);
 					break;
 				case VALUE_EMBEDDED_OBJECT:
 					// parse submap
-					value = parseMap(context, parser, new LinkedHashMap<String, Object>(), true);
+					value = parseMap(context, parser, new LinkedHashMap<>(), true);
 					break;
 				default:
 					// parser.nextValue();

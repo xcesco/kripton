@@ -23,7 +23,7 @@ import sqlite.feature.foreignkey.BeanA_3;
 import sqlite.feature.foreignkey.BeanA_4;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BeanA_4.
  */

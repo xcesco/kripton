@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.kripton76errors;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum BeanEnum.
  */

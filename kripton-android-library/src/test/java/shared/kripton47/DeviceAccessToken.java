@@ -24,7 +24,7 @@ import java.util.Date;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class DeviceAccessToken.
  */

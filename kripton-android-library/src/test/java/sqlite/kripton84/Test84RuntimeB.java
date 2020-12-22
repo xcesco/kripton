@@ -25,7 +25,7 @@ import org.robolectric.annotation.Config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-// TODO: Auto-generated Javadoc
+
 
 /**
  * The Class Test84RuntimeB.

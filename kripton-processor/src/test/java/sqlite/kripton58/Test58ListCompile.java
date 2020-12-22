@@ -50,7 +50,7 @@ import sqlite.kripton58.list.StringBean;
 import sqlite.kripton58.list.StringDao;
 import sqlite.kripton58.list.StringDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test58ListCompile.
  *

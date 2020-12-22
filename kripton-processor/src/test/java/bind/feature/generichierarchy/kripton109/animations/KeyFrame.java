@@ -24,7 +24,7 @@ import com.abubusoft.kripton.xml.XmlType;
 import bind.feature.generichierarchy.kripton109.animations.interpolations.Interpolation;
 import bind.feature.generichierarchy.kripton109.animations.interpolations.InterpolationLinear;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class KeyFrame.
  */

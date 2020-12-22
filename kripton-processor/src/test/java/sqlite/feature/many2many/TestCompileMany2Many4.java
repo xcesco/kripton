@@ -35,7 +35,7 @@ import sqlite.feature.many2many.case4.persistence.PhoneDao;
 import sqlite.feature.many2many.case4.persistence.PrefixConfigDao;
 import sqlite.feature.many2many.case4.persistence.XenoDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileMany2Many4.
  */

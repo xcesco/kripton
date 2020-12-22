@@ -21,7 +21,7 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Translates a value using a lookup table.
  *

@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DeviceDao.
  */

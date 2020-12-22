@@ -17,7 +17,7 @@ package sqlite.feature.async;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Channel.
  */

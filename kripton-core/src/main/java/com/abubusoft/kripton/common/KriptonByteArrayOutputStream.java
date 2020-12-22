@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Acts as a ByteArrayOutputStream, but allow direct access to array of byte
  * inside, without copy it.

@@ -33,7 +33,7 @@ import bind.feature.typeadapter.kripton87.Bean87A_6;
 import bind.feature.typeadapter.kripton87.Bean87A_7;
 import bind.feature.typeadapter.kripton87.Enum87A;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestRuntime87A.
  */

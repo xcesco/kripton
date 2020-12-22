@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.feature.javadoc.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface UpdateBeanPersonDao.
  */

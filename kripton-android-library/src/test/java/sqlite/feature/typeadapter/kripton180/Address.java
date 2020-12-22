@@ -17,7 +17,7 @@ package sqlite.feature.typeadapter.kripton180;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Address.
  */

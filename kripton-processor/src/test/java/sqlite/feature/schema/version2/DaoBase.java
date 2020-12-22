@@ -17,7 +17,7 @@ package sqlite.feature.schema.version2;
 
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoBase.
  *

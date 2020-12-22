@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import bind.kripton81exceptioncoverage.Bean8;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Error8Dao.
  */

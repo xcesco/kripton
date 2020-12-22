@@ -19,7 +19,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feature.generichierarchy.UIDObject;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ChannelUser.
  */

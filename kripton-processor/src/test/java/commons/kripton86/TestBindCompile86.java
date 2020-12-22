@@ -30,7 +30,7 @@ import commons.kripton86.test3.Bean3_4;
 import commons.kripton86.test6.Bean6_1;
 import commons.kripton86.test6.Bean6_2;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestBindCompile86.
  */

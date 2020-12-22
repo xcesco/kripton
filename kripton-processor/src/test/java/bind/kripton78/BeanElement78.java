@@ -27,7 +27,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BeanElement78.
  *

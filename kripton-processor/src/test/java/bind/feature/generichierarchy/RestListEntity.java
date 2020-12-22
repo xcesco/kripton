@@ -21,7 +21,7 @@ import java.util.Map;
 import com.abubusoft.kripton.annotation.BindXml;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class RestListEntity.
  *

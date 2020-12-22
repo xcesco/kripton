@@ -18,7 +18,7 @@ package sqlite.feature.rx.model;
 import android.database.Cursor;
 import java.util.LinkedList;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>
  * Cursor implementation for entity <code>PrefixConfig</code>

@@ -25,7 +25,7 @@ import sqlite.feature.generichierarchy.Person;
 import sqlite.feature.generichierarchy.PersonDAO;
 import sqlite.feature.generichierarchy.PersonDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileGenericHierarchy.
  */

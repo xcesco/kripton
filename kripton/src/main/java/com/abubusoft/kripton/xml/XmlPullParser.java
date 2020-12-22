@@ -24,7 +24,7 @@ import java.io.Reader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * XML Pull Parser is an interface that defines parsing functionality provided
  * in <a href="http://www.xmlpull.org/">XMLPULL V1 API</a> (visit this website

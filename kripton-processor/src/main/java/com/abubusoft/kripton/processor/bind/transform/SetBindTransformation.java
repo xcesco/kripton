@@ -20,7 +20,7 @@ import java.util.Set;
 
 import com.squareup.javapoet.ParameterizedTypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SetBindTransformation.
  */

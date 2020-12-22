@@ -34,7 +34,7 @@ import com.abubusoft.kripton.BinderType;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class AbstractBaseTest.
  */

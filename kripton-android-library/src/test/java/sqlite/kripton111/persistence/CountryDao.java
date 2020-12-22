@@ -22,7 +22,7 @@ import sqlite.kripton111.model.Country;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 26/02/2017.
  */

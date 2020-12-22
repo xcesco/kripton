@@ -39,7 +39,7 @@ import bind.kripton81exceptioncoverage.PKDao;
 import bind.kripton81exceptioncoverage.PKDataSource;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test81ExceptionCompile.
  */

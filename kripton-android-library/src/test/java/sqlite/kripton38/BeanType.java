@@ -15,7 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton38;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum BeanType.
  */

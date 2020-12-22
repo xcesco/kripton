@@ -18,7 +18,7 @@ package sqlite.kripton41;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoBeanSelectOK.
  */

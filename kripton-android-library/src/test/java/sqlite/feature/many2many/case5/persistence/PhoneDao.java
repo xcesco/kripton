@@ -24,7 +24,7 @@ import sqlite.feature.many2many.case5.model.PhoneNumber;
 import sqlite.feature.many2many.case5.persistence.AbstractDao;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface PhoneDao.
  */

@@ -19,7 +19,7 @@
 package com.abubusoft.kripton.android.sqlite;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Listener 
  * 

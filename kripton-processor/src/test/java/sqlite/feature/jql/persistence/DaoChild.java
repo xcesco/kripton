@@ -26,7 +26,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import sqlite.feature.jql.entities.Child;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoChild.
  */

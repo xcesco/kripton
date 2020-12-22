@@ -22,7 +22,7 @@ import java.util.Set;
 
 import com.abubusoft.kripton.android.sharedprefs.PreferenceTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Set2ListTypeAdapter.
  */

@@ -17,7 +17,7 @@ package sqlite.kripton48.entities;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Entity.
  */

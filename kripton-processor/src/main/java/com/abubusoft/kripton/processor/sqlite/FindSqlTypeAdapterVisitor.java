@@ -27,7 +27,7 @@ import javax.lang.model.util.SimpleAnnotationValueVisitor7;
 
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class FindSqlTypeAdapterVisitor.
  */

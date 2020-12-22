@@ -18,7 +18,7 @@
  */
 package sqlite.feature.async;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class UidEntity.
  *

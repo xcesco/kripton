@@ -20,7 +20,7 @@ import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class StringBean.
  */

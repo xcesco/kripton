@@ -17,7 +17,7 @@ package com.abubusoft.kripton.common;
 
 import java.util.TimeZone;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TimeZoneUtils.
  */

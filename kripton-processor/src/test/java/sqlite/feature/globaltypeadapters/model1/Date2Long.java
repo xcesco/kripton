@@ -19,7 +19,7 @@ import java.sql.Date;
 
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Date2Long.
  */

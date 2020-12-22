@@ -17,7 +17,7 @@ package shared.feature.typeadapter.case1;
 
 import com.abubusoft.kripton.android.sharedprefs.PreferenceTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SampleTypeAdapter.
  */

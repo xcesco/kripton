@@ -24,7 +24,7 @@ import base.BaseAndroidTest;
 import shared.feature.typeadapter.case3.App3Preferences;
 import shared.feature.typeadapter.case3.BindApp3Preferences;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestTypeAdapterCase3Runtime.
  */

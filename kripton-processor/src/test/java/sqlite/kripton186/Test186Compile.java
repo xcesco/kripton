@@ -33,7 +33,7 @@ import sqlite.kripton186.persistence.PhoneDao;
 import sqlite.kripton186.persistence.PrefixConfigDao;
 import sqlite.kripton186.persistence.XenoDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test186Compile.
  */

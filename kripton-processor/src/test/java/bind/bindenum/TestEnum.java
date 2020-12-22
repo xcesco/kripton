@@ -23,7 +23,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationExcept
 
 import bind.AbstractBindTypeProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Test bean field.
  *

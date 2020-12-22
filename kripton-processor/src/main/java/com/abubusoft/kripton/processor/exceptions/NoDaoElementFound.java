@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.ClassName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class NoDaoElementFound.
  *

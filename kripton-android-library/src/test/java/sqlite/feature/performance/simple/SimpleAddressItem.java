@@ -17,7 +17,7 @@ package sqlite.feature.performance.simple;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Description:.
  */

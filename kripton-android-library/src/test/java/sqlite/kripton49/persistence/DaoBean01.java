@@ -25,7 +25,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.kripton49.entities.Bean01Entity;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoBean01.
  */

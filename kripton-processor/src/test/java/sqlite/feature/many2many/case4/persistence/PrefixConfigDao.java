@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import sqlite.feature.many2many.case4.model.PrefixConfig;
 import sqlite.feature.many2many.case4.persistence.AbstractDao;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 18/02/2017.
  */

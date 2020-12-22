@@ -17,7 +17,7 @@ package com.abubusoft.kripton.common;
 
 import java.util.Locale;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class LocaleUtils.
  */

@@ -31,7 +31,7 @@ import sqlite.kripton209.model1.Device;
 import sqlite.kripton209.model1.User;
 import sqlite.kripton209.model1.UserDevice;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test209Model1Runtime.
  *

@@ -22,7 +22,7 @@ import org.junit.Test;
 import bind.AbstractBindTypeProcessorTest;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Test bean field.
  *

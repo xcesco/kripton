@@ -20,7 +20,7 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Class implementing this interface can be used to generate code to read and
  * write the property.

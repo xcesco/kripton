@@ -28,7 +28,7 @@ import sqlite.feature.jql.persistence.DaoChild;
 import sqlite.feature.jql.persistence.DaoPerson;
 import sqlite.feature.jql.persistence.FamilyDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestJQL.
  */

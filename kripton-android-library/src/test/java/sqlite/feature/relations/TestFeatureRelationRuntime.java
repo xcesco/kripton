@@ -33,7 +33,7 @@ import sqlite.feature.relations.case1.BindAppDaoFactory;
 import sqlite.feature.relations.case1.BindAppDataSource;
 import sqlite.feature.relations.case1.Song;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestFeatureSQLTypeAdapterRuntime.
  *

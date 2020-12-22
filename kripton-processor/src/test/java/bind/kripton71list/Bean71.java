@@ -28,7 +28,7 @@ import com.abubusoft.kripton.annotation.BindXml;
 import bind.kripton71list.Bean71;
 import bind.kripton71list.Enum71;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean71.
  */

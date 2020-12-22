@@ -21,7 +21,7 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 
 import base.BaseProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class AbstractBindSharedPreferenceProcessorTest.
  */

@@ -17,7 +17,7 @@ package bind.feature.generichierarchy.case1.model;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Classe che rappresenta un oggetto identificabile da un UID.
  * 

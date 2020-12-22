@@ -15,7 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton51.entities;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum OwnerType.
  */

@@ -26,7 +26,7 @@ import sqlite.feature.many2many.entity.PersonCityOk1;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface PersonCityDaoGeneratedPart.
  */

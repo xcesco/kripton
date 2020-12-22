@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
 import shared.feature.typeadapter.case2.IntTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class App1WithErrorPreferences.
  */

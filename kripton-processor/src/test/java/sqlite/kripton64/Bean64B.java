@@ -20,7 +20,7 @@ import java.util.Set;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean64B.
  */

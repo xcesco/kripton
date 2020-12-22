@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.common.CalendarUtils;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Transformer between a string and a java.util.Calendar object
  * 

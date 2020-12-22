@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.core;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface ModelElementVisitor.
  *

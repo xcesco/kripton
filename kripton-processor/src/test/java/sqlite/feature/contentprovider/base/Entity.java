@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.contentprovider.base;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 02/10/2017.
  */

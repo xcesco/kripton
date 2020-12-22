@@ -28,7 +28,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import base.BaseAndroidTest;
 import sqlite.kripton58.list.BindLongDataSource.Transaction;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test58Runtime.
  *

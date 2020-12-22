@@ -34,7 +34,7 @@ import bind.kripton81morecoveragetests.Bean81S;
 import bind.kripton81morecoveragetests.Bean81T;
 import bind.kripton81morecoveragetests.Bean81U;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test81GHILMNOPCompile.
  */

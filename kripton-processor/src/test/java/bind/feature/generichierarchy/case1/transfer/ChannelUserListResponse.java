@@ -22,7 +22,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feature.generichierarchy.case1.model.ChannelUser;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ChannelUserListResponse.
  */

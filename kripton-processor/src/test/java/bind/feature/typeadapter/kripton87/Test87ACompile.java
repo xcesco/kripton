@@ -38,7 +38,7 @@ import bind.feature.typeadapter.kripton87.StringInverterTypeAdapter;
 import bind.feature.typeadapter.kripton87.StringUrlTypeAdapter;
 import bind.feature.typeadapter.kripton87.UrlByteArrayTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test87ACompile.
  */

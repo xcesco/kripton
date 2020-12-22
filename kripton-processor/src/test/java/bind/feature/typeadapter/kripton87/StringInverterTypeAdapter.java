@@ -17,7 +17,7 @@ package bind.feature.typeadapter.kripton87;
 
 import com.abubusoft.kripton.TypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class StringInverterTypeAdapter.
  */

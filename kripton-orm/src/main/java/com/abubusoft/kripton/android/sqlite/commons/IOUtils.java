@@ -29,7 +29,7 @@ import com.abubusoft.kripton.android.Logger;
 
 import android.content.Context;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class IOUtils.
  */

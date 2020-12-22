@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.kripton81morecoveragetests;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum Bean81Enum.
  */

@@ -17,7 +17,10 @@ package com.abubusoft.kripton;
 
 import com.fasterxml.jackson.core.JsonFactory;
 
-// TODO: Auto-generated Javadoc
+import java.io.Writer;
+import java.util.Collection;
+
+
 /**
  * The Class KriptonJsonContext.
  *
@@ -33,7 +36,7 @@ public class KriptonJsonContext extends AbstractJacksonContext {
 	{
 		return BinderType.JSON;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.abubusoft.kripton.AbstractJacksonContext#createInnerFactory()
 	 */

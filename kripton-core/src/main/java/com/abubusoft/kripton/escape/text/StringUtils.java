@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.abubusoft.kripton.escape.text;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class StringUtils.
  */

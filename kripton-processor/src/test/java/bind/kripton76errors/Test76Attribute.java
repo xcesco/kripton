@@ -34,7 +34,7 @@ import bind.kripton76errors.BeanEnum;
 
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test76Attribute.
  */

@@ -17,7 +17,7 @@ package sqlite.feature.rx.model;
 
 import java.util.Date;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SMS.
  */

@@ -35,7 +35,7 @@ import sqlite.quickstart.persistence.QuickStartDataSource;
 import sqlite.quickstart.persistence.TodoDao;
 import sqlite.quickstart.persistence.UserDao;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestSampleChat.
  *

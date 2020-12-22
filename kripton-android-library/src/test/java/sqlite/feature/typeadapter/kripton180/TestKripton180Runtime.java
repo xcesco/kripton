@@ -28,7 +28,7 @@ import sqlite.feature.typeadapter.kripton180.bean.BindKripton180BeanDaoFactory;
 import sqlite.feature.typeadapter.kripton180.bean.BindKripton180BeanDataSource;
 import sqlite.feature.typeadapter.kripton180.bean.EmployeeBeanDaoImpl;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestKripton180Runtime.
  *

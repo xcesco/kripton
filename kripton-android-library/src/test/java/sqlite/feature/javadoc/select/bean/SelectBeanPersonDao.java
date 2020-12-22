@@ -30,7 +30,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.javadoc.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface SelectBeanPersonDao.
  */

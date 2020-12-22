@@ -24,7 +24,7 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.javadoc.select.raw.SelectRawPersonDao;
 import sqlite.feature.javadoc.select.raw.SelectRawPersonDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestJavadocForSelectRaw.
  */

@@ -18,7 +18,7 @@ package sqlite.kripton33;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoChannel05.
  */

@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import commons.benchmark.model.User;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface UserDao.
  */

@@ -3,7 +3,7 @@
  */
 package com.abubusoft.kripton;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Allows to manage a field of type J as a field of type D. It's usefully for unsupported type.   
  *  
