@@ -89,19 +89,19 @@ public @interface BindContentProviderEntry {
 	 * 
 	 * @return content provider authority
 	 */
-	public String path() default "";
+	String path() default "";
 
 	/**
 	 * Define numerosity of result of operation exposed by content provider.
 	 *
 	 * @return the multiplicity result type
 	 */
-	public MultiplicityResultType multiplicityResult() default MultiplicityResultType.DEFAULT;
+	MultiplicityResultType multiplicityResult() default MultiplicityResultType.DEFAULT;
 
 	/**
 	 * The Enum MultiplicityResultType.
 	 */
-	public enum MultiplicityResultType {
+	enum MultiplicityResultType {
 		/**
 		 * default means: select return many rows, other operation only one.
 		 */

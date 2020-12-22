@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -17,7 +17,6 @@ package sqlite;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
 import sqlite.feature.async.TestRuntimeAyncSuite;
 import sqlite.feature.asynctask.TestRuntimeMultithreadSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinitySuite;
@@ -33,6 +32,7 @@ import sqlite.feature.indexes.TestIndexesRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
 import sqlite.feature.livedata.TestRuntimeLiveDataSuite;
 import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
+import sqlite.feature.optional.TestOptionalRuntimeSuite;
 import sqlite.feature.paginatedresult.TestPaginatedResultRuntimeSuite;
 import sqlite.feature.pkstring.TestPkStringSuite;
 import sqlite.feature.relations.TestFeatureRelationRuntimeSuite;
@@ -58,50 +58,51 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 @RunWith(Suite.class)
 // @formatter:off
 @Suite.SuiteClasses({
-	// verified results
-	TestPaginatedResultRuntimeSuite.class,
-	TestRuntimeMultithreadSuite.class,
-	TestDynamicRuntimeSuite.class,
-	TestContentProviderRuntime.class,
-	TestSchemaRuntimeSuite.class,
-	TestGlobalTypeAdapterRuntimeSuite.class,	
-	TestFeatureRelationRuntimeSuite.class,
-	TestRuntimeAyncSuite.class,
-	TestCustomBeanRuntimeSuite.class,
-	TestImmutableRuntimeSuite.class,
-	TestRuntimeLiveDataSuite.class,
-	TestFeatureTransactionRuntimeSuite.class,	
-	
-	// unverified results	
-	TestForeignKeyRuntimeSuite.class,
-	TestIncludeFieldsRuntimeSuite.class,
-	TestIndexesRuntimeSuite.class,
-	TestRuntimeMany2ManySuite.class,
-	TestColumnAffinitySuite.class,
-	TestFeatureInRuntimeSuite.class,	
-	
-	Test64RuntimeSuite.class,
-	Test84RuntimeSuite.class,
-	Test93RuntimeSuite.class,
-	Test96RuntimeSuite.class,
-	
-	Test58RuntimeSuite.class,
-	TestQuickstartRuntimeSuite.class,
-	TestFeatJQLRuntimeSuite.class,
-	TestSpeedRuntime.class,
-	
-	TestStack45184504RuntimeSuite.class,
-	TestStack44330452RuntimeSuite.class,
-	TestStack44633883RuntimeSuite.class,
-	
-	Test209RuntimeSuite.class,
-	TestPkStringSuite.class,
-	
-	// GitHub issues
-	TestGit20RuntimeSuite.class,
-	TestGit22Runtime.class
-	
-	 })
+        // verified results
+        TestPaginatedResultRuntimeSuite.class,
+        TestRuntimeMultithreadSuite.class,
+        TestDynamicRuntimeSuite.class,
+        TestContentProviderRuntime.class,
+        TestSchemaRuntimeSuite.class,
+        TestGlobalTypeAdapterRuntimeSuite.class,
+        TestFeatureRelationRuntimeSuite.class,
+        TestRuntimeAyncSuite.class,
+        TestCustomBeanRuntimeSuite.class,
+        TestImmutableRuntimeSuite.class,
+        TestRuntimeLiveDataSuite.class,
+        TestFeatureTransactionRuntimeSuite.class,
+
+        // unverified results
+        TestForeignKeyRuntimeSuite.class,
+        TestIncludeFieldsRuntimeSuite.class,
+        TestIndexesRuntimeSuite.class,
+        TestRuntimeMany2ManySuite.class,
+        TestColumnAffinitySuite.class,
+        TestFeatureInRuntimeSuite.class,
+        TestOptionalRuntimeSuite.class,
+
+        Test64RuntimeSuite.class,
+        Test84RuntimeSuite.class,
+        Test93RuntimeSuite.class,
+        Test96RuntimeSuite.class,
+
+        Test58RuntimeSuite.class,
+        TestQuickstartRuntimeSuite.class,
+        TestFeatJQLRuntimeSuite.class,
+        TestSpeedRuntime.class,
+
+        TestStack45184504RuntimeSuite.class,
+        TestStack44330452RuntimeSuite.class,
+        TestStack44633883RuntimeSuite.class,
+
+        Test209RuntimeSuite.class,
+        TestPkStringSuite.class,
+
+        // GitHub issues
+        TestGit20RuntimeSuite.class,
+        TestGit22Runtime.class
+
+})
 // @formatter:on
 public class SQLiteRuntimeTestSuite {
 
