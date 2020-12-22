@@ -17,7 +17,7 @@ package commons.kripton86.test6;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean6_2.
  */

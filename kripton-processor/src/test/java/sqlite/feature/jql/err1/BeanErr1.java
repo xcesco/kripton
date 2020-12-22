@@ -18,7 +18,7 @@ package sqlite.feature.jql.err1;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BeanErr1.
  */

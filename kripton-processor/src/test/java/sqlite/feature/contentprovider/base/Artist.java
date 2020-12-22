@@ -18,7 +18,7 @@ package sqlite.feature.contentprovider.base;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 02/10/2017.
  */

@@ -35,7 +35,7 @@ import sqlite.feature.foreignkey.DaoBeanA_4;
 import sqlite.feature.foreignkey.Dummy2DataSource;
 import sqlite.feature.foreignkey.DummyDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestForeignKeyCompile.
  *

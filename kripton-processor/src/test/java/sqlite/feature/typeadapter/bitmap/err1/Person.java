@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 import android.graphics.Bitmap;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Person.
  */

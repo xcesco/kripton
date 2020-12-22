@@ -26,7 +26,7 @@ import java.util.Stack;
 import com.abubusoft.kripton.common.Base64Utils;
 import com.fasterxml.jackson.core.JsonEncoding;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Implementation of MXSerializer interface from XmlPull V1 API. This
  * implementation is optimzied for performance and low memory footprint.

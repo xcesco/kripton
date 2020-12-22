@@ -65,3 +65,4 @@ build
 /.settings
 /kripton-orm/.settings
 /kripton-shared-preferences/.settings
+/.run/

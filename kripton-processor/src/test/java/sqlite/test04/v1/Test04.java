@@ -25,7 +25,7 @@ import com.abubusoft.kripton.processor.exceptions.MissedAnnotationOnClass;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test04.
  *

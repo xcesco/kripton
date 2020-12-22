@@ -26,7 +26,7 @@ import com.abubusoft.kripton.BinderType;
 
 import bind.AbstractBaseTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestRuntime80A.
  */

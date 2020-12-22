@@ -28,7 +28,7 @@ import bind.feature.generichierarchy.case1.transfer.RestListEntity;
 import bind.feature.generichierarchy.case1.transfer.RestResponse;
 import bind.feature.generichierarchy.case1.transfer.ServiceStatusType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Test bean field.
  *

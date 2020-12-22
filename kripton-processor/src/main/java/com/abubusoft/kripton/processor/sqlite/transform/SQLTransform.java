@@ -22,7 +22,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Class implementing this interface can be used to generate code to read and
  * write the property.

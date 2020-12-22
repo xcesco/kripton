@@ -18,7 +18,7 @@
  */
 package bind.feature.typeadapter.kripton87;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum Enum87A.
  *

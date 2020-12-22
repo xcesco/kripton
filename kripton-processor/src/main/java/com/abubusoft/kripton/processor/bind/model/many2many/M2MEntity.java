@@ -30,7 +30,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class M2MEntity.
  */

@@ -16,7 +16,7 @@
 
 package com.abubusoft.kripton.persistence.xml.internal;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * A pool of string instances. Unlike the {@link String#intern() VM's interned
  * strings}, this pool provides no guarantee of reference equality. It is

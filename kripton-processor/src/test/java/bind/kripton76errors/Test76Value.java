@@ -25,7 +25,7 @@ import bind.AbstractBindTypeProcessorTest;
 import bind.kripton76errors.BeanAttribute76Set;
 import bind.kripton76errors.BeanEnum;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test76Value.
  */

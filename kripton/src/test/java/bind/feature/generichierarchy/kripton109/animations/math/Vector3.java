@@ -17,7 +17,7 @@ package bind.feature.generichierarchy.kripton109.animations.math;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Vector3.
  */

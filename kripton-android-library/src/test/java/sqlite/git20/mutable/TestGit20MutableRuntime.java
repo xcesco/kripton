@@ -15,9 +15,6 @@
  ******************************************************************************/
 package sqlite.git20.mutable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -30,6 +27,8 @@ import sqlite.git20.immutable.BindMovieDaoFactory;
 import sqlite.git20.immutable.BindMovieDataSource;
 import sqlite.git20.immutable.Count;
 import sqlite.git20.immutable.BindMovieDataSource.Transaction;
+
+import static org.junit.Assert.*;
 
 /**
  * The Class Test209Model1Runtime.
@@ -46,19 +45,13 @@ public class TestGit20MutableRuntime extends BaseAndroidTest {
 		One<List<Count>> r=new One<>();
 		BindMovieDataSource dataSource=BindMovieDataSource.getInstance();
 		
-		dataSource.execute(new Transaction() {
-			
-			@Override
-			public TransactionResult onExecute(BindMovieDaoFactory daoFactory) {
-				List<Count> result = daoFactory.getMovieDao().findCountByTitle();
-				
-				r.value0=result;				
-				return TransactionResult.COMMIT;
-			}
+		dataSource.execute(daoFactory -> {
+			r.value0= daoFactory.getMovieDao().findCountByTitle();
+			return TransactionResult.COMMIT;
 		});
-		
-		assertTrue(r.value0!=null);
-		assertTrue(r.value0.size()==1);
+
+		assertNotNull(r.value0);
+		assertEquals(1, r.value0.size());
 		assertEquals(r.value0.get(0).getTitle(),"title");
 		assertEquals(r.value0.get(0).getCount(),1);
 		

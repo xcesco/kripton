@@ -24,7 +24,7 @@ import sqlite.feature.performance.simple.SimpleAddressDao;
 import sqlite.feature.performance.simple.SimpleAddressItem;
 import sqlite.feature.performance.simple.SimpleDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestPerformance.
  */

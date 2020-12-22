@@ -24,7 +24,7 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean72.
  */

@@ -15,7 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton62;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum EnumType.
  */

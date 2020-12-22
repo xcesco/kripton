@@ -23,7 +23,7 @@ import org.junit.runners.JUnit4;
 
 import shared.AbstractBindSharedPreferenceProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test45Compile.
  */

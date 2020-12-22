@@ -25,7 +25,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface FloatDao.
  */

@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.contentprovider.kripton35.entities.City;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface City2DAO.
  */

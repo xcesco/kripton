@@ -17,7 +17,7 @@ package bind.kripton81morecoveragetests;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean81All.
  */

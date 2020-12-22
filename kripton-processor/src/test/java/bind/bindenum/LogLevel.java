@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.bindenum;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum LogLevel.
  */

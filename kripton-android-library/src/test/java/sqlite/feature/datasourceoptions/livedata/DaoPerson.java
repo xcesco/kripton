@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import androidx.lifecycle.LiveData;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoPerson.
  */

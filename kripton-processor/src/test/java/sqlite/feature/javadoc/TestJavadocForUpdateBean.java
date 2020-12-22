@@ -24,7 +24,7 @@ import sqlite.feature.javadoc.update.bean.UpdateBeanPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestJavadocForUpdateBean.
  */

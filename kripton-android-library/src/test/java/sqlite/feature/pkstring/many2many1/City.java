@@ -17,7 +17,7 @@ package sqlite.feature.pkstring.many2many1;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class City.
  */

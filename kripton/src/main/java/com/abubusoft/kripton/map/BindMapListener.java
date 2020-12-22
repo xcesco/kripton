@@ -17,7 +17,7 @@ package com.abubusoft.kripton.map;
 
 import com.abubusoft.kripton.map.BindMapVisitor.VisitorStatusType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The listener interface for receiving bindMap events. The class that is
  * interested in processing a bindMap event implements this interface, and the

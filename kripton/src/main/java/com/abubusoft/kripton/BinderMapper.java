@@ -25,7 +25,7 @@ import com.abubusoft.kripton.xml.XMLSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>
  * Defines interface of generated bind map classes by Kripton. There are two

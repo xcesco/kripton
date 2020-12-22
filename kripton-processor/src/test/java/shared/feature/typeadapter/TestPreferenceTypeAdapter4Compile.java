@@ -28,7 +28,7 @@ import shared.feature.typeadapter.case4.Set2ListTypeAdapter;
 import shared.feature.typeadapter.case4.App4Preferences;
 import shared.feature.typeadapter.case4.App4WithErrPreferences;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestPreferenceTypeAdapter4Compile.
  */

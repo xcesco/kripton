@@ -17,7 +17,7 @@ package sqlite.feature.typeadapter;
 
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PasswordAdapterType.
  */

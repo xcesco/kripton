@@ -23,7 +23,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidPropertyToColumnConvers
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileKripton164.
  */

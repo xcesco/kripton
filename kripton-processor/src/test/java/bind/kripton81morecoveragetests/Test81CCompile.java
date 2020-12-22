@@ -23,7 +23,7 @@ import bind.AbstractBindTypeProcessorTest;
 import bind.kripton81morecoveragetests.Bean81C;
 import bind.kripton81morecoveragetests.Bean81Enum;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test81CCompile.
  */

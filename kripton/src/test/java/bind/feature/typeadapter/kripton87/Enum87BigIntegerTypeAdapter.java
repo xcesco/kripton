@@ -21,7 +21,7 @@ import com.abubusoft.kripton.TypeAdapter;
 
 import bind.feature.typeadapter.kripton87.Enum87A;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Enum87BigIntegerTypeAdapter.
  *

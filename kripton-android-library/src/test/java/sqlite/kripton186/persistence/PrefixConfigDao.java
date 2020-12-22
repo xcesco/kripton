@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.kripton186.model.PrefixConfig;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 18/02/2017.
  */

@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import shared.AbstractBindSharedPreferenceProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Test bean field.
  *

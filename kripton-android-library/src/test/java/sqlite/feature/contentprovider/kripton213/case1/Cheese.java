@@ -40,7 +40,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Represents one record of the Cheese table.
  */

@@ -26,7 +26,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.dynamic.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface Err11DAO.
  */

@@ -19,7 +19,7 @@ import com.abubusoft.kripton.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class KriptonPropertiesContext.
  *

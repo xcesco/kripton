@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.common;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Pair.
  *

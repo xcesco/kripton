@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PersonUpdateTask.
  */

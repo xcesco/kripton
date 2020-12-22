@@ -20,7 +20,7 @@ import java.util.List;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 30/08/2017.
  */

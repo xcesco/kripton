@@ -37,7 +37,7 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 import base.BaseProcessorTest;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class AbstractBindTypeProcessorTest.
  */

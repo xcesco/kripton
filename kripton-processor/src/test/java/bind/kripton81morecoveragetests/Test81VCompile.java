@@ -25,7 +25,7 @@ import bind.kripton81morecoveragetests.Bean81V2;
 import bind.kripton81morecoveragetests.Bean81V3;
 import bind.kripton81morecoveragetests.Bean81V4;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test81VCompile.
  */

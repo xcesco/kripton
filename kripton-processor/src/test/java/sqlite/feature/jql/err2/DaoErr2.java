@@ -18,7 +18,7 @@ package sqlite.feature.jql.err2;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 30/08/2017.
  */

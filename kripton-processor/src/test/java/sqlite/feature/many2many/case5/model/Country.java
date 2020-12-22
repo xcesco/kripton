@@ -25,7 +25,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import android.graphics.Bitmap;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Country.
  */

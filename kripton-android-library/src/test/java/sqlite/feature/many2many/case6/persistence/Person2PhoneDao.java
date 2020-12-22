@@ -27,7 +27,7 @@ import sqlite.feature.many2many.case6.model.Person;
 import sqlite.feature.many2many.case6.model.PersonPhone;
 import sqlite.feature.many2many.case6.model.PhoneNumber;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 10/10/2017.
  */

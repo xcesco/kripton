@@ -46,7 +46,7 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TypeUtility.
  */

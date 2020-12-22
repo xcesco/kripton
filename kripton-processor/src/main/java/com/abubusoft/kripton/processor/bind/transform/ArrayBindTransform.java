@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Transformer between an array field to base64 encoded string and viceversa.
  *

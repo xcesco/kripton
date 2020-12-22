@@ -21,7 +21,7 @@ package com.abubusoft.kripton.android.sharedprefs;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>Base class to generated Shared Preference classes.</p>
  * 

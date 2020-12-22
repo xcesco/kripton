@@ -26,7 +26,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Transformer between a string and a java.math.BigInteger object
  * 

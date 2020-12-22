@@ -15,7 +15,7 @@
  *******************************************************************************/
 package shared.kripton46;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum AppType.
  */

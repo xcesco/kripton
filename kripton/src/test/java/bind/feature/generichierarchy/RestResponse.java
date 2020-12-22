@@ -19,7 +19,7 @@ import java.io.Serializable;
 
 import bind.feature.generichierarchy.ServiceStatusType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class RestResponse.
  */

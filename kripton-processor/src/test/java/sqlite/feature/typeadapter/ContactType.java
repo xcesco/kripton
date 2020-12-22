@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.typeadapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum ContactType.
  */

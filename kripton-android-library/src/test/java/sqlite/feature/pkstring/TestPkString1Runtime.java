@@ -42,28 +42,23 @@ public class TestPkString1Runtime extends BaseAndroidTest {
 	public void testRun() {			
 		BindPersonCirtyDataSource instance=BindPersonCirtyDataSource.getInstance();
 		
-		instance.executeBatch(new Batch<Void>() {
+		instance.executeBatch((Batch<Void>) daoFactory -> {
+			City city=new City();
+			city.id="Oxford";
+			city.name="City of Oxford";
 
-			@Override
-			public Void onExecute(BindPersonCirtyDaoFactory daoFactory) {
-				City city=new City();
-				city.id="Oxford";
-				city.name="City of Oxford";
-				
-				daoFactory.getCityDao().insert(city);
-				
-				Person person=new Person();
-				person.name="Manero Tonj";
-				
-				daoFactory.getPersonDao().insert(person);
-				
-				PersonCity m2m=new PersonCity(0,person.id, city.id );				
-				
-				daoFactory.getPersonCityDao().insert(m2m);
-				
-				return null;
-			}
-			
+			daoFactory.getCityDao().insert(city);
+
+			Person person=new Person();
+			person.name="Manero Tonj";
+
+			daoFactory.getPersonDao().insert(person);
+
+			PersonCity m2m=new PersonCity(0,person.id, city.id );
+
+			daoFactory.getPersonCityDao().insert(m2m);
+
+			return null;
 		});
 	}
 

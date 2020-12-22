@@ -17,7 +17,7 @@ package sqlite.feature.livedata.paginated;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Person.
  */

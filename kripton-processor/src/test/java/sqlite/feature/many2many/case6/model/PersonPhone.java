@@ -20,7 +20,7 @@ import java.sql.Date;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PersonPhone.
  */

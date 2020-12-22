@@ -19,7 +19,7 @@ package com.abubusoft.kripton.common;
 import static com.abubusoft.kripton.common.Preconditions.checkArgument;
 import static com.abubusoft.kripton.common.Preconditions.checkNotNull;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Static methods pertaining to ASCII characters (those in the range of values
  * {@code 0x00} through {@code 0x7F}), and to strings containing such

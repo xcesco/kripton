@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.uri;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ContentUriPlaceHolder.
  */

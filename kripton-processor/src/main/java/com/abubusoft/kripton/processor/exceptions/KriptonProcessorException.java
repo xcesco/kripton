@@ -20,7 +20,7 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class KriptonProcessorException.
  *

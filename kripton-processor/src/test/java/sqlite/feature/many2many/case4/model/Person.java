@@ -18,7 +18,7 @@ package sqlite.feature.many2many.case4.model;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 21/07/2017.
  */

@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.SQLDateUtils;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Transformer between a string and a custom Time object.
  *

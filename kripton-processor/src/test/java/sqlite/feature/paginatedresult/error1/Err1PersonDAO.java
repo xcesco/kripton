@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface Err1PersonDAO.
  */

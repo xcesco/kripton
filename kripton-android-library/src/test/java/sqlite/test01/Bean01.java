@@ -18,7 +18,7 @@ package sqlite.test01;
 import java.util.SortedMap;
 import java.util.SortedSet;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean01.
  */

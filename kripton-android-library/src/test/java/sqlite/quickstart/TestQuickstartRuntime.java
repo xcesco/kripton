@@ -26,7 +26,7 @@ import sqlite.quickstart.model.User;
 import sqlite.quickstart.persistence.BindQuickStartDaoFactory;
 import sqlite.quickstart.persistence.BindQuickStartDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestQuickstartRuntime.
  *

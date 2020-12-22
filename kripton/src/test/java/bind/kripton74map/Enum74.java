@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.kripton74map;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum Enum74.
  */

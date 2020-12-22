@@ -23,7 +23,7 @@ import org.junit.Test;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.sqlite.core.EntitySorter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestDependiciesFinder.
  */

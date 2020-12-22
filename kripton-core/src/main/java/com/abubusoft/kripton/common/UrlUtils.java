@@ -18,7 +18,7 @@ package com.abubusoft.kripton.common;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class UrlUtils.
  */

@@ -20,7 +20,7 @@ import java.util.List;
 import bind.feature.generichierarchy.UIDObject;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class RestListEntity.
  *

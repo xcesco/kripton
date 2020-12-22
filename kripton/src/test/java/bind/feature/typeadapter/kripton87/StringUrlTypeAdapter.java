@@ -20,7 +20,7 @@ import java.net.URL;
 
 import com.abubusoft.kripton.TypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class StringUrlTypeAdapter.
  *

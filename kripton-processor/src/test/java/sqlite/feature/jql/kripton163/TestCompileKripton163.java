@@ -21,7 +21,7 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileKripton163.
  */

@@ -20,7 +20,7 @@ import java.util.List;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface Error9Dao.
  */

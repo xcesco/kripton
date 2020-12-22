@@ -19,7 +19,7 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class UnsupportedFieldTypeException.
  *

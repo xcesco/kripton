@@ -41,7 +41,7 @@ import sqlite.feature.typeadapter.kripton180.bean.insertselect.Kripton180BeanIns
 import sqlite.feature.typeadapter.kripton180.raw.insertselect.EmployeeRawInsertSelectDao;
 import sqlite.feature.typeadapter.kripton180.raw.insertselect.Kripton180RawInsertSelectDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestKripton180Bean.
  */

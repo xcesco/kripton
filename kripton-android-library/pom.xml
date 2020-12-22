@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>7.0.0-rc.8</version>
+		<version>7.0.0-rc.9</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 
@@ -31,7 +31,7 @@
 		<rx.version>2.2.19</rx.version>
 		<reactive.version>1.0.3</reactive.version>
 
-		<kripton.version>7.0.0-rc.8</kripton.version>
+		<kripton.version>7.0.0-rc.9</kripton.version>
 		<robolectric.version>3.1.4</robolectric.version>
 		<junit.version>4.13.1</junit.version>
 		<unitils.version>3.4.2</unitils.version>
@@ -39,13 +39,11 @@
 
 	<!-- common part - END -->
 	<build>
-
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20</version>
+				<version>3.0.0-M5</version>
 				<configuration>
 					<systemPropertyVariables>
 						<kripton.debug>${kripton.debug}</kripton.debug>
@@ -53,29 +51,8 @@
 					<includes>
 						<include>all/*TestSuite.java</include>
 					</includes>
-
 				</configuration>
 			</plugin>
-
-			<!-- <plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
-
 		</plugins>
 	</build>
 

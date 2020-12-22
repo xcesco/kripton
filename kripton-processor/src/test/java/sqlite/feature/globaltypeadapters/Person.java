@@ -19,7 +19,7 @@ import java.sql.Date;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Person.
  */

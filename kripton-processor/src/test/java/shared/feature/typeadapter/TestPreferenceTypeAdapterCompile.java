@@ -25,7 +25,7 @@ import shared.AbstractBindSharedPreferenceProcessorTest;
 import shared.feature.typeadapter.case1.App1Preferences;
 import shared.feature.typeadapter.case2.IntTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestPreferenceTypeAdapterCompile.
  */

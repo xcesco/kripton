@@ -45,7 +45,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import android.database.Cursor;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Data access object for Cheese.
  */

@@ -19,7 +19,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.feature.many2many.Entity;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PersonCityErr1.
  */

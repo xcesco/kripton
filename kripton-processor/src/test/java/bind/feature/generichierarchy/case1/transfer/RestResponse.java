@@ -18,7 +18,7 @@ package bind.feature.generichierarchy.case1.transfer;
 import java.io.Serializable;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class RestResponse.
  */

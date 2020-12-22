@@ -50,7 +50,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.database.Cursor;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BindCursorBuilder.
  *

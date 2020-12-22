@@ -22,7 +22,7 @@ import java.util.WeakHashMap;
 
 import androidx.annotation.NonNull;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * LinkedList, which pretends to be a map and supports modifications during iterations.
  * It is NOT thread safe.

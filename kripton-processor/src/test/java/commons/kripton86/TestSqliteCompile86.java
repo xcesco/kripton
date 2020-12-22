@@ -47,7 +47,7 @@ import commons.kripton86.test8.DS8DataSource;
 import commons.kripton86.test8.Dao8;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestSqliteCompile86.
  */

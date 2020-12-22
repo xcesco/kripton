@@ -21,7 +21,6 @@ import java.util.Map.Entry;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BindMapVisitor.
  *

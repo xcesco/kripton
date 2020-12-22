@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.asynctask.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface PersonDAO.
  */

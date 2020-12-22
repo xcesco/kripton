@@ -18,7 +18,7 @@ package sqlite.update.raw.err2;
 import java.util.Date;
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class DateAdapter.
  */

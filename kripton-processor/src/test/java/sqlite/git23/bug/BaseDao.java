@@ -18,7 +18,7 @@ package sqlite.git23.bug;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 02/10/2017.
  *

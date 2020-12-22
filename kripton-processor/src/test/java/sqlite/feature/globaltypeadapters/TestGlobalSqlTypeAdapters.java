@@ -26,7 +26,7 @@ import sqlite.feature.globaltypeadapters.model1.Date2Long;
 import sqlite.feature.globaltypeadapters.model1.Person1DataSource;
 import sqlite.feature.globaltypeadapters.model1.Person1ErrDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestGlobalSqlTypeAdapters.
  */

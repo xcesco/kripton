@@ -29,7 +29,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 import android.database.Cursor;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface BeanDao.
  */

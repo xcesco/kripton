@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.settings.logger;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum ElioLoggerLevelType.
  */

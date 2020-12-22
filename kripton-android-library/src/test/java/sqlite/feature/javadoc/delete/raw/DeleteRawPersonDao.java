@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 
 import sqlite.feature.javadoc.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DeleteRawPersonDao.
  */

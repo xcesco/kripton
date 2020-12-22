@@ -28,7 +28,7 @@ import sqlite.feature.typeadapter.DateAdapterType;
 import sqlite.feature.typeadapter.EnumAdapterType;
 import sqlite.feature.typeadapter.PasswordAdapterType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestTypeAdapterInsertErr2.
  */

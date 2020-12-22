@@ -17,7 +17,7 @@ package sqlite.feature.join.model;
 
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 20/02/2018.
  *

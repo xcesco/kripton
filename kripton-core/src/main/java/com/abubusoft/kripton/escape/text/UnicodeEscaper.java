@@ -19,7 +19,7 @@ package com.abubusoft.kripton.escape.text;
 import java.io.IOException;
 import java.io.Writer;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Translates codepoints to their Unicode escaped value.
  *

@@ -30,7 +30,7 @@ import com.abubusoft.kripton.map.BindMapVisitor.VisitorStatusType;
 
 import bind.AbstractBaseTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestRuntimeDirectMap.
  */

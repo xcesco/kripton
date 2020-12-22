@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.feature.generichierarchy;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum ServiceStatusType.
  */

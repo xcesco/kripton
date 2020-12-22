@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.squareup.javapoet.MethodSpec.Builder;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>Transformer between a string and a Java Character object.</p>
  * 

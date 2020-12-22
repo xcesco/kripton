@@ -14,7 +14,7 @@
  * the License.
  ******************************************************************************/
 package sqlite.feature.many2many.case4.model;
-// TODO: Auto-generated Javadoc
+
 
 /**
  * The Enum Translation.

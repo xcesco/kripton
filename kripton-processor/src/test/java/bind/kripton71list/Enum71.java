@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.kripton71list;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum Enum71.
  */

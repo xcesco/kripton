@@ -17,7 +17,7 @@ package sqlite.feature.datasourceoptions.kripton234;
 
 import com.abubusoft.kripton.android.sqlite.SQLitePopulator;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PersonPopulator.
  */

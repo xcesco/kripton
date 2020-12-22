@@ -22,7 +22,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.kripton58.BeanInner;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BeanBean.
  */

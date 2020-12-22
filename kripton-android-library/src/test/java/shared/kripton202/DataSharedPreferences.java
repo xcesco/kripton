@@ -19,7 +19,7 @@ import java.util.Set;
 
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class DataSharedPreferences.
  */

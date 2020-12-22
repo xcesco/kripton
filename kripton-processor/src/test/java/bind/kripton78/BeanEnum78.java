@@ -15,7 +15,7 @@
  *******************************************************************************/
 package bind.kripton78;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Enum BeanEnum78.
  */

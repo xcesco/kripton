@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import sqlite.feature.typeadapter.Contact;
 import sqlite.feature.typeadapter.PasswordAdapterType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface ErrContactDao.
  */

@@ -31,7 +31,7 @@ import sqlite.feature.pkstring.many2many1.PersonCirtyDataSource;
 import sqlite.feature.pkstring.many2many1.PersonCityDao;
 import sqlite.feature.pkstring.many2many1.PersonDao;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileMany2Many.
  */

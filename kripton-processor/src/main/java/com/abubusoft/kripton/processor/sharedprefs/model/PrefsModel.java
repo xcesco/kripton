@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.sharedprefs.model;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PrefsModel.
  */

@@ -34,7 +34,7 @@ import sqlite.feature.rx.persistence.PhoneDao;
 import sqlite.feature.rx.persistence.PrefixConfigDao;
 import sqlite.feature.rx.persistence.XenoDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileRX.
  */

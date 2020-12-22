@@ -17,7 +17,7 @@ package bind.feature.generichierarchy;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Classe che rappresenta un oggetto identificabile da un UID.
  * 

@@ -25,7 +25,7 @@ import sqlite.feature.many2many.City;
 import sqlite.feature.many2many.Entity;
 import sqlite.feature.many2many.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileMany2ManyOk1.
  */

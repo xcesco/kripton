@@ -28,7 +28,7 @@ import sqlite.kripton56.internal.MessageType;
 import sqlite.kripton56.persistence.DaoMessage;
 import sqlite.kripton56.persistence.WhisperDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test56Compile.
  */

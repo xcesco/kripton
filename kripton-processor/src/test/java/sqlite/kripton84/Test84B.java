@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test84B.
  *

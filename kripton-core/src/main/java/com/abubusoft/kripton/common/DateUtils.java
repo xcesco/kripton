@@ -109,20 +109,19 @@ public class DateUtils {
 	 */
 	public static class ThreadLocalDateFormatter {
 
-		/** The Constant FORMATTERS. */
+		/** The Constant FORMATTERS. Do not replace with Initial, it does not work on Android. */
 		private static final ThreadLocal<Map<String, DateFormat>> FORMATTERS = new ThreadLocal<Map<String, DateFormat>>() {
 			protected Map<String, DateFormat> initialValue() {
 				return new HashMap<String, DateFormat>();
 			}
 		};
-
 		/**
 		 * Gets the formatter.
 		 *
 		 * @param pattern the pattern
 		 * @return the formatter
 		 */
-		static private final DateFormat getFormatter(final String pattern) {
+		static private DateFormat getFormatter(final String pattern) {
 			Map<String, DateFormat> formatterMap = FORMATTERS.get();
 			DateFormat df = formatterMap.get(pattern);
 			if (null == df) {

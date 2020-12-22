@@ -49,7 +49,7 @@ import bind.feature.generichierarchy.kripton109.settings.TouchSupportType;
 import bind.feature.generichierarchy.kripton109.settings.ViewFrustumAlignType;
 import bind.feature.generichierarchy.kripton109.settings.ViewFrustumSettings;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompile109.
  */

@@ -20,7 +20,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.kripton51.internal.MessageType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 27/09/2016.
  */

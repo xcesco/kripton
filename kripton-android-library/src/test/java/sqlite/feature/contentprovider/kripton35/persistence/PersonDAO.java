@@ -33,7 +33,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 import sqlite.feature.contentprovider.kripton35.entities.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface PersonDAO.
  */

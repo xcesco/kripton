@@ -25,7 +25,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.feature.foreignkey.BeanA_2;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface DaoBeanA_2.
  */

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.abubusoft.kripton.common;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Static convenience methods that help a method or constructor check whether it was invoked correctly (whether its <i>preconditions</i> have been met). These methods generally
  * accept a {@code boolean} expression which is expected to be {@code true} (or in the case of {@code checkNotNull}, an object reference which is expected to be non-null). When

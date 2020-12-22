@@ -19,7 +19,7 @@ import java.util.List;
 
 import android.database.Cursor;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ChannelMessageCursor.
  */

@@ -26,7 +26,7 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class WrappedPrefsTransform.
  *

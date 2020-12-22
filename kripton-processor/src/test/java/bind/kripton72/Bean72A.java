@@ -22,7 +22,7 @@ import java.util.Set;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * All field are collection without external tag.
  *

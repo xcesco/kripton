@@ -27,7 +27,7 @@ import sqlite.kripton209.model2.User;
 import sqlite.kripton209.model2.UserDao;
 import sqlite.kripton209.model2.UserDeviceDao;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test209_2.
  *

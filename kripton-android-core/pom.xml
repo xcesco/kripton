@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>7.0.0-rc.8</version>
+		<version>7.0.0-rc.9</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 
@@ -25,7 +25,7 @@
 	<description>Kripton Persistence Library for Android platform - core module for android modules</description>
 
 	<properties>
-		<kripton.version>7.0.0-rc.8</kripton.version>
+		<kripton.version>7.0.0-rc.9</kripton.version>
 
 		<!-- dependencies version -->
 		<jackson.version>2.11.2</jackson.version>
@@ -54,7 +54,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20</version>
+				<version>3.0.0-M5</version>
 				<configuration>
 					<systemPropertyVariables>
 						<kripton.debug>${kripton.debug}</kripton.debug>

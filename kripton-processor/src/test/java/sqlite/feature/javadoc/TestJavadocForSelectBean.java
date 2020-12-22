@@ -23,7 +23,7 @@ import sqlite.feature.javadoc.select.bean.SelectBeanPersonDao;
 import sqlite.feature.javadoc.select.bean.SelectBeanPersonDataSource;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestJavadocForSelectBean.
  */

@@ -17,7 +17,7 @@ package sqlite.feature.contentprovider.kripton35.entities;
 
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class City.
  */

@@ -29,7 +29,7 @@ import sqlite.feature.jql.entities.Person;
 import sqlite.feature.jql.persistence.BindFamilyDaoFactory;
 import sqlite.feature.jql.persistence.BindFamilyDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestFeatJQLRuntime.
  *

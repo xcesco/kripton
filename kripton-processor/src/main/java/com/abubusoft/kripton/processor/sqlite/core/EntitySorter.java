@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Utility to order SQLEntity by their dependencies. It was build as generic class to test algorithm
  *  

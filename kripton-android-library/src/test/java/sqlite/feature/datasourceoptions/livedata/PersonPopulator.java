@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import android.database.sqlite.SQLiteDatabase;
 import sqlite.feature.datasourceoptions.livedata.BindAppWithConfigDataSource.Transaction;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PersonPopulator.
  */

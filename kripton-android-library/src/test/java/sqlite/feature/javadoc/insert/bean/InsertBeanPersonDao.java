@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
 import sqlite.feature.javadoc.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface InsertBeanPersonDao.
  */

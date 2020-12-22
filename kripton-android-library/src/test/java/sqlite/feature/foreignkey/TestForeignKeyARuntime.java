@@ -29,7 +29,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import base.BaseAndroidTest;
 import sqlite.feature.foreignkey.BindDummyDataSource.Transaction;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestForeignKeyARuntime.
  *

@@ -23,7 +23,7 @@ import sqlite.feature.typeadapter.Contact;
 import sqlite.feature.typeadapter.ContactType;
 import sqlite.feature.typeadapter.PasswordAdapterType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface ErrContactDao.
  */

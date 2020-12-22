@@ -17,7 +17,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>
  * Extracts from an content provider URI, its path segments, after check that URI has

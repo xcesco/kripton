@@ -33,7 +33,7 @@ import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class BindProperty.
  */

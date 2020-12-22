@@ -17,7 +17,7 @@ package sqlite.kripton209.model2;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Device.
  */

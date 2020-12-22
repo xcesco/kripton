@@ -27,7 +27,7 @@ import sqlite.feature.indexes.Person;
 import sqlite.feature.indexes.PersonDAO;
 import sqlite.feature.indexes.PersonDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class IndexTest.
  */

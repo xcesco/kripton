@@ -17,7 +17,7 @@ package sqlite.feature.typeadapter.kripton180.adapters;
 
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TypeAdapterInteger.
  */

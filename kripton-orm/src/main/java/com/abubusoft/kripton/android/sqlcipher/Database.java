@@ -261,13 +261,9 @@ class Database implements SupportSQLiteDatabase {
 
 		supportQuery.bindTo(hack);
 
-		return (safeDb.rawQueryWithFactory(new net.sqlcipher.database.SQLiteDatabase.CursorFactory() {
-			@Override
-			public net.sqlcipher.Cursor newCursor(net.sqlcipher.database.SQLiteDatabase db,
-					SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
-				supportQuery.bindTo(new Program(query));
-				return new SQLiteCursor(db, masterQuery, editTable, query);
-			}
+		return (safeDb.rawQueryWithFactory((db, masterQuery, editTable, query) -> {
+			supportQuery.bindTo(new Program(query));
+			return new SQLiteCursor(db, masterQuery, editTable, query);
 		}, supportQuery.getSql(), hack.getBindings(), null));
 	}
 

@@ -23,7 +23,7 @@ import com.abubusoft.kripton.common.PrefsTypeAdapterUtils;
 import java.util.List;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * This class is the shared preference binder defined for App4Preferences.
  *

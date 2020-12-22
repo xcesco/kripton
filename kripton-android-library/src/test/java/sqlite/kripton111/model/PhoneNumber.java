@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class PhoneNumber.
  */

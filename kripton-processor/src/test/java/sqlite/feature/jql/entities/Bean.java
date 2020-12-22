@@ -17,7 +17,7 @@ package sqlite.feature.jql.entities;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean.
  */

@@ -24,7 +24,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.select.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestSelectScalarList.
  */

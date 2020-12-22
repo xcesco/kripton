@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Album.
  */

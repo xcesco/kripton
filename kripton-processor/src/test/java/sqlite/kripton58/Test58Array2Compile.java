@@ -50,7 +50,7 @@ import sqlite.kripton58.array2.StringBean;
 import sqlite.kripton58.array2.StringDao;
 import sqlite.kripton58.array2.StringDataSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test58Array2Compile.
  *

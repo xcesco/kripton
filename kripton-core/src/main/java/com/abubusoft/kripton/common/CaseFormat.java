@@ -21,7 +21,7 @@ import java.io.Serializable;
 
 import static com.abubusoft.kripton.common.Preconditions.checkNotNull;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Utility class for converting between various ASCII case formats. Behavior is undefined for
  * non-ASCII input.

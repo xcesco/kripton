@@ -30,7 +30,7 @@ import sqlite.feature.join.model.LoanDao;
 import sqlite.feature.join.model.User;
 import sqlite.feature.join.model.UserDao;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestJoin.
  */

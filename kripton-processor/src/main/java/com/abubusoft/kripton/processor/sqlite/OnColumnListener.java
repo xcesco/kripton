@@ -17,7 +17,7 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import com.squareup.javapoet.MethodSpec.Builder;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The listener interface for receiving onColumn events.
  * The class that is interested in processing a onColumn

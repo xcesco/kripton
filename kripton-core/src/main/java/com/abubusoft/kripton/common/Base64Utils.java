@@ -21,7 +21,7 @@ import java.io.Writer;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * 
  * Base64 encoding/decoding util.

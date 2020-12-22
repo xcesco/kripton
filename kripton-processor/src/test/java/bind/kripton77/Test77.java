@@ -26,7 +26,7 @@ import com.squareup.javapoet.TypeName;
 
 import bind.AbstractBindTypeProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Test77.
  */

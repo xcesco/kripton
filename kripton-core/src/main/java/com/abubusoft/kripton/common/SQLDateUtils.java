@@ -39,7 +39,7 @@ public class SQLDateUtils {
 	/**
 	 * Convert a string to relative locale.
 	 *
-	 * @param string
+	 * @param value
 	 *            the string
 	 * @return the date
 	 */

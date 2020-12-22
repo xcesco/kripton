@@ -26,7 +26,7 @@ import com.abubusoft.kripton.android.sqlite.PagedResultImpl;
 
 import sqlite.feature.paginatedresult.model.Person;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface Dao3Person.
  */

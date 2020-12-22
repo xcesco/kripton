@@ -31,7 +31,7 @@ import bind.kripton74map.Enum74;
 
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean74.
  *

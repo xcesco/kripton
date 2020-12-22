@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.xml;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Specify type of xml binding.
  * 

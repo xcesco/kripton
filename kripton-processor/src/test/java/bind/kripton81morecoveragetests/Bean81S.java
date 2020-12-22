@@ -22,7 +22,7 @@ import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class Bean81S.
  */

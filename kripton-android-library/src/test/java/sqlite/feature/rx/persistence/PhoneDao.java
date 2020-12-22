@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import sqlite.feature.rx.model.PhoneNumber;
 
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Interface PhoneDao.
  */

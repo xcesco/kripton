@@ -39,7 +39,7 @@ import sqlite.feature.contentprovider.kripton35.entities.CityTable;
 import sqlite.feature.contentprovider.kripton35.entities.PersonTable;
 import sqlite.feature.contentprovider.kripton35.persistence.BindPersonContentProvider;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestContentProviderRuntime.
  *

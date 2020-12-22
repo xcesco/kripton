@@ -453,7 +453,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      List<String> result=null;
+      List<String> __stringList=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<String> collection=new ArrayList<>();
         String item=null;
@@ -465,9 +465,9 @@ public class BindAppPreferences extends AbstractSharedPreference {
           }
           collection.add(item);
         }
-        result=collection;
+        __stringList=collection;
       }
-      return result;
+      return __stringList;
     } catch(Exception e) {
       e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));
@@ -526,7 +526,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      String[] result=null;
+      String[] __stringArray=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<String> collection=new ArrayList<>();
         String item=null;
@@ -538,9 +538,9 @@ public class BindAppPreferences extends AbstractSharedPreference {
           }
           collection.add(item);
         }
-        result=CollectionUtils.asArray(collection, new String[collection.size()]);
+        __stringArray=CollectionUtils.asArray(collection, new String[collection.size()]);
       }
-      return result;
+      return __stringArray;
     } catch(Exception e) {
       e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));

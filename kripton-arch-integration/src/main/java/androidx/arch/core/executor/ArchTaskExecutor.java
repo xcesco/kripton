@@ -31,23 +31,13 @@ public class ArchTaskExecutor extends TaskExecutor {
     private TaskExecutor mDelegate;
 
     /** The m default task executor. */
-    private TaskExecutor mDefaultTaskExecutor;
+    private final TaskExecutor mDefaultTaskExecutor;
 
     /** The Constant sMainThreadExecutor. */
-    private static final Executor sMainThreadExecutor = new Executor() {
-        @Override
-        public void execute(Runnable command) {
-            getInstance().postToMainThread(command);
-        }
-    };
+    private static final Executor sMainThreadExecutor = command -> getInstance().postToMainThread(command);
 
     /** The Constant sIOThreadExecutor. */
-    private static final Executor sIOThreadExecutor = new Executor() {
-        @Override
-        public void execute(Runnable command) {
-            getInstance().executeOnDiskIO(command);
-        }
-    };
+    private static final Executor sIOThreadExecutor = command -> getInstance().executeOnDiskIO(command);
 
     /**
      * Instantiates a new arch task executor.

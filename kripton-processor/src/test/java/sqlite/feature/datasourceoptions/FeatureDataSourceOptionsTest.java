@@ -27,7 +27,7 @@ import sqlite.feature.datasourceoptions.kripton234.PersonLifecycleHandler;
 import sqlite.feature.datasourceoptions.kripton234.PersonPopulator;
 import sqlite.feature.datasourceoptions.kripton234.PersonUpdateTask;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class FeatureDataSourceOptionsTest.
  */

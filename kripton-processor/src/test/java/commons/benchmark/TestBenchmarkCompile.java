@@ -29,7 +29,7 @@ import commons.benchmark.persistence.BenchmarkDataSource;
 import commons.benchmark.persistence.UserDao;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestBenchmarkCompile.
  */

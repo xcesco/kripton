@@ -20,7 +20,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 import java.sql.Date;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Created by xcesco on 20/02/2018.
  */

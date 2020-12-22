@@ -25,7 +25,7 @@ import sqlite.feature.asynctask.PersonDAO;
 import sqlite.feature.asynctask.PersonDataSource;
 import sqlite.feature.generichierarchy.BaseDAO;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class TestCompileMultithread.
  */
