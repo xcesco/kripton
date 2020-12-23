@@ -51,26 +51,21 @@ public class TestFeatureChildSelectRuntime extends BaseAndroidTest {
 	public void testSelect() {
 		BindAppDataSource ds = BindAppDataSource.getInstance();
 
-		ds.execute(new BindAppDataSource.Transaction() {
+		ds.execute(daoFactory -> {
+			for (int i = 0; i < ITERACTIONS; i++) {
+				Album album = new Album();
+				album.name = "album" + i;
+				daoFactory.getDaoAlbum().insert(album);
 
-			@Override
-			public TransactionResult onExecute(BindAppDaoFactory daoFactory) {
-				for (int i = 0; i < ITERACTIONS; i++) {
-					Album album = new Album();
-					album.name = "album" + i;
-					daoFactory.getDaoAlbum().insert(album);
-
-					for (int j = 0; j < i; j++) {
-						Song song = new Song();
-						song.albumId = album.getId();
-						song.name = "song" + j;
-						daoFactory.getDaoSong().insert(song);
-					}
-
+				for (int j = 0; j < i; j++) {
+					Song song = new Song();
+					song.albumId = album.getId();
+					song.name = "song" + j;
+					daoFactory.getDaoSong().insert(song);
 				}
-				return TransactionResult.COMMIT;
-			}
 
+			}
+			return TransactionResult.COMMIT;
 		});
 
 		ds.execute(new BindAppDataSource.Transaction() {
