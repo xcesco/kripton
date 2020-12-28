@@ -28,7 +28,10 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class CollectionUtils {
+public abstract class CollectionUtils {
+	private CollectionUtils() {
+
+	}
 
 	public static <L extends Collection<T>, E extends Collection<T>, T> L merge(L collection, E initialValue) {
 		if (initialValue != null && initialValue.size() > 0) {

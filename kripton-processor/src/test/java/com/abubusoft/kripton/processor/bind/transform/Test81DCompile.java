@@ -15,10 +15,22 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
+import com.abubusoft.kripton.processor.bind.transform.lang.IntegerBindTransform;
+import com.abubusoft.kripton.processor.bind.transform.lang.LangTransformations;
+import com.abubusoft.kripton.processor.bind.transform.lang.StringBindTransform;
+import com.abubusoft.kripton.processor.bind.transform.math.BigDecimalBindTransform;
+import com.abubusoft.kripton.processor.bind.transform.math.MathTransformations;
+import com.abubusoft.kripton.processor.bind.transform.net.UrlBindTransform;
+import com.abubusoft.kripton.processor.bind.transform.sql.SQLDateBindTransform;
+import com.abubusoft.kripton.processor.bind.transform.sql.SQLTimeBindTransform;
+import com.abubusoft.kripton.processor.bind.transform.sql.SQLTransformations;
+import com.abubusoft.kripton.processor.bind.transform.util.DateBindTransform;
+import com.abubusoft.kripton.processor.bind.transform.util.UtilsTransformations;
+import com.abubusoft.kripton.processor.bind.transform.net.NetTransformations;
+import org.junit.Test;
+
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
 
 
 /**
@@ -28,18 +40,17 @@ import org.junit.Test;
  */
 public class Test81DCompile {
 
-	/**
-	 * Test bind transformer.
-	 */
-	@Test
-	public void testBindTransformer()
-	{
-		assertEquals(StringBindTransform.class.getName(), BindTransformer.getLanguageTransform(typeName("java.lang.String")).getClass().getName());
-		assertEquals(BigDecimalBindTransform.class.getName(), BindTransformer.getMathTransform(typeName("java.math.BigDecimal")).getClass().getName());
-		assertEquals(UrlBindTransform.class.getName(), BindTransformer.getNetTransform(typeName("java.net.URL")).getClass().getName());
-		assertEquals(IntegerBindTransform.class.getName(), BindTransformer.getPrimitiveTransform(typeName("int")).getClass().getName());
-		assertEquals(SQLTimeBindTransform.class.getName(), BindTransformer.getSqlTransform(typeName("java.sql.Time")).getClass().getName());
-		assertEquals(SQLDateBindTransform.class.getName(), BindTransformer.getSqlTransform(typeName("java.sql.Date")).getClass().getName());
-		assertEquals(DateBindTransform.class.getName(), BindTransformer.getUtilTransform(typeName("java.util.Date")).getClass().getName());
-	}
+  /**
+   * Test bind transformer.
+   */
+  @Test
+  public void testBindTransformer() {
+    assertEquals(StringBindTransform.class.getName(), BindTransformer.getSupportedTransformations(typeName("java.lang.String"), LangTransformations.transformations).getClass().getName());
+    assertEquals(BigDecimalBindTransform.class.getName(), BindTransformer.getSupportedTransformations(typeName("java.math.BigDecimal"), MathTransformations.transformations).getClass().getName());
+    assertEquals(UrlBindTransform.class.getName(), BindTransformer.getSupportedTransformations(typeName("java.net.URL"), NetTransformations.transformations).getClass().getName());
+    assertEquals(IntegerBindTransform.class.getName(), BindTransformer.getPrimitiveTransform(typeName("int")).getClass().getName());
+    assertEquals(SQLTimeBindTransform.class.getName(), BindTransformer.getSupportedTransformations(typeName("java.sql.Time"), SQLTransformations.transformations).getClass().getName());
+    assertEquals(SQLDateBindTransform.class.getName(), BindTransformer.getSupportedTransformations(typeName("java.sql.Date"), SQLTransformations.transformations).getClass().getName());
+    assertEquals(DateBindTransform.class.getName(), BindTransformer.getSupportedTransformations(typeName("java.util.Date"), UtilsTransformations.transformations).getClass().getName());
+  }
 }

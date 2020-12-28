@@ -19,63 +19,67 @@ package com.abubusoft.kripton.common;
 /**
  * The Class Pair.
  *
- * @author Francesco Benincasa (info@abubusoft.com)
  * @param <V0> the generic type
  * @param <V1> the generic type
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class Pair<V0, V1> extends One<V0> {
-	
-	/**
-	 * Instantiates a new pair.
-	 */
-	public Pair()
-	{
-		super();
-	}
-	
-	/**
-	 * Instantiates a new pair.
-	 *
-	 * @param value0 the value 0
-	 * @param value1 the value 1
-	 */
-	public Pair(V0 value0, V1 value1)
-	{
-		super(value0);		
-		this.value1=value1;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((value1 == null) ? 0 : value1.hashCode());
-		return result;
-	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pair other = (Pair) obj;
-		if (value1 == null) {
-			if (other.value1 != null)
-				return false;
-		} else if (!value1.equals(other.value1))
-			return false;
-		return true;
-	}
-	
-	/** The value 1. */
-	public V1 value1;
+  public static <V0, V1> Pair<V0, V1> of(V0 value0, V1 value1) {
+    return new Pair(value0, value1);
+  }
+
+  /**
+   * Instantiates a new pair.
+   */
+  public Pair() {
+    super();
+  }
+
+  /**
+   * Instantiates a new pair.
+   *
+   * @param value0 the value 0
+   * @param value1 the value 1
+   */
+  public Pair(V0 value0, V1 value1) {
+    super(value0);
+    this.value1 = value1;
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((value1 == null) ? 0 : value1.hashCode());
+    return result;
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!super.equals(obj))
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Pair other = (Pair) obj;
+    if (value1 == null) {
+      if (other.value1 != null)
+        return false;
+    } else if (!value1.equals(other.value1))
+      return false;
+    return true;
+  }
+
+  /**
+   * The value 1.
+   */
+  public V1 value1;
 }

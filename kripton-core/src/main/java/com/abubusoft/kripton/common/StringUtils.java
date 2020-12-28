@@ -24,7 +24,10 @@ import java.io.Writer;
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
-public class StringUtils {
+public abstract class StringUtils {
+	private StringUtils() {
+
+	}
 
 	/** The Constant VIEW_SIZE. */
 	private static final int VIEW_SIZE = 64;

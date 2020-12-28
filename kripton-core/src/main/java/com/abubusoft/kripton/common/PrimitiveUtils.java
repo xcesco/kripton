@@ -19,7 +19,10 @@ package com.abubusoft.kripton.common;
 /**
  * The Class PrimitiveUtils.
  */
-public class PrimitiveUtils {
+public abstract class PrimitiveUtils {
+	private PrimitiveUtils() {
+
+	}
 	
 	/**
 	 * Read boolean.

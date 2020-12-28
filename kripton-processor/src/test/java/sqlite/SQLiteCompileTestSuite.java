@@ -17,7 +17,6 @@ package sqlite;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
 import sqlite.adapter.example01.TestAdapterSuite;
 import sqlite.errors.SQLiteCompileErrorTest;
 import sqlite.example02.Example02Suite;
@@ -55,6 +54,7 @@ import sqlite.feature.relations.TestRelationSuite;
 import sqlite.feature.rx.TestRXSuite;
 import sqlite.feature.schema.TestSchemaSuite;
 import sqlite.feature.speed.TestCompileSpeed;
+import sqlite.feature.time.TimeSQLCompileTestSuite;
 import sqlite.feature.transaction.TestFeatureTransactionCompile;
 import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.feature.typeadapter.kripton180.Test180Suite;
@@ -111,111 +111,111 @@ import sqlite.update.raw.TestRawSuite;
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
-		{
-			// features			
-			TestContentProviderSuite.class,
-			TestPaginatedResultSuite.class,
-			TestCompileMultithreadSuite.class,
-			TestCustomBeanSuite.class, 
-			TestGenericHierarchySuite.class,
-			TestJavadocFeatureSuite.class,
-			TestDynamicSuite.class,
-			TestSchemaSuite.class,
-			IndexTestSuite.class,			
-			TestTypeAdapterSuite.class,			
-			TestCompileMany2ManySuite.class,
-			TestGlobalSqlTypeAdaptersSuite.class,
-			TestForeignKeyActionSuite.class, 
-			TestRXSuite.class,
-			TestCompileSpeed.class,
-			TestLiveDataSuite.class,
-			TestLiveDataXSuite.class,
-			TestJoinFeatureSuite.class,
-			TestRelationSuite.class,
-			TestColumnAffinityTestSuite.class,
-			TestChildSelectSuite.class,
-			TestInSuite.class,
-			TestCompileImmutableSuite.class,
-			TestDataSourceOptionSuite.class,
-			TestFeatureTransactionCompile.class,
-			TestPagedResultCompile.class,
-			
-			TestAdapterSuite.class,
-			TestCompileMultipleSuite.class,
-			FeatureAsyncSuite.class,
-			TestRawSuite.class,
-			
-			// bug-fix			
-			TestCompileKotlinImmutable.class,
-			
-			// error check
-			SQLiteCompileErrorTest.class,
-			
-			Example02Suite.class,
-			TestCompile111.class,
-			TestStack44330452Suite.class,
-			Test01Suite.class, 
-			Test02Suite.class,
-			Test03Suite.class, 
-			Test05Suite.class,
-			Test33Suite.class,
-			Test38Suite.class,
-			Test40Suite.class,
-			Test41Suite.class,
-			Test48Suite.class,
-			Test49Suite.class,
-			Test51Suite.class,
-			Test56Suite.class,			
-			Test58Suite.class,
-			Test60Suite.class,
-			Test62Suite.class,
-			Test63Suite.class,
-			Test64Suite.class,
-			Test84Suite.class,
-			Test93Suite.class,
-			Test96Suite.class,
-			TestQuickstartSuite.class,
-			Test296.class,
-			Test294.class,
-			TestDao01.class, 
-			Test03.class, 
-			Test04.class,
-			TestFirstAid.class,			
-			TestForeignKeySuite.class,
-			TestUriCheckerSuite.class,
-			TestJqlCheckerSuite.class,
-			Test186Suite.class,
-			Test180Suite.class,
-			TestStack44633883Suite.class,
-			TestStack45184504Suite.class,	
-			Test205Suite.class,
-			TestLiveDataXSuite.class,
-			
-			TestSamplesSuite.class,
-						
-			TestPerformanceSuite.class,
-			TestSelectSuite.class,
-			IncludeFieldsTestSuite.class,						
-			TestJQLFeatureSuite.class,
-			Test62Compile.class,
-			Test63Compile.class,
-			Test209Suite.class,
-			
-			
-			
-			// git
-			TestGit12.class,
-			TestGit19Suite.class,
-			TestGit20Suite.class,
-			TestGit21.class,
-			TestGit22.class,
-			TestGit23.class,
-			
-			// kotlin
-			TestKotlinHierarchy.class,
-			
-			TestPkStringSuite.class
-			})
+        {
+                // features
+                TestContentProviderSuite.class,
+                TestPaginatedResultSuite.class,
+                TestCompileMultithreadSuite.class,
+                TestCustomBeanSuite.class,
+                TestGenericHierarchySuite.class,
+                TestJavadocFeatureSuite.class,
+                TestDynamicSuite.class,
+                TestSchemaSuite.class,
+                IndexTestSuite.class,
+                TestTypeAdapterSuite.class,
+                TestCompileMany2ManySuite.class,
+                TestGlobalSqlTypeAdaptersSuite.class,
+                TestForeignKeyActionSuite.class,
+                TestRXSuite.class,
+                TestCompileSpeed.class,
+                TestLiveDataSuite.class,
+                TestLiveDataXSuite.class,
+                TestJoinFeatureSuite.class,
+                TestRelationSuite.class,
+                TestColumnAffinityTestSuite.class,
+                TestChildSelectSuite.class,
+                TestInSuite.class,
+                TestCompileImmutableSuite.class,
+                TestDataSourceOptionSuite.class,
+                TestFeatureTransactionCompile.class,
+                TestPagedResultCompile.class,
+                TimeSQLCompileTestSuite.class,
+
+                TestAdapterSuite.class,
+                TestCompileMultipleSuite.class,
+                FeatureAsyncSuite.class,
+                TestRawSuite.class,
+
+                // bug-fix
+                TestCompileKotlinImmutable.class,
+
+                // error check
+                SQLiteCompileErrorTest.class,
+
+                Example02Suite.class,
+                TestCompile111.class,
+                TestStack44330452Suite.class,
+                Test01Suite.class,
+                Test02Suite.class,
+                Test03Suite.class,
+                Test05Suite.class,
+                Test33Suite.class,
+                Test38Suite.class,
+                Test40Suite.class,
+                Test41Suite.class,
+                Test48Suite.class,
+                Test49Suite.class,
+                Test51Suite.class,
+                Test56Suite.class,
+                Test58Suite.class,
+                Test60Suite.class,
+                Test62Suite.class,
+                Test63Suite.class,
+                Test64Suite.class,
+                Test84Suite.class,
+                Test93Suite.class,
+                Test96Suite.class,
+                TestQuickstartSuite.class,
+                Test296.class,
+                Test294.class,
+                TestDao01.class,
+                Test03.class,
+                Test04.class,
+                TestFirstAid.class,
+                TestForeignKeySuite.class,
+                TestUriCheckerSuite.class,
+                TestJqlCheckerSuite.class,
+                Test186Suite.class,
+                Test180Suite.class,
+                TestStack44633883Suite.class,
+                TestStack45184504Suite.class,
+                Test205Suite.class,
+                TestLiveDataXSuite.class,
+
+                TestSamplesSuite.class,
+
+                TestPerformanceSuite.class,
+                TestSelectSuite.class,
+                IncludeFieldsTestSuite.class,
+                TestJQLFeatureSuite.class,
+                Test62Compile.class,
+                Test63Compile.class,
+                Test209Suite.class,
+
+
+                // git
+                TestGit12.class,
+                TestGit19Suite.class,
+                TestGit20Suite.class,
+                TestGit21.class,
+                TestGit22.class,
+                TestGit23.class,
+
+                // kotlin
+                TestKotlinHierarchy.class,
+
+                TestPkStringSuite.class
+        })
 //@formatter:on
 public class SQLiteCompileTestSuite {
 

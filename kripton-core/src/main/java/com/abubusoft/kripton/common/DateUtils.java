@@ -26,7 +26,10 @@ import java.util.TimeZone;
 /**
  * The Class DateUtils.
  */
-public class DateUtils {
+public abstract class DateUtils {
+	private DateUtils() {
+
+	}
 
 	/** The full. */
 	public final static String FULL = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
@@ -39,8 +42,6 @@ public class DateUtils {
 
 	/** The short. */
 	public final static String SHORT = "yyyy-MM-dd";
-
-
 
 	/**
 	 * Read.

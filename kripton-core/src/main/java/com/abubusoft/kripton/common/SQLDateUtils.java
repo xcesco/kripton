@@ -20,7 +20,10 @@ import java.sql.Date;
 /**
  * The Class SQLDateUtils.
  */
-public class SQLDateUtils {
+public abstract class SQLDateUtils {
+	private SQLDateUtils() {
+
+	}
 
 	/**
 	 * Write.

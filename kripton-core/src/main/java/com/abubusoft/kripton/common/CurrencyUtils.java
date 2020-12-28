@@ -21,7 +21,10 @@ import java.util.Currency;
 /**
  * The Class CurrencyUtils.
  */
-public class CurrencyUtils {
+public abstract class CurrencyUtils {
+	private CurrencyUtils() {
+
+	}
 
 	/**
 	 * Write.

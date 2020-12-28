@@ -19,7 +19,10 @@ package com.abubusoft.kripton.common;
 /**
  * The Class EnumUtils.
  */
-public class EnumUtils {
+public abstract class EnumUtils {
+	private EnumUtils() {
+
+	}
 
 	/**
 	 * Write.

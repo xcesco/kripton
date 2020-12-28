@@ -29,7 +29,10 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
  * @author bulldog
  * 
  */
-public class Base64Utils {
+public abstract class Base64Utils {
+    private Base64Utils() {
+
+    }
     
     /** The Constant S_BASE64CHAR. */
     private static final char[] S_BASE64CHAR = {
