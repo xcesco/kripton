@@ -15,25 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
-
-import java.lang.annotation.Annotation;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.URL;
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.lang.model.type.TypeMirror;
-
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -42,10 +26,31 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.sqlite.transform.lang.*;
+import com.abubusoft.kripton.processor.sqlite.transform.math.MathTransformations;
+import com.abubusoft.kripton.processor.sqlite.transform.net.NetTransformations;
+import com.abubusoft.kripton.processor.sqlite.transform.net.UrlSQLTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.sql.SQLDateSQLTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.sql.SQLTimeSQLTransform;
+import com.abubusoft.kripton.processor.sqlite.transform.sql.SQLTransformations;
+import com.abubusoft.kripton.processor.sqlite.transform.time.TimeTransformations;
+import com.abubusoft.kripton.processor.sqlite.transform.util.UtilsTransformations;
+import com.google.common.collect.Lists;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+
+import javax.lang.model.type.TypeMirror;
+import java.lang.annotation.Annotation;
+import java.net.URL;
+import java.sql.Time;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static com.abubusoft.kripton.common.Pair.of;
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 /**
  * Transformer for java primitive types and frequently used java types.
@@ -56,6 +61,30 @@ public abstract class SQLTransformer {
 
 	/** cache for transform. */
 	private static final Map<TypeName, SQLTransform> cache = new ConcurrentHashMap<TypeName, SQLTransform>();
+
+	private static final List<Pair<String, List<Pair<Class<?>, Class<? extends SQLTransform>>>>> transformations = Lists.newArrayList(
+					of("java.lang", LangTransformations.transformations),
+					of("java.util", UtilsTransformations.transformations),
+					of("java.math", MathTransformations.transformations),
+					of("java.net", NetTransformations.transformations),
+					of("java.sql", SQLTransformations.transformations),
+					of("java.time", TimeTransformations.transformations)
+	);
+
+
+	static SQLTransform getSupportedTransformations(TypeName typeName, List<Pair<Class<?>, Class<? extends SQLTransform>>> transformations) {
+		return transformations.stream()
+						.filter(item -> item.value0.getName().equals(typeName.toString()))
+						.findFirst().map(item -> {
+							SQLTransform tranformation = null;
+							try {
+								tranformation = item.value1.newInstance();
+							} catch (InstantiationException | IllegalAccessException e) {
+								e.printStackTrace();
+							}
+							return tranformation;
+						}).orElse(null);
+	}
 
 	/**
 	 * "resultBean", "cursor","indexes["+(i++)+"]".
@@ -175,16 +204,7 @@ public abstract class SQLTransformer {
 		transform.generateWriteParam2ContentValues(methodBuilder, method, paramName, paramType, property);
 
 	}
-	
-	/**
-	 * Check type adapter.
-	 * @param annotation 
-	 *
-	 * @param entity the entity
-	 * @param propertyType the property type
-	 * @param typeAdapter the type adapter
-	 * @param annotation the annotation
-	 */
+
 	private static void checkTypeAdapterForParam( SQLiteModelMethod method,
 			String methodParamName, Class<? extends Annotation> annotation) {
 		
@@ -333,33 +353,26 @@ public abstract class SQLTransformer {
 			}
 		}
 
-		String name = typeName.toString();
-
-		if (name.startsWith("java.lang")) {
-			return getLanguageTransform(typeName);
-		}
-
-		if (name.startsWith("java.util")) {
-			return getUtilTransform(typeName);
-		}
-
-		if (name.startsWith("java.math")) {
-			return getMathTransform(typeName);
-		}
-
-		if (name.startsWith("java.net")) {
-			return getNetTransform(typeName);
-		}
-
-		if (name.startsWith("java.sql")) {
-			return getSqlTransform(typeName);
-		}
-
 		if (TypeUtility.isEnum(typeName)) {
 			return new EnumSQLTransform(typeName);
 		}
 
-		return new ObjectSQLTransform();
+		// for default is treated as object
+		String name = typeName.toString();
+		List<Pair<Class<?>, Class<? extends SQLTransform>>> values = getSupportedTransformations(name);
+
+		if (values != null) {
+			return getSupportedTransformations(typeName, values);
+		} else {
+			return new ObjectSQLTransform();
+		}
+	}
+
+	private static List<Pair<Class<?>, Class<? extends SQLTransform>>> getSupportedTransformations(String name) {
+		List<Pair<Class<?>, Class<? extends SQLTransform>>> values = transformations.stream()
+						.filter(item -> name.startsWith(item.value0))
+						.findFirst().map(item -> item.value1).orElse(null);
+		return values;
 	}
 
 	/**
@@ -409,45 +422,7 @@ public abstract class SQLTransformer {
 		}
 
 		String name = typeName.toString();
-
-		if (name.startsWith("java.lang")) {
-			return getLanguageTransform(typeName) != null;
-		}
-
-		if (name.startsWith("java.util")) {
-			return getUtilTransform(typeName) != null;
-		}
-
-		if (name.startsWith("java.math")) {
-			return getMathTransform(typeName) != null;
-		}
-
-		if (name.startsWith("java.net")) {
-			return getNetTransform(typeName) != null;
-		}
-
-		if (name.startsWith("java.sql")) {
-			return getSqlTransform(typeName) != null;
-		}
-
-		return false;
-	}
-
-	/**
-	 * Gets the math transform.
-	 *
-	 * @param typeName
-	 *            the type name
-	 * @return the math transform
-	 */
-	static SQLTransform getMathTransform(TypeName typeName) {
-		if (BigDecimal.class.getName().equals(typeName.toString())) {
-			return new BigDecimalSQLTransform();
-		} else if (BigInteger.class.getName().equals(typeName.toString())) {
-			return new BigIntegerSQLTransform();
-		}
-
-		return null;
+		return getSupportedTransformations(name)!=null;
 	}
 
 	/**
@@ -482,76 +457,6 @@ public abstract class SQLTransformer {
 		}
 		if (Character.TYPE.toString().equals(type.toString())) {
 			return new CharacterSQLTransform(false);
-		}
-		return null;
-	}
-
-	/**
-	 * Get Java primitive wrapping type Transformable.
-	 *
-	 * @param type
-	 *            the type
-	 * @return the language transform
-	 */
-	static SQLTransform getLanguageTransform(TypeName type) {
-		String typeName = type.toString();
-
-		if (Integer.class.getCanonicalName().equals(typeName)) {
-			return new IntegerSQLTransform(true);
-		}
-		if (Boolean.class.getCanonicalName().equals(typeName)) {
-			return new BooleanSQLTransform(true);
-		}
-		if (Long.class.getCanonicalName().equals(typeName)) {
-			return new LongSQLTransform(true);
-		}
-		if (Double.class.getCanonicalName().equals(typeName)) {
-			return new DoubleSQLTransform(true);
-		}
-		if (Float.class.getCanonicalName().equals(typeName)) {
-			return new FloatSQLTransform(true);
-		}
-		if (Short.class.getCanonicalName().equals(typeName)) {
-			return new ShortSQLTransform(true);
-		}
-		if (Byte.class.getCanonicalName().equals(typeName)) {
-			return new ByteSQLTransform(true);
-		}
-		if (Character.class.getCanonicalName().equals(typeName)) {
-			return new CharacterSQLTransform(true);
-		}
-		if (String.class.getCanonicalName().equals(typeName)) {
-			return new StringSQLTransform();
-		}
-		return null;
-	}
-
-	/**
-	 * Get java.util type Transformable
-	 *
-	 * @param type
-	 *            the type
-	 * @return the util transform
-	 */
-
-	static SQLTransform getUtilTransform(TypeName type) {
-		String typeName = type.toString();
-
-		// Integer.class.getCanonicalName().equals(typeName)
-		if (Date.class.getCanonicalName().equals(typeName)) {
-			return new DateSQLTransform();
-		}
-		if (Locale.class.getCanonicalName().equals(typeName)) {
-			return new LocaleSQLTransform();
-		}
-		if (Currency.class.getCanonicalName().equals(typeName)) {
-			return new CurrencySQLTransform();
-		}
-		if (Calendar.class.getCanonicalName().equals(typeName)) {
-			return new CalendarSQLTransform();
-		}
-		if (TimeZone.class.getCanonicalName().equals(typeName)) {
-			return new TimeZoneSQLTransform();
 		}
 		return null;
 	}

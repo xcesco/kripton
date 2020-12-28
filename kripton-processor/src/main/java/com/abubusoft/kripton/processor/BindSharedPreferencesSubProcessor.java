@@ -69,10 +69,10 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 	private PrefsModel model;
 
 	/** The class annotation filter. */
-	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindSharedPreferences.class).build();
+	private final AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindSharedPreferences.class).build();
 
 	/** The property annotation filter. */
-	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindPreference.class).add(BindPreferenceAdapter.class).build();
+	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindPreference.class).add(BindPreferenceAdapter.class).build();
 
 	
 	/* (non-Javadoc)
@@ -123,23 +123,17 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 	 * @return the string
 	 */
 	private String analyzeSharedPreferences(final TypeElement sharedPreference) {
-		Element beanElement = sharedPreference;
+		TypeElement beanElement = sharedPreference;
 		String result = beanElement.getSimpleName().toString();
 
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, sharedPreference);
-		final PrefsEntity currentEntity = new PrefsEntity(beanElement.getSimpleName().toString(), (TypeElement) beanElement,
-				AnnotationUtility.buildAnnotationList((TypeElement) beanElement, classAnnotationFilter));
+		final PrefsEntity currentEntity = new PrefsEntity(beanElement.getSimpleName().toString(), beanElement,
+				AnnotationUtility.buildAnnotationList(beanElement, classAnnotationFilter));
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
-		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<PrefsEntity, PrefsProperty>() {
-
-			@Override
-			public PrefsProperty createProperty(PrefsEntity entity, Element propertyElement) {
-				return new PrefsProperty(currentEntity, propertyElement, AnnotationUtility.buildAnnotationList(propertyElement));
-			}
-		}, propertyAnnotationFilter, new PropertyCreatedListener<PrefsEntity, PrefsProperty>() {
+		PropertyUtility.buildProperties(elementUtils, currentEntity, (entity, propertyElement) -> new PrefsProperty(currentEntity, propertyElement, AnnotationUtility.buildAnnotationList(propertyElement)), propertyAnnotationFilter, new PropertyCreatedListener<PrefsEntity, PrefsProperty>() {
 
 			@Override
 			public boolean onProperty(PrefsEntity entity, PrefsProperty property) {
@@ -181,7 +175,7 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
 				// if field disable, skip property definition
 				ModelAnnotation annotation = property.getAnnotation(BindPreference.class);
-				if (annotation != null && AnnotationUtility.extractAsBoolean(property, annotation, AnnotationAttributeType.ENABLED) == false) {
+				if (annotation != null && !AnnotationUtility.extractAsBoolean(property, annotation, AnnotationAttributeType.ENABLED)) {
 					return false;
 				}
 

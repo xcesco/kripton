@@ -22,7 +22,10 @@ import java.net.URL;
 /**
  * The Class UrlUtils.
  */
-public class UrlUtils {
+public abstract class UrlUtils {
+	private UrlUtils() {
+
+	}
 
 	/**
 	 * Write.

@@ -24,6 +24,7 @@ import bind.feature.git45.TestGit43Suite;
 import bind.feature.immutable.TestImmutableCompileSuite;
 import bind.feature.kotlin.TestBindTypeKotlinCompileSuite;
 import bind.feature.namespace.CompileNamespaceTestSuite;
+import bind.feature.time.TimeCompileTestSuite;
 import bind.feature.typeadapter.kripton87.Test87CompileSuite;
 import bind.git18.TestCompileGit18;
 import bind.git49.TestCompileGit49;
@@ -90,6 +91,7 @@ import org.junit.runners.Suite;
 
                 // features
                 CompileNamespaceTestSuite.class,
+                TimeCompileTestSuite.class
         })
 //@formatter:on
 public class BindCompileTestSuite {
