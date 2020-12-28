@@ -21,7 +21,10 @@ import java.util.TimeZone;
 /**
  * The Class TimeZoneUtils.
  */
-public class TimeZoneUtils {
+public abstract class TimeZoneUtils {
+	private TimeZoneUtils() {
+
+	}
 	
 	/**
 	 * Write.

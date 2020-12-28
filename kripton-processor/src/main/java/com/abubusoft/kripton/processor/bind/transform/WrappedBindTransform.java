@@ -38,7 +38,7 @@ import com.squareup.javapoet.TypeName;
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
-public class WrappedBindTransform extends AbstractBindTransform {
+public abstract class WrappedBindTransform extends AbstractBindTransform {
 
 	/** The util clazz. */
 	protected Class<?> utilClazz;

@@ -29,6 +29,10 @@ package com.abubusoft.kripton.common;
  */
 public class Triple<V0, V1, V2> extends Pair<V0, V1> {
 
+	public static <V0, V1, V2> Triple<V0, V1, V2> of(V0 value0, V1 value1, V2 value2) {
+		return new Triple(value0, value1, value2);
+	}
+
 	/**
 	 * Instantiates a new triple.
 	 */

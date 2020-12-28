@@ -22,6 +22,10 @@ package com.abubusoft.kripton.common;
  * @param <V0> the generic type
  */
 public class One<V0> {
+
+	public static <V0> One<V0> of(V0 value0) {
+		return new One(value0);
+	}
 	
 	/** The value 0. */
 	public V0 value0;

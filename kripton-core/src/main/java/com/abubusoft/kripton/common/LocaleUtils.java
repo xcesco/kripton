@@ -21,7 +21,10 @@ import java.util.Locale;
 /**
  * The Class LocaleUtils.
  */
-public class LocaleUtils {
+public abstract class LocaleUtils {
+	private LocaleUtils() {
+
+	}
 
 	/**
 	 * Write.

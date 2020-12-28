@@ -15,14 +15,12 @@
  *******************************************************************************/
 package all;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
 import bind.bindenum.TestRuntimeEnumSuite;
 import bind.bugs.TestRuntimeBugsSuite;
 import bind.directmap.TestRuntimeDirectMapSuite;
 import bind.feature.generichierarchy.TestRuntimeHierarchySuite;
 import bind.feature.namespace.TestRuntimeNamespaceSuite;
+import bind.feature.time.TestRuntimeTimeSuite;
 import bind.feature.typeadapter.kripton87.TestRuntime87Suite;
 import bind.kripton42faster.TestRuntime42Suite;
 import bind.kripton70.TestRuntime70Suite;
@@ -34,6 +32,8 @@ import bind.kripton75bytearray.TestRuntime75Suite;
 import bind.kripton78.TestRuntime78Suite;
 import bind.kripton80contextcollection.TestRuntime80Suite;
 import bind.kripton81morecoveragetests.TestRuntime81Suite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  * The Class KriptonRuntimeSuiteTest.
@@ -43,26 +43,28 @@ import bind.kripton81morecoveragetests.TestRuntime81Suite;
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
-		{ 
-		TestRuntimeBugsSuite.class,
-		
-		TestRuntime42Suite.class,
-		TestRuntime70Suite.class,
-		TestRuntime71Suite.class,
-		TestRuntime72Suite.class,
-		TestRuntime73Suite.class,
-		TestRuntime74Suite.class,
-		TestRuntime75Suite.class,
-		TestRuntime78Suite.class,
-		TestRuntime80Suite.class,
-		TestRuntime81Suite.class,
-		TestRuntime87Suite.class,
-		TestRuntimeEnumSuite.class,
-		TestRuntimeHierarchySuite.class,
-		TestRuntimeDirectMapSuite.class,
-		
-		TestRuntimeNamespaceSuite.class
-		 })
+        {
+                TestRuntimeBugsSuite.class,
+
+                TestRuntime42Suite.class,
+                TestRuntime70Suite.class,
+                TestRuntime71Suite.class,
+                TestRuntime72Suite.class,
+                TestRuntime73Suite.class,
+                TestRuntime74Suite.class,
+                TestRuntime75Suite.class,
+                TestRuntime78Suite.class,
+                TestRuntime80Suite.class,
+                TestRuntime81Suite.class,
+                TestRuntime87Suite.class,
+                TestRuntimeEnumSuite.class,
+                TestRuntimeHierarchySuite.class,
+                TestRuntimeDirectMapSuite.class,
+
+                TestRuntimeTimeSuite.class,
+
+                TestRuntimeNamespaceSuite.class
+        })
 //@formatter:on
 public class KriptonRuntimeSuiteTest {
 

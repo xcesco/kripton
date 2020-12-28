@@ -292,7 +292,8 @@ public class KriptonSQLCipherHelperFactory implements SupportSQLiteOpenHelper.Fa
 				prefs.edit().putString(name, new String(passphrase)).commit();
 				Logger.debug("store passphrase for datasource %s", name);
 			}
-		} else if (!debugMode && recoveryPassphrase.length == 0){
+		} else if (recoveryPassphrase.length == 0){
+			// !debugMode && recoveryPassphrase.length == 0
 			throw new KriptonRuntimeException(String.format(
 					"Without passphrase, %s can not used to open a datasource. Set debugMode to use it in development phase.",
 					getClass().getName()));

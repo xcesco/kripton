@@ -21,7 +21,10 @@ import java.sql.Time;
 /**
  * The Class SQLTimeUtils.
  */
-public class SQLTimeUtils {
+public abstract class SQLTimeUtils {
+	private SQLTimeUtils() {
+
+	}
 	
 	/**
 	 * Write.

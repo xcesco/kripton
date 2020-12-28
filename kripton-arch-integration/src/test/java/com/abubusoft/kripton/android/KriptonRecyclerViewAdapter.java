@@ -10,6 +10,7 @@ public class KriptonRecyclerViewAdapter<VH extends ViewHolder> extends Adapter<V
 	public VH onCreateViewHolder(ViewGroup parent, int viewType) {
 		// TODO Auto-generated method stub
 		return null;
+
 	}
 
 	@Override

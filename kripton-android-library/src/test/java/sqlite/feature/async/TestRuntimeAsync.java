@@ -50,8 +50,7 @@ public class TestRuntimeAsync extends BaseAndroidTest {
 	 * @throws ExecutionException 
 	 */
 	@Test
-	public void testMultithreadWritable() throws InterruptedException, ExecutionException {		
-		
+	public void testMultithreadWritable() throws InterruptedException, ExecutionException {
 		BindDummy01DataSource ds=BindDummy01DataSource.getInstance();
 		
 		/*

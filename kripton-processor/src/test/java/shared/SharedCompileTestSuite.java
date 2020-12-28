@@ -17,13 +17,13 @@ package shared;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
 import shared.feature.enumeration.TestEnumerationCompileSuite;
 import shared.feature.immutable.TestSharedImmutableCompileSuite;
 import shared.feature.livedata.TestSharedLiveDataCompileSuite;
 import shared.feature.livedatax.TestSharedLiveDataXCompileSuite;
 import shared.feature.rx.TestSharedRxCompileSuite;
 import shared.feature.stringset.TestStringSetSuite;
+import shared.feature.time.TimeSharedPrefsCompileTestSuite;
 import shared.feature.typeadapter.TestPreferenceTypeAdapterSuite;
 import shared.kripton198.Test198Suite;
 import shared.kripton45.Test45Suite;
@@ -36,20 +36,21 @@ import shared.kripton50.TestKripton50;
  */
 @RunWith(Suite.class)
 // @formatter:off
-@Suite.SuiteClasses({ 
-	Test45Suite.class, 
-	Test46Compile.class,
-	Test47Suite.class, 
-	TestKripton50.class,
-	Test198Suite.class,
-	TestStringSetSuite.class,
-	TestPreferenceTypeAdapterSuite.class,
-	TestSharedRxCompileSuite.class,
-	TestSharedLiveDataCompileSuite.class,
-	TestSharedLiveDataXCompileSuite.class,
-	TestEnumerationCompileSuite.class,
-	TestSharedImmutableCompileSuite.class
-	 })
+@Suite.SuiteClasses({
+        Test45Suite.class,
+        Test46Compile.class,
+        Test47Suite.class,
+        TestKripton50.class,
+        Test198Suite.class,
+        TestStringSetSuite.class,
+        TestPreferenceTypeAdapterSuite.class,
+        TestSharedRxCompileSuite.class,
+        TestSharedLiveDataCompileSuite.class,
+        TestSharedLiveDataXCompileSuite.class,
+        TestEnumerationCompileSuite.class,
+        TestSharedImmutableCompileSuite.class,
+        TimeSharedPrefsCompileTestSuite.class
+})
 // @formatter:on
 public class SharedCompileTestSuite {
 
