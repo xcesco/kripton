@@ -172,7 +172,7 @@ In the application, to use generated an implementation of data-source you can us
 KriptonLibrary.init(context);
 
 // usage example 1: using a transaction
-BindPersonDataSource.instance().execute(daoFactory -> {
+BindPersonDataSource.getInstance().execute(daoFactory -> {
     PersonDao dao=daoFactory.getPersonDao();
     dao.insert(person);
     ...
@@ -180,7 +180,7 @@ BindPersonDataSource.instance().execute(daoFactory -> {
 });
 
 // usage example 2: using shared connection
-BindPersonDataSource.instance().executeBatch(daoFactory -> {
+BindPersonDataSource.getInstance().executeBatch(daoFactory -> {
     PersonDao dao=daoFactory.getPersonDao();
     dao.selectAll();
     ...
@@ -301,7 +301,7 @@ The Kripton Annotation Processor will generate for us `BindSecurityPreferences` 
 ```java
 final User bean=new User();
 ...
-BindSecurityPreferences security=BindSecurityPreferences.instance();
+BindSecurityPreferences security=BindSecurityPreferences.getInstance();
 security.edit().putUser(bean).commit();	
 ```
 
