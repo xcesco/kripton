@@ -50,6 +50,9 @@ public class DataSourceOptions {
 	/** The in memory. */
 	public final boolean inMemory;
 
+	/** datasource file name */
+	public final String name;
+
 	/**
 	 * Factory used to create the helper object.
 	 */
@@ -96,6 +99,9 @@ public class DataSourceOptions {
 		/** The in memory. */
 		private boolean inMemory;
 
+		/** datasource filename */
+		private String name;
+
 		/**
 		 * If <code>true</code> force instance to be created. Default is
 		 * <code>false</code>.
@@ -109,6 +115,18 @@ public class DataSourceOptions {
 
 		public Builder openHelperFactory(SupportSQLiteOpenHelper.Factory openHelperFactory) {
 			this.openHelperFactory = openHelperFactory;
+			return this;
+		}
+
+		/**
+		 * Name.
+		 *
+		 * @param value
+		 *            the value
+		 * @return the builder
+		 */
+		public Builder name(String value) {
+			this.name = value;
 			return this;
 		}
 
@@ -206,8 +224,6 @@ public class DataSourceOptions {
 		 *
 		 * @param targetVersion
 		 *            the version of database we want to reach
-		 * @param context
-		 *            the context
 		 * @param resRawId
 		 *            the res raw id
 		 * @return the builder
@@ -282,7 +298,7 @@ public class DataSourceOptions {
 		 * @return the data source options
 		 */
 		public DataSourceOptions build() {
-			return new DataSourceOptions(databaseLifecycleHandler, updateTasks, logEnabled, populator, inMemory,
+			return new DataSourceOptions(name, databaseLifecycleHandler, updateTasks, logEnabled, populator, inMemory,
 					openHelperFactory, forceBuild);
 		}
 
@@ -301,6 +317,7 @@ public class DataSourceOptions {
 			builder.populator = source.populator;
 			builder.inMemory = source.inMemory;
 			builder.openHelperFactory = source.openHelperFactory;
+			builder.name=source.name;
 
 			return builder;
 		}
@@ -309,10 +326,8 @@ public class DataSourceOptions {
 	/**
 	 * Instantiates a new data source options.
 	 *
-	 * @param factory
-	 *            the factory
-	 * @param errorHandler
-	 *            the error handler
+	 * @param name
+	 * 						datasource filename
 	 * @param databaseLifecycleHandler
 	 *            the database lifecycle handler
 	 * @param updateTasks
@@ -327,7 +342,7 @@ public class DataSourceOptions {
 	 * @param forceBuild
 	 *            force the build method to rebuild the instance
 	 */
-	private DataSourceOptions(DatabaseLifecycleHandler databaseLifecycleHandler,
+	private DataSourceOptions(String name, DatabaseLifecycleHandler databaseLifecycleHandler,
 			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator,
 			boolean inMemory, Factory openHelperFactory, boolean forceBuild) {
 		this.logEnabled = log;
@@ -337,6 +352,7 @@ public class DataSourceOptions {
 		this.inMemory = inMemory;
 		this.openHelperFactory = openHelperFactory;
 		this.forceBuild = forceBuild;
+		this.name=name;
 	}
 
 }

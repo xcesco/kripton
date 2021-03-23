@@ -12,7 +12,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-parent</artifactId>
-	<version>7.0.0</version>
+	<version>7.1.0-rc.1</version>
 	<packaging>pom</packaging>
 
 	<name>Kripton (Parent)</name>
@@ -38,7 +38,7 @@
 		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 
-		<kripton.version>7.0.0</kripton.version>
+		<kripton.version>7.1.0-rc.1</kripton.version>
 
 		<!-- dependencies version -->
 		<jackson.version>2.11.2</jackson.version>
