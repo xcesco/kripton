@@ -13,9 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- *
- */
 package com.abubusoft.kripton.android.sqlite;
 
 import android.content.ContentValues;
@@ -30,6 +27,7 @@ import androidx.sqlite.db.SupportSQLiteStatement;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import java.io.File;
@@ -189,7 +187,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
   protected AbstractDataSource(String name, int version, DataSourceOptions options) {
     DataSourceOptions optionsValue = (options != null) ? options : DataSourceOptions.builder().build();
 
-    this.name = optionsValue.inMemory ? null : name;
+    if (optionsValue.inMemory) {
+      this.name=null;
+    } else if (StringUtils.hasText(optionsValue.name)) {
+      this.name=optionsValue.name;
+    } else {
+      this.name=name;
+    }
+
     this.version = version;
 
     // create new SQLContext
@@ -356,34 +361,34 @@ public abstract class AbstractDataSource implements AutoCloseable {
             .callback(new SupportSQLiteOpenHelper.Callback(version) {
 
               @Override
-              public void onConfigure(SupportSQLiteDatabase db) {
+              public void onConfigure(@NonNull SupportSQLiteDatabase db) {
                 AbstractDataSource.this.onConfigure(db);
               }
 
               @Override
-              public void onCorruption(SupportSQLiteDatabase db) {
+              public void onCorruption(@NonNull SupportSQLiteDatabase db) {
                 AbstractDataSource.this.onCorruption(db);
               }
 
               @Override
-              public void onCreate(SupportSQLiteDatabase db) {
+              public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 sqliteHelper.setWriteAheadLoggingEnabled(true);
                 AbstractDataSource.this.onCreate(db);
               }
 
               @Override
-              public void onDowngrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+              public void onDowngrade(@NonNull SupportSQLiteDatabase db, int oldVersion, int newVersion) {
                 AbstractDataSource.this.onDowngrade(db, oldVersion, newVersion);
               }
 
               @Override
-              public void onOpen(SupportSQLiteDatabase db) {
+              public void onOpen(@NonNull SupportSQLiteDatabase db) {
                 sqliteHelper.setWriteAheadLoggingEnabled(true);
                 AbstractDataSource.this.onOpen(db);
               }
 
               @Override
-              public void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+              public void onUpgrade(@NonNull SupportSQLiteDatabase db, int oldVersion, int newVersion) {
                 AbstractDataSource.this.onUpgrade(db, oldVersion, newVersion);
               }
             });
