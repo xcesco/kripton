@@ -291,4 +291,8 @@ public class Bean93BindMap extends AbstractMapper<Bean93> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

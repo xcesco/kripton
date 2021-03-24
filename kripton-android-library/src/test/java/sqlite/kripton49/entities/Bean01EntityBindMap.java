@@ -232,4 +232,8 @@ public class Bean01EntityBindMap extends AbstractMapper<Bean01Entity> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

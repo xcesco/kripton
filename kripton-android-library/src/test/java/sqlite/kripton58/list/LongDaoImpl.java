@@ -703,7 +703,7 @@ public class LongDaoImpl extends Dao implements LongDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<Long> value) {
+  private static byte[] serializer1(List<Long> value) {
     if (value==null) {
       return null;
     }
@@ -740,7 +740,7 @@ public class LongDaoImpl extends Dao implements LongDao {
   /**
    * for param parser1 parsing
    */
-  private List<Long> parser1(byte[] input) {
+  private static List<Long> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

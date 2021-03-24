@@ -48,8 +48,9 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   private static SupportSQLiteStatement deleteAllPreparedStatement2;
 
   /**
-   * Bean84B2BindMap */
-  private Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
+   * binder for type Bean84B2
+   */
+  private static Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
   public Bean84BDaoImpl(BindBean84BDaoFactory daoFactory) {
     super(daoFactory.getContext());
@@ -368,7 +369,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(Bean84B2 value) {
+  private static byte[] serializer1(Bean84B2 value) {
     if (value==null) {
       return null;
     }
@@ -390,7 +391,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   /**
    * for param parser1 parsing
    */
-  private Bean84B2 parser1(byte[] input) {
+  private static Bean84B2 parser1(byte[] input) {
     if (input==null) {
       return null;
     }

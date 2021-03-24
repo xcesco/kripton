@@ -24,12 +24,14 @@ import java.util.ArrayList;
 @BindMap(TiledMapAnimation.class)
 public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> {
   /**
-   * TranslationFrameBindMap */
-  private TranslationFrameBindMap translationFrameBindMap = BinderUtils.mapperFor(TranslationFrame.class);
+   * binder for type TranslationFrame
+   */
+  private TranslationFrameBindMap translationFrameBindMap;
 
   /**
-   * TextureKeyFrameBindMap */
-  private TextureKeyFrameBindMap textureKeyFrameBindMap = BinderUtils.mapperFor(TextureKeyFrame.class);
+   * binder for type TextureKeyFrame
+   */
+  private TextureKeyFrameBindMap textureKeyFrameBindMap;
 
   @Override
   public int serializeOnJackson(TiledMapAnimation object, JsonGenerator jacksonSerializer) throws
@@ -509,5 +511,11 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      textureKeyFrameBindMap=BinderUtils.mapperFor(TextureKeyFrame.class);
+      translationFrameBindMap=BinderUtils.mapperFor(TranslationFrame.class);
     }
   }

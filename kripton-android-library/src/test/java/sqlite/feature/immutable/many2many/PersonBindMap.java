@@ -237,4 +237,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
       Person instance=new Person(__id,__name);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

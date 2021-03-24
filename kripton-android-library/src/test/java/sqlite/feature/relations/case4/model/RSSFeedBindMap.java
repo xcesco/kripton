@@ -23,8 +23,9 @@ import java.util.ArrayList;
 @BindMap(RSSFeed.class)
 public class RSSFeedBindMap extends AbstractMapper<RSSFeed> {
   /**
-   * ChannelBindMap */
-  private ChannelBindMap channelBindMap = BinderUtils.mapperFor(Channel.class);
+   * binder for type Channel
+   */
+  private ChannelBindMap channelBindMap;
 
   @Override
   public int serializeOnJackson(RSSFeed object, JsonGenerator jacksonSerializer) throws Exception {
@@ -345,5 +346,10 @@ public class RSSFeedBindMap extends AbstractMapper<RSSFeed> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      channelBindMap=BinderUtils.mapperFor(Channel.class);
     }
   }

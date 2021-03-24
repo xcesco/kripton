@@ -24,16 +24,19 @@ import java.util.ArrayList;
 @BindMap(User.class)
 public class UserBindMap extends AbstractMapper<User> {
   /**
-   * FriendBindMap */
-  private FriendBindMap friendBindMap = BinderUtils.mapperFor(Friend.class);
+   * binder for type Friend
+   */
+  private FriendBindMap friendBindMap;
 
   /**
-   * ImageBindMap */
-  private ImageBindMap imageBindMap = BinderUtils.mapperFor(Image.class);
+   * binder for type Image
+   */
+  private ImageBindMap imageBindMap;
 
   /**
-   * NameBindMap */
-  private NameBindMap nameBindMap = BinderUtils.mapperFor(Name.class);
+   * binder for type Name
+   */
+  private NameBindMap nameBindMap;
 
   @Override
   public int serializeOnJackson(User object, JsonGenerator jacksonSerializer) throws Exception {
@@ -1346,5 +1349,12 @@ public class UserBindMap extends AbstractMapper<User> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      imageBindMap=BinderUtils.mapperFor(Image.class);
+      nameBindMap=BinderUtils.mapperFor(Name.class);
+      friendBindMap=BinderUtils.mapperFor(Friend.class);
     }
   }

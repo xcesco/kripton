@@ -26,7 +26,7 @@ public class ModelEntity<E extends Element> {
 
 	/** The element. */
 	protected E element;
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

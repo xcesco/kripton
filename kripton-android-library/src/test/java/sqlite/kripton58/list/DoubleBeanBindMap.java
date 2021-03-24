@@ -453,4 +453,8 @@ public class DoubleBeanBindMap extends AbstractMapper<DoubleBean> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

@@ -231,4 +231,8 @@ public class NldBindMap extends AbstractMapper<Nld> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

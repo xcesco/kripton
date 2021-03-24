@@ -19,20 +19,24 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(ArgonSettings.class)
 public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
   /**
-   * ApplicationSettingsBindMap */
-  private ApplicationSettingsBindMap applicationSettingsBindMap = BinderUtils.mapperFor(ApplicationSettings.class);
+   * binder for type ApplicationSettings
+   */
+  private ApplicationSettingsBindMap applicationSettingsBindMap;
 
   /**
-   * LoggerSettingsBindMap */
-  private LoggerSettingsBindMap loggerSettingsBindMap = BinderUtils.mapperFor(LoggerSettings.class);
+   * binder for type LoggerSettings
+   */
+  private LoggerSettingsBindMap loggerSettingsBindMap;
 
   /**
-   * OpenGLSettingsBindMap */
-  private OpenGLSettingsBindMap openGLSettingsBindMap = BinderUtils.mapperFor(OpenGLSettings.class);
+   * binder for type OpenGLSettings
+   */
+  private OpenGLSettingsBindMap openGLSettingsBindMap;
 
   /**
-   * ViewFrustumSettingsBindMap */
-  private ViewFrustumSettingsBindMap viewFrustumSettingsBindMap = BinderUtils.mapperFor(ViewFrustumSettings.class);
+   * binder for type ViewFrustumSettings
+   */
+  private ViewFrustumSettingsBindMap viewFrustumSettingsBindMap;
 
   @Override
   public int serializeOnJackson(ArgonSettings object, JsonGenerator jacksonSerializer) throws
@@ -378,5 +382,13 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      loggerSettingsBindMap=BinderUtils.mapperFor(LoggerSettings.class);
+      applicationSettingsBindMap=BinderUtils.mapperFor(ApplicationSettings.class);
+      openGLSettingsBindMap=BinderUtils.mapperFor(OpenGLSettings.class);
+      viewFrustumSettingsBindMap=BinderUtils.mapperFor(ViewFrustumSettings.class);
     }
   }

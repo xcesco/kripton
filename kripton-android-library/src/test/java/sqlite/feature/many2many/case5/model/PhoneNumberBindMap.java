@@ -365,4 +365,8 @@ public class PhoneNumberBindMap extends AbstractMapper<PhoneNumber> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

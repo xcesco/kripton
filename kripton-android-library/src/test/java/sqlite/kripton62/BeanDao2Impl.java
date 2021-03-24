@@ -927,7 +927,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(HashSet<BigDecimal> value) {
+  private static byte[] serializer1(HashSet<BigDecimal> value) {
     if (value==null) {
       return null;
     }
@@ -961,7 +961,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
   /**
    * for param parser1 parsing
    */
-  private HashSet<BigDecimal> parser1(byte[] input) {
+  private static HashSet<BigDecimal> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

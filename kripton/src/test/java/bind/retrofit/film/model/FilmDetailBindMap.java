@@ -25,8 +25,9 @@ import java.util.List;
 @BindMap(FilmDetail.class)
 public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
   /**
-   * RatingBindMap */
-  private RatingBindMap ratingBindMap = BinderUtils.mapperFor(Rating.class);
+   * binder for type Rating
+   */
+  private RatingBindMap ratingBindMap;
 
   @Override
   public int serializeOnJackson(FilmDetail object, JsonGenerator jacksonSerializer) throws
@@ -1230,5 +1231,10 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
       // immutable object: inizialize object
       FilmDetail instance=new FilmDetail(__title,__year,__rated,__released,__runtime,__genre,__director,__writer,__actors,__plot,__language,__country,__awards,__poster,(__ratings==null ? null : Collections.unmodifiableList(__ratings)),__metascore,__imdbRating,__imdbVotes,__imdbID,__type,__dVD,__boxOffice,__production,__website,__response);
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      ratingBindMap=BinderUtils.mapperFor(Rating.class);
     }
   }

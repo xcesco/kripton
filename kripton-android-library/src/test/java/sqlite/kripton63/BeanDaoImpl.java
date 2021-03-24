@@ -1418,7 +1418,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(Map<String, Byte> value) {
+  private static byte[] serializer1(Map<String, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -1459,7 +1459,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * for param parser1 parsing
    */
-  private Map<String, Byte> parser1(byte[] input) {
+  private static Map<String, Byte> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -1499,7 +1499,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * for param serializer2 serialization
    */
-  private byte[] serializer2(HashMap<EnumType, Byte> value) {
+  private static byte[] serializer2(HashMap<EnumType, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -1540,7 +1540,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * for param parser2 parsing
    */
-  private HashMap<EnumType, Byte> parser2(byte[] input) {
+  private static HashMap<EnumType, Byte> parser2(byte[] input) {
     if (input==null) {
       return null;
     }

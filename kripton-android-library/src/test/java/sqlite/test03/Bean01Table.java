@@ -88,7 +88,8 @@ public class Bean01Table implements SQLiteTable {
   public static final String COLUMN_VALUE = "value";
 
   /**
-   * Bean02BindMap */
+   * binder for type Bean02
+   */
   private static Bean02BindMap bean02BindMap = BinderUtils.mapperFor(Bean02.class);
 
   /**

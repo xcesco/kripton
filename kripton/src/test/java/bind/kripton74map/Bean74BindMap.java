@@ -849,4 +849,8 @@ public class Bean74BindMap extends AbstractMapper<Bean74> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

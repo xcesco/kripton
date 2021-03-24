@@ -470,4 +470,8 @@ public class ApplicationSettingsBindMap extends AbstractMapper<ApplicationSettin
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

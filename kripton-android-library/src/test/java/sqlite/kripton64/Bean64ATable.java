@@ -76,7 +76,8 @@ public class Bean64ATable implements SQLiteTable {
   public static final String COLUMN_VALUE_STRING = "value_string";
 
   /**
-   * Bean64ABindMap */
+   * binder for type Bean64A
+   */
   private static Bean64ABindMap bean64ABindMap = BinderUtils.mapperFor(Bean64A.class);
 
   /**

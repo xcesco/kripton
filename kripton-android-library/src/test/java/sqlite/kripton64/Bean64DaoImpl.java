@@ -509,8 +509,9 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   private static SupportSQLiteStatement updateOneURLPreparedStatement95;
 
   /**
-   * Bean64BindMap */
-  private Bean64BindMap bean64BindMap = BinderUtils.mapperFor(Bean64.class);
+   * binder for type Bean64
+   */
+  private static Bean64BindMap bean64BindMap = BinderUtils.mapperFor(Bean64.class);
 
   public Bean64DaoImpl(BindBean64DaoFactory daoFactory) {
     super(daoFactory.getContext());
@@ -13964,7 +13965,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param serializer2 serialization
    */
-  private byte[] serializer2(Long[] value) {
+  private static byte[] serializer2(Long[] value) {
     if (value==null) {
       return null;
     }
@@ -14001,7 +14002,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param parser2 parsing
    */
-  private Long[] parser2(byte[] input) {
+  private static Long[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -14036,7 +14037,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(Bean64[] value) {
+  private static byte[] serializer1(Bean64[] value) {
     if (value==null) {
       return null;
     }
@@ -14073,7 +14074,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param parser1 parsing
    */
-  private Bean64[] parser1(byte[] input) {
+  private static Bean64[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -14108,7 +14109,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param serializer4 serialization
    */
-  private byte[] serializer4(LinkedList<Long> value) {
+  private static byte[] serializer4(LinkedList<Long> value) {
     if (value==null) {
       return null;
     }
@@ -14145,7 +14146,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param parser4 parsing
    */
-  private LinkedList<Long> parser4(byte[] input) {
+  private static LinkedList<Long> parser4(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -14180,7 +14181,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param serializer3 serialization
    */
-  private byte[] serializer3(long[] value) {
+  private static byte[] serializer3(long[] value) {
     if (value==null) {
       return null;
     }
@@ -14213,7 +14214,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param parser3 parsing
    */
-  private long[] parser3(byte[] input) {
+  private static long[] parser3(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -14248,7 +14249,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param serializer5 serialization
    */
-  private byte[] serializer5(Set<String> value) {
+  private static byte[] serializer5(Set<String> value) {
     if (value==null) {
       return null;
     }
@@ -14282,7 +14283,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * for param parser5 parsing
    */
-  private Set<String> parser5(byte[] input) {
+  private static Set<String> parser5(byte[] input) {
     if (input==null) {
       return null;
     }

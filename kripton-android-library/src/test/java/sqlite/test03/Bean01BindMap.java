@@ -24,8 +24,9 @@ import java.util.ArrayList;
 @BindMap(Bean01.class)
 public class Bean01BindMap extends AbstractMapper<Bean01> {
   /**
-   * Bean02BindMap */
-  private Bean02BindMap bean02BindMap = BinderUtils.mapperFor(Bean02.class);
+   * binder for type Bean02
+   */
+  private Bean02BindMap bean02BindMap;
 
   @Override
   public int serializeOnJackson(Bean01 object, JsonGenerator jacksonSerializer) throws Exception {
@@ -543,5 +544,10 @@ public class Bean01BindMap extends AbstractMapper<Bean01> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      bean02BindMap=BinderUtils.mapperFor(Bean02.class);
     }
   }

@@ -21,8 +21,9 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(Article.class)
 public class ArticleBindMap extends AbstractMapper<Article> {
   /**
-   * ThumbnailBindMap */
-  private ThumbnailBindMap thumbnailBindMap = BinderUtils.mapperFor(Thumbnail.class);
+   * binder for type Thumbnail
+   */
+  private ThumbnailBindMap thumbnailBindMap;
 
   @Override
   public int serializeOnJackson(Article object, JsonGenerator jacksonSerializer) throws Exception {
@@ -466,5 +467,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      thumbnailBindMap=BinderUtils.mapperFor(Thumbnail.class);
     }
   }

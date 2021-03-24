@@ -703,7 +703,7 @@ public class CharDaoImpl extends Dao implements CharDao {
   /**
    * for param serializer2 serialization
    */
-  private byte[] serializer2(List<Short> value) {
+  private static byte[] serializer2(List<Short> value) {
     if (value==null) {
       return null;
     }
@@ -740,7 +740,7 @@ public class CharDaoImpl extends Dao implements CharDao {
   /**
    * for param parser2 parsing
    */
-  private List<Short> parser2(byte[] input) {
+  private static List<Short> parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -775,7 +775,7 @@ public class CharDaoImpl extends Dao implements CharDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<Character> value) {
+  private static byte[] serializer1(List<Character> value) {
     if (value==null) {
       return null;
     }
@@ -812,7 +812,7 @@ public class CharDaoImpl extends Dao implements CharDao {
   /**
    * for param parser1 parsing
    */
-  private List<Character> parser1(byte[] input) {
+  private static List<Character> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

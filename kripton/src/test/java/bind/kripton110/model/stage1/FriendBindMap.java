@@ -221,4 +221,8 @@ public class FriendBindMap extends AbstractMapper<Friend> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

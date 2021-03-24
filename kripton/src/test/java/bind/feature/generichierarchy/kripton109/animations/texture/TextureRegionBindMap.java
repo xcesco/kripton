@@ -257,4 +257,8 @@ public class TextureRegionBindMap extends AbstractMapper<TextureRegion> {
     }
     return instance;
   }
+
+  public void init() {
+    // binding maps initialization 
+  }
 }

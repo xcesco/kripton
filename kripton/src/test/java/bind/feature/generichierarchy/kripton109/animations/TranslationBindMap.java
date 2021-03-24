@@ -24,8 +24,9 @@ import java.util.ArrayList;
 @BindMap(Translation.class)
 public class TranslationBindMap extends AbstractMapper<Translation> {
   /**
-   * TranslationFrameBindMap */
-  private TranslationFrameBindMap translationFrameBindMap = BinderUtils.mapperFor(TranslationFrame.class);
+   * binder for type TranslationFrame
+   */
+  private TranslationFrameBindMap translationFrameBindMap;
 
   @Override
   public int serializeOnJackson(Translation object, JsonGenerator jacksonSerializer) throws
@@ -371,5 +372,10 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      translationFrameBindMap=BinderUtils.mapperFor(TranslationFrame.class);
     }
   }

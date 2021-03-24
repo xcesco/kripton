@@ -728,7 +728,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(Byte[] value) {
+  private static byte[] serializer1(Byte[] value) {
     if (value==null) {
       return null;
     }
@@ -765,7 +765,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * for param parser1 parsing
    */
-  private Byte[] parser1(byte[] input) {
+  private static Byte[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }

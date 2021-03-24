@@ -15,14 +15,12 @@
  *******************************************************************************/
 package bind.kripton73array;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
+import bind.AbstractBaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import bind.AbstractBaseTest;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 
 /**

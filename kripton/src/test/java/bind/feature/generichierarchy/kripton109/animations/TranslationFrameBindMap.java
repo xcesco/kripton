@@ -22,8 +22,9 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(TranslationFrame.class)
 public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
   /**
-   * Vector3BindMap */
-  private Vector3BindMap vector3BindMap = BinderUtils.mapperFor(Vector3.class);
+   * binder for type Vector3
+   */
+  private Vector3BindMap vector3BindMap;
 
   @Override
   public int serializeOnJackson(TranslationFrame object, JsonGenerator jacksonSerializer) throws
@@ -274,5 +275,10 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      vector3BindMap=BinderUtils.mapperFor(Vector3.class);
     }
   }

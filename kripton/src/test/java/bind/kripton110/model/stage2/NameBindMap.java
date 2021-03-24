@@ -19,8 +19,9 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(Name.class)
 public class NameBindMap extends AbstractMapper<Name> {
   /**
-   * NativeBindMap */
-  private NativeBindMap nativeBindMap = BinderUtils.mapperFor(Native.class);
+   * binder for type Native
+   */
+  private NativeBindMap nativeBindMap;
 
   @Override
   public int serializeOnJackson(Name object, JsonGenerator jacksonSerializer) throws Exception {
@@ -274,5 +275,10 @@ public class NameBindMap extends AbstractMapper<Name> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      nativeBindMap=BinderUtils.mapperFor(Native.class);
     }
   }

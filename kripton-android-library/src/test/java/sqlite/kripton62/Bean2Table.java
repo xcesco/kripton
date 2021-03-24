@@ -134,7 +134,8 @@ public class Bean2Table implements SQLiteTable {
   public static final String COLUMN_VALUE_STRING_SET = "value_string_set";
 
   /**
-   * BeanBindMap */
+   * binder for type Bean
+   */
   private static BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
   /**

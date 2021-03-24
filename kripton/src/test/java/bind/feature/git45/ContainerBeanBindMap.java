@@ -23,16 +23,19 @@ import java.util.HashSet;
 @BindMap(ContainerBean.class)
 public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
   /**
-   * Bean01BindMap */
-  private Bean01BindMap bean01BindMap = BinderUtils.mapperFor(Bean01.class);
+   * binder for type Bean01
+   */
+  private Bean01BindMap bean01BindMap;
 
   /**
-   * Bean02BindMap */
-  private Bean02BindMap bean02BindMap = BinderUtils.mapperFor(Bean02.class);
+   * binder for type Bean02
+   */
+  private Bean02BindMap bean02BindMap;
 
   /**
-   * Bean03BindMap */
-  private Bean03BindMap bean03BindMap = BinderUtils.mapperFor(Bean03.class);
+   * binder for type Bean03
+   */
+  private Bean03BindMap bean03BindMap;
 
   @Override
   public int serializeOnJackson(ContainerBean object, JsonGenerator jacksonSerializer) throws
@@ -555,5 +558,12 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      bean03BindMap=BinderUtils.mapperFor(Bean03.class);
+      bean02BindMap=BinderUtils.mapperFor(Bean02.class);
+      bean01BindMap=BinderUtils.mapperFor(Bean01.class);
     }
   }

@@ -305,4 +305,8 @@ public class PrefixConfigBindMap extends AbstractMapper<PrefixConfig> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

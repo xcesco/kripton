@@ -23,6 +23,16 @@ import com.fasterxml.jackson.core.JsonToken;
  */
 public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   /**
+   * binder for type DeviceAccessToken
+   */
+  private static DeviceAccessTokenBindMap deviceAccessTokenBindMap = BinderUtils.mapperFor(DeviceAccessToken.class);
+
+  /**
+   * binder for type UserIdentity
+   */
+  private static UserIdentityBindMap userIdentityBindMap = BinderUtils.mapperFor(UserIdentity.class);
+
+  /**
    * instance of shared preferences
    */
   private static BindSecurity47SharedPreferences instance;
@@ -31,14 +41,6 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final Security47 defaultBean;
-
-  /**
-   * DeviceAccessTokenBindMap */
-  private DeviceAccessTokenBindMap deviceAccessTokenBindMap = BinderUtils.mapperFor(DeviceAccessToken.class);
-
-  /**
-   * UserIdentityBindMap */
-  private UserIdentityBindMap userIdentityBindMap = BinderUtils.mapperFor(UserIdentity.class);
 
   /**
    * constructor

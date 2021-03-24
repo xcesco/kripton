@@ -17,9 +17,6 @@ package com.abubusoft.kripton;
 
 import com.fasterxml.jackson.core.JsonFactory;
 
-import java.io.Writer;
-import java.util.Collection;
-
 
 /**
  * The Class KriptonJsonContext.

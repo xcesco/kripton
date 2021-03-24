@@ -266,4 +266,8 @@ public class CompanyBindMap extends AbstractMapper<Company> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

@@ -22,8 +22,9 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(TextureKeyFrame.class)
 public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
   /**
-   * TextureRegionBindMap */
-  private TextureRegionBindMap textureRegionBindMap = BinderUtils.mapperFor(TextureRegion.class);
+   * binder for type TextureRegion
+   */
+  private TextureRegionBindMap textureRegionBindMap;
 
   @Override
   public int serializeOnJackson(TextureKeyFrame object, JsonGenerator jacksonSerializer) throws
@@ -274,5 +275,10 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      textureRegionBindMap=BinderUtils.mapperFor(TextureRegion.class);
     }
   }

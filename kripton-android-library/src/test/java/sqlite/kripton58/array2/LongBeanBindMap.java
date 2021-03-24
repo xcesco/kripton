@@ -439,4 +439,8 @@ public class LongBeanBindMap extends AbstractMapper<LongBean> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

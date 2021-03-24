@@ -24,8 +24,9 @@ import java.util.ArrayList;
 @BindMap(MockAnimation.class)
 public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
   /**
-   * MockKeyFrameBindMap */
-  private MockKeyFrameBindMap mockKeyFrameBindMap = BinderUtils.mapperFor(MockKeyFrame.class);
+   * binder for type MockKeyFrame
+   */
+  private MockKeyFrameBindMap mockKeyFrameBindMap;
 
   @Override
   public int serializeOnJackson(MockAnimation object, JsonGenerator jacksonSerializer) throws
@@ -372,5 +373,10 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      mockKeyFrameBindMap=BinderUtils.mapperFor(MockKeyFrame.class);
     }
   }

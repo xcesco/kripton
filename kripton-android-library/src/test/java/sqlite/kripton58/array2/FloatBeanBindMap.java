@@ -440,4 +440,8 @@ public class FloatBeanBindMap extends AbstractMapper<FloatBean> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

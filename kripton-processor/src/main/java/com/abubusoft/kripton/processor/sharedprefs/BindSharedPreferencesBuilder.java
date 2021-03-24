@@ -41,6 +41,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.KriptonDynamicClassManager;
+import com.abubusoft.kripton.processor.bind.BindTypeBuilder;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -141,7 +142,7 @@ public abstract class BindSharedPreferencesBuilder {
 				.superclass(AbstractSharedPreference.class);
 
 		BindTypeContext context = new BindTypeContext(builder, TypeUtility.typeName(entity.getElement()),
-				Modifier.PRIVATE);
+				Modifier.PRIVATE, Modifier.STATIC);
 
 		// @formatter:on	
 		builder.addJavadoc("This class is the shared preference binder defined for $T\n\n", entity.getElement());
@@ -181,6 +182,7 @@ public abstract class BindSharedPreferencesBuilder {
 		generateWriteMethod(entity);
 
 		generateSingleReadMethod(entity);
+		
 
 		// generate all needed writer and reader
 		List<PrefsProperty> fields = entity.getCollection();
@@ -505,6 +507,10 @@ public abstract class BindSharedPreferencesBuilder {
 		} else {
 			method.addStatement("defaultBean=new $T()", className(beanClassName));
 		}
+		
+		//XXX
+		//XXX initializate binders and generate method
+		//BindTypeBuilder.generateBinderInit(builder, method, entity);
 
 		builder.addMethod(method.build());
 	}
