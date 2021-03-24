@@ -266,4 +266,8 @@ public class ThumbnailBindMap extends AbstractMapper<Thumbnail> {
     Thumbnail instance=new Thumbnail(__width,__height,__url);
     return instance;
   }
+
+  public void init() {
+    // binding maps initialization 
+  }
 }

@@ -453,4 +453,8 @@ public class ShortBeanBindMap extends AbstractMapper<ShortBean> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

@@ -233,4 +233,8 @@ public class Point3BindMap extends AbstractMapper<Point3> {
     }
     return instance;
   }
+
+  public void init() {
+    // binding maps initialization 
+  }
 }

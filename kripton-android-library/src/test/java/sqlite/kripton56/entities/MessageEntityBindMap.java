@@ -452,4 +452,8 @@ public class MessageEntityBindMap extends AbstractMapper<MessageEntity> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

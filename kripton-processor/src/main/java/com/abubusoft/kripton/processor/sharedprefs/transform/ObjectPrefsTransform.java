@@ -15,6 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
+import com.squareup.javapoet.MethodSpec.Builder;
+import com.squareup.javapoet.TypeName;
 
 /**
  * Transformer between a string and a Java String object.
@@ -22,5 +25,18 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
  * @author xcesco
  */
 public class ObjectPrefsTransform extends AbstractGeneratedPrefsTransform {
+
+	@Override
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName,
+			PrefsProperty property, boolean readAll, ReadType readType) {
+		super.generateReadProperty(methodBuilder, preferenceName, beanClass, beanName, property, readAll, readType);
+	}
+
+	@Override
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName,
+			PrefsProperty property) {
+		super.generateWriteProperty(methodBuilder, editorName, beanClass, beanName, property);
+		//String bindName = context.getBindMapperName(context, typeName, property.getParent());
+	}
 
 }

@@ -361,4 +361,8 @@ public class FilmBindMap extends AbstractMapper<Film> {
       Film instance=new Film(__title,__year,__imdbID,__type,__poster);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

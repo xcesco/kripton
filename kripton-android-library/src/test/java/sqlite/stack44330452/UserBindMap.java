@@ -23,8 +23,9 @@ import java.util.ArrayList;
 @BindMap(User.class)
 public class UserBindMap extends AbstractMapper<User> {
   /**
-   * PetBindMap */
-  private PetBindMap petBindMap = BinderUtils.mapperFor(Pet.class);
+   * binder for type Pet
+   */
+  private PetBindMap petBindMap;
 
   @Override
   public int serializeOnJackson(User object, JsonGenerator jacksonSerializer) throws Exception {
@@ -326,5 +327,10 @@ public class UserBindMap extends AbstractMapper<User> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      petBindMap=BinderUtils.mapperFor(Pet.class);
     }
   }

@@ -26,8 +26,9 @@ import java.util.List;
 @BindMap(RssFeed.class)
 public class RssFeedBindMap extends AbstractMapper<RssFeed> {
   /**
-   * ChannelBindMap */
-  private ChannelBindMap channelBindMap = BinderUtils.mapperFor(Channel.class);
+   * binder for type Channel
+   */
+  private ChannelBindMap channelBindMap;
 
   @Override
   public int serializeOnJackson(RssFeed object, JsonGenerator jacksonSerializer) throws Exception {
@@ -429,5 +430,10 @@ public class RssFeedBindMap extends AbstractMapper<RssFeed> {
       // immutable object: inizialize object
       RssFeed instance=new RssFeed(__id,__uid,__version,(__channels==null ? null : Collections.unmodifiableList(__channels)));
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      channelBindMap=BinderUtils.mapperFor(Channel.class);
     }
   }

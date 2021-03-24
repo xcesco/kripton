@@ -28,6 +28,11 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   public static final String SHARED_PREFERENCE_NAME = "app47";
 
   /**
+   * binder for type UserAccessToken
+   */
+  private static UserAccessTokenBindMap userAccessTokenBindMap = BinderUtils.mapperFor(UserAccessToken.class);
+
+  /**
    * instance of shared preferences
    */
   private static BindApp47SharedPreferences instance;
@@ -36,10 +41,6 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final App47 defaultBean;
-
-  /**
-   * UserAccessTokenBindMap */
-  private UserAccessTokenBindMap userAccessTokenBindMap = BinderUtils.mapperFor(UserAccessToken.class);
 
   /**
    * constructor

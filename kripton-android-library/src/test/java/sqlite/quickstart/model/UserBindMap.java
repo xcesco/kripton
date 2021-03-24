@@ -20,12 +20,14 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(User.class)
 public class UserBindMap extends AbstractMapper<User> {
   /**
-   * AddressBindMap */
-  private AddressBindMap addressBindMap = BinderUtils.mapperFor(Address.class);
+   * binder for type Address
+   */
+  private AddressBindMap addressBindMap;
 
   /**
-   * CompanyBindMap */
-  private CompanyBindMap companyBindMap = BinderUtils.mapperFor(Company.class);
+   * binder for type Company
+   */
+  private CompanyBindMap companyBindMap;
 
   @Override
   public int serializeOnJackson(User object, JsonGenerator jacksonSerializer) throws Exception {
@@ -447,5 +449,11 @@ public class UserBindMap extends AbstractMapper<User> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      companyBindMap=BinderUtils.mapperFor(Company.class);
+      addressBindMap=BinderUtils.mapperFor(Address.class);
     }
   }

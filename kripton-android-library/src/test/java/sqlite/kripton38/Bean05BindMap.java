@@ -355,4 +355,8 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

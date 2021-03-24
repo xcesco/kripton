@@ -183,7 +183,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		}
 
 		BindTypeContext context = new BindTypeContext(builder, TypeUtility.typeName(packageName, classTableName),
-				Modifier.PRIVATE);
+				Modifier.PRIVATE, Modifier.STATIC);
 		String entityName = BindDataSourceSubProcessor.generateEntityName(value, value.getEntity());
 
 		// javadoc for class

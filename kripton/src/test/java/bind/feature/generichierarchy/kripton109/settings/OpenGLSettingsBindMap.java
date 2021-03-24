@@ -283,4 +283,8 @@ public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

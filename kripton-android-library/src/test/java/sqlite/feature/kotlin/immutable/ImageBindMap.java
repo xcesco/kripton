@@ -340,4 +340,8 @@ public class ImageBindMap extends AbstractMapper<Image> {
       Image instance=new Image(__url,__title,__link,__width,__height);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

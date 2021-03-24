@@ -703,7 +703,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<Double> value) {
+  private static byte[] serializer1(List<Double> value) {
     if (value==null) {
       return null;
     }
@@ -740,7 +740,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
   /**
    * for param parser1 parsing
    */
-  private List<Double> parser1(byte[] input) {
+  private static List<Double> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

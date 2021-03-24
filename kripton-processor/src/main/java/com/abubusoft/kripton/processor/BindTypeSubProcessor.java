@@ -28,7 +28,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
@@ -40,11 +39,8 @@ import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.bind.transform.ObjectBindTransform;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonNoAnnotatedClassException;
 import com.squareup.javapoet.TypeName;
-
-import android.view.animation.Transformation;
 
 /**
  * Annotation processor for json/xml/etc

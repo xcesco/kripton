@@ -19,9 +19,9 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.ExecutableElement;
@@ -36,6 +36,7 @@ import javax.lang.model.util.AbstractElementVisitor7;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.annotation.BindType;
@@ -47,6 +48,7 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.ImmutableUtility;
+import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
@@ -60,7 +62,9 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeSpec.Builder;
 
 /**
  * The Class BindTypeBuilder.
@@ -189,7 +193,8 @@ public abstract class BindTypeBuilder {
 		builder.addJavadoc("@see $T\n", item.getElement());
 
 		// order item by order, property typeName
-		item.getCollection().sort(Comparator.comparingInt((BindProperty lhs) -> lhs.order).thenComparing(ModelEntity::getName));
+		item.getCollection()
+				.sort(Comparator.comparingInt((BindProperty lhs) -> lhs.order).thenComparing(ModelEntity::getName));
 
 		// generate serializeOnJackson
 		generateSerializeOnJackson(context, item);
@@ -198,7 +203,8 @@ public abstract class BindTypeBuilder {
 		generateSerializeOnJacksonAsString(context, item);
 
 		// order item by type (attribute, element, value), order, xmlName
-		item.getCollection().sort(Comparator.comparingInt((BindProperty lhs) -> lhs.xmlInfo.xmlType.ordinal()).thenComparingInt(lhs -> lhs.order).thenComparing(lhs -> lhs.label));
+		item.getCollection().sort(Comparator.comparingInt((BindProperty lhs) -> lhs.xmlInfo.xmlType.ordinal())
+				.thenComparingInt(lhs -> lhs.order).thenComparing(lhs -> lhs.label));
 
 		// generate serializeOnXml
 		generateSerializeOnXml(context, item);
@@ -212,14 +218,36 @@ public abstract class BindTypeBuilder {
 		// generate parseOnXml
 		generateParseOnXml(context, item);
 
-		// add init method
-		context.builder.addMethod(context.initBuilder.build());
+		// initializate binders and generate method
+		generateBinderInit(context.builder, context.initBuilder, item);
+		builder.addMethod(context.initBuilder.build());
 
 		TypeSpec typeSpec = builder.build();
 
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
 		return className;
+	}
+
+	public static void generateBinderInit(Builder classBuilder, MethodSpec.Builder methodBuilder,
+			ModelClass<?> entity) {
+		// add init method
+		methodBuilder.addComment("binding maps initialization ");
+		BinderMapRegistry registry = BinderMapRegistry.getInstance();
+		TypeName entityType = TypeName.get(entity.getElement().asType());
+		Pair<String, TypeName> names = registry.getMapperNames(entityType);
+		
+		//String simpleName = names.value0;
+		TypeName mapperTypeName=names.value1;
+		
+		Set<TypeName> entityEntries = registry.getEntityEntries(mapperTypeName);
+		if (entityEntries != null) {
+
+			for (TypeName item : entityEntries) {
+				methodBuilder.addStatement("$L=$T.mapperFor($T.class)",  registry.getMapperNames(item).value0, BinderUtils.class, item);
+				// methodBuilder.addComment("$L $T $L", item.getPropertyType().getTypeName(), BinderUtils.class, item.getName());
+			}
+		}
 	}
 
 	/**
@@ -648,7 +676,7 @@ public abstract class BindTypeBuilder {
 
 				bindTransform.generateParseOnJacksonAsString(context, methodBuilder, "jacksonParser",
 						item.getPropertyType().getTypeName(), "instance", item);
-				
+
 				methodBuilder.addCode("$<break;\n");
 			}
 
@@ -794,7 +822,7 @@ public abstract class BindTypeBuilder {
 				.addException(Exception.class);
 		// @formatter:on
 
-		methodBuilder.beginControlFlow("if (currentEventType == $T.$L)",EventType.class, EventType.START_DOCUMENT);
+		methodBuilder.beginControlFlow("if (currentEventType == $T.$L)", EventType.class, EventType.START_DOCUMENT);
 		methodBuilder.addStatement("xmlSerializer.writeStartElement(\"$L\")", entity.xmlInfo.label);
 
 		// write namespace
@@ -829,7 +857,7 @@ public abstract class BindTypeBuilder {
 			methodBuilder.addCode("\n");
 		}
 
-		methodBuilder.beginControlFlow("if (currentEventType == $T.$L)",EventType.class, EventType.START_DOCUMENT);
+		methodBuilder.beginControlFlow("if (currentEventType == $T.$L)", EventType.class, EventType.START_DOCUMENT);
 		methodBuilder.addStatement("xmlSerializer.writeEndElement()");
 		methodBuilder.endControlFlow();
 

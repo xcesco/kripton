@@ -333,4 +333,8 @@ public class Bean87A_3BindMap extends AbstractMapper<Bean87A_3> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

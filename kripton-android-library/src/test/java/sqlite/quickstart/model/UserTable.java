@@ -100,11 +100,13 @@ public class UserTable implements SQLiteTable {
   public static final String COLUMN_WEBSITE = "website";
 
   /**
-   * AddressBindMap */
+   * binder for type Address
+   */
   private static AddressBindMap addressBindMap = BinderUtils.mapperFor(Address.class);
 
   /**
-   * CompanyBindMap */
+   * binder for type Company
+   */
   private static CompanyBindMap companyBindMap = BinderUtils.mapperFor(Company.class);
 
   /**

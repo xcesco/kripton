@@ -272,4 +272,8 @@ public class PropertyBindMap extends AbstractMapper<Property> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

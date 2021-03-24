@@ -728,7 +728,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
   /**
    * for param serializer2 serialization
    */
-  private byte[] serializer2(Double[] value) {
+  private static byte[] serializer2(Double[] value) {
     if (value==null) {
       return null;
     }
@@ -765,7 +765,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
   /**
    * for param parser2 parsing
    */
-  private Double[] parser2(byte[] input) {
+  private static Double[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -800,7 +800,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(double[] value) {
+  private static byte[] serializer1(double[] value) {
     if (value==null) {
       return null;
     }
@@ -833,7 +833,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
   /**
    * for param parser1 parsing
    */
-  private double[] parser1(byte[] input) {
+  private static double[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }

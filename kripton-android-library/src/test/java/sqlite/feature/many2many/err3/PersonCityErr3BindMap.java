@@ -235,4 +235,8 @@ public class PersonCityErr3BindMap extends AbstractMapper<PersonCityErr3> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

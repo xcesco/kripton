@@ -19,12 +19,14 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(Security47.class)
 public class Security47BindMap extends AbstractMapper<Security47> {
   /**
-   * DeviceAccessTokenBindMap */
-  private DeviceAccessTokenBindMap deviceAccessTokenBindMap = BinderUtils.mapperFor(DeviceAccessToken.class);
+   * binder for type DeviceAccessToken
+   */
+  private DeviceAccessTokenBindMap deviceAccessTokenBindMap;
 
   /**
-   * UserIdentityBindMap */
-  private UserIdentityBindMap userIdentityBindMap = BinderUtils.mapperFor(UserIdentity.class);
+   * binder for type UserIdentity
+   */
+  private UserIdentityBindMap userIdentityBindMap;
 
   @Override
   public int serializeOnJackson(Security47 object, JsonGenerator jacksonSerializer) throws
@@ -318,5 +320,11 @@ public class Security47BindMap extends AbstractMapper<Security47> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      deviceAccessTokenBindMap=BinderUtils.mapperFor(DeviceAccessToken.class);
+      userIdentityBindMap=BinderUtils.mapperFor(UserIdentity.class);
     }
   }

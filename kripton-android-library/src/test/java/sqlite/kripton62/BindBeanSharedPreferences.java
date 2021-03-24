@@ -28,6 +28,11 @@ import java.util.Set;
  */
 public class BindBeanSharedPreferences extends AbstractSharedPreference {
   /**
+   * binder for type Bean
+   */
+  private static BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
+
+  /**
    * instance of shared preferences
    */
   private static BindBeanSharedPreferences instance;
@@ -36,10 +41,6 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final Bean defaultBean;
-
-  /**
-   * BeanBindMap */
-  private BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
   /**
    * constructor

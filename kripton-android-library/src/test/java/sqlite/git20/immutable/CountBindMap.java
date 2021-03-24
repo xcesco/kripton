@@ -237,4 +237,8 @@ public class CountBindMap extends AbstractMapper<Count> {
       Count instance=new Count(__title,__count);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

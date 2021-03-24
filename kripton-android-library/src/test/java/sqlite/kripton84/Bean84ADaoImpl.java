@@ -667,7 +667,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<String> value) {
+  private static byte[] serializer1(List<String> value) {
     if (value==null) {
       return null;
     }
@@ -704,7 +704,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * for param parser1 parsing
    */
-  private List<String> parser1(byte[] input) {
+  private static List<String> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -739,7 +739,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * for param serializer2 serialization
    */
-  private byte[] serializer2(Map<Integer, String> value) {
+  private static byte[] serializer2(Map<Integer, String> value) {
     if (value==null) {
       return null;
     }
@@ -780,7 +780,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * for param parser2 parsing
    */
-  private Map<Integer, String> parser2(byte[] input) {
+  private static Map<Integer, String> parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -820,7 +820,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * for param serializer3 serialization
    */
-  private byte[] serializer3(Character[] value) {
+  private static byte[] serializer3(Character[] value) {
     if (value==null) {
       return null;
     }
@@ -857,7 +857,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * for param parser3 parsing
    */
-  private Character[] parser3(byte[] input) {
+  private static Character[] parser3(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -892,7 +892,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * for param serializer4 serialization
    */
-  private byte[] serializer4(char[] value) {
+  private static byte[] serializer4(char[] value) {
     if (value==null) {
       return null;
     }
@@ -925,7 +925,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * for param parser4 parsing
    */
-  private char[] parser4(byte[] input) {
+  private static char[] parser4(byte[] input) {
     if (input==null) {
       return null;
     }

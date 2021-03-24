@@ -19,8 +19,9 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(Message.class)
 public class MessageBindMap extends AbstractMapper<Message> {
   /**
-   * ErroriBindMap */
-  private ErroriBindMap erroriBindMap = BinderUtils.mapperFor(Errori.class);
+   * binder for type Errori
+   */
+  private ErroriBindMap erroriBindMap;
 
   @Override
   public int serializeOnJackson(Message object, JsonGenerator jacksonSerializer) throws Exception {
@@ -244,5 +245,10 @@ public class MessageBindMap extends AbstractMapper<Message> {
       // immutable object: inizialize object
       Message instance=new Message(__errori,__codiceRitorno);
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      erroriBindMap=BinderUtils.mapperFor(Errori.class);
     }
   }

@@ -321,4 +321,8 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
     }
     return instance;
   }
+
+  public void init() {
+    // binding maps initialization 
+  }
 }

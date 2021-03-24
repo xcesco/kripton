@@ -70,7 +70,8 @@ public class BeanBeanTable implements SQLiteTable {
   public static final String COLUMN_VALUE2 = "value2";
 
   /**
-   * BeanInnerBindMap */
+   * binder for type BeanInner
+   */
   private static BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
 
   /**

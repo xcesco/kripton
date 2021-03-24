@@ -22,8 +22,9 @@ import java.net.URL;
 @BindMap(Article.class)
 public class ArticleBindMap extends AbstractMapper<Article> {
   /**
-   * ThumbnailBindMap */
-  private ThumbnailBindMap thumbnailBindMap = BinderUtils.mapperFor(Thumbnail.class);
+   * binder for type Thumbnail
+   */
+  private ThumbnailBindMap thumbnailBindMap;
 
   @Override
   public int serializeOnJackson(Article object, JsonGenerator jacksonSerializer) throws Exception {
@@ -531,5 +532,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       // immutable object: inizialize object
       Article instance=new Article(__id,__title,__description,__link,__author,__guid,__comments,__channelId,__thumbnail,__read);
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      thumbnailBindMap=BinderUtils.mapperFor(Thumbnail.class);
     }
   }

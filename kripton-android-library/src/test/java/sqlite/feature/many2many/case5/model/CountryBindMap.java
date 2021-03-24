@@ -520,4 +520,8 @@ public class CountryBindMap extends AbstractMapper<Country> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

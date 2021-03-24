@@ -703,7 +703,7 @@ public class ShortDaoImpl extends Dao implements ShortDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<Short> value) {
+  private static byte[] serializer1(List<Short> value) {
     if (value==null) {
       return null;
     }
@@ -740,7 +740,7 @@ public class ShortDaoImpl extends Dao implements ShortDao {
   /**
    * for param parser1 parsing
    */
-  private List<Short> parser1(byte[] input) {
+  private static List<Short> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

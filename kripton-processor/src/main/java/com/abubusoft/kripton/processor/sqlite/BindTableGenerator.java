@@ -175,7 +175,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				.addSuperinterface(SQLiteTable.class);
 
 		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName),
-				Modifier.STATIC, Modifier.PRIVATE);
+				Modifier.PRIVATE, Modifier.STATIC);
 
 		// javadoc for class
 		classBuilder.addJavadoc("<p>");
@@ -441,7 +441,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				.addSuperinterface(SQLiteTable.class);
 
 		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName),
-				Modifier.STATIC, Modifier.PRIVATE);
+				Modifier.PRIVATE, Modifier.STATIC);
 
 		// javadoc for class
 		classBuilder.addJavadoc("<p>");

@@ -315,4 +315,8 @@ public class CommentBindMap extends AbstractMapper<Comment> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

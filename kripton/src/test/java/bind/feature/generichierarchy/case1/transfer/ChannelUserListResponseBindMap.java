@@ -25,8 +25,9 @@ import java.util.ArrayList;
 @BindMap(ChannelUserListResponse.class)
 public class ChannelUserListResponseBindMap extends AbstractMapper<ChannelUserListResponse> {
   /**
-   * ChannelUserBindMap */
-  private ChannelUserBindMap channelUserBindMap = BinderUtils.mapperFor(ChannelUser.class);
+   * binder for type ChannelUser
+   */
+  private ChannelUserBindMap channelUserBindMap;
 
   @Override
   public int serializeOnJackson(ChannelUserListResponse object, JsonGenerator jacksonSerializer)
@@ -378,5 +379,10 @@ public class ChannelUserListResponseBindMap extends AbstractMapper<ChannelUserLi
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      channelUserBindMap=BinderUtils.mapperFor(ChannelUser.class);
     }
   }

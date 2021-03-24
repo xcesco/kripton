@@ -226,6 +226,7 @@ public class RatingBindMap extends AbstractMapper<Rating> {
                   __value=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
@@ -245,5 +246,9 @@ public class RatingBindMap extends AbstractMapper<Rating> {
       // immutable object: inizialize object
       Rating instance=new Rating(__source,__value);
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
     }
   }

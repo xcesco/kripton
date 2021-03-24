@@ -349,7 +349,8 @@ public class BeanTable implements SQLiteTable {
   public static final String COLUMN_VALUE_URL = "value_url";
 
   /**
-   * BeanBindMap */
+   * binder for type Bean
+   */
   private static BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
   /**

@@ -28,12 +28,14 @@ import java.util.List;
 @BindMap(Channel.class)
 public class ChannelBindMap extends AbstractMapper<Channel> {
   /**
-   * ImageBindMap */
-  private ImageBindMap imageBindMap = BinderUtils.mapperFor(Image.class);
+   * binder for type Image
+   */
+  private ImageBindMap imageBindMap;
 
   /**
-   * ArticleBindMap */
-  private ArticleBindMap articleBindMap = BinderUtils.mapperFor(Article.class);
+   * binder for type Article
+   */
+  private ArticleBindMap articleBindMap;
 
   @Override
   public int serializeOnJackson(Channel object, JsonGenerator jacksonSerializer) throws Exception {
@@ -700,5 +702,11 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
       // immutable object: inizialize object
       Channel instance=new Channel(__id,__title,__link,__description,__language,__copyright,__pubDate,__lastBuildDate,__image,__rssFeedId,(__articles==null ? null : Collections.unmodifiableList(__articles)));
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      articleBindMap=BinderUtils.mapperFor(Article.class);
+      imageBindMap=BinderUtils.mapperFor(Image.class);
     }
   }

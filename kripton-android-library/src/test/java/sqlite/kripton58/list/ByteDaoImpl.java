@@ -703,7 +703,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<Short> value) {
+  private static byte[] serializer1(List<Short> value) {
     if (value==null) {
       return null;
     }
@@ -740,7 +740,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * for param parser1 parsing
    */
-  private List<Short> parser1(byte[] input) {
+  private static List<Short> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -775,7 +775,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * for param serializer2 serialization
    */
-  private byte[] serializer2(List<Byte> value) {
+  private static byte[] serializer2(List<Byte> value) {
     if (value==null) {
       return null;
     }
@@ -812,7 +812,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * for param parser2 parsing
    */
-  private List<Byte> parser2(byte[] input) {
+  private static List<Byte> parser2(byte[] input) {
     if (input==null) {
       return null;
     }

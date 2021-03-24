@@ -133,7 +133,8 @@ public class Bean84ATable implements SQLiteTable {
   public static final String COLUMN_VALUE_STRING = "value_string";
 
   /**
-   * Bean84ABindMap */
+   * binder for type Bean84A
+   */
   private static Bean84ABindMap bean84ABindMap = BinderUtils.mapperFor(Bean84A.class);
 
   /**

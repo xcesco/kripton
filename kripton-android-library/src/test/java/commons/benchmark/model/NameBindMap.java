@@ -231,4 +231,8 @@ public class NameBindMap extends AbstractMapper<Name> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

@@ -27,8 +27,9 @@ import java.util.LinkedHashSet;
 @BindMap(Bean2.class)
 public class Bean2BindMap extends AbstractMapper<Bean2> {
   /**
-   * BeanBindMap */
-  private BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
+   * binder for type Bean
+   */
+  private BeanBindMap beanBindMap;
 
   @Override
   public int serializeOnJackson(Bean2 object, JsonGenerator jacksonSerializer) throws Exception {
@@ -1482,5 +1483,10 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      beanBindMap=BinderUtils.mapperFor(Bean.class);
     }
   }

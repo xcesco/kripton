@@ -267,4 +267,8 @@ public class Class3BindMap extends AbstractMapper<Class3> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

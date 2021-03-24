@@ -267,4 +267,8 @@ public class UserIdentityBindMap extends AbstractMapper<UserIdentity> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

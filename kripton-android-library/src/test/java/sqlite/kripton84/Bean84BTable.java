@@ -58,7 +58,8 @@ public class Bean84BTable implements SQLiteTable {
   public static final String COLUMN_COLUMN_BEAN = "column_bean";
 
   /**
-   * Bean84B2BindMap */
+   * binder for type Bean84B2
+   */
   private static Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
   /**

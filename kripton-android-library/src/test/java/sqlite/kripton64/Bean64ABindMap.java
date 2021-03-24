@@ -526,4 +526,8 @@ public class Bean64ABindMap extends AbstractMapper<Bean64A> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

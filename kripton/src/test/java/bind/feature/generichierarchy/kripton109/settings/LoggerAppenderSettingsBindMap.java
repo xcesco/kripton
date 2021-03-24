@@ -239,4 +239,8 @@ public class LoggerAppenderSettingsBindMap extends AbstractMapper<LoggerAppender
     }
     return instance;
   }
+
+  public void init() {
+    // binding maps initialization 
+  }
 }
