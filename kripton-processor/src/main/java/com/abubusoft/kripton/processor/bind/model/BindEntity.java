@@ -39,7 +39,7 @@ public class BindEntity extends ModelClass<BindProperty> {
 	public BindEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
 		super(name, beanElement, annotationList);
 
-		xmlInfo = new XmlInfo();						
+		xmlInfo = new XmlInfo();
 	}
 	
 	/** The xml info. */
@@ -48,7 +48,7 @@ public class BindEntity extends ModelClass<BindProperty> {
 	/**
 	 * The Class XmlInfo.
 	 */
-	public class XmlInfo {
+	public static class XmlInfo {
 		
 		/** The label. */
 		public String label;
