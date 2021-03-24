@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonToken;
 public class Bean1BindMap extends AbstractMapper<Bean1> {
   /**
    * Bean2BindMap */
-  private Bean2BindMap bean2BindMap = BinderUtils.mapperFor(Bean2.class);
+  private Bean2BindMap bean2BindMap;
 
   @Override
   public int serializeOnJackson(Bean1 object, JsonGenerator jacksonSerializer) throws Exception {

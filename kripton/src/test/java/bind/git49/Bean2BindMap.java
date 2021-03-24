@@ -77,6 +77,15 @@ public class Bean2BindMap extends AbstractMapper<Bean2> {
   }
 
   /**
+   * Initialize field mappers.
+   */
+  @Override
+  public void init() {
+
+  }
+
+
+  /**
    * parse with jackson
    */
   @Override

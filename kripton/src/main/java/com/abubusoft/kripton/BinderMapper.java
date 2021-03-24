@@ -137,4 +137,8 @@ public interface BinderMapper<E> {
 	 */
 	void serializeOnXml(E object, XMLSerializer xmlSerializer, EventType currentEventType) throws Exception;
 
+	/**
+	 * Initialize field mappers.
+	 */
+  void init();
 }

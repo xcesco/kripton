@@ -25,6 +25,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
@@ -36,6 +37,8 @@ public class BindTypeContext {
 	
 	/** The builder. */
 	public TypeSpec.Builder builder;
+
+	public MethodSpec.Builder initBuilder;
 	
 	/** The already generated methods. */
 	public Set<String> alreadyGeneratedMethods;
@@ -55,6 +58,7 @@ public class BindTypeContext {
 	 */
 	public BindTypeContext(TypeSpec.Builder builder, TypeName beanTypeName, Modifier ... modifiers) {
 		this.builder=builder;
+		this.initBuilder=MethodSpec.methodBuilder("ini").addAnnotation(Override.class);
 		this.beanTypeName=beanTypeName;
 		this.alreadyGeneratedMethods = new HashSet<>();
 		this.modifiers=modifiers;
@@ -84,8 +88,10 @@ public class BindTypeContext {
 			} else {				
 				context.builder.addField(FieldSpec.builder(bindMapperName, simpleName, modifiers)					
 						.addJavadoc("$T", bindMapperName)
-						.initializer("$T.mapperFor($T.class)", BinderUtils.class, typeName)
-						.build());	
+						//.initializer("$T.mapperFor($T.class)", BinderUtils.class, typeName)
+						.build());
+
+				context.initBuilder.addStatement("$L=$T.mapperFor($T.class)", bindMapperName, BinderUtils.class, typeName);
 			}		
 		}
 		

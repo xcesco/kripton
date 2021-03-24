@@ -47,6 +47,7 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.ImmutableUtility;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
@@ -159,7 +160,7 @@ public abstract class BindTypeBuilder {
 	public static String generate(Filer filer, BindEntity item) throws IOException {
 		Elements elementUtils = BaseProcessor.elementUtils;
 
-		String beanClassName = item.getSimpleName().toString();
+		String beanClassName = item.getSimpleName();
 
 		boolean needSuffix = true;
 		if (beanClassName.endsWith(SUFFIX)) {
@@ -188,17 +189,7 @@ public abstract class BindTypeBuilder {
 		builder.addJavadoc("@see $T\n", item.getElement());
 
 		// order item by order, property typeName
-		Collections.sort(item.getCollection(), new Comparator<BindProperty>() {
-
-			@Override
-			public int compare(BindProperty lhs, BindProperty rhs) {
-				int c1 = lhs.order - rhs.order;
-				if (c1 != 0)
-					return c1;
-
-				return lhs.getName().compareTo(rhs.getName());
-			}
-		});
+		item.getCollection().sort(Comparator.comparingInt((BindProperty lhs) -> lhs.order).thenComparing(ModelEntity::getName));
 
 		// generate serializeOnJackson
 		generateSerializeOnJackson(context, item);
@@ -207,21 +198,7 @@ public abstract class BindTypeBuilder {
 		generateSerializeOnJacksonAsString(context, item);
 
 		// order item by type (attribute, element, value), order, xmlName
-		Collections.sort(item.getCollection(), new Comparator<BindProperty>() {
-
-			@Override
-			public int compare(BindProperty lhs, BindProperty rhs) {
-				int c1 = lhs.xmlInfo.xmlType.ordinal() - rhs.xmlInfo.xmlType.ordinal();
-				if (c1 != 0)
-					return c1;
-
-				c1 = lhs.order - rhs.order;
-				if (c1 != 0)
-					return c1;
-
-				return lhs.label.compareTo(rhs.label);
-			}
-		});
+		item.getCollection().sort(Comparator.comparingInt((BindProperty lhs) -> lhs.xmlInfo.xmlType.ordinal()).thenComparingInt(lhs -> lhs.order).thenComparing(lhs -> lhs.label));
 
 		// generate serializeOnXml
 		generateSerializeOnXml(context, item);
@@ -234,6 +211,9 @@ public abstract class BindTypeBuilder {
 
 		// generate parseOnXml
 		generateParseOnXml(context, item);
+
+		// add init method
+		context.builder.addMethod(context.initBuilder.build());
 
 		TypeSpec typeSpec = builder.build();
 
@@ -736,13 +716,6 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.addStatement("jacksonSerializer.writeEndObject()");
 		methodBuilder.addStatement("return fieldCount");
-
-		// methodBuilder.nextControlFlow("catch($T e)",
-		// typeName(Exception.class));
-		// methodBuilder.addStatement("e.printStackTrace()");
-		// methodBuilder.addStatement("throw (new $T(e))",
-		// typeName(KriptonRuntimeException.class));
-		// methodBuilder.endControlFlow();
 
 		context.builder.addMethod(methodBuilder.build());
 	}

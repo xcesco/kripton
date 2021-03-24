@@ -47,9 +47,6 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 */
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
 		String bindName = context.getBindMapperName(context, typeName);
@@ -68,9 +65,6 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 */
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
 		String bindName = context.getBindMapperName(context, typeName);
@@ -156,9 +150,6 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 */
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
 		String bindName = context.getBindMapperName(context, typeName);
@@ -178,9 +169,6 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 */
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
 		String bindName = context.getBindMapperName(context, typeName);
