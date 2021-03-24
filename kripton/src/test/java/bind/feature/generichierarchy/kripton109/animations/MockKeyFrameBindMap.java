@@ -252,4 +252,8 @@ public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

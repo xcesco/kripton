@@ -24,8 +24,9 @@ import java.util.ArrayList;
 @BindMap(MockParallel2.class)
 public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
   /**
-   * MockKeyFrameBindMap */
-  private MockKeyFrameBindMap mockKeyFrameBindMap = BinderUtils.mapperFor(MockKeyFrame.class);
+   * binder for type MockKeyFrame
+   */
+  private MockKeyFrameBindMap mockKeyFrameBindMap;
 
   @Override
   public int serializeOnJackson(MockParallel2 object, JsonGenerator jacksonSerializer) throws
@@ -505,5 +506,10 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      mockKeyFrameBindMap=BinderUtils.mapperFor(MockKeyFrame.class);
     }
   }

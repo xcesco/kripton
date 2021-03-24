@@ -315,4 +315,8 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

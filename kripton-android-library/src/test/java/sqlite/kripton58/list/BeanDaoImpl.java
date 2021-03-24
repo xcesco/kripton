@@ -71,12 +71,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   private static SupportSQLiteStatement deletePreparedStatement3;
 
   /**
-   * BeanInnerBindMap */
-  private BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
+   * binder for type BeanInner
+   */
+  private static BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
 
   /**
-   * BeanBeanBindMap */
-  private BeanBeanBindMap beanBeanBindMap = BinderUtils.mapperFor(BeanBean.class);
+   * binder for type BeanBean
+   */
+  private static BeanBeanBindMap beanBeanBindMap = BinderUtils.mapperFor(BeanBean.class);
 
   public BeanDaoImpl(BindBeanDaoFactory daoFactory) {
     super(daoFactory.getContext());
@@ -714,7 +716,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * for param serializer2 serialization
    */
-  private byte[] serializer2(List<BeanInner> value) {
+  private static byte[] serializer2(List<BeanInner> value) {
     if (value==null) {
       return null;
     }
@@ -751,7 +753,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * for param parser2 parsing
    */
-  private List<BeanInner> parser2(byte[] input) {
+  private static List<BeanInner> parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -786,7 +788,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<BeanBean> value) {
+  private static byte[] serializer1(List<BeanBean> value) {
     if (value==null) {
       return null;
     }
@@ -823,7 +825,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * for param parser1 parsing
    */
-  private List<BeanBean> parser1(byte[] input) {
+  private static List<BeanBean> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

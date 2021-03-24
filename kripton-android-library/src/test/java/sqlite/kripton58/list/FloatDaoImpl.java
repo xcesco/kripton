@@ -703,7 +703,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<Float> value) {
+  private static byte[] serializer1(List<Float> value) {
     if (value==null) {
       return null;
     }
@@ -740,7 +740,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
   /**
    * for param parser1 parsing
    */
-  private List<Float> parser1(byte[] input) {
+  private static List<Float> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

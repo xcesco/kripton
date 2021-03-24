@@ -728,7 +728,7 @@ public class IntDaoImpl extends Dao implements IntDao {
   /**
    * for param serializer2 serialization
    */
-  private byte[] serializer2(Integer[] value) {
+  private static byte[] serializer2(Integer[] value) {
     if (value==null) {
       return null;
     }
@@ -765,7 +765,7 @@ public class IntDaoImpl extends Dao implements IntDao {
   /**
    * for param parser2 parsing
    */
-  private Integer[] parser2(byte[] input) {
+  private static Integer[] parser2(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -800,7 +800,7 @@ public class IntDaoImpl extends Dao implements IntDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(int[] value) {
+  private static byte[] serializer1(int[] value) {
     if (value==null) {
       return null;
     }
@@ -833,7 +833,7 @@ public class IntDaoImpl extends Dao implements IntDao {
   /**
    * for param parser1 parsing
    */
-  private int[] parser1(byte[] input) {
+  private static int[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }

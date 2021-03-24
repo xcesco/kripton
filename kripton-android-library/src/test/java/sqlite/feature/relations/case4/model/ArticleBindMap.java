@@ -421,4 +421,8 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

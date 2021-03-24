@@ -25,8 +25,9 @@ import java.util.List;
 @BindMap(Search.class)
 public class SearchBindMap extends AbstractMapper<Search> {
   /**
-   * FilmBindMap */
-  private FilmBindMap filmBindMap = BinderUtils.mapperFor(Film.class);
+   * binder for type Film
+   */
+  private FilmBindMap filmBindMap;
 
   @Override
   public int serializeOnJackson(Search object, JsonGenerator jacksonSerializer) throws Exception {
@@ -393,5 +394,10 @@ public class SearchBindMap extends AbstractMapper<Search> {
       // immutable object: inizialize object
       Search instance=new Search(__response,(__search==null ? null : Collections.unmodifiableList(__search)),__totalResults);
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      filmBindMap=BinderUtils.mapperFor(Film.class);
     }
   }

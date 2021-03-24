@@ -221,4 +221,8 @@ public class PKBeanBindMap extends AbstractMapper<PKBean> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

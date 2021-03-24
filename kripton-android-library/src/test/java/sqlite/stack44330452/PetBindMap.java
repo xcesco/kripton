@@ -245,4 +245,8 @@ public class PetBindMap extends AbstractMapper<Pet> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

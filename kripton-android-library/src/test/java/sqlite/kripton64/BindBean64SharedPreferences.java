@@ -47,6 +47,11 @@ import java.util.TimeZone;
  */
 public class BindBean64SharedPreferences extends AbstractSharedPreference {
   /**
+   * binder for type Bean64
+   */
+  private static Bean64BindMap bean64BindMap = BinderUtils.mapperFor(Bean64.class);
+
+  /**
    * instance of shared preferences
    */
   private static BindBean64SharedPreferences instance;
@@ -55,10 +60,6 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final Bean64 defaultBean;
-
-  /**
-   * Bean64BindMap */
-  private Bean64BindMap bean64BindMap = BinderUtils.mapperFor(Bean64.class);
 
   /**
    * constructor

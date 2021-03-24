@@ -285,4 +285,8 @@ public class ErroriBindMap extends AbstractMapper<Errori> {
       Errori instance=new Errori(__xmlns,__descrizione,__codice);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

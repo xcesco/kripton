@@ -279,4 +279,10 @@ public class PostBindMap extends AbstractMapper<Post> {
       }
       return instance;
     }
+
+@Override
+public void init() {
+	// TODO Auto-generated method stub
+	
+}
   }

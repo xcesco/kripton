@@ -25,8 +25,9 @@ import sqlite.kripton58.BeanInnerBindMap;
 @BindMap(BeanBean.class)
 public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
   /**
-   * BeanInnerBindMap */
-  private BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
+   * binder for type BeanInner
+   */
+  private BeanInnerBindMap beanInnerBindMap;
 
   @Override
   public int serializeOnJackson(BeanBean object, JsonGenerator jacksonSerializer) throws Exception {
@@ -461,5 +462,10 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      beanInnerBindMap=BinderUtils.mapperFor(BeanInner.class);
     }
   }

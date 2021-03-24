@@ -24,8 +24,9 @@ import java.util.ArrayList;
 @BindMap(LoggerSettings.class)
 public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
   /**
-   * LoggerAppenderSettingsBindMap */
-  private LoggerAppenderSettingsBindMap loggerAppenderSettingsBindMap = BinderUtils.mapperFor(LoggerAppenderSettings.class);
+   * binder for type LoggerAppenderSettings
+   */
+  private LoggerAppenderSettingsBindMap loggerAppenderSettingsBindMap;
 
   @Override
   public int serializeOnJackson(LoggerSettings object, JsonGenerator jacksonSerializer) throws
@@ -350,5 +351,10 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      loggerAppenderSettingsBindMap=BinderUtils.mapperFor(LoggerAppenderSettings.class);
     }
   }

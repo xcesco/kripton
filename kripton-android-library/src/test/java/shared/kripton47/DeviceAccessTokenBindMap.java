@@ -211,4 +211,8 @@ public class DeviceAccessTokenBindMap extends AbstractMapper<DeviceAccessToken> 
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

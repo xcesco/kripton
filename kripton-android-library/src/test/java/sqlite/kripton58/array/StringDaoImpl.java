@@ -728,7 +728,7 @@ public class StringDaoImpl extends Dao implements StringDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(String[] value) {
+  private static byte[] serializer1(String[] value) {
     if (value==null) {
       return null;
     }
@@ -765,7 +765,7 @@ public class StringDaoImpl extends Dao implements StringDao {
   /**
    * for param parser1 parsing
    */
-  private String[] parser1(byte[] input) {
+  private static String[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }

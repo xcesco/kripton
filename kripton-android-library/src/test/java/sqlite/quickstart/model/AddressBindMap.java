@@ -19,8 +19,9 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(Address.class)
 public class AddressBindMap extends AbstractMapper<Address> {
   /**
-   * GeoBindMap */
-  private GeoBindMap geoBindMap = BinderUtils.mapperFor(Geo.class);
+   * binder for type Geo
+   */
+  private GeoBindMap geoBindMap;
 
   @Override
   public int serializeOnJackson(Address object, JsonGenerator jacksonSerializer) throws Exception {
@@ -344,5 +345,10 @@ public class AddressBindMap extends AbstractMapper<Address> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      geoBindMap=BinderUtils.mapperFor(Geo.class);
     }
   }

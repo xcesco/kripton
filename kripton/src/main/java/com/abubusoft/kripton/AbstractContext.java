@@ -72,6 +72,9 @@ public abstract class AbstractContext implements BinderContext {
         mapper = (M) mapperClass.newInstance();
         // mapper.
         OBJECT_MAPPERS.put(cls, mapper);
+        
+        // lazye initialization for mapper, to avoid recursion instanziation
+        mapper.init();
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
         throw new KriptonRuntimeException(String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?", mapperClassName, beanClassName));

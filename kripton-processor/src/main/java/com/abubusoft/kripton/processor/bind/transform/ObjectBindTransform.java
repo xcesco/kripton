@@ -21,7 +21,6 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.xml.EventType;
-import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -47,12 +46,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 */
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
-		String bindName = context.getBindMapperName(context, typeName);
+		String bindName = context.getBindMapperName(context, typeName, property.getParent());
 		methodBuilder.addStatement(setter(beanClass, beanName, property, "$L.parseOnXml(xmlParser, eventType)"), bindName);
 	}
 
@@ -68,12 +64,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 */
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
-		String bindName = context.getBindMapperName(context, typeName);
+		String bindName = context.getBindMapperName(context, typeName, property.getParent());
 
 		// @formatter:off
 		if (property.isNullable() && !property.isInCollection()) {
@@ -104,7 +97,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	void generateSerializeInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		TypeName typeName = property.getPropertyType().getTypeName();
 
-		String bindName = context.getBindMapperName(context, typeName);
+		String bindName = context.getBindMapperName(context, typeName, property.getParent());
 
 		// @formatter:off
 		if (property.isNullable()) {
@@ -156,12 +149,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 */
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
-		String bindName = context.getBindMapperName(context, typeName);
+		String bindName = context.getBindMapperName(context, typeName, property.getParent());
 
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT)", parserName, JsonToken.class);
@@ -178,12 +168,9 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 */
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
-		String bindName = context.getBindMapperName(context, typeName);
+		String bindName = context.getBindMapperName(context, typeName, property.getParent());
 
 		if (property.isNullable()) {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_OBJECT || $L.currentToken()==$T.VALUE_STRING)", parserName, JsonToken.class, parserName, JsonToken.class);

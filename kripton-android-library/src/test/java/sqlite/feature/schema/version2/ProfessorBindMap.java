@@ -293,4 +293,8 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

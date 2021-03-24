@@ -114,7 +114,8 @@ public class ArticleTable implements SQLiteTable {
   public static final String COLUMN_TITLE = "title";
 
   /**
-   * ThumbnailBindMap */
+   * binder for type Thumbnail
+   */
   private static ThumbnailBindMap thumbnailBindMap = BinderUtils.mapperFor(Thumbnail.class);
 
   /**

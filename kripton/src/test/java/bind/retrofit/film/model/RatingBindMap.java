@@ -247,4 +247,8 @@ public class RatingBindMap extends AbstractMapper<Rating> {
       Rating instance=new Rating(__source,__value);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

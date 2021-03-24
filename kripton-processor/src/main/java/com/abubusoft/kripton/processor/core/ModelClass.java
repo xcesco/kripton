@@ -34,7 +34,6 @@ import com.squareup.javapoet.TypeName;
 @BindType
 public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElement> implements ModelElement, ModelWithAnnotation {
 	
-
 	/** The full collection of properties, included the disable and other properties */
 	List<E> immutableCollection = new ArrayList<>();
 

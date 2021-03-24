@@ -280,4 +280,8 @@ public class PostBindMap extends AbstractMapper<Post> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

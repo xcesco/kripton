@@ -733,4 +733,8 @@ public class BeanImmutableBindMap extends AbstractMapper<BeanImmutable> {
       BeanImmutable instance=new BeanImmutable(__duration,__istant,__localDate,__localDateTime,__localTime,__monthDay,__offsetDateTime,__offsetTime,__period,__year,__yearMonth,__zonedDateTime,__zoneId,__zoneOffset);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

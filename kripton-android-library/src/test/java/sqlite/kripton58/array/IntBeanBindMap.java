@@ -439,4 +439,8 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

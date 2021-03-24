@@ -1236,4 +1236,8 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       Bean instance=new Bean((__sortableSet==null ? null : Collections.unmodifiableSortedSet(__sortableSet)),(__map==null ? null : Collections.unmodifiableMap(__map)),(__mapSorted==null ? null : Collections.unmodifiableSortedMap(__mapSorted)),__name,__birthDate,__age,__numberOfCars,(__items==null ? null : Collections.unmodifiableList(__items)),__itemsString,__buffer,__bufferString);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

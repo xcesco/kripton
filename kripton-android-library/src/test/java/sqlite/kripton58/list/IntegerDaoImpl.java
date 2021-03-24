@@ -703,7 +703,7 @@ public class IntegerDaoImpl extends Dao implements IntegerDao {
   /**
    * for param serializer1 serialization
    */
-  private byte[] serializer1(List<Integer> value) {
+  private static byte[] serializer1(List<Integer> value) {
     if (value==null) {
       return null;
     }
@@ -740,7 +740,7 @@ public class IntegerDaoImpl extends Dao implements IntegerDao {
   /**
    * for param parser1 parsing
    */
-  private List<Integer> parser1(byte[] input) {
+  private static List<Integer> parser1(byte[] input) {
     if (input==null) {
       return null;
     }

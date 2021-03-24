@@ -19,8 +19,9 @@ import com.fasterxml.jackson.core.JsonToken;
 @BindMap(App47.class)
 public class App47BindMap extends AbstractMapper<App47> {
   /**
-   * UserAccessTokenBindMap */
-  private UserAccessTokenBindMap userAccessTokenBindMap = BinderUtils.mapperFor(UserAccessToken.class);
+   * binder for type UserAccessToken
+   */
+  private UserAccessTokenBindMap userAccessTokenBindMap;
 
   @Override
   public int serializeOnJackson(App47 object, JsonGenerator jacksonSerializer) throws Exception {
@@ -239,5 +240,10 @@ public class App47BindMap extends AbstractMapper<App47> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      userAccessTokenBindMap=BinderUtils.mapperFor(UserAccessToken.class);
     }
   }

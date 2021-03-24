@@ -256,4 +256,8 @@ public class SeminarBindMap extends AbstractMapper<Seminar> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

@@ -44,7 +44,6 @@ import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
-import com.abubusoft.kripton.processor.core.reflect.PropertyFactory;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;

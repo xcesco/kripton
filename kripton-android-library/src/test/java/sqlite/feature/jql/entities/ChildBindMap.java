@@ -245,4 +245,8 @@ public class ChildBindMap extends AbstractMapper<Child> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

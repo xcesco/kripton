@@ -237,4 +237,8 @@ public class RssFeedBindMap extends AbstractMapper<RssFeed> {
       RssFeed instance=new RssFeed(__id,__uid);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

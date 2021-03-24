@@ -356,4 +356,8 @@ public class ByteBeanBindMap extends AbstractMapper<ByteBean> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

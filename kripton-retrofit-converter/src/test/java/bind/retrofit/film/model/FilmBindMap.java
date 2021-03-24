@@ -340,6 +340,7 @@ public class FilmBindMap extends AbstractMapper<Film> {
                   __year=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
+                  xmlParser.skipChildren();
                 break;
               }
             break;
@@ -359,5 +360,9 @@ public class FilmBindMap extends AbstractMapper<Film> {
       // immutable object: inizialize object
       Film instance=new Film(__title,__year,__imdbID,__type,__poster);
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
     }
   }

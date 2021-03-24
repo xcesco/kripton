@@ -114,7 +114,8 @@ public class ChannelTable implements SQLiteTable {
   public static final String COLUMN_TITLE = "title";
 
   /**
-   * ImageBindMap */
+   * binder for type Image
+   */
   private static ImageBindMap imageBindMap = BinderUtils.mapperFor(Image.class);
 
   /**

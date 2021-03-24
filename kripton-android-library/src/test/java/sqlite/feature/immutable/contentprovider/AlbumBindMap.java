@@ -264,4 +264,8 @@ public class AlbumBindMap extends AbstractMapper<Album> {
       Album instance=new Album(__id,__name,__artistId);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

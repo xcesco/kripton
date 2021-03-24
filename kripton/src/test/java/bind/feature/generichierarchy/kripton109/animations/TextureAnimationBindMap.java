@@ -24,8 +24,9 @@ import java.util.ArrayList;
 @BindMap(TextureAnimation.class)
 public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
   /**
-   * TextureKeyFrameBindMap */
-  private TextureKeyFrameBindMap textureKeyFrameBindMap = BinderUtils.mapperFor(TextureKeyFrame.class);
+   * binder for type TextureKeyFrame
+   */
+  private TextureKeyFrameBindMap textureKeyFrameBindMap;
 
   @Override
   public int serializeOnJackson(TextureAnimation object, JsonGenerator jacksonSerializer) throws
@@ -372,5 +373,10 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      textureKeyFrameBindMap=BinderUtils.mapperFor(TextureKeyFrame.class);
     }
   }

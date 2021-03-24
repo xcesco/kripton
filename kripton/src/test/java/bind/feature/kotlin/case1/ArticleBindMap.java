@@ -198,4 +198,8 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       Article instance=new Article(__id);
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

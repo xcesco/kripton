@@ -231,4 +231,8 @@ public class PapBindMap extends AbstractMapper<Pap> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

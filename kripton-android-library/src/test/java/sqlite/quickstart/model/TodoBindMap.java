@@ -269,4 +269,8 @@ public class TodoBindMap extends AbstractMapper<Todo> {
       }
       return instance;
     }
+
+    public void init() {
+      // binding maps initialization 
+    }
   }

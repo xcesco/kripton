@@ -25,8 +25,9 @@ import java.util.ArrayList;
 @BindMap(MessageListResponse.class)
 public class MessageListResponseBindMap extends AbstractMapper<MessageListResponse> {
   /**
-   * MessageBindMap */
-  private MessageBindMap messageBindMap = BinderUtils.mapperFor(Message.class);
+   * binder for type Message
+   */
+  private MessageBindMap messageBindMap;
 
   @Override
   public int serializeOnJackson(MessageListResponse object, JsonGenerator jacksonSerializer) throws
@@ -378,5 +379,10 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      messageBindMap=BinderUtils.mapperFor(Message.class);
     }
   }

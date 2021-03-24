@@ -349,7 +349,8 @@ public class Bean64Table implements SQLiteTable {
   public static final String COLUMN_VALUE_URL = "value_url";
 
   /**
-   * Bean64BindMap */
+   * binder for type Bean64
+   */
   private static Bean64BindMap bean64BindMap = BinderUtils.mapperFor(Bean64.class);
 
   /**

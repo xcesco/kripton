@@ -22,8 +22,9 @@ import java.util.ArrayList;
 @BindMap(JasperReport.class)
 public class JasperReportBindMap extends AbstractMapper<JasperReport> {
   /**
-   * PropertyBindMap */
-  private PropertyBindMap propertyBindMap = BinderUtils.mapperFor(Property.class);
+   * binder for type Property
+   */
+  private PropertyBindMap propertyBindMap;
 
   @Override
   public int serializeOnJackson(JasperReport object, JsonGenerator jacksonSerializer) throws
@@ -302,5 +303,10 @@ public class JasperReportBindMap extends AbstractMapper<JasperReport> {
         }
       }
       return instance;
+    }
+
+    public void init() {
+      // binding maps initialization 
+      propertyBindMap=BinderUtils.mapperFor(Property.class);
     }
   }

@@ -43,6 +43,11 @@ import java.util.TimeZone;
  */
 public class BindBean2SharedPreferences extends AbstractSharedPreference {
   /**
+   * binder for type Bean2
+   */
+  private static Bean2BindMap bean2BindMap = BinderUtils.mapperFor(Bean2.class);
+
+  /**
    * instance of shared preferences
    */
   private static BindBean2SharedPreferences instance;
@@ -51,10 +56,6 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final Bean2 defaultBean;
-
-  /**
-   * Bean2BindMap */
-  private Bean2BindMap bean2BindMap = BinderUtils.mapperFor(Bean2.class);
 
   /**
    * constructor
