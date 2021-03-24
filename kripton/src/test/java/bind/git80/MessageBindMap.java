@@ -247,6 +247,7 @@ public class MessageBindMap extends AbstractMapper<Message> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       erroriBindMap=BinderUtils.mapperFor(Errori.class);

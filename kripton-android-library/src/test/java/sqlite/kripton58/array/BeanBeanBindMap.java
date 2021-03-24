@@ -464,6 +464,7 @@ public class BeanBeanBindMap extends AbstractMapper<BeanBean> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       beanInnerBindMap=BinderUtils.mapperFor(BeanInner.class);

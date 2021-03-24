@@ -61,8 +61,8 @@ public class BindTypeContext {
 	 */
 	public BindTypeContext(TypeSpec.Builder builder, TypeName beanTypeName, Modifier... modifiers) {
 		this.builder = builder;
-		// XXX
-		this.initBuilder = MethodSpec.methodBuilder("init").addModifiers(Modifier.PUBLIC);
+		
+		this.initBuilder = MethodSpec.methodBuilder("init").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class);
 		this.beanTypeName = beanTypeName;
 		this.alreadyGeneratedMethods = new HashSet<>();
 		this.modifiers = modifiers;

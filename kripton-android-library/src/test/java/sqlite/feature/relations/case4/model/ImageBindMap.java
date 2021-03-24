@@ -316,6 +316,7 @@ public class ImageBindMap extends AbstractMapper<Image> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

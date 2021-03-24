@@ -463,6 +463,7 @@ public class BeanElement78BindMap extends AbstractMapper<BeanElement78> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

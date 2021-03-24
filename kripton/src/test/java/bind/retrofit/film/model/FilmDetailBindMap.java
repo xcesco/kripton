@@ -1233,6 +1233,7 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       ratingBindMap=BinderUtils.mapperFor(Rating.class);

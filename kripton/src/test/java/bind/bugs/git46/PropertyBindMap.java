@@ -273,6 +273,7 @@ public class PropertyBindMap extends AbstractMapper<Property> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

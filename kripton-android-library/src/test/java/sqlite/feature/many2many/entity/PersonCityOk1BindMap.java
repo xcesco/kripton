@@ -236,6 +236,7 @@ public class PersonCityOk1BindMap extends AbstractMapper<PersonCityOk1> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

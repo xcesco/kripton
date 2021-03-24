@@ -384,6 +384,7 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       loggerSettingsBindMap=BinderUtils.mapperFor(LoggerSettings.class);

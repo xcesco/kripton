@@ -451,6 +451,7 @@ public class UserBindMap extends AbstractMapper<User> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       companyBindMap=BinderUtils.mapperFor(Company.class);

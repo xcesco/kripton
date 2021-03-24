@@ -329,6 +329,7 @@ public class UserBindMap extends AbstractMapper<User> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       petBindMap=BinderUtils.mapperFor(Pet.class);

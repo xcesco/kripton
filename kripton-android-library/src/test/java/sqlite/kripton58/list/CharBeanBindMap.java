@@ -453,6 +453,7 @@ public class CharBeanBindMap extends AbstractMapper<CharBean> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

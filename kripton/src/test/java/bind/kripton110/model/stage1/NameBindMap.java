@@ -232,6 +232,7 @@ public class NameBindMap extends AbstractMapper<Name> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

@@ -375,6 +375,7 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       textureKeyFrameBindMap=BinderUtils.mapperFor(TextureKeyFrame.class);

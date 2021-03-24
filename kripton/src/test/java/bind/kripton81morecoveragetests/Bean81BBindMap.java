@@ -223,6 +223,7 @@ public class Bean81BBindMap extends AbstractMapper<Bean81B> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

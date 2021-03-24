@@ -458,6 +458,7 @@ public class StringBeanBindMap extends AbstractMapper<StringBean> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

@@ -270,6 +270,7 @@ public class TodoBindMap extends AbstractMapper<Todo> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

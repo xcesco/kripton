@@ -222,6 +222,7 @@ public class BeanA_3BindMap extends AbstractMapper<BeanA_3> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

@@ -414,6 +414,7 @@ public class ContactBindMap extends AbstractMapper<Contact> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

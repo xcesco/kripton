@@ -222,6 +222,7 @@ public class Bean8BindMap extends AbstractMapper<Bean8> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

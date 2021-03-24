@@ -396,6 +396,7 @@ public class SearchBindMap extends AbstractMapper<Search> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       filmBindMap=BinderUtils.mapperFor(Film.class);

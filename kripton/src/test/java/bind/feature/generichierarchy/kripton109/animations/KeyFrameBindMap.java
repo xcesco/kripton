@@ -224,6 +224,7 @@ public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
     return instance;
   }
 
+  @Override
   public void init() {
     // binding maps initialization 
   }

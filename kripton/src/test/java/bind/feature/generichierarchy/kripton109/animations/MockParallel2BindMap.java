@@ -508,6 +508,7 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       mockKeyFrameBindMap=BinderUtils.mapperFor(MockKeyFrame.class);

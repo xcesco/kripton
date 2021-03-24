@@ -234,6 +234,7 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
     return instance;
   }
 
+  @Override
   public void init() {
     // binding maps initialization 
   }

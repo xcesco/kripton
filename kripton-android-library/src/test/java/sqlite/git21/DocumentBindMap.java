@@ -222,6 +222,7 @@ public class DocumentBindMap extends AbstractMapper<Document> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

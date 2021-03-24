@@ -362,6 +362,7 @@ public class FilmBindMap extends AbstractMapper<Film> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

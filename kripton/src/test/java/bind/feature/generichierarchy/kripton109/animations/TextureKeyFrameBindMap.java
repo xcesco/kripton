@@ -277,6 +277,7 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       textureRegionBindMap=BinderUtils.mapperFor(TextureRegion.class);

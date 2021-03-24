@@ -453,6 +453,7 @@ public class ByteBeanBindMap extends AbstractMapper<ByteBean> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

@@ -322,6 +322,7 @@ public class Security47BindMap extends AbstractMapper<Security47> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       deviceAccessTokenBindMap=BinderUtils.mapperFor(DeviceAccessToken.class);

@@ -336,6 +336,7 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

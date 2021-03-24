@@ -1327,6 +1327,7 @@ public class UserBindMap extends AbstractMapper<User> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       nameBindMap=BinderUtils.mapperFor(Name.class);

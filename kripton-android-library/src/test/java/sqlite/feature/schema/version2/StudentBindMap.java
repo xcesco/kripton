@@ -257,6 +257,7 @@ public class StudentBindMap extends AbstractMapper<Student> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

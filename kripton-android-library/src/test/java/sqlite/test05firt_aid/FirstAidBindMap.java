@@ -832,6 +832,7 @@ public class FirstAidBindMap extends AbstractMapper<FirstAid> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }
