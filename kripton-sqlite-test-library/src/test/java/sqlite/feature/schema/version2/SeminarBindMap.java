@@ -109,6 +109,14 @@ public class SeminarBindMap extends AbstractMapper<Seminar> {
   }
 
   /**
+   * Initialize field mappers.
+   */
+  @Override
+  public void init() {
+
+  }
+
+  /**
    * parse with jackson
    */
   @Override
