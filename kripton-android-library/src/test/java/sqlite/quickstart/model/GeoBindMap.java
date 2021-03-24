@@ -232,6 +232,7 @@ public class GeoBindMap extends AbstractMapper<Geo> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

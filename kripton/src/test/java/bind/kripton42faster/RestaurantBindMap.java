@@ -322,6 +322,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
     return instance;
   }
 
+  @Override
   public void init() {
     // binding maps initialization 
   }

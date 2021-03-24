@@ -246,6 +246,7 @@ public class AlbumBindMap extends AbstractMapper<Album> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

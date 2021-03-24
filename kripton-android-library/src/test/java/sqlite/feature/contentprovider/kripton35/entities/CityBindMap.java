@@ -222,6 +222,7 @@ public class CityBindMap extends AbstractMapper<City> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

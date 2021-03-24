@@ -279,6 +279,7 @@ public class Bean87A_6BindMap extends AbstractMapper<Bean87A_6> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

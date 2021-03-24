@@ -130,6 +130,14 @@ public class ProfessorBindMap extends AbstractMapper<Professor> {
   }
 
   /**
+   * Initialize field mappers.
+   */
+  @Override
+  public void init() {
+
+  }
+
+  /**
    * parse with jackson
    */
   @Override

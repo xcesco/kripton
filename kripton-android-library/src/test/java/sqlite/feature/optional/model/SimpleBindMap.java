@@ -77,6 +77,14 @@ public class SimpleBindMap extends AbstractMapper<Simple> {
   }
 
   /**
+   * Initialize field mappers.
+   */
+  @Override
+  public void init() {
+
+  }
+
+  /**
    * parse with jackson
    */
   @Override

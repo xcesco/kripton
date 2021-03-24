@@ -277,6 +277,7 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       vector3BindMap=BinderUtils.mapperFor(Vector3.class);

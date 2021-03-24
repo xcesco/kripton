@@ -693,6 +693,7 @@ public class BeanWithAccessorsBindMap extends AbstractMapper<BeanWithAccessors> 
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

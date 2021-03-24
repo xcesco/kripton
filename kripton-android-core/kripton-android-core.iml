@@ -12,9 +12,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: io.reactivex.rxjava2:rxjava:2.2.10" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: io.reactivex.rxjava2:rxjava:2.2.10" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.reactivestreams:reactive-streams:1.0.2" level="project" />
     <orderEntry type="module" module-name="kripton-core" />
     <orderEntry type="module" module-name="kripton-arch-integration" scope="PROVIDED" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.reactivex.rxjava2:rxjava:2.2.19" level="project" />

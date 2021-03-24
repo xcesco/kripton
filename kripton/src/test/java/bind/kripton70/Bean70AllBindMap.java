@@ -1124,6 +1124,7 @@ public class Bean70AllBindMap extends AbstractMapper<Bean70All> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

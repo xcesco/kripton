@@ -286,6 +286,7 @@ public class ErroriBindMap extends AbstractMapper<Errori> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

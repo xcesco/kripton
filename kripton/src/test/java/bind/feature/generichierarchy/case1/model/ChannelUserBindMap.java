@@ -282,6 +282,7 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

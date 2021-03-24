@@ -573,6 +573,7 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       channelBindMap=BinderUtils.mapperFor(Channel.class);

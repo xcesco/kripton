@@ -634,6 +634,7 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       articleBindMap=BinderUtils.mapperFor(Article.class);

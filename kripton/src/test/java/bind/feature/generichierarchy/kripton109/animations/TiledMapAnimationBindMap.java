@@ -513,6 +513,7 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       textureKeyFrameBindMap=BinderUtils.mapperFor(TextureKeyFrame.class);

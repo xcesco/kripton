@@ -305,6 +305,7 @@ public class JasperReportBindMap extends AbstractMapper<JasperReport> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       propertyBindMap=BinderUtils.mapperFor(Property.class);

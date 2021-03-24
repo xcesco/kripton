@@ -381,6 +381,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       messageBindMap=BinderUtils.mapperFor(Message.class);

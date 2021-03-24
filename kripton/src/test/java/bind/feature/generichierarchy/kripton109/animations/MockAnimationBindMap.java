@@ -375,6 +375,7 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       mockKeyFrameBindMap=BinderUtils.mapperFor(MockKeyFrame.class);

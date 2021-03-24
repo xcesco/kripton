@@ -454,6 +454,7 @@ public class IntegerBeanBindMap extends AbstractMapper<IntegerBean> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

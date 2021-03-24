@@ -425,6 +425,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

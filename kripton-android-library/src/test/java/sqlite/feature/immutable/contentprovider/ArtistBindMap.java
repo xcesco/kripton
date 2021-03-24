@@ -238,6 +238,7 @@ public class ArtistBindMap extends AbstractMapper<Artist> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

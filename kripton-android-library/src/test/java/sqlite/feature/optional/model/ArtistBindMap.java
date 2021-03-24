@@ -110,6 +110,14 @@ public class ArtistBindMap extends AbstractMapper<Artist> {
   }
 
   /**
+   * Initialize field mappers.
+   */
+  @Override
+  public void init() {
+
+  }
+
+  /**
    * parse with jackson
    */
   @Override

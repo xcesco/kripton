@@ -224,6 +224,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

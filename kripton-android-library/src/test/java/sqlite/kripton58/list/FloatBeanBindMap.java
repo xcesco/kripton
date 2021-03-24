@@ -454,6 +454,7 @@ public class FloatBeanBindMap extends AbstractMapper<FloatBean> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

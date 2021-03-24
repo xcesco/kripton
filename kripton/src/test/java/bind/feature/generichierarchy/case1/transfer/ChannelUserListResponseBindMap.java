@@ -381,6 +381,7 @@ public class ChannelUserListResponseBindMap extends AbstractMapper<ChannelUserLi
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       channelUserBindMap=BinderUtils.mapperFor(ChannelUser.class);

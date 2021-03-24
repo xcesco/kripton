@@ -471,6 +471,7 @@ public class ApplicationSettingsBindMap extends AbstractMapper<ApplicationSettin
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

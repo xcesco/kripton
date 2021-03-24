@@ -232,6 +232,7 @@ public class AddressBindMap extends AbstractMapper<Address> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

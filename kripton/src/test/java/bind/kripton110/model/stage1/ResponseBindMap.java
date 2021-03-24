@@ -365,6 +365,7 @@ public class ResponseBindMap extends AbstractMapper<Response> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       userBindMap=BinderUtils.mapperFor(User.class);

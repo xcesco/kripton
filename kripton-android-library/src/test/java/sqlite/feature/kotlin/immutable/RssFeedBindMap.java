@@ -432,6 +432,7 @@ public class RssFeedBindMap extends AbstractMapper<RssFeed> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       channelBindMap=BinderUtils.mapperFor(Channel.class);

@@ -734,6 +734,7 @@ public class BeanImmutableBindMap extends AbstractMapper<BeanImmutable> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

@@ -236,6 +236,7 @@ public class Seminar2StudentBindMap extends AbstractMapper<Seminar2Student> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

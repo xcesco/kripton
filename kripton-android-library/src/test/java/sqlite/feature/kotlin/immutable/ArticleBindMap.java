@@ -534,6 +534,7 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       thumbnailBindMap=BinderUtils.mapperFor(Thumbnail.class);

@@ -353,6 +353,7 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       loggerAppenderSettingsBindMap=BinderUtils.mapperFor(LoggerAppenderSettings.class);

@@ -560,6 +560,7 @@ public class ContainerBeanBindMap extends AbstractMapper<ContainerBean> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       bean03BindMap=BinderUtils.mapperFor(Bean03.class);

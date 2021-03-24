@@ -231,6 +231,7 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       bean84B2BindMap=BinderUtils.mapperFor(Bean84B2.class);

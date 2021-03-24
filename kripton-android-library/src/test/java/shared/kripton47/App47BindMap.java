@@ -242,6 +242,7 @@ public class App47BindMap extends AbstractMapper<App47> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
       userAccessTokenBindMap=BinderUtils.mapperFor(UserAccessToken.class);

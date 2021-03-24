@@ -187,6 +187,7 @@ public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }

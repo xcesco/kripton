@@ -257,6 +257,7 @@ public class Bean96BindMap extends AbstractMapper<Bean96> {
       return instance;
     }
 
+    @Override
     public void init() {
       // binding maps initialization 
     }
