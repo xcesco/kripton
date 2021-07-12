@@ -77,6 +77,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: commons-lang:commons-lang:2.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: commons-collections:commons-collections:3.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: ognl:ognl:2.6.9" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: commons-io:commons-io:2.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: commons-io:commons-io:2.7" level="project" />
   </component>
 </module>
