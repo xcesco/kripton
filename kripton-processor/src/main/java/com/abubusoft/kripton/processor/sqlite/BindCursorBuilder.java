@@ -34,9 +34,9 @@ import com.abubusoft.kripton.processor.core.ModelElementVisitor;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ClassName;
@@ -221,7 +221,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		int i=0;
 		for (ModelProperty item : entity.getCollection()) {			
 			methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-			SQLTransformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");		
+			SQLTransformer.cursor2Java(entity, methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");		
 			methodBuilder.addCode(";");
 			methodBuilder.addCode("}\n");
 			
@@ -310,7 +310,7 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 			int i=0;
 			for (ModelProperty item : entity.getCollection()) {			
 				methodBuilder.addCode("if (index$L>=0 && !cursor.isNull(index$L)) { ",i,i);
-				SQLTransformer.cursor2Java(methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");
+				SQLTransformer.cursor2Java(entity, methodBuilder, entityClass, item, "resultBean", "cursor","index"+i+"");
 				methodBuilder.addCode(";");
 				methodBuilder.addCode("}\n");
 				

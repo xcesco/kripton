@@ -25,6 +25,8 @@ import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.lang.*;
 import com.abubusoft.kripton.processor.sqlite.transform.math.MathTransformations;
@@ -102,7 +104,7 @@ public abstract class SQLTransformer {
 	 * @param indexName
 	 *            the index name
 	 */
-	public static void cursor2Java(MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property,
+	public static void cursor2Java(SQLiteEntity tableEntity, MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property,
 			String beanName, String cursorName, String indexName) {
 		TypeName typeName = property.getPropertyType().getTypeName();
 
@@ -113,7 +115,7 @@ public abstract class SQLTransformer {
 
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null,
 				TypeUtility.typeName(property.getElement().asType()));
-		transform.generateReadPropertyFromCursor(methodBuilder, beanClass, beanName, property, cursorName, indexName);
+		transform.generateReadPropertyFromCursor(tableEntity, methodBuilder, beanClass, beanName, property, cursorName, indexName);
 	}
 
 	/**

@@ -122,7 +122,7 @@ public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!_cursor.isNull(index$L)) { ", i);
 			}
-			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor",
+			SQLTransformer.cursor2Java(method.getParent().getEntity(), methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor",
 					"index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {

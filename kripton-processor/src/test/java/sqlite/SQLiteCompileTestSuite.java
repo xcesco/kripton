@@ -58,6 +58,7 @@ import sqlite.feature.time.TimeSQLCompileTestSuite;
 import sqlite.feature.transaction.TestFeatureTransactionCompile;
 import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.feature.typeadapter.kripton180.Test180Suite;
+import sqlite.git104.TestGit104;
 import sqlite.git12.TestGit12;
 import sqlite.git19.TestGit19Suite;
 import sqlite.git20.TestGit20Suite;
@@ -210,6 +211,7 @@ import sqlite.update.raw.TestRawSuite;
                 TestGit21.class,
                 TestGit22.class,
                 TestGit23.class,
+                TestGit104.class,
 
                 // kotlin
                 TestKotlinHierarchy.class,
