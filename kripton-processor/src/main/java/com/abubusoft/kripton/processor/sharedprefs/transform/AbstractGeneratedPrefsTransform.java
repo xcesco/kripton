@@ -22,6 +22,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
+import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -33,7 +34,7 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 	/**
 	 * Instantiates a new abstract generated prefs transform.
 	 */
-	public AbstractGeneratedPrefsTransform() {
+	protected AbstractGeneratedPrefsTransform() {
 		super(false);
 	}
 
@@ -43,7 +44,7 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 	 * @param targetTypeSupported
 	 *            the target type supported
 	 */
-	public AbstractGeneratedPrefsTransform(boolean targetTypeSupported) {
+	protected AbstractGeneratedPrefsTransform(boolean targetTypeSupported) {
 		super(targetTypeSupported);
 	}
 
@@ -109,15 +110,19 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName,
 			PrefsProperty property) {
-		Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+		Converter<String, String> converter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
+		buildWriterInternal(methodBuilder, editorName, beanClass, beanName, property, converter);
+
+	}
+
+	static void buildWriterInternal(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property, Converter<String, String> converter) {
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getName()),
+		methodBuilder.addStatement("String temp=serialize$L($L)", converter.convert(property.getName()),
 				getter(beanName, beanClass, property));
 		methodBuilder.addStatement("$L.putString($S,temp)", editorName, property.getPreferenceKey());
 		methodBuilder.nextControlFlow(" else ");
 		methodBuilder.addStatement("$L.remove($S)", editorName, property.getPreferenceKey());
 		methodBuilder.endControlFlow();
-
 	}
 }

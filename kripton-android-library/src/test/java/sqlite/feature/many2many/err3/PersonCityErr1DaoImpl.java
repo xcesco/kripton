@@ -426,7 +426,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person_city_err3 (city_id, person_id) VALUES (:cityId, :personId)</pre>
+   * <pre>INSERT INTO person_city_err3 (city_id, person_id) VALUES (:bean.cityId, :bean.personId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

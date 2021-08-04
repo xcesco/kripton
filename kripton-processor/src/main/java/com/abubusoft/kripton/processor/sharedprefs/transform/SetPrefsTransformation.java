@@ -169,14 +169,8 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 		boolean isStringSet = isStringSet(property);
 
 		if (!isStringSet) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getName()),
-					getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$L.putString($S,temp)", editorName, property.getPreferenceKey());
-			methodBuilder.nextControlFlow(" else ");
-			methodBuilder.addStatement("$L.remove($S)", editorName, property.getPreferenceKey());
-			methodBuilder.endControlFlow();
-		} else {
+            AbstractGeneratedPrefsTransform.buildWriterInternal(methodBuilder, editorName, beanClass, beanName, property, formatter);
+        } else {
 			methodBuilder.addStatement("$L.putStringSet($S," + tempPre + "$L" + tempPost + ")", editorName,
 					property.getPreferenceKey(), getter(beanName, beanClass, property));
 		}

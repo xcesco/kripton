@@ -25,7 +25,7 @@ import base.BaseProcessorTest;
 /**
  * The Class AbstractBindSQLiteProcessorTest.
  */
-public class AbstractBindSQLiteProcessorTest extends BaseProcessorTest {
+public abstract class AbstractBindSQLiteProcessorTest extends BaseProcessorTest {
 	
 	/**
 	 * Setup.

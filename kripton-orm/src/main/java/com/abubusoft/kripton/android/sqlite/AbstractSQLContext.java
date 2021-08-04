@@ -41,7 +41,7 @@ public abstract class AbstractSQLContext implements SQLContext {
 
 		@Override
 		protected Set<Integer> initialValue() {
-			return new HashSet<Integer>();
+			return new HashSet<>();
 		}
 
 	};

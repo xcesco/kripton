@@ -31,7 +31,7 @@ public abstract class AbstractPrefsTransform implements PrefsTransform {
 	 *
 	 * @param typeAdapterAware the type adapter aware
 	 */
-	public AbstractPrefsTransform(boolean typeAdapterAware) {
+	protected AbstractPrefsTransform(boolean typeAdapterAware) {
 		this.typeAdapterAware=typeAdapterAware;
 	}
 	

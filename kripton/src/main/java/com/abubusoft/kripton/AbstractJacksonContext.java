@@ -37,12 +37,12 @@ import com.fasterxml.jackson.core.JsonFactory;
 public abstract class AbstractJacksonContext extends AbstractContext {
 
 	/** inner factory. */
-	public JsonFactory innerFactory;
+	protected JsonFactory innerFactory;
 
 	/**
 	 * constructor.
 	 */
-	public AbstractJacksonContext() {
+	protected AbstractJacksonContext() {
 		innerFactory = createInnerFactory();
 	}
 

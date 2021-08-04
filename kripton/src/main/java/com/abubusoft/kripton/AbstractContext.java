@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import com.fasterxml.jackson.core.util.BufferRecycler;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -69,7 +70,7 @@ public abstract class AbstractContext implements BinderContext {
       String mapperClassName = cls.getName() + KriptonBinder.MAPPER_CLASS_SUFFIX;
       try {
         Class<E> mapperClass = (Class<E>) Class.forName(mapperClassName);
-        mapper = (M) mapperClass.newInstance();
+        mapper = (M) mapperClass.getDeclaredConstructor().newInstance();
         // mapper.
         OBJECT_MAPPERS.put(cls, mapper);
         
@@ -78,7 +79,7 @@ public abstract class AbstractContext implements BinderContext {
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
         throw new KriptonRuntimeException(String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?", mapperClassName, beanClassName));
-      } catch (InstantiationException | IllegalAccessException e) {
+      } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
         e.printStackTrace();
       }
     }
@@ -118,15 +119,14 @@ public abstract class AbstractContext implements BinderContext {
       String beanClassName = cls.getName();
       String mapperClassName = cls.getName() + KriptonBinder.MAPPER_CLASS_SUFFIX;
       try {
-        Class<?> mapperClass = (Class<?>) Class.forName(mapperClassName);
-        mapper = mapperClass.newInstance();
-        // mapper.
+        Class<?> mapperClass = Class.forName(mapperClassName);
+        mapperClass.getDeclaredConstructor().newInstance();
 
         return true;
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
         throw new KriptonRuntimeException(String.format("Class '%s' does not exist. Does '%s' have @BindType annotation?", mapperClassName, beanClassName));
-      } catch (InstantiationException | IllegalAccessException e) {
+      } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
         e.printStackTrace();
       }
     }

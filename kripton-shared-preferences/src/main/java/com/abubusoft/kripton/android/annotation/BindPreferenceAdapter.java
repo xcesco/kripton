@@ -44,7 +44,7 @@ import com.abubusoft.kripton.android.sharedprefs.PreferenceTypeAdapter;
  * public class App1Preferences {
  * 
  * 	&#64;BindPreference
- * 	public HashSet<String> valueSet;
+ * 	public HashSet&lt;String&gt; valueSet;
  * 
  * 	&#64;BindPreferenceAdapter(adapter = IntTypeAdapter.class)
  * 	&#64;BindPreference
@@ -56,7 +56,7 @@ import com.abubusoft.kripton.android.sharedprefs.PreferenceTypeAdapter;
  * </p>
  * 
  * <pre>
-public class IntTypeAdapter implements PreferenceTypeAdapter<Integer, String> {
+public class IntTypeAdapter implements PreferenceTypeAdapte&lt;<Integer, String&gt; {
 
   &#64;Override
   public IntegertoJava(byte[] dataValue) {

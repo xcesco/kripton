@@ -41,7 +41,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 /**
  * The Class AbstractBindTypeProcessorTest.
  */
-public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
+public abstract class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
 	/**
 	 * Setup.
@@ -162,7 +162,7 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		String output2 = KriptonBinder.bind(type).serialize(bean2);
 		System.out.println(output2);
 
-		Assert.assertTrue(type.toString(), output1.length() == output2.length());
+		Assert.assertEquals(type.toString(),output1.length(), output2.length());
 
 		ReflectionAssert.assertReflectionEquals(bean, bean2, ReflectionComparatorMode.LENIENT_ORDER);
 
@@ -188,7 +188,7 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		System.out.println(value1);
 		System.out.println(value2);
 		//
-		Assert.assertTrue(value1.length() == value2.length());
+		Assert.assertEquals(type.toString(),value1.length(), value2.length());
 		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
 		//
 		return value1.length();
@@ -218,7 +218,7 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		System.out.println(value1);
 		System.out.println(value2);
 
-		Assert.assertTrue(value1.length() == value2.length());
+		Assert.assertEquals(type.toString(),value1.length(), value2.length());
 		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
 		//
 		return bar.getCount();
@@ -245,9 +245,7 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		String value2 = toString(bar2.getByteBuffer());
 		System.out.println(value2);
 
-		Assert.assertTrue(value1.length() == value2.length());
-		// ReflectionAssert.assertReflectionEquals(type.toString(), bean,
-		// bean2);
+		Assert.assertEquals(type.toString(),value1.length(), value2.length());
 
 		return bar.getCount();
 	}

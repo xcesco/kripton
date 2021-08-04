@@ -78,7 +78,7 @@ public final class KriptonLibrary {
 	 *
 	 * @param contextValue
 	 *            the context value
-	 * @param executorService
+	 * @param service
 	 *            the executor service
 	 */
 	public static void init(Context contextValue, ExecutorService service) {

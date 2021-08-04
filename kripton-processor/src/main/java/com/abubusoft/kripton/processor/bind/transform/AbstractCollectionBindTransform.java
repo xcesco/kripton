@@ -55,6 +55,13 @@ import com.squareup.javapoet.TypeName;
  */
 public abstract class AbstractCollectionBindTransform extends AbstractBindTransform {
 
+	public static final String COLLECTION_ADD_ITEM = "collection.add(item)";
+	public static final String COLLECTION_NEW = "$T<$T> collection=new $T<>()";
+	public static final String ITEM_ASSIGN = "item=$L";
+	public static final String ITEM_DEFINE = "$T item";
+	public static final String INT_N_SIZE = "int n=$L.size()";
+	public static final String FOR_INT_I_N = "for (int i=0; i<n; i++)";
+
 	/**
 	 * The Enum CollectionType.
 	 */
@@ -81,8 +88,6 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 	/** The collection type. */
 	protected CollectionType collectionType;
-	// private ParameterizedTypeName collectionTypeName;
-	// private TypeName elementTypeName;
 
 	/**
 	 * Instantiates a new abstract collection bind transform.
@@ -92,7 +97,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	 * @param collectionType
 	 *            the collection type
 	 */
-	public AbstractCollectionBindTransform(ParameterizedTypeName clazz, CollectionType collectionType) {
+	protected AbstractCollectionBindTransform(ParameterizedTypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
 	}
 
@@ -104,7 +109,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	 * @param collectionType
 	 *            the collection type
 	 */
-	public AbstractCollectionBindTransform(TypeName clazz, CollectionType collectionType) {
+	protected AbstractCollectionBindTransform(TypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
 	}
 
@@ -179,12 +184,12 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		// @formatter:off
 		methodBuilder.beginControlFlow("if ($L.currentToken()==$T.START_ARRAY)", parserName, JsonToken.class);
 		if (collectionType == CollectionType.ARRAY) {
-			methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(),
+			methodBuilder.addStatement(COLLECTION_NEW, ArrayList.class, elementTypeName.box(),
 					ArrayList.class);
 		} else {
 			// it's for sure a parametrized type
 			ParameterizedTypeName collectionTypeName = (ParameterizedTypeName) property.getPropertyType().getTypeName();
-			methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName),
+			methodBuilder.addStatement(COLLECTION_NEW, defineCollectionClass(collectionTypeName),
 					elementTypeName.box(), defineCollectionClass(collectionTypeName));
 		}
 
@@ -206,32 +211,14 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		} else {
 			methodBuilder.beginControlFlow("if ($L.currentToken()==$T.VALUE_NULL)", parserName, JsonToken.class);
 		}
-		methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+		methodBuilder.addStatement(ITEM_ASSIGN, DEFAULT_VALUE);
 		methodBuilder.nextControlFlow("else");
 		if (onString) {
 			transform.generateParseOnJacksonAsString(context, methodBuilder, parserName, null, "item", elementProperty);
 		} else {
 			transform.generateParseOnJackson(context, methodBuilder, parserName, null, "item", elementProperty);
 		}
-		methodBuilder.endControlFlow();
-		methodBuilder.addStatement("collection.add(item)");
-		methodBuilder.endControlFlow();
-
-		if (collectionType == CollectionType.ARRAY) {
-			if (TypeUtility.isTypePrimitive(elementTypeName)) {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"),
-						CollectionUtils.class, elementTypeName.box());
-			} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"),
-						CollectionUtils.class, elementTypeName);
-			} else {
-				methodBuilder.addStatement(
-						setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"),
-						CollectionUtils.class, elementTypeName);
-			}
-		} else {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
-		}
+		define(methodBuilder, beanClass, beanName, property, elementTypeName);
 
 		if (onString) {
 			// ELSE: check if empty string (== empty collection but not null)
@@ -240,13 +227,13 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 					JsonToken.class, StringUtils.class, parserName);
 			// create collection
 			if (collectionType == CollectionType.ARRAY) {
-				methodBuilder.addStatement("$T<$T> collection=new $T<>()", ArrayList.class, elementTypeName.box(),
+				methodBuilder.addStatement(COLLECTION_NEW, ArrayList.class, elementTypeName.box(),
 						ArrayList.class);
 			} else {
 				// it's for sure a parametrized type
 				ParameterizedTypeName collectionTypeName = (ParameterizedTypeName) property.getPropertyType()
 						.getTypeName();
-				methodBuilder.addStatement("$T<$T> collection=new $T<>()", defineCollectionClass(collectionTypeName),
+				methodBuilder.addStatement(COLLECTION_NEW, defineCollectionClass(collectionTypeName),
 						elementTypeName.box(), defineCollectionClass(collectionTypeName));
 			}
 			// set collection
@@ -270,6 +257,28 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 		methodBuilder.endControlFlow();
 		// @formatter:on
+	}
+
+	private void define(Builder methodBuilder, TypeName beanClass, String beanName, BindProperty property, TypeName elementTypeName) {
+		methodBuilder.endControlFlow();
+		methodBuilder.addStatement(COLLECTION_ADD_ITEM);
+		methodBuilder.endControlFlow();
+
+		if (collectionType == CollectionType.ARRAY) {
+			if (TypeUtility.isTypePrimitive(elementTypeName)) {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"),
+						CollectionUtils.class, elementTypeName.box());
+			} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
+				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"),
+						CollectionUtils.class, elementTypeName);
+			} else {
+				methodBuilder.addStatement(
+						setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"),
+						CollectionUtils.class, elementTypeName);
+			}
+		} else {
+			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
+		}
 	}
 
 	/**
@@ -321,7 +330,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			break;
 		}
 
-		methodBuilder.addStatement("$T item", elementTypeName.box());
+		methodBuilder.addStatement(ITEM_DEFINE, elementTypeName.box());
 
 		BindTransform transform = BindTransformer.lookup(elementTypeName);
 		BindProperty elementProperty = BindProperty.builder(elementTypeName, property).inCollection(true).build();
@@ -333,17 +342,17 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		} else {
 			// no wrap element
 			methodBuilder.addCode("// add first element\n");
-			methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+			methodBuilder.addStatement(ITEM_ASSIGN, DEFAULT_VALUE);
 			methodBuilder.beginControlFlow("if ($T.isEmptyTag($L))", XmlAttributeUtils.class, parserName);
 			methodBuilder.addCode("// if there's a an empty collection it marked with attribute emptyCollection\n");
 			methodBuilder.beginControlFlow("if ($T.getAttributeAsBoolean($L, $S, false)==false)",
 					XmlAttributeUtils.class, parserName, XmlAttributeUtils.EMPTY_COLLECTION_ATTRIBUTE_NAME);
-			methodBuilder.addStatement("collection.add(item)");
+			methodBuilder.addStatement(COLLECTION_ADD_ITEM);
 			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("$L.nextTag()", parserName);
 			methodBuilder.nextControlFlow("else");
 			transform.generateParseOnXml(context, methodBuilder, parserName, null, "item", elementProperty);
-			methodBuilder.addStatement("collection.add(item)");
+			methodBuilder.addStatement(COLLECTION_ADD_ITEM);
 			methodBuilder.endControlFlow();
 
 			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))",
@@ -352,31 +361,11 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 		// for all		
 		methodBuilder.beginControlFlow("if ($T.isEmptyTag($L))", XmlAttributeUtils.class, parserName);
-		methodBuilder.addStatement("item=$L", DEFAULT_VALUE);
+		methodBuilder.addStatement(ITEM_ASSIGN, DEFAULT_VALUE);
 		methodBuilder.addStatement("$L.nextTag()", parserName);
 		methodBuilder.nextControlFlow("else");
 		transform.generateParseOnXml(context, methodBuilder, parserName, null, "item", elementProperty);
-		methodBuilder.endControlFlow();
-		methodBuilder.addStatement("collection.add(item)");
-
-		methodBuilder.endControlFlow();
-
-		//getter(beanName, beanClass, property);
-		if (collectionType == CollectionType.ARRAY) {
-			if (TypeUtility.isTypePrimitive(elementTypeName)) {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TTypeArray(collection)"),
-						CollectionUtils.class, elementTypeName.box());
-			} else if (TypeUtility.isTypeWrappedPrimitive(elementTypeName)) {
-				methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.as$TArray(collection)"),
-						CollectionUtils.class, elementTypeName);
-			} else {
-				methodBuilder.addStatement(
-						setter(beanClass, beanName, property, "$T.asArray(collection, new $T[collection.size()])"),
-						CollectionUtils.class, elementTypeName);
-			}
-		} else {
-			methodBuilder.addStatement(setter(beanClass, beanName, property, "collection"));
-		}
+		define(methodBuilder, beanClass, beanName, property, elementTypeName);
 
 		if (!property.xmlInfo.isWrappedCollection()) {
 			methodBuilder.addStatement("read=false");
@@ -446,13 +435,13 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		}
 
 		if (collectionType == CollectionType.LIST) {
-			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$T item", elementTypeName);
+			methodBuilder.addStatement(INT_N_SIZE, getter(beanName, beanClass, property));
+			methodBuilder.addStatement(ITEM_DEFINE, elementTypeName);
 		} else if (collectionType == CollectionType.ARRAY) {
 			methodBuilder.addStatement("int n=$L.length", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$T item", elementTypeName);
+			methodBuilder.addStatement(ITEM_DEFINE, elementTypeName);
 		} else if (onString) {
-			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+			methodBuilder.addStatement(INT_N_SIZE, getter(beanName, beanClass, property));
 		}
 
 		BindTransform transform = BindTransformer.lookup(elementTypeName);
@@ -472,10 +461,10 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		if (collectionType == CollectionType.SET) {
 			methodBuilder.beginControlFlow("for ($T item: $L)", elementTypeName, getter(beanName, beanClass, property));
 		} else if (collectionType == CollectionType.LIST) {
-			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
+			methodBuilder.beginControlFlow(FOR_INT_I_N);
 			methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));
 		} else if (collectionType == CollectionType.ARRAY) {
-			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
+			methodBuilder.beginControlFlow(FOR_INT_I_N);
 			methodBuilder.addStatement("item=$L[i]", getter(beanName, beanClass, property));
 		}
 
@@ -554,15 +543,15 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 		switch (collectionType) {
 		case LIST:
-			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$T item", elementTypeName);
+			methodBuilder.addStatement(INT_N_SIZE, getter(beanName, beanClass, property));
+			methodBuilder.addStatement(ITEM_DEFINE, elementTypeName);
 			break;
 		case ARRAY:
 			methodBuilder.addStatement("int n=$L.length", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("$T item", elementTypeName);
+			methodBuilder.addStatement(ITEM_DEFINE, elementTypeName);
 			break;
 		case SET:
-			methodBuilder.addStatement("int n=$L.size()", getter(beanName, beanClass, property));
+			methodBuilder.addStatement(INT_N_SIZE, getter(beanName, beanClass, property));
 			break;
 		}
 
@@ -580,11 +569,11 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			methodBuilder.beginControlFlow("for ($T item: $L)", elementTypeName, getter(beanName, beanClass, property));
 			break;
 		case LIST:
-			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
+			methodBuilder.beginControlFlow(FOR_INT_I_N);
 			methodBuilder.addStatement("item=$L.get(i)", getter(beanName, beanClass, property));
 			break;
 		case ARRAY:
-			methodBuilder.beginControlFlow("for (int i=0; i<n; i++)");
+			methodBuilder.beginControlFlow(FOR_INT_I_N);
 			methodBuilder.addStatement("item=$L[i]", getter(beanName, beanClass, property));
 			break;
 		}
