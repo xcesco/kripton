@@ -39,7 +39,7 @@ abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 	 * @param nullable
 	 *            the nullable
 	 */
-	public AbstractPrimitivePrefsTransform(boolean nullable) {
+	protected AbstractPrimitivePrefsTransform(boolean nullable) {
 		super(true);
 		this.nullable = nullable;
 	}
@@ -52,7 +52,7 @@ abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 	 * @param typeAware
 	 *            the type aware
 	 */
-	public AbstractPrimitivePrefsTransform(boolean nullable, boolean typeAware) {
+	protected AbstractPrimitivePrefsTransform(boolean nullable, boolean typeAware) {
 		super(typeAware);
 		this.nullable = nullable;
 	}

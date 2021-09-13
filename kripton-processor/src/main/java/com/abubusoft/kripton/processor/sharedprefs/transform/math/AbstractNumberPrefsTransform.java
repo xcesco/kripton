@@ -44,7 +44,7 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 	/**
 	 * Instantiates a new abstract number prefs transform.
 	 */
-	public AbstractNumberPrefsTransform()
+	protected AbstractNumberPrefsTransform()
 	{
 		super(false);
 		defaultValue="0";

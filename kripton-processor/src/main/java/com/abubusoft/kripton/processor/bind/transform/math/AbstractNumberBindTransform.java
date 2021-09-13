@@ -36,6 +36,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
  */
 abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 
+  public static final String READ_TEXT = "$T.read($L.getText())";
+  public static final String READ_TEXT_WITH_PRE_POST = PRE_TYPE_ADAPTER_TO_JAVA + READ_TEXT + POST_TYPE_ADAPTER;
   /**
    * The number util clazz.
    */
@@ -72,10 +74,10 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
     }
 
     if (property.hasTypeAdapter()) {
-      methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($L.getText())" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+      methodBuilder.addStatement(setter(beanClass, beanName, property, READ_TEXT_WITH_PRE_POST), TypeAdapterUtils.class,
               TypeUtility.typeName(property.typeAdapter.adapterClazz), NUMBER_UTIL_CLAZZ, parserName);
     } else {
-      methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read($L.getText())"), NUMBER_UTIL_CLAZZ, parserName);
+      methodBuilder.addStatement(setter(beanClass, beanName, property, READ_TEXT), NUMBER_UTIL_CLAZZ, parserName);
     }
 
     if (property.isNullable()) {
@@ -94,10 +96,10 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
     }
 
     if (property.hasTypeAdapter()) {
-      methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read($L.getText())" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
+      methodBuilder.addStatement(setter(beanClass, beanName, property, READ_TEXT_WITH_PRE_POST), TypeAdapterUtils.class,
               TypeUtility.typeName(property.typeAdapter.adapterClazz), NUMBER_UTIL_CLAZZ, parserName);
     } else {
-      methodBuilder.addStatement(setter(beanClass, beanName, property, "$T.read($L.getText())"), NUMBER_UTIL_CLAZZ, parserName);
+      methodBuilder.addStatement(setter(beanClass, beanName, property, READ_TEXT), NUMBER_UTIL_CLAZZ, parserName);
     }
 
     if (property.isNullable()) {

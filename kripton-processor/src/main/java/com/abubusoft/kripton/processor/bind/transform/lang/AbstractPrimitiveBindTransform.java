@@ -36,6 +36,10 @@ import com.squareup.javapoet.TypeName;
  */
 abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
+	public static final String COMMENT_USING_TYPE_ADAPTER = "// using type adapter $L\n";
+	public static final String IF_$L_NULL = "if ($L!=null) ";
+	public static final String WRITE_$L = "$L.write$L(";
+	public static final String WRITE_$L_$L = "$L.write$L($L)";
 	/** The json parser method. */
 	protected String JSON_PARSER_METHOD;
 
@@ -65,7 +69,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 	 *
 	 * @param nullable the nullable
 	 */
-	public AbstractPrimitiveBindTransform(boolean nullable) {
+	protected AbstractPrimitiveBindTransform(boolean nullable) {
 		this.nullable = nullable;
 	}
 	
@@ -88,7 +92,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
 		if (property.hasTypeAdapter()) {
 			// there's an type adapter
-			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			methodBuilder.addCode(COMMENT_USING_TYPE_ADAPTER, property.typeAdapter.adapterClazz);
 
 			// no adapter is present
 			if (CharacterBindTransform.CHAR_CAST_CONST.equals(XML_CAST_TYPE)) {
@@ -124,7 +128,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
 		if (property.hasTypeAdapter()) {
 			// there's an type adapter
-			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			methodBuilder.addCode(COMMENT_USING_TYPE_ADAPTER, property.typeAdapter.adapterClazz);
 
 			methodBuilder.addStatement(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + "$T.read$L($L.getText(), $L)" + POST_TYPE_ADAPTER), TypeAdapterUtils.class,
 					TypeUtility.typeName(property.typeAdapter.adapterClazz), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, parserName, DEFAULT_VALUE);
@@ -147,7 +151,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
 		if (property.hasTypeAdapter()) {
 			// there's an type adapter
-			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			methodBuilder.addCode(COMMENT_USING_TYPE_ADAPTER, property.typeAdapter.adapterClazz);
 
 			switch (xmlType) {
 			case ATTRIBUTE:
@@ -190,7 +194,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (nullable && property.isNullable()) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.beginControlFlow(IF_$L_NULL, getter(beanName, beanClass, property));
 		}
 
 		if (property.isProperty()) {
@@ -199,11 +203,11 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
 		if (property.hasTypeAdapter()) {
 			// there's an type adapter
-			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			methodBuilder.addCode(COMMENT_USING_TYPE_ADAPTER, property.typeAdapter.adapterClazz);
 
 			// in a collection we need to insert only value, not field typeName
 			if (property.isInCollection()) {
-				methodBuilder.addStatement("$L.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, JSON_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				methodBuilder.addStatement(WRITE_$L +PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, JSON_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 			} else {
 				methodBuilder.addStatement("$L.write$LField($S, "+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, JSON_TYPE, property.label, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 			}
@@ -212,7 +216,7 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			
 			// in a collection we need to insert only value, not field typeName
 			if (property.isInCollection()) {
-				methodBuilder.addStatement("$L.write$L($L)", serializerName, JSON_TYPE, getter(beanName, beanClass, property));
+				methodBuilder.addStatement(WRITE_$L_$L, serializerName, JSON_TYPE, getter(beanName, beanClass, property));
 			} else {
 				methodBuilder.addStatement("$L.write$LField($S, $L)", serializerName, JSON_TYPE, property.label, getter(beanName, beanClass, property));
 			}
@@ -230,12 +234,12 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 	@Override
 	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (nullable && property.isNullable()) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.beginControlFlow(IF_$L_NULL, getter(beanName, beanClass, property));
 		}
 
 		if (property.hasTypeAdapter()) {
 			// there's an type adapter
-			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			methodBuilder.addCode(COMMENT_USING_TYPE_ADAPTER, property.typeAdapter.adapterClazz);
 
 			if (property.isInCollection()) {
 				// in a collection we need to insert only value, not field typeName
@@ -269,12 +273,12 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
 		if (nullable && property.isNullable() && !property.isInCollection()) {
-			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
+			methodBuilder.beginControlFlow(IF_$L_NULL, getter(beanName, beanClass, property));
 		}
 
 		if (property.hasTypeAdapter()) {
 			// there's an type adapter
-			methodBuilder.addCode("// using type adapter $L\n", property.typeAdapter.adapterClazz);
+			methodBuilder.addCode(COMMENT_USING_TYPE_ADAPTER, property.typeAdapter.adapterClazz);
 			
 			switch (xmlType) {
 			case ATTRIBUTE:
@@ -283,12 +287,12 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			case TAG:
 				// value don't need to be converted into string
 				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
-				methodBuilder.addStatement("$L.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, XML_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				methodBuilder.addStatement(WRITE_$L +PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, XML_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 				break;
 			case VALUE:
 				// value don't need to be converted into string
-				methodBuilder.addStatement("$L.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, XML_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				methodBuilder.addStatement(WRITE_$L +PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, XML_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				break;
 			case VALUE_CDATA:
 				methodBuilder.addStatement("$L.writeCData("+PRE_TYPE_ADAPTER_TO_DATA+"$T.write$L($L)"+POST_TYPE_ADAPTER+")", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
@@ -305,12 +309,12 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			case TAG:
 				// value don't need to be converted into string
 				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
-				methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
+				methodBuilder.addStatement(WRITE_$L_$L, serializerName, XML_TYPE, getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 				break;
 			case VALUE:
 				// value don't need to be converted into string
-				methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
+				methodBuilder.addStatement(WRITE_$L_$L, serializerName, XML_TYPE, getter(beanName, beanClass, property));
 				break;
 			case VALUE_CDATA:
 				methodBuilder.addStatement("$L.writeCData($T.write$L($L))", serializerName, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));

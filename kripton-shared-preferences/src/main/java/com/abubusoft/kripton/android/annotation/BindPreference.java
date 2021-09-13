@@ -41,7 +41,7 @@ import java.lang.annotation.Target;
  * 
  * 	protected String[] stringArray;
  * 
- * 	public List<String> stringList;
+ * 	public List&lt;String&gt; stringList;
  * 
  * 	public String[] getStringArray() {
  * 		return stringArray;
@@ -73,7 +73,7 @@ import java.lang.annotation.Target;
  * 
  * <pre>
  * BindAppPreferences sp = BindAppPreferences.getInstance();
- * sp.getDescriptionAsLiveData().observeForever(new Observer<String>() {
+ * sp.getDescriptionAsLiveData().observeForever(new Observer&lt;String&gt;() {
  * 
  * 	&#64;Override
  * 	public void onChanged(String t) {

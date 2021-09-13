@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform.lang;
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.transform.TypeAdapterAwareSQLTransform;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -51,7 +52,7 @@ public class StringSQLTransform extends TypeAdapterAwareSQLTransform {
    * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#generateReadPropertyFromCursor(com.squareup.javapoet.MethodSpec.Builder, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.core.ModelProperty, java.lang.String, java.lang.String)
    */
   @Override
-  public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
+  public void generateReadPropertyFromCursor(SQLiteEntity tableEntity, Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
     if (property.hasTypeAdapter()) {
       methodBuilder.addCode(setter(beanClass, beanName, property, PRE_TYPE_ADAPTER_TO_JAVA + READ_FROM_CURSOR + POST_TYPE_ADAPTER), property.getName(), cursorName, indexName);
     } else {

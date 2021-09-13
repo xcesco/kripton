@@ -45,7 +45,7 @@ public abstract class AbstractBuilder {
 	 * @param filer the filer
 	 * @param model the model
 	 */
-	public AbstractBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
+	protected AbstractBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		this.model=model;
 		this.elementUtils = elementUtils;
 		this.filer = filer;

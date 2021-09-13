@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.AbstractSQLTransform;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -67,7 +68,7 @@ public class BigDecimalSQLTransform extends AbstractSQLTransform {
 	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#generateReadPropertyFromCursor(com.squareup.javapoet.MethodSpec.Builder, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.core.ModelProperty, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName,
+	public void generateReadPropertyFromCursor(SQLiteEntity tableEntity, Builder methodBuilder, TypeName beanClass, String beanName,
 			ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "new $T($L.getString($L))"), BigDecimal.class,
 				cursorName, indexName);

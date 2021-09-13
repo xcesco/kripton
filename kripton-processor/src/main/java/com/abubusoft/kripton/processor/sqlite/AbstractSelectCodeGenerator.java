@@ -68,6 +68,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 	/** The Constant LIVE_DATA_PREFIX. */
 	public static final String LIVE_DATA_PREFIX = "ForLiveData";
+	public static final String PAGINATED_RESULT = "paginatedResult";
 
 	/**
 	 * The Enum JavadocPartType.
@@ -245,7 +246,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		methodBuilder.addJavadoc("<h2>Live data</h2>\n");
 		methodBuilder.addJavadoc("<p>This method open a connection internally.</p>\n\n");
 
-		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CONTENT, method.liveDataReturnClass, true, false, "paginatedResult");
+		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.NO_CONTENT, method.liveDataReturnClass, true, false, PAGINATED_RESULT);
 
 		boolean pagedLiveData = method.isPagedLiveData();
 
@@ -280,7 +281,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					.build();
 
 			// return
-			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder("paginatedResult").addSuperinterface(ParameterizedTypeName.get(handlerClass, method.getReturnClass()))
+			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder(PAGINATED_RESULT).addSuperinterface(ParameterizedTypeName.get(handlerClass, method.getReturnClass()))
 					.addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class).addModifiers(Modifier.PROTECTED).returns(method.getReturnClass())
 							.addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build());
 			TypeSpec liveDataBuilder = liveDataBuilderBuilder.build();
@@ -322,7 +323,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 *            the map fields
 	 */
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean generateSqlField) {
-		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.ALL, null, generateSqlField, false, "paginatedResult");
+		generateCommonPart(method, classBuilder, methodBuilder, fieldList, GenerationType.ALL, null, generateSqlField, false, PAGINATED_RESULT);
 	}
 
 	/**
@@ -345,8 +346,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		SQLiteDaoDefinition daoDefinition = method.getParent();
 		SQLiteEntity entity = method.getEntity();
 
-		// if true, field must be associate to ben attributes
-		// TypeName returnType = method.getReturnClass();
 		TypeName returnTypeName = forcedReturnType;
 		if (returnTypeName == null) {
 			returnTypeName = method.getReturnClass();
@@ -355,13 +354,13 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 
 		// parameters
-		List<String> paramNames = new ArrayList<String>();
-		List<String> paramGetters = new ArrayList<String>();
-		List<TypeName> paramTypeNames = new ArrayList<TypeName>();
+		List<String> paramNames = new ArrayList<>();
+		List<String> paramGetters = new ArrayList<>();
+		List<TypeName> paramTypeNames = new ArrayList<>();
 		List<String> usedBeanPropertyNames = new ArrayList<>();
 
 		// used method parameters
-		Set<String> usedMethodParameters = new HashSet<String>();
+		Set<String> usedMethodParameters = new HashSet<>();
 
 		final One<String> whereJQL = new One<>("");
 		final One<String> havingJQL = new One<>("");
@@ -399,41 +398,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 		SqlAnalyzer analyzer = new SqlAnalyzer();
 
-		// String whereSQL =
-		// annotation.getAttribute(AnnotationAttributeType.WHERE);
-		analyzer.execute(BaseProcessor.elementUtils, method, whereJQL.value0);
-		paramGetters.addAll(analyzer.getParamGetters());
-		paramNames.addAll(analyzer.getParamNames());
-		paramTypeNames.addAll(analyzer.getParamTypeNames());
-		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
-		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 
-		// String havingSQL =
-		// annotation.getAttribute(AnnotationAttributeType.HAVING);
-		analyzer.execute(BaseProcessor.elementUtils, method, havingJQL.value0);
-		paramGetters.addAll(analyzer.getParamGetters());
-		paramNames.addAll(analyzer.getParamNames());
-		paramTypeNames.addAll(analyzer.getParamTypeNames());
-		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
-		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-
-		// String groupBySQL =
-		// annotation.getAttribute(AnnotationAttributeType.GROUP_BY);
-		analyzer.execute(BaseProcessor.elementUtils, method, groupJQL.value0);
-		paramGetters.addAll(analyzer.getParamGetters());
-		paramNames.addAll(analyzer.getParamNames());
-		paramTypeNames.addAll(analyzer.getParamTypeNames());
-		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
-		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
-
-		// String orderBySQL =
-		// annotation.getAttribute(AnnotationAttributeType.ORDER_BY);
-		analyzer.execute(BaseProcessor.elementUtils, method, orderJQL.value0);
-		paramGetters.addAll(analyzer.getParamGetters());
-		paramNames.addAll(analyzer.getParamNames());
-		paramTypeNames.addAll(analyzer.getParamTypeNames());
-		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
-		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
+		buildSelectInner(method, paramNames, paramGetters, paramTypeNames, usedBeanPropertyNames, usedMethodParameters, whereJQL, havingJQL, analyzer);
+		buildSelectInner(method, paramNames, paramGetters, paramTypeNames, usedBeanPropertyNames, usedMethodParameters, groupJQL, orderJQL, analyzer);
 
 		// add as used parameter dynamic components too
 		if (method.hasDynamicWhereConditions()) {
@@ -498,9 +465,6 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 					classBuilder.addField(FieldSpec.builder(String.class, sqlName, Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).initializer("$S", sql)
 							.addJavadoc("SQL definition for method $L\n", method.getName()).build());
 				} else if (generateSqlField) {
-					// sqlName =
-					// CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE,
-					// method.buildSQLName());
 					String sql = SqlSelectBuilder.convertJQL2SQL(method, true);
 
 					// add static sql definition
@@ -522,7 +486,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			{
 				String separator = "";
 				TypeName paramTypeName;
-				// String paramName;
+
 				boolean nullable;
 				int i = 0;
 				boolean rawParameters;
@@ -531,10 +495,10 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				beanName = method.findEntityProperty();
 
 				for (String methodParam : paramGetters) {
-					rawParameters = paramNames.get(i).indexOf(".") == -1;
+					rawParameters = !paramNames.get(i).contains(".");
 
 					if (method.jql.spreadParams.contains(method.findParameterAliasByName(methodParam))) {
-						// paramTypeName = paramTypeNames.get(i);
+
 						String sizeMethod = "";
 						String elementMethod = "";
 						TypeName paramCollTypeName = paramTypeNames.get(i);
@@ -574,24 +538,20 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 							// eventually we take associated property
 							SQLProperty property = usedBeanPropertyNames.get(i) == null ? null : entity.get(usedBeanPropertyNames.get(i));
 
-							if (nullable && !(property != null) && !method.hasAdapterForParam(methodParam)) {
+							if (nullable && property == null && !method.hasAdapterForParam(methodParam)) {
 								methodBuilder.addCode("($L==null?\"\":", methodParam);
 							}
 
 							// check for string conversion
 							TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
 
-							// if (property != null) {
-							// SQLTransformer.javaProperty2WhereCondition(methodBuilder,
-							// method, item, paramTypeName, property);
-							// } else {
 							SQLTransformer.javaProperty2WhereCondition(methodBuilder, method, beanName, paramTypeName, property);
-							// }
+
 
 							// check for string conversion
 							TypeUtility.endStringConversion(methodBuilder, paramTypeName);
 
-							if (nullable && !(property != null) && !method.hasAdapterForParam(methodParam)) {
+							if (nullable && (property == null) && !method.hasAdapterForParam(methodParam)) {
 								methodBuilder.addCode(")");
 							}
 						}
@@ -660,6 +620,22 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 		methodBuilder.addComment("common part generation - END");
 
+	}
+
+	private static void buildSelectInner(SQLiteModelMethod method, List<String> paramNames, List<String> paramGetters, List<TypeName> paramTypeNames, List<String> usedBeanPropertyNames, Set<String> usedMethodParameters, One<String> whereJQL, One<String> havingJQL, SqlAnalyzer analyzer) {
+		analyzer.execute(BaseProcessor.elementUtils, method, whereJQL.value0);
+		paramGetters.addAll(analyzer.getParamGetters());
+		paramNames.addAll(analyzer.getParamNames());
+		paramTypeNames.addAll(analyzer.getParamTypeNames());
+		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
+		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
+
+		analyzer.execute(BaseProcessor.elementUtils, method, havingJQL.value0);
+		paramGetters.addAll(analyzer.getParamGetters());
+		paramNames.addAll(analyzer.getParamNames());
+		paramTypeNames.addAll(analyzer.getParamTypeNames());
+		usedBeanPropertyNames.addAll(analyzer.getUsedBeanPropertyNames());
+		usedMethodParameters.addAll(analyzer.getUsedMethodParameters());
 	}
 
 	private void generateRawWhereArg(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName paramTypeName, boolean nullable, String item) {

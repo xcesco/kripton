@@ -158,11 +158,11 @@ public class ArticleTable implements SQLiteTable {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
       jacksonParser.nextToken();
-      Thumbnail __thumbnail=null;
+      Thumbnail result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        __thumbnail=thumbnailBindMap.parseOnJackson(jacksonParser);
+        result=thumbnailBindMap.parseOnJackson(jacksonParser);
       }
-      return __thumbnail;
+      return result;
     } catch(Exception e) {
       e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));

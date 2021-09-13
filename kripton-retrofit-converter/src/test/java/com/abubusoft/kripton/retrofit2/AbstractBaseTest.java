@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2016-2019 Francesco Benincasa (info@abubusoft.com)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -38,265 +38,269 @@ import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 /**
  * The Class AbstractBaseTest.
  */
-public class AbstractBaseTest {
-	
-	/** The Constant KRIPTON_DEBUG_MODE. */
-	private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
+public abstract class AbstractBaseTest {
 
-	/** The expected ex. */
-	@Rule
-	public ExpectedException expectedEx = ExpectedException.none();
+    /**
+     * The Constant KRIPTON_DEBUG_MODE.
+     */
+    private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
 
-	/**
-	 * Check.
-	 *
-	 * @param bean the bean
-	 * @param checks the checks
-	 * @throws Exception the exception
-	 */
-	protected void check(Object bean, BinderType... checks) throws Exception {
-		int max = 0;
-		int[] values = new int[BinderType.values().length];
+    /**
+     * The expected ex.
+     */
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
 
-		boolean all = false;
-		List<BinderType> checkList = Arrays.asList(checks);
-		if (checks.length == 0)
-			all = true;
+    /**
+     * Check.
+     *
+     * @param bean   the bean
+     * @param checks the checks
+     * @throws Exception the exception
+     */
+    protected void check(Object bean, BinderType... checks) throws Exception {
+        int max = 0;
+        int[] values = new int[BinderType.values().length];
 
-		int i = 0;
-		for (BinderType checkType : BinderType.values()) {
-			if (all || checkList.contains(checkType)) {
-				if (checkType == BinderType.CBOR) {
-					values[i] = serializeAndParseBinary(bean, checkType);
-				} else {
-					values[i] = serializeAndParse(bean, checkType);
-				}
-				max = Math.max(max, values[i]);
-				i++;
-			}
-		}
+        boolean all = false;
+        List<BinderType> checkList = Arrays.asList(checks);
+        if (checks.length == 0)
+            all = true;
 
-		i = 0;
-		for (BinderType checkType : BinderType.values()) {
-			if (all || checkList.contains(checkType)) {
-				System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
-				i++;
-			}
-		}
+        int i = 0;
+        for (BinderType checkType : BinderType.values()) {
+            if (all || checkList.contains(checkType)) {
+                if (checkType == BinderType.CBOR) {
+                    values[i] = serializeAndParseBinary(bean, checkType);
+                } else {
+                    values[i] = serializeAndParse(bean, checkType);
+                }
+                max = Math.max(max, values[i]);
+                i++;
+            }
+        }
 
-		System.out.println();
-	}
+        i = 0;
+        for (BinderType checkType : BinderType.values()) {
+            if (all || checkList.contains(checkType)) {
+                System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
+                i++;
+            }
+        }
 
-	/**
-	 * Check collection.
-	 *
-	 * @param <E> the element type
-	 * @param collection the collection
-	 * @param beanClazz the bean clazz
-	 * @param checks the checks
-	 * @throws Exception the exception
-	 */
-	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType... checks) throws Exception {
-		int max = 0;
-		int[] values = new int[BinderType.values().length];
+        System.out.println();
+    }
 
-		boolean all = false;
-		List<BinderType> checkList = Arrays.asList(checks);
-		if (checks.length == 0)
-			all = true;
+    /**
+     * Check collection.
+     *
+     * @param <E>        the element type
+     * @param collection the collection
+     * @param beanClazz  the bean clazz
+     * @param checks     the checks
+     * @throws Exception the exception
+     */
+    protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType... checks) throws Exception {
+        int max = 0;
+        int[] values = new int[BinderType.values().length];
 
-		int i = 0;
-		for (BinderType checkType : BinderType.values()) {
-			if (all || checkList.contains(checkType)) {
-				if (checkType == BinderType.CBOR) {
-					values[i] = serializeAndParseCollectionBinary(collection, beanClazz, checkType);
-				} else {
-					values[i] = serializeAndParseCollection(collection, beanClazz, checkType);
-				}
-				max = Math.max(max, values[i]);
-				i++;
-			}
-		}
+        boolean all = false;
+        List<BinderType> checkList = Arrays.asList(checks);
+        if (checks.length == 0)
+            all = true;
 
-		i = 0;
-		for (BinderType checkType : BinderType.values()) {
-			if (all || checkList.contains(checkType)) {
-				System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
-				i++;
-			}
-		}
+        int i = 0;
+        for (BinderType checkType : BinderType.values()) {
+            if (all || checkList.contains(checkType)) {
+                if (checkType == BinderType.CBOR) {
+                    values[i] = serializeAndParseCollectionBinary(collection, beanClazz, checkType);
+                } else {
+                    values[i] = serializeAndParseCollection(collection, beanClazz, checkType);
+                }
+                max = Math.max(max, values[i]);
+                i++;
+            }
+        }
 
-		System.out.println();
-	}
+        i = 0;
+        for (BinderType checkType : BinderType.values()) {
+            if (all || checkList.contains(checkType)) {
+                System.out.print(String.format("%s: %s bytes (%.0f%%) ", checkType.toString(), values[i], values[i] * 100.0 / max));
+                i++;
+            }
+        }
 
-	/**
-	 * Expected exception.
-	 *
-	 * @param <E> the element type
-	 * @param clazzException the clazz exception
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
-	public <E extends Exception> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
-		expectedEx.expect(AssertionError.class);
-		expectedEx.expectMessage(clazzException.getSimpleName());
-	}
+        System.out.println();
+    }
 
-	/**
-	 * Serialize and parse.
-	 *
-	 * @param bean the bean
-	 * @param type the type
-	 * @return the int
-	 * @throws Exception the exception
-	 */
-	public int serializeAndParse(Object bean, BinderType type) throws Exception {
-		String output1 = KriptonBinder.bind(type).serialize(bean);
-		System.out.println("[[" + output1 + "]]");
+    /**
+     * Expected exception.
+     *
+     * @param <E>            the element type
+     * @param clazzException the clazz exception
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     */
+    public <E extends Exception> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
+        expectedEx.expect(AssertionError.class);
+        expectedEx.expectMessage(clazzException.getSimpleName());
+    }
 
-		Object bean2 = KriptonBinder.bind(type).parse(output1, bean.getClass());
+    /**
+     * Serialize and parse.
+     *
+     * @param bean the bean
+     * @param type the type
+     * @return the int
+     * @throws Exception the exception
+     */
+    public int serializeAndParse(Object bean, BinderType type) throws Exception {
+        String output1 = KriptonBinder.bind(type).serialize(bean);
+        System.out.println("[[" + output1 + "]]");
 
-		String output2 = KriptonBinder.bind(type).serialize(bean2);
-		if (output1.equals(output2)) {
-			System.out.println("[[-- same --]]");
-		} else {
-			System.out.println("[[" + output2 + "]]");
-		}
+        Object bean2 = KriptonBinder.bind(type).parse(output1, bean.getClass());
 
-		Assert.assertTrue(type.toString(), output1.length() == output2.length());
+        String output2 = KriptonBinder.bind(type).serialize(bean2);
+        if (output1.equals(output2)) {
+            System.out.println("[[-- same --]]");
+        } else {
+            System.out.println("[[" + output2 + "]]");
+        }
 
-		ReflectionAssert.assertReflectionEquals(bean, bean2, ReflectionComparatorMode.LENIENT_ORDER);
+        Assert.assertEquals(type.toString(), output1.length(), output2.length());
 
-		return output2.length();
-	}
+        ReflectionAssert.assertReflectionEquals(bean, bean2, ReflectionComparatorMode.LENIENT_ORDER);
 
-	/**
-	 * Serialize and parse binary.
-	 *
-	 * @param bean the bean
-	 * @param type the type
-	 * @return the int
-	 * @throws Exception the exception
-	 */
-	public int serializeAndParseBinary(Object bean, BinderType type) throws Exception {
-		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
-		KriptonBinder.bind(type).serialize(bean, bar);
-		String value1 = toString(bar.getByteBufferCopy());
+        return output2.length();
+    }
 
-		System.out.println("[[" + value1 + "]]");
+    /**
+     * Serialize and parse binary.
+     *
+     * @param bean the bean
+     * @param type the type
+     * @return the int
+     * @throws Exception the exception
+     */
+    public int serializeAndParseBinary(Object bean, BinderType type) throws Exception {
+        KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
+        KriptonBinder.bind(type).serialize(bean, bar);
+        String value1 = toString(bar.getByteBufferCopy());
 
-		Object bean2 = KriptonBinder.bind(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
+        System.out.println("[[" + value1 + "]]");
 
-		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
-		KriptonBinder.bind(type).serialize(bean2, bar2);
-		String value2 = toString(bar2.getByteBufferCopy());
+        Object bean2 = KriptonBinder.bind(type).parse(new ByteArrayInputStream(bar.getByteBuffer()), bean.getClass());
 
-		if (value1.equals(value2)) {
-			System.out.println("[[-- same --]]");
-		} else {
-			System.out.println("[[" + value2 + "]]");
-		}
+        KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
+        KriptonBinder.bind(type).serialize(bean2, bar2);
+        String value2 = toString(bar2.getByteBufferCopy());
 
-		Assert.assertTrue(value1.length() == value2.length());
+        if (value1.equals(value2)) {
+            System.out.println("[[-- same --]]");
+        } else {
+            System.out.println("[[" + value2 + "]]");
+        }
 
-		return bar.getCount();
-	}
+        Assert.assertEquals(value1.length(), value2.length());
 
-	/**
-	 * Serialize and parse collection.
-	 *
-	 * @param <E> the element type
-	 * @param list the list
-	 * @param clazz the clazz
-	 * @param type the type
-	 * @return the int
-	 * @throws Exception the exception
-	 */
-	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
-		String value1 = KriptonBinder.bind(type).serializeCollection(list, clazz);
+        return bar.getCount();
+    }
 
-		System.out.println("[[" + value1 + "]]");
+    /**
+     * Serialize and parse collection.
+     *
+     * @param <E>   the element type
+     * @param list  the list
+     * @param clazz the clazz
+     * @param type  the type
+     * @return the int
+     * @throws Exception the exception
+     */
+    public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
+        String value1 = KriptonBinder.bind(type).serializeCollection(list, clazz);
 
-		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(value1, new ArrayList<E>(), clazz);
+        System.out.println("[[" + value1 + "]]");
 
-		String value2 = KriptonBinder.bind(type).serializeCollection(list2, clazz);
+        Collection<E> list2 = KriptonBinder.bind(type).parseCollection(value1, new ArrayList<E>(), clazz);
 
-		if (value1.equals(value2)) {
-			System.out.println("[[-- same --]]");
-		} else {
-			System.out.println("[[" + value2 + "]]");
-		}
-		//
-		Assert.assertTrue(value1.length() == value2.length());
-		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
-		//
-		return value1.length();
-	}
+        String value2 = KriptonBinder.bind(type).serializeCollection(list2, clazz);
 
-	/**
-	 * Serialize and parse collection binary.
-	 *
-	 * @param <E> the element type
-	 * @param list the list
-	 * @param clazz the clazz
-	 * @param type the type
-	 * @return the int
-	 * @throws Exception the exception
-	 */
-	public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
-		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
-		KriptonBinder.bind(type).serializeCollection(list, clazz, bar);
-		String value1 = toString(bar.getByteBuffer());
+        if (value1.equals(value2)) {
+            System.out.println("[[-- same --]]");
+        } else {
+            System.out.println("[[" + value2 + "]]");
+        }
+        //
+        Assert.assertEquals(value1.length(), value2.length());
+        ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
+        //
+        return value1.length();
+    }
 
-		System.out.println("[[" + value1 + "]]");
+    /**
+     * Serialize and parse collection binary.
+     *
+     * @param <E>   the element type
+     * @param list  the list
+     * @param clazz the clazz
+     * @param type  the type
+     * @return the int
+     * @throws Exception the exception
+     */
+    public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
+        KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
+        KriptonBinder.bind(type).serializeCollection(list, clazz, bar);
+        String value1 = toString(bar.getByteBuffer());
 
-		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(bar.getByteBufferCopy(), new ArrayList<E>(), clazz);
+        System.out.println("[[" + value1 + "]]");
 
-		KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
-		KriptonBinder.bind(type).serializeCollection(list2, clazz, bar2);
-		String value2 = toString(bar2.getByteBuffer());
+        Collection<E> list2 = KriptonBinder.bind(type).parseCollection(bar.getByteBufferCopy(), new ArrayList<E>(), clazz);
 
-		if (value1.equals(value2)) {
-			System.out.println("[[-- same --]]");
-		} else {
-			System.out.println("[[" + value2 + "]]");
-		}
+        KriptonByteArrayOutputStream bar2 = new KriptonByteArrayOutputStream();
+        KriptonBinder.bind(type).serializeCollection(list2, clazz, bar2);
+        String value2 = toString(bar2.getByteBuffer());
 
-		Assert.assertTrue(value1.length() == value2.length());
-		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
-		//
-		return bar.getCount();
-	}
+        if (value1.equals(value2)) {
+            System.out.println("[[-- same --]]");
+        } else {
+            System.out.println("[[" + value2 + "]]");
+        }
 
-	/**
-	 * Setup.
-	 */
-	@Before
-	public void setup() {
-		final String value = System.getProperty(KRIPTON_DEBUG_MODE);
-		if ("false".equals(value)) {
-			// we are in test, but we don't see log on System.out
-			System.setOut(new PrintStream(new NullOutputStream()));
-			System.setErr(new PrintStream(new NullOutputStream()));
-		}
+        Assert.assertEquals(value1.length(), value2.length());
+        ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
+        //
+        return bar.getCount();
+    }
 
-		// when we run junit test, AnnotationProcessor is always in TEST_MODE
-		System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
+    /**
+     * Setup.
+     */
+    @Before
+    public void setup() {
+        final String value = System.getProperty(KRIPTON_DEBUG_MODE);
+        if ("false".equals(value)) {
+            // we are in test, but we don't see log on System.out
+            System.setOut(new PrintStream(new NullOutputStream()));
+            System.setErr(new PrintStream(new NullOutputStream()));
+        }
 
-		// KriptonBinder.registryBinder(new KriptonCborContext());
-	}
+        // when we run junit test, AnnotationProcessor is always in TEST_MODE
+        System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tH:%1$tM:%1$tS.%1$tL %4$-7s [%3$s] (%2$s) %5$s %6$s%n");
 
-	/**
-	 * To string.
-	 *
-	 * @param input the input
-	 * @return the string
-	 */
-	String toString(byte[] input) {
-		StringBuilder buffer = new StringBuilder();
-		for (int j = 0; j < input.length; j++) {
-			buffer.append(String.format("%02X", input[j]));
-		}
-		return buffer.toString();
-	}
+        // KriptonBinder.registryBinder(new KriptonCborContext());
+    }
+
+    /**
+     * To string.
+     *
+     * @param input the input
+     * @return the string
+     */
+    String toString(byte[] input) {
+        StringBuilder buffer = new StringBuilder();
+        for (int j = 0; j < input.length; j++) {
+            buffer.append(String.format("%02X", input[j]));
+        }
+        return buffer.toString();
+    }
 }

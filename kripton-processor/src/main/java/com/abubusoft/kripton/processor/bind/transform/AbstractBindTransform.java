@@ -26,7 +26,7 @@ package com.abubusoft.kripton.processor.bind.transform;
  */
 public abstract class AbstractBindTransform implements BindTransform {
 
-	/** The default value. */
+	/** The default value. It can be modified, so do not change */
 	protected String DEFAULT_VALUE = "null";
 
 	/** The Constant PRE_TYPE_ADAPTER_TO_JAVA. */

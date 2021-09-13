@@ -44,7 +44,7 @@ import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
-public class AbstractBaseTest {
+public abstract class AbstractBaseTest {
 	
 	/** The Constant KRIPTON_DEBUG_MODE. */
 	private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
@@ -169,7 +169,8 @@ public class AbstractBaseTest {
 			System.out.println("[[" + output2 + "]]");
 		}
 
-		Assert.assertTrue(type.toString(), output1.length() == output2.length());
+
+		Assert.assertEquals(type.toString(), output1.length(), output2.length());
 
 		ReflectionAssert.assertReflectionEquals(bean, bean2, ReflectionComparatorMode.LENIENT_ORDER);
 
@@ -203,7 +204,7 @@ public class AbstractBaseTest {
 			System.out.println("[[" + value2 + "]]");
 		}
 
-		Assert.assertTrue(value1.length() == value2.length());
+		Assert.assertEquals(type.toString(),value1.length(), value2.length());
 
 		return bar.getCount();
 	}
@@ -233,7 +234,7 @@ public class AbstractBaseTest {
 			System.out.println("[[" + value2 + "]]");
 		}
 		//
-		Assert.assertTrue(value1.length() == value2.length());
+		Assert.assertEquals(type.toString(),value1.length(), value2.length());
 		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
 		//
 		return value1.length();
@@ -268,7 +269,7 @@ public class AbstractBaseTest {
 			System.out.println("[[" + value2 + "]]");
 		}
 
-		Assert.assertTrue(value1.length() == value2.length());
+		Assert.assertEquals(type.toString(),value1.length(), value2.length());
 		ReflectionAssert.assertReflectionEquals(type.toString(), list, list2, ReflectionComparatorMode.LENIENT_ORDER);
 		//
 		return bar.getCount();

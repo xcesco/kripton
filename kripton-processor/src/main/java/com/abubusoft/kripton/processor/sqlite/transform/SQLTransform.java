@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -34,6 +35,7 @@ public interface SQLTransform {
 	/**
 	 * Generate code to put into cursor, the bean property value.
 	 *
+	 * @param tableEntity entity with table to target
 	 * @param methodBuilder the method builder
 	 * @param beanClass the bean class
 	 * @param beanName the bean name
@@ -41,7 +43,7 @@ public interface SQLTransform {
 	 * @param cursorName the cursor name
 	 * @param indexName the index name
 	 */
-	void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
+	void generateReadPropertyFromCursor(SQLiteEntity tableEntity, Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
 
 	/**
 	 * Used when you need to use a cursor column as select's result value. 
