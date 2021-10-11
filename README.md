@@ -260,10 +260,10 @@ public interface QuickStartService {
 Retrofit retrofit = new Retrofit.Builder().baseUrl(...)
   .addConverterFactory(KriptonBinderConverterFactory.create())
   .build();
-```
 
 // Retrofit usage
 .. as usual.
+```
 
 To see how fast is Kripton to convert from/to JSON read this [wiki page](https://github.com/xcesco/kripton/wiki/PerformanceJSON).
 
