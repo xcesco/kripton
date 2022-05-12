@@ -3,6 +3,7 @@
  */
 package com.abubusoft.kripton.android;
 
+import androidx.annotation.Nullable;
 import com.abubusoft.kripton.TypeAdapter;
 
 /**
@@ -23,6 +24,6 @@ public interface SqlTypeAdapter<J, D> extends TypeAdapter<J, D> {
 	 * @param javaValue the java value
 	 * @return the string
 	 */
-	String toString(J javaValue);
+	@Nullable  String toString(@Nullable  J javaValue);
 	
 }

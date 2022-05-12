@@ -7,169 +7,168 @@
 	KIND, either express or implied. See the License for the specific language 
 	governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.abubusoft</groupId>
-		<artifactId>kripton-parent</artifactId>
-		<version>8.0.0-rc.3</version>
-		<relativePath>../kripton-parent/pom.xml</relativePath>
-	</parent>
+    <parent>
+        <groupId>com.abubusoft</groupId>
+        <artifactId>kripton-parent</artifactId>
+        <version>8.0.0-rc.4</version>
+        <relativePath>../kripton-parent/pom.xml</relativePath>
+    </parent>
 
-	<name>Kripton Android Library</name>
+    <name>Kripton Android Library</name>
+
+    <artifactId>kripton-android-library</artifactId>
+    <packaging>jar</packaging>
+
+    <description>Kripton Persistence Library for Android platform</description>
+
+    <properties>
+        <!-- reactive -->
+        <rx.version>2.2.19</rx.version>
+        <reactive.version>1.0.3</reactive.version>
+
+        <kripton.version>8.0.0-rc.4</kripton.version>
+        <robolectric.version>3.1.4</robolectric.version>
+        <junit.version>4.13.1</junit.version>
+        <unitils.version>3.4.2</unitils.version>
+    </properties>
+
+    <!-- common part - END -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <kripton.debug>${kripton.debug}</kripton.debug>
+                    </systemPropertyVariables>
+                    <includes>
+                        <include>all/*TestSuite.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.abubusoft</groupId>
+            <artifactId>kripton</artifactId>
+            <version>${kripton.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.abubusoft</groupId>
+            <artifactId>kripton-orm</artifactId>
+            <version>${kripton.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.abubusoft</groupId>
+            <artifactId>kripton-shared-preferences</artifactId>
+            <version>${kripton.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.abubusoft</groupId>
+            <artifactId>kripton-retrofit-converter</artifactId>
+            <version>${kripton.version}</version>
+        </dependency>
+
+        <!-- RX dependencies - BEGIN -->
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>${rx.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams -->
+        <dependency>
+            <groupId>org.reactivestreams</groupId>
+            <artifactId>reactive-streams</artifactId>
+            <version>${reactive.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- RX dependencies - END -->
 
 
-	<artifactId>kripton-android-library</artifactId>
-	<packaging>jar</packaging>
+        <dependency>
+            <groupId>com.abubusoft</groupId>
+            <artifactId>kripton-arch-integration</artifactId>
+            <version>${kripton.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-	<description>Kripton Persistence Library for Android platform</description>
+        <dependency>
+            <groupId>com.abubusoft</groupId>
+            <artifactId>kripton-arch-test</artifactId>
+            <version>${kripton.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-	<properties>
-		<!-- reactive -->
-		<rx.version>2.2.19</rx.version>
-		<reactive.version>1.0.3</reactive.version>
+        <dependency>
+            <groupId>org.robolectric</groupId>
+            <artifactId>robolectric</artifactId>
+            <version>${robolectric.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<kripton.version>8.0.0-rc.3</kripton.version>
-		<robolectric.version>3.1.4</robolectric.version>
-		<junit.version>4.13.1</junit.version>
-		<unitils.version>3.4.2</unitils.version>
-	</properties>
+        <dependency>
+            <groupId>org.robolectric</groupId>
+            <artifactId>android-all</artifactId>
+            <version>5.0.0_r2-robolectric-0</version>
+            <scope>provided</scope>
+        </dependency>
 
-	<!-- common part - END -->
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M5</version>
-				<configuration>
-					<systemPropertyVariables>
-						<kripton.debug>${kripton.debug}</kripton.debug>
-					</systemPropertyVariables>
-					<includes>
-						<include>all/*TestSuite.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.1.1.4</version>
+            <scope>provided</scope>
+        </dependency>
 
-	<dependencies>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>r7</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton</artifactId>
-			<version>${kripton.version}</version>
-		</dependency>
+        <!-- TEST DEPENDENCIES -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-orm</artifactId>
-			<version>${kripton.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.unitils</groupId>
+            <artifactId>unitils-core</artifactId>
+            <version>${unitils.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>junit</artifactId>
+                    <groupId>junit</groupId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-shared-preferences</artifactId>
-			<version>${kripton.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.7</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-retrofit-converter</artifactId>
-			<version>${kripton.version}</version>
-		</dependency>
-
-		<!-- RX dependencies - BEGIN -->
-		<dependency>
-			<groupId>io.reactivex.rxjava2</groupId>
-			<artifactId>rxjava</artifactId>
-			<version>${rx.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams -->
-		<dependency>
-			<groupId>org.reactivestreams</groupId>
-			<artifactId>reactive-streams</artifactId>
-			<version>${reactive.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- RX dependencies - END -->
-
-
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-arch-integration</artifactId>
-			<version>${kripton.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-arch-test</artifactId>
-			<version>${kripton.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.robolectric</groupId>
-			<artifactId>robolectric</artifactId>
-			<version>${robolectric.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.robolectric</groupId>
-			<artifactId>android-all</artifactId>
-			<version>5.0.0_r2-robolectric-0</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android</artifactId>
-			<version>4.1.1.4</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>r7</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- TEST DEPENDENCIES -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils-core</artifactId>
-			<version>${unitils.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>junit</artifactId>
-					<groupId>junit</groupId>
-				</exclusion>
-			</exclusions>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.7</version>
-			<scope>test</scope>
-		</dependency>
-
-	</dependencies>
+    </dependencies>
 
 </project>
