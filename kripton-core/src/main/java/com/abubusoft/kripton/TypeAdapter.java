@@ -4,6 +4,8 @@
 package com.abubusoft.kripton;
 
 
+import androidx.annotation.Nullable;
+
 /**
  * Allows to manage a field of type J as a field of type D. It's usefully for unsupported type.   
  *  
@@ -22,7 +24,7 @@ public interface TypeAdapter<J, D> {
 	 * @param dataValue the data value
 	 * @return the j
 	 */
-	J toJava(D dataValue);
+	@Nullable J toJava(@Nullable D dataValue);
 
 	/**
 	 * Convert a field value of type J in its persisted version of type D.
@@ -30,6 +32,6 @@ public interface TypeAdapter<J, D> {
 	 * @param javaValue the java value
 	 * @return the d
 	 */
-	D toData(J javaValue);
+	@Nullable D toData(@Nullable J javaValue);
 		
 }

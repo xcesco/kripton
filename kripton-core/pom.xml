@@ -1,35 +1,47 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.abubusoft</groupId>
-		<artifactId>kripton-parent</artifactId>
-		<version>8.0.0-rc.4</version>
-		<relativePath>../kripton-parent/pom.xml</relativePath>
-	</parent>
+    <parent>
+        <groupId>com.abubusoft</groupId>
+        <artifactId>kripton-parent</artifactId>
+        <version>8.0.0-rc.4</version>
+        <relativePath>../kripton-parent/pom.xml</relativePath>
+    </parent>
 
-	<artifactId>kripton-core</artifactId>
-	<name>Kripton Core</name>
-	<packaging>jar</packaging>
-	<description>Kripton Persistence Library - core module </description>
+    <artifactId>kripton-core</artifactId>
+    <name>Kripton Core</name>
+    <packaging>jar</packaging>
+    <description>Kripton Persistence Library - core module</description>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>templating-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<executions>
-					<execution>
-						<id>filtering-java-templates</id>
-						<goals>
-							<goal>filter-sources</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+    <dependencies>
+        <dependency>
+            <groupId>com.abubusoft</groupId>
+            <artifactId>kripton-arch-integration</artifactId>
+            <version>${kripton.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>templating-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>filtering-java-templates</id>
+                        <goals>
+                            <goal>filter-sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+
+
 
 </project>
