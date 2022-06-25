@@ -1,5 +1,6 @@
 package sqlite.feature.jql.kripton163;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindCollegeStudentsDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindCollegeStudentsDaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindCollegeStudentsDaoFactory daoFactory);
+    T onExecute(@NonNull BindCollegeStudentsDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindCollegeStudentsDaoFactory {

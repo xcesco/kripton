@@ -1,5 +1,6 @@
 package sqlite.feature.dynamic.update1;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindPersonUpdateDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindPersonUpdateDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindPersonUpdateDaoFactory daoFactory);
+    T onExecute(@NonNull BindPersonUpdateDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindPersonUpdateDaoFactory {

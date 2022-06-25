@@ -1,5 +1,6 @@
 package sqlite.feature.foreignkeyaction;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -480,7 +481,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindArtistDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindArtistDaoFactory daoFactory);
   }
 
   /**
@@ -493,7 +494,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindArtistDaoFactory daoFactory);
+    T onExecute(@NonNull BindArtistDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindArtistDaoFactory {

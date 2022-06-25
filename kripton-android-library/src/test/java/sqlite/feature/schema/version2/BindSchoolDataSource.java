@@ -1,5 +1,6 @@
 package sqlite.feature.schema.version2;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -511,7 +512,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindSchoolDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindSchoolDaoFactory daoFactory);
   }
 
   /**
@@ -524,7 +525,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindSchoolDaoFactory daoFactory);
+    T onExecute(@NonNull BindSchoolDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindSchoolDaoFactory {

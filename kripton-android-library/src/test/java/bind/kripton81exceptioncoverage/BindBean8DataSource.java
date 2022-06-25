@@ -1,5 +1,6 @@
 package bind.kripton81exceptioncoverage;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindBean8DaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindBean8DaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindBean8DaoFactory daoFactory);
+    T onExecute(@NonNull BindBean8DaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindBean8DaoFactory {

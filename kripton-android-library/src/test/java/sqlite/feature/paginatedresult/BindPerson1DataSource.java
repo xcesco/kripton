@@ -1,5 +1,6 @@
 package sqlite.feature.paginatedresult;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindPerson1DaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindPerson1DaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindPerson1DaoFactory daoFactory);
+    T onExecute(@NonNull BindPerson1DaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindPerson1DaoFactory {

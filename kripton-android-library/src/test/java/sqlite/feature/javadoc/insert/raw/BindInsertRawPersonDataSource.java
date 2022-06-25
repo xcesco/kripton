@@ -1,5 +1,6 @@
 package sqlite.feature.javadoc.insert.raw;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindInsertRawPersonDataSource extends AbstractDataSource implements
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindInsertRawPersonDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindInsertRawPersonDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindInsertRawPersonDataSource extends AbstractDataSource implements
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindInsertRawPersonDaoFactory daoFactory);
+    T onExecute(@NonNull BindInsertRawPersonDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindInsertRawPersonDaoFactory {

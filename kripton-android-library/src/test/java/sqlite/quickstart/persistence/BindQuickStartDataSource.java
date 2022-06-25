@@ -1,5 +1,6 @@
 package sqlite.quickstart.persistence;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -515,7 +516,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindQuickStartDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindQuickStartDaoFactory daoFactory);
   }
 
   /**
@@ -528,7 +529,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindQuickStartDaoFactory daoFactory);
+    T onExecute(@NonNull BindQuickStartDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindQuickStartDaoFactory {

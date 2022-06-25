@@ -1,5 +1,6 @@
 package sqlite.feature.rx.persistence;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -920,7 +921,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindXenoDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindXenoDaoFactory daoFactory);
   }
 
   /**
@@ -933,7 +934,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindXenoDaoFactory daoFactory);
+    T onExecute(@NonNull BindXenoDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindXenoDaoFactory {

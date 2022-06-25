@@ -1,5 +1,6 @@
 package sqlite.feature.includefields;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindPersonDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindPersonDaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindPersonDaoFactory daoFactory);
+    T onExecute(@NonNull BindPersonDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindPersonDaoFactory {

@@ -1,5 +1,6 @@
 package sqlite.kripton51.persistence;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindWhisperDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindWhisperDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindWhisperDaoFactory daoFactory);
+    T onExecute(@NonNull BindWhisperDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindWhisperDaoFactory {

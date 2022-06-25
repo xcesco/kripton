@@ -1,5 +1,6 @@
 package sqlite.stack44330452;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -449,7 +450,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindPetUserDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindPetUserDaoFactory daoFactory);
   }
 
   /**
@@ -462,7 +463,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindPetUserDaoFactory daoFactory);
+    T onExecute(@NonNull BindPetUserDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindPetUserDaoFactory {

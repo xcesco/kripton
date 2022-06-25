@@ -1,5 +1,6 @@
 package sqlite.feature.jql.persistence;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -451,7 +452,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindFamilyDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindFamilyDaoFactory daoFactory);
   }
 
   /**
@@ -464,7 +465,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindFamilyDaoFactory daoFactory);
+    T onExecute(@NonNull BindFamilyDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindFamilyDaoFactory {

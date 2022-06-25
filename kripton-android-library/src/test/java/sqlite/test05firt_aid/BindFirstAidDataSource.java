@@ -1,5 +1,6 @@
 package sqlite.test05firt_aid;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindFirstAidDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindFirstAidDaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindFirstAidDaoFactory daoFactory);
+    T onExecute(@NonNull BindFirstAidDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindFirstAidDaoFactory {
