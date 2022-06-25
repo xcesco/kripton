@@ -1,5 +1,6 @@
 package sqlite.stack44633883;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindSchoolLunchDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindSchoolLunchDaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindSchoolLunchDaoFactory daoFactory);
+    T onExecute(@NonNull BindSchoolLunchDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindSchoolLunchDaoFactory {

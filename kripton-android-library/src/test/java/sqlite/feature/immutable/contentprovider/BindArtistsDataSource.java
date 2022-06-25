@@ -1,5 +1,6 @@
 package sqlite.feature.immutable.contentprovider;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -449,7 +450,7 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindArtistsDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindArtistsDaoFactory daoFactory);
   }
 
   /**
@@ -462,7 +463,7 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindArtistsDaoFactory daoFactory);
+    T onExecute(@NonNull BindArtistsDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindArtistsDaoFactory {

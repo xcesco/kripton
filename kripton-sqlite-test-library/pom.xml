@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-sqlite-test-library</artifactId>
-	<version>8.0.0-rc.4</version>
+	<version>8.0.0-rc.6</version>
 
 	<name>Kripton SQLite Test Library</name>
 	<description>Kripton SQLite Test Library</description>
@@ -12,7 +12,7 @@
 
 	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
-		<kripton.version>8.0.0-rc.4</kripton.version>
+		<kripton.version>8.0.0-rc.6</kripton.version>
 
 		<!-- environment version -->
 		<java.version>1.8</java.version>
@@ -285,6 +285,7 @@
 								<configuration>
 									<!-- <additionalparam>-Xdoclint:none</additionalparam> -->
 									<!-- <excludePackageNames>com.abubusoft.kripton.android*</excludePackageNames> -->
+									<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
 									<failOnError>false</failOnError>
 								</configuration>
 							</execution>

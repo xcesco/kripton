@@ -1,5 +1,6 @@
 package sqlite.git23.bug;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindAlbumDataSource extends AbstractDataSource implements BindAlbum
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindAlbumDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindAlbumDaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindAlbumDataSource extends AbstractDataSource implements BindAlbum
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindAlbumDaoFactory daoFactory);
+    T onExecute(@NonNull BindAlbumDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindAlbumDaoFactory {

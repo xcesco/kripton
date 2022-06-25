@@ -1,5 +1,6 @@
 package sqlite.feature.many2many.entity;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -482,7 +483,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindPersonCirtyOk1DaoFactory daoFactory);
   }
 
   /**
@@ -495,7 +496,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
+    T onExecute(@NonNull BindPersonCirtyOk1DaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindPersonCirtyOk1DaoFactory {

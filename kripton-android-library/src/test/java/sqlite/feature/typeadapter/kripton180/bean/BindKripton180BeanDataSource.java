@@ -1,5 +1,6 @@
 package sqlite.feature.typeadapter.kripton180.bean;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindKripton180BeanDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindKripton180BeanDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindKripton180BeanDaoFactory daoFactory);
+    T onExecute(@NonNull BindKripton180BeanDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindKripton180BeanDaoFactory {

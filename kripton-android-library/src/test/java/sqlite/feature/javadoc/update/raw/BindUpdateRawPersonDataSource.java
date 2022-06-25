@@ -1,5 +1,6 @@
 package sqlite.feature.javadoc.update.raw;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindUpdateRawPersonDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindUpdateRawPersonDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindUpdateRawPersonDaoFactory daoFactory);
+    T onExecute(@NonNull BindUpdateRawPersonDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindUpdateRawPersonDaoFactory {

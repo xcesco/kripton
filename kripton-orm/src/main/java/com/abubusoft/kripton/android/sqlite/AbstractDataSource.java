@@ -20,6 +20,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration.Builder;
@@ -66,7 +67,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
          * @param daoFactory the dao factory
          * @return the transaction result
          */
-        TransactionResult onExecute(E daoFactory);
+        TransactionResult onExecute(@NonNull E daoFactory);
     }
 
     /**
@@ -82,7 +83,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
          *
          * @param e exception
          */
-        void onError(Throwable e);
+        void onError(@NonNull Throwable e);
     }
 
     /**

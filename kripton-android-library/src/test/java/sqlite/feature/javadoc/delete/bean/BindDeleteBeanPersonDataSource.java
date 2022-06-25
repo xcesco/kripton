@@ -1,5 +1,6 @@
 package sqlite.feature.javadoc.delete.bean;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindDeleteBeanPersonDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindDeleteBeanPersonDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindDeleteBeanPersonDaoFactory daoFactory);
+    T onExecute(@NonNull BindDeleteBeanPersonDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindDeleteBeanPersonDaoFactory {

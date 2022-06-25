@@ -1,5 +1,6 @@
 package sqlite.feature.livedata.persistence3.repository;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -421,7 +422,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindAppDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindAppDaoFactory daoFactory);
   }
 
   /**
@@ -434,7 +435,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindAppDaoFactory daoFactory);
+    T onExecute(@NonNull BindAppDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindAppDaoFactory {

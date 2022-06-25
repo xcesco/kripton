@@ -1,5 +1,6 @@
 package sqlite.feature.contentprovider.kripton213.case1;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -427,7 +428,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindSampleDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindSampleDaoFactory daoFactory);
   }
 
   /**
@@ -440,7 +441,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindSampleDaoFactory daoFactory);
+    T onExecute(@NonNull BindSampleDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindSampleDaoFactory {

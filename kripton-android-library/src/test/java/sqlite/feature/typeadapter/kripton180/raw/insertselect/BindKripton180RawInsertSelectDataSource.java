@@ -1,5 +1,6 @@
 package sqlite.feature.typeadapter.kripton180.raw.insertselect;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -782,7 +783,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindKripton180RawInsertSelectDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindKripton180RawInsertSelectDaoFactory daoFactory);
   }
 
   /**
@@ -795,7 +796,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindKripton180RawInsertSelectDaoFactory daoFactory);
+    T onExecute(@NonNull BindKripton180RawInsertSelectDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindKripton180RawInsertSelectDaoFactory {

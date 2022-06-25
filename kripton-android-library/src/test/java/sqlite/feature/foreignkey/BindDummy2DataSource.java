@@ -1,5 +1,6 @@
 package sqlite.feature.foreignkey;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -449,7 +450,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindDummy2DaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindDummy2DaoFactory daoFactory);
   }
 
   /**
@@ -462,7 +463,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindDummy2DaoFactory daoFactory);
+    T onExecute(@NonNull BindDummy2DaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindDummy2DaoFactory {

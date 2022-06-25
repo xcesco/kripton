@@ -1,5 +1,6 @@
 package sqlite.feature.relations.case4.persistence;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -451,7 +452,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindRssDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindRssDaoFactory daoFactory);
   }
 
   /**
@@ -464,7 +465,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindRssDaoFactory daoFactory);
+    T onExecute(@NonNull BindRssDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindRssDaoFactory {

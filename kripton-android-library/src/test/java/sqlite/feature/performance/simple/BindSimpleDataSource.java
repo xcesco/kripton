@@ -1,5 +1,6 @@
 package sqlite.feature.performance.simple;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -394,7 +395,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindSimpleDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindSimpleDaoFactory daoFactory);
   }
 
   /**
@@ -407,7 +408,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindSimpleDaoFactory daoFactory);
+    T onExecute(@NonNull BindSimpleDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindSimpleDaoFactory {

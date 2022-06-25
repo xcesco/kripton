@@ -1,5 +1,6 @@
 package sqlite.feature.javadoc.select.bean;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindSelectBeanPersonDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindSelectBeanPersonDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindSelectBeanPersonDaoFactory daoFactory);
+    T onExecute(@NonNull BindSelectBeanPersonDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindSelectBeanPersonDaoFactory {

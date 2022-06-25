@@ -1,5 +1,6 @@
 package sqlite.git21;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -394,7 +395,7 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindDocumentDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindDocumentDaoFactory daoFactory);
   }
 
   /**
@@ -407,7 +408,7 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindDocumentDaoFactory daoFactory);
+    T onExecute(@NonNull BindDocumentDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindDocumentDaoFactory {

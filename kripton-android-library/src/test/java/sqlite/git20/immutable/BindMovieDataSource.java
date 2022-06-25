@@ -1,5 +1,6 @@
 package sqlite.git20.immutable;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindMovieDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindMovieDaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindMovieDaoFactory daoFactory);
+    T onExecute(@NonNull BindMovieDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindMovieDaoFactory {

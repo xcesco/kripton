@@ -1,5 +1,6 @@
 package sqlite.feature.javadoc.select.raw;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindSelectRawPersonDataSource extends AbstractDataSource implements
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindSelectRawPersonDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindSelectRawPersonDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindSelectRawPersonDataSource extends AbstractDataSource implements
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindSelectRawPersonDaoFactory daoFactory);
+    T onExecute(@NonNull BindSelectRawPersonDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindSelectRawPersonDaoFactory {

@@ -1,5 +1,6 @@
 package sqlite.feature.javadoc.delete.raw;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -419,7 +420,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindDeleteRawPersonDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindDeleteRawPersonDaoFactory daoFactory);
   }
 
   /**
@@ -432,7 +433,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindDeleteRawPersonDaoFactory daoFactory);
+    T onExecute(@NonNull BindDeleteRawPersonDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindDeleteRawPersonDaoFactory {

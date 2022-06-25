@@ -1,5 +1,6 @@
 package sqlite.kripton58.list;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindFloatDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindFloatDaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindFloatDaoFactory daoFactory);
+    T onExecute(@NonNull BindFloatDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindFloatDaoFactory {

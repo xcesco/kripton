@@ -1,5 +1,6 @@
 package sqlite.feature.typeadapter;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
@@ -418,7 +419,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindContactDaoFactory daoFactory);
+    TransactionResult onExecute(@NonNull BindContactDaoFactory daoFactory);
   }
 
   /**
@@ -431,7 +432,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindContactDaoFactory daoFactory);
+    T onExecute(@NonNull BindContactDaoFactory daoFactory);
   }
 
   class DataSourceSingleThread implements BindContactDaoFactory {
