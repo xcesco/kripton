@@ -242,6 +242,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(true)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindAppDataSource(options);
           try {

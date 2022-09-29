@@ -241,6 +241,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindDummy06DataSource(options);
           try {

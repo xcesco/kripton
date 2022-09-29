@@ -241,6 +241,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindSchoolLunchDataSource(options);
           try {

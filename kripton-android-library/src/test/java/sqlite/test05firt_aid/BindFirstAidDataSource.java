@@ -241,6 +241,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindFirstAidDataSource(options);
           try {

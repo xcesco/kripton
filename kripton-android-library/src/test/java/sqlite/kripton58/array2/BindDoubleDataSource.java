@@ -241,6 +241,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindDoubleDataSource(options);
           try {

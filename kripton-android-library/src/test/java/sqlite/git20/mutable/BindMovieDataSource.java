@@ -241,6 +241,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindMovieDataSource(options);
           try {

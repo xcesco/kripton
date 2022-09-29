@@ -241,6 +241,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindByteDataSource(options);
           try {

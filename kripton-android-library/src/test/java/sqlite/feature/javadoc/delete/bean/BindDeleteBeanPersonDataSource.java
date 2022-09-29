@@ -242,6 +242,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindDeleteBeanPersonDataSource(options);
           try {

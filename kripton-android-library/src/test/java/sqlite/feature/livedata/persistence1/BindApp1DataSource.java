@@ -243,6 +243,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindApp1DataSource(options);
           try {

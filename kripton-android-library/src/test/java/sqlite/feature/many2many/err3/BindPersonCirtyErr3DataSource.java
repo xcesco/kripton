@@ -279,6 +279,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindPersonCirtyErr3DataSource(options);
           try {

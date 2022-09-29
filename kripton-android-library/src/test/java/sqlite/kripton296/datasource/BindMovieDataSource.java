@@ -287,6 +287,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
           	.populator(new MoviePopulator())
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindMovieDataSource(options);
           try {

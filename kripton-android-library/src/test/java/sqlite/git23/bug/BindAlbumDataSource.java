@@ -241,6 +241,7 @@ public class BindAlbumDataSource extends AbstractDataSource implements BindAlbum
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindAlbumDataSource(options);
           try {

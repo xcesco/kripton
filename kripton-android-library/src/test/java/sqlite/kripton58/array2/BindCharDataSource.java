@@ -241,6 +241,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindCharDataSource(options);
           try {

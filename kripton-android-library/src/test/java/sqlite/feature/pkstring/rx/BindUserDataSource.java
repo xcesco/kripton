@@ -568,6 +568,7 @@ public class BindUserDataSource extends AbstractDataSource implements BindUserDa
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindUserDataSource(options);
           try {

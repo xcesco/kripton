@@ -242,6 +242,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindWhisperDataSource(options);
           try {

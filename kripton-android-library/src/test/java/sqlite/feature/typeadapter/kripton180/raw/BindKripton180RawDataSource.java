@@ -242,6 +242,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindKripton180RawDataSource(options);
           try {

@@ -317,6 +317,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindXenoDataSource(options);
           try {
