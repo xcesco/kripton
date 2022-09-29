@@ -243,6 +243,7 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
           	.populator(new PersonPopulator())
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.addUpdateTask(2, new PersonUpdateTask())
           	.build();
           instance=result=new BindAppWithConfigDataSource(options);

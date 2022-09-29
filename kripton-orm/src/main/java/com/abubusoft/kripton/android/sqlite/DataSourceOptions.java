@@ -35,324 +35,356 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper.Factory;
  */
 public class DataSourceOptions {
 
-	/** The log enabled. */
-	public final boolean logEnabled;
+    /**
+     * The log enabled.
+     */
+    public final boolean logEnabled;
 
-	/** The database lifecycle handler. */
-	public final DatabaseLifecycleHandler databaseLifecycleHandler;
+    /**
+     * The database lifecycle handler.
+     */
+    public final DatabaseLifecycleHandler databaseLifecycleHandler;
 
-	/** The update tasks. */
-	public final List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks;
+    /**
+     * The update tasks.
+     */
+    public final List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks;
 
-	/** The populator. */
-	public final SQLitePopulator populator;
+    /**
+     * The populator.
+     */
+    public final SQLitePopulator populator;
 
-	/** The in memory. */
-	public final boolean inMemory;
+    /**
+     * The in memory.
+     */
+    public final boolean inMemory;
 
-	/** datasource file name */
-	public final String name;
+    /**
+     * if true, datasource is closed if unused
+     **/
+    public final boolean neverClose;
 
-	/**
-	 * Factory used to create the helper object.
-	 */
-	public final Factory openHelperFactory;
+    /**
+     * datasource file name
+     */
+    public final String name;
 
-	/**
-	 * If database is builded with the build method, forces the instance to be
-	 * created
-	 */
-	public final boolean forceBuild;
+    /**
+     * Factory used to create the helper object.
+     */
+    public final Factory openHelperFactory;
 
-	@Override
-	public String toString() {
-		return "DataSourceOptions [logEnabled=" + logEnabled + ", inMemory=" + inMemory + ", openHelperFactory="
-				+ openHelperFactory.getClass().getName() + ", forceBuild=" + forceBuild + "]";
-	}
+    /**
+     * If database is builded with the build method, forces the instance to be
+     * created
+     */
+    public final boolean forceBuild;
 
-	/**
-	 * Builder.
-	 *
-	 * @return the builder
-	 */
-	public static Builder builder() {
-		return new Builder();
-	}
+    @Override
+    public String toString() {
+        return "DataSourceOptions{" +
+                "logEnabled=" + logEnabled +
+                ", databaseLifecycleHandler=" + databaseLifecycleHandler +
+                ", updateTasks=" + updateTasks +
+                ", populator=" + populator +
+                ", inMemory=" + inMemory +
+                ", neverClose=" + neverClose +
+                ", name='" + name + '\'' +
+                ", openHelperFactory=" + openHelperFactory +
+                ", forceBuild=" + forceBuild +
+                '}';
+    }
 
-	/**
-	 * The Class Builder.
-	 */
-	public static class Builder {
+    /**
+     * Builder.
+     *
+     * @return the builder
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
 
-		/** The log enabled. */
-		private boolean logEnabled = true;
+    /**
+     * The Class Builder.
+     */
+    public static class Builder {
 
-		/** The database lifecycle handler. */
-		private DatabaseLifecycleHandler databaseLifecycleHandler;
+        /**
+         * The log enabled.
+         */
+        private boolean logEnabled = true;
 
-		/** The update tasks. */
-		private List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks = new ArrayList<>();
+        /**
+         * The database lifecycle handler.
+         */
+        private DatabaseLifecycleHandler databaseLifecycleHandler;
 
-		/** The populator. */
-		private SQLitePopulator populator;
+        /**
+         * The update tasks.
+         */
+        private List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks = new ArrayList<>();
 
-		/** The in memory. */
-		private boolean inMemory;
+        /**
+         * The populator.
+         */
+        private SQLitePopulator populator;
 
-		/** datasource filename */
-		private String name;
+        /**
+         * The in memory.
+         */
+        private boolean inMemory;
 
-		/**
-		 * If <code>true</code> force instance to be created. Default is
-		 * <code>false</code>.
-		 */
-		private boolean forceBuild = false;
+        /**
+         * datasource filename
+         */
+        private String name;
 
-		/**
-		 * OpenHelper factory. Default is provided with kripton
-		 */
-		private SupportSQLiteOpenHelper.Factory openHelperFactory = new KriptonSQLiteHelperFactory();
+        /**
+         * check if datasource need to be closed (true) or it need to be always opened
+         */
+        private boolean neverClose = false;
 
-		public Builder openHelperFactory(SupportSQLiteOpenHelper.Factory openHelperFactory) {
-			this.openHelperFactory = openHelperFactory;
-			return this;
-		}
+        /**
+         * If <code>true</code> force instance to be created. Default is
+         * <code>false</code>.
+         */
+        private boolean forceBuild = false;
 
-		/**
-		 * Name.
-		 *
-		 * @param value
-		 *            the value
-		 * @return the builder
-		 */
-		public Builder name(String value) {
-			this.name = value;
-			return this;
-		}
+        /**
+         * OpenHelper factory. Default is provided with kripton
+         */
+        private SupportSQLiteOpenHelper.Factory openHelperFactory = new KriptonSQLiteHelperFactory();
 
-		/**
-		 * Log.
-		 *
-		 * @param value
-		 *            the value
-		 * @return the builder
-		 */
-		public Builder log(boolean value) {
-			this.logEnabled = value;
-			return this;
-		}
+        public Builder openHelperFactory(SupportSQLiteOpenHelper.Factory openHelperFactory) {
+            this.openHelperFactory = openHelperFactory;
+            return this;
+        }
 
-		/**
-		 * <p>
-		 * If <code>true</code> force instance to be created. Default is
-		 * <code>false</code>.
-		 * </p>
-		 * <p>
-		 * Add force instance properties to force instance creation during
-		 * datasource build.
-		 * </p>
-		 * <p>
-		 * It can be very usefull when you need to cipher an existing database
-		 * and you need to open the db before set the upgrade
-		 * </p>
-		 * .
-		 * 
-		 * @param value
-		 *            the value
-		 * @return the builder
-		 */
-		public Builder forceBuild(boolean value) {
-			this.forceBuild = value;
-			return this;
-		}
+        /**
+         * Name.
+         *
+         * @param value the value
+         * @return the builder
+         */
+        public Builder name(String value) {
+            this.name = value;
+            return this;
+        }
 
-		/**
-		 * Database lifecycle handler.
-		 *
-		 * @param value
-		 *            the value
-		 * @return the builder
-		 */
-		public Builder databaseLifecycleHandler(DatabaseLifecycleHandler value) {
-			this.databaseLifecycleHandler = value;
-			return this;
-		}
+        /**
+         * Log.
+         *
+         * @param value the value
+         * @return the builder
+         */
+        public Builder log(boolean value) {
+            this.logEnabled = value;
+            return this;
+        }
 
-		/**
-		 * Populator.
-		 *
-		 * @param populator
-		 *            the populator
-		 * @return the builder
-		 */
-		public Builder populator(SQLitePopulator populator) {
-			this.populator = populator;
-			return this;
-		}
+        /**
+         * <p>
+         * If <code>true</code> force instance to be created. Default is
+         * <code>false</code>.
+         * </p>
+         * <p>
+         * Add force instance properties to force instance creation during
+         * datasource build.
+         * </p>
+         * <p>
+         * It can be very usefull when you need to cipher an existing database
+         * and you need to open the db before set the upgrade
+         * </p>
+         * .
+         *
+         * @param value the value
+         * @return the builder
+         */
+        public Builder forceBuild(boolean value) {
+            this.forceBuild = value;
+            return this;
+        }
 
-		/**
-		 * In memory.
-		 *
-		 * @param inMemory
-		 *            the in memory
-		 * @return the builder
-		 */
-		public Builder inMemory(boolean inMemory) {
-			this.inMemory = inMemory;
-			return this;
-		}
+        /**
+         * Database lifecycle handler.
+         *
+         * @param value the value
+         * @return the builder
+         */
+        public Builder databaseLifecycleHandler(DatabaseLifecycleHandler value) {
+            this.databaseLifecycleHandler = value;
+            return this;
+        }
 
-		/**
-		 * Retrieve from a raw resource a list of comma separated sql commands
-		 * to execute. File can contains -- or multiline comments.
-		 *
-		 * @param targetVersion
-		 *            the version of database we want to reach
-		 * @param context
-		 *            the context
-		 * @param resRawId
-		 *            the res raw id
-		 * @return the builder
-		 */
-		public Builder addUpdateTask(int targetVersion, Context context, int resRawId) {
-			return addUpdateTask(targetVersion, context.getResources().openRawResource(resRawId));
-		}
+        /**
+         * Populator.
+         *
+         * @param populator the populator
+         * @return the builder
+         */
+        public Builder populator(SQLitePopulator populator) {
+            this.populator = populator;
+            return this;
+        }
 
-		/**
-		 * Retrieve from a raw resource a list of comma separated sql commands
-		 * to execute. File can contains -- or multiline comments.
-		 *
-		 * @param targetVersion
-		 *            the version of database we want to reach
-		 * @param resRawId
-		 *            the res raw id
-		 * @return the builder
-		 */
-		public Builder addUpdateTask(int targetVersion, int resRawId) {
-			return addUpdateTask(targetVersion, KriptonLibrary.getContext().getResources().openRawResource(resRawId));
-		}
+        /**
+         * In memory.
+         *
+         * @param inMemory the in memory
+         * @return the builder
+         */
+        public Builder inMemory(boolean inMemory) {
+            this.inMemory = inMemory;
+            return this;
+        }
 
-		/**
-		 * Retrieve from a raw resource a list of comma separated sql commands
-		 * to execute. No comment are allowed. Only sql.
-		 *
-		 * @param targetVersion
-		 *            the version of database we want to reach
-		 * @param sqlCommandList
-		 *            sql command to execute
-		 * @return the builder
-		 */
-		public Builder addUpdateTask(final int targetVersion, final List<String> sqlCommandList) {
-			SQLiteUpdateTask task = new SQLiteUpdateTask() {
+        /**
+         * Retrieve from a raw resource a list of comma separated sql commands
+         * to execute. File can contains -- or multiline comments.
+         *
+         * @param targetVersion the version of database we want to reach
+         * @param context       the context
+         * @param resRawId      the res raw id
+         * @return the builder
+         */
+        public Builder addUpdateTask(int targetVersion, Context context, int resRawId) {
+            return addUpdateTask(targetVersion, context.getResources().openRawResource(resRawId));
+        }
 
-				@Override
-				public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
-					for (String item : sqlCommandList) {
-						Logger.info(item);
-						database.execSQL(item);
-					}
+        /**
+         * Retrieve from a raw resource a list of comma separated sql commands
+         * to execute. File can contains -- or multiline comments.
+         *
+         * @param targetVersion the version of database we want to reach
+         * @param resRawId      the res raw id
+         * @return the builder
+         */
+        public Builder addUpdateTask(int targetVersion, int resRawId) {
+            return addUpdateTask(targetVersion, KriptonLibrary.getContext().getResources().openRawResource(resRawId));
+        }
 
-				}
-			};
+        /**
+         * Retrieve from a raw resource a list of comma separated sql commands
+         * to execute. No comment are allowed. Only sql.
+         *
+         * @param targetVersion  the version of database we want to reach
+         * @param sqlCommandList sql command to execute
+         * @return the builder
+         */
+        public Builder addUpdateTask(final int targetVersion, final List<String> sqlCommandList) {
+            SQLiteUpdateTask task = new SQLiteUpdateTask() {
 
-			this.updateTasks.add(new Pair<>(targetVersion, task));
+                @Override
+                public void execute(SupportSQLiteDatabase database, int previousVersion, int currentVersion) {
+                    for (String item : sqlCommandList) {
+                        Logger.info(item);
+                        database.execSQL(item);
+                    }
 
-			return this;
-		}
+                }
+            };
 
-		/**
-		 * Adds the update task.
-		 *
-		 * @param targetVersion
-		 *            the initial version of database
-		 * @param task
-		 *            the task
-		 * @return the builder
-		 */
-		public Builder addUpdateTask(int targetVersion, SQLiteUpdateTask task) {
+            this.updateTasks.add(new Pair<>(targetVersion, task));
 
-			this.updateTasks.add(new Pair<>(targetVersion, task));
-			return this;
-		}
+            return this;
+        }
 
-		/**
-		 * task to execute upgrade from currentVersion-1 to currentVersion.
-		 *
-		 * @param targetVersion
-		 *            the version of database we want to reach
-		 * @param inputStream
-		 *            the input stream
-		 * @return the builder
-		 */
-		public Builder addUpdateTask(int targetVersion, InputStream inputStream) {
-			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(inputStream);
+        /**
+         * Adds the update task.
+         *
+         * @param targetVersion the initial version of database
+         * @param task          the task
+         * @return the builder
+         */
+        public Builder addUpdateTask(int targetVersion, SQLiteUpdateTask task) {
 
-			this.updateTasks.add(new Pair<>(targetVersion, task));
+            this.updateTasks.add(new Pair<>(targetVersion, task));
+            return this;
+        }
 
-			return this;
-		}
+        /**
+         * task to execute upgrade from currentVersion-1 to currentVersion.
+         *
+         * @param targetVersion the version of database we want to reach
+         * @param inputStream   the input stream
+         * @return the builder
+         */
+        public Builder addUpdateTask(int targetVersion, InputStream inputStream) {
+            SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(inputStream);
 
-		/**
-		 * Builds the.
-		 *
-		 * @return the data source options
-		 */
-		public DataSourceOptions build() {
-			return new DataSourceOptions(name, databaseLifecycleHandler, updateTasks, logEnabled, populator, inMemory,
-					openHelperFactory, forceBuild);
-		}
+            this.updateTasks.add(new Pair<>(targetVersion, task));
 
-		/**
-		 * Create builder from data source
-		 * 
-		 * @param source
-		 * @return
-		 */
-		public Builder createFrom(DataSourceOptions source) {
-			Builder builder = new Builder();
+            return this;
+        }
 
-			builder.logEnabled = source.logEnabled;
-			builder.databaseLifecycleHandler = source.databaseLifecycleHandler;
-			builder.updateTasks = source.updateTasks;
-			builder.populator = source.populator;
-			builder.inMemory = source.inMemory;
-			builder.openHelperFactory = source.openHelperFactory;
-			builder.name=source.name;
+        /**
+         * Builds the.
+         *
+         * @return the data source options
+         */
+        public DataSourceOptions build() {
+            return new DataSourceOptions(name, databaseLifecycleHandler, updateTasks, logEnabled, populator, inMemory,
+                    openHelperFactory, forceBuild, neverClose);
+        }
 
-			return builder;
-		}
-	}
+        /**
+         * Create builder from data source
+         *
+         * @param source
+         * @return
+         */
+        public Builder createFrom(DataSourceOptions source) {
+            Builder builder = new Builder();
 
-	/**
-	 * Instantiates a new data source options.
-	 *
-	 * @param name
-	 * 						datasource filename
-	 * @param databaseLifecycleHandler
-	 *            the database lifecycle handler
-	 * @param updateTasks
-	 *            the update tasks
-	 * @param log
-	 *            the log
-	 * @param populator
-	 *            the populator
-	 * @param inMemory
-	 *            the in memory
-	 * @param openHelperFactory
-	 * @param forceBuild
-	 *            force the build method to rebuild the instance
-	 */
-	private DataSourceOptions(String name, DatabaseLifecycleHandler databaseLifecycleHandler,
-			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator,
-			boolean inMemory, Factory openHelperFactory, boolean forceBuild) {
-		this.logEnabled = log;
-		this.databaseLifecycleHandler = databaseLifecycleHandler;
-		this.updateTasks = updateTasks;
-		this.populator = populator;
-		this.inMemory = inMemory;
-		this.openHelperFactory = openHelperFactory;
-		this.forceBuild = forceBuild;
-		this.name=name;
-	}
+            builder.logEnabled = source.logEnabled;
+            builder.databaseLifecycleHandler = source.databaseLifecycleHandler;
+            builder.updateTasks = source.updateTasks;
+            builder.populator = source.populator;
+            builder.inMemory = source.inMemory;
+            builder.openHelperFactory = source.openHelperFactory;
+            builder.name = source.name;
+            builder.neverClose = source.neverClose;
+
+            return builder;
+        }
+
+        /**
+         * Check if datasource need to be close if unused (true), false oderwise
+         *
+         * @param neverClose
+         * @return
+         */
+        public Builder neverClose(boolean neverClose) {
+            this.neverClose = neverClose;
+            return this;
+        }
+    }
+
+    /**
+     * Instantiates a new data source options.
+     *
+     * @param name                     datasource filename
+     * @param databaseLifecycleHandler the database lifecycle handler
+     * @param updateTasks              the update tasks
+     * @param log                      the log
+     * @param populator                the populator
+     * @param inMemory                 the in memory
+     * @param openHelperFactory
+     * @param forceBuild               force the build method to rebuild the instance
+     */
+    private DataSourceOptions(String name, DatabaseLifecycleHandler databaseLifecycleHandler,
+                              List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator,
+                              boolean inMemory, Factory openHelperFactory, boolean forceBuild, boolean neverClose) {
+        this.logEnabled = log;
+        this.databaseLifecycleHandler = databaseLifecycleHandler;
+        this.updateTasks = updateTasks;
+        this.populator = populator;
+        this.inMemory = inMemory;
+        this.openHelperFactory = openHelperFactory;
+        this.forceBuild = forceBuild;
+        this.name = name;
+        this.neverClose = neverClose;
+    }
 
 }

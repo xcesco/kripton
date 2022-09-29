@@ -259,6 +259,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindPetUserDataSource(options);
           try {

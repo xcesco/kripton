@@ -261,6 +261,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindFamilyDataSource(options);
           try {

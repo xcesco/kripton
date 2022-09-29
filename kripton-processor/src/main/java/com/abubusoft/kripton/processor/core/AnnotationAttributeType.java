@@ -189,6 +189,9 @@ public enum AnnotationAttributeType {
 
 	/** The log enabled. */
 	LOG_ENABLED("logEnabled"),
+
+	NEVER_CLOSE("neverClose"),
+
 	/** The open helper factory. */
 	OPEN_HELPER_FACTORY("openHelperFactory"),
 	/** The database lifecycle handler. */

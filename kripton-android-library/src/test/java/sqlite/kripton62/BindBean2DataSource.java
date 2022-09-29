@@ -241,6 +241,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindBean2DataSource(options);
           try {

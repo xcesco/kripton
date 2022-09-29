@@ -277,6 +277,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindArtistDataSource(options);
           try {

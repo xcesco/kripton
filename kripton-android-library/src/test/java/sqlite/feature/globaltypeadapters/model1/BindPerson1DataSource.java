@@ -243,6 +243,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindPerson1DataSource(options);
           try {

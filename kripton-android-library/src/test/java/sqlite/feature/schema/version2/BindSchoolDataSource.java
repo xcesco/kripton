@@ -295,6 +295,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindSchoolDataSource(options);
           try {

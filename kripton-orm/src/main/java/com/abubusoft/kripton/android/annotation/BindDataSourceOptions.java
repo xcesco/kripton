@@ -128,21 +128,21 @@ public @interface BindDataSourceOptions {
 	 * @return the class&lt;? extends open helper factory&gt;. Default
 	 *         constructor must be defined and public.
 	 */
-	public Class<? extends SupportSQLiteOpenHelper.Factory> openHelperFactory() default KriptonSQLiteHelperFactory.class;
+	Class<? extends SupportSQLiteOpenHelper.Factory> openHelperFactory() default KriptonSQLiteHelperFactory.class;
 
 	/**
 	 * Database error handler.
 	 *
 	 * @return the class&lt;? extends database error handler&gt;
 	 */
-	public Class<? extends DatabaseErrorHandler> databaseErrorHandler() default NoDatabaseErrorHandler.class;
+	Class<? extends DatabaseErrorHandler> databaseErrorHandler() default NoDatabaseErrorHandler.class;
 
 	/**
 	 * Database lifecycle handler.
 	 *
 	 * @return the class&lt;? extends database lifecycle handler&gt;
 	 */
-	public Class<? extends DatabaseLifecycleHandler> databaseLifecycleHandler() default NoDatabaseLifecycleHandler.class;
+	Class<? extends DatabaseLifecycleHandler> databaseLifecycleHandler() default NoDatabaseLifecycleHandler.class;
 
 	/**
 	 * if true, generate database in memory.
@@ -169,6 +169,14 @@ public @interface BindDataSourceOptions {
 	 *         datasource build
 	 */
 	boolean forceBuild() default false;
+
+	/**
+	 * <p>Usually datasource is opened, used and close. If you want to keep it opened after first use, simply
+	 * put <code>neverClose</code to <code>false</code>.</p>
+	 * @return
+	 */
+	boolean neverClose() default false;
+
 
 	/**
 	 * {@link SQLitePopulator#execute()} is executed after database creation.

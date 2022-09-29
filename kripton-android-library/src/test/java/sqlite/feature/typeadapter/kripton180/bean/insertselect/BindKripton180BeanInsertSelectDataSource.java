@@ -568,6 +568,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindKripton180BeanInsertSelectDataSource(options);
           try {

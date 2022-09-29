@@ -20,7 +20,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.sqlite.db.SupportSQLiteOpenHelper.Configuration.Builder;
@@ -291,17 +290,22 @@ public abstract class AbstractDataSource implements AutoCloseable {
         beginLock();
         try {
             if (openCounter.decrementAndGet() <= 0) {
-
-                if (!this.options.inMemory) {
-                    // Closing database
-                    if (database != null) {
-                        clearCompiledStatements();
-                        sqliteHelper.close();
+                if (!options.neverClose) {
+                    if (!this.options.inMemory) {
+                        // Closing database
+                        if (database != null) {
+                            clearCompiledStatements();
+                            sqliteHelper.close();
+                        }
+                        database = null;
                     }
-                    database = null;
+                    if (logEnabled)
+                        Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
+                } else {
+                    openCounter.set(1);
+                    if (logEnabled)
+                        Logger.info("database VIRTUALLY CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
                 }
-                if (logEnabled)
-                    Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
             } else {
                 if (logEnabled)
                     Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
@@ -770,7 +774,11 @@ public abstract class AbstractDataSource implements AutoCloseable {
     }
 
     public SupportSQLiteDatabase openReadOnlyDatabase() {
-        return openReadOnlyDatabase(true);
+        if (!this.options.neverClose) {
+            return openReadOnlyDatabase(true);
+        } else {
+            return openWritableDatabase(true);
+        }
     }
 
     /**
@@ -782,7 +790,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
      */
     protected SupportSQLiteDatabase openReadOnlyDatabase(boolean lock) {
         if (lock) {
-            // if I lock this in dbLock.. the last one remains locked too
+            // if I lock this in dbLock. the last one remains locked too
             lockReadAccess.lock();
 
             beginLock();

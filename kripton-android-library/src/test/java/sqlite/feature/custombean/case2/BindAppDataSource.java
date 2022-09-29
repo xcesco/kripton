@@ -279,6 +279,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
           	.populator(new DataSourcePopulator())
           	.inMemory(true)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindAppDataSource(options);
           try {
