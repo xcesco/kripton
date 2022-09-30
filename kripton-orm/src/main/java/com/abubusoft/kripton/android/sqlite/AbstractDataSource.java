@@ -300,15 +300,15 @@ public abstract class AbstractDataSource implements AutoCloseable {
                         database = null;
                     }
                     if (logEnabled)
-                        Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
+                        Logger.info("database %s CLOSED (%s) (connections: %s)", name, status.get(), openCounter.intValue());
                 } else {
                     openCounter.set(1);
                     if (logEnabled)
-                        Logger.info("database VIRTUALLY CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
+                        Logger.info("database %s VIRTUALLY CLOSED (%s) (connections: %s)", name, status.get(), openCounter.intValue());
                 }
             } else {
                 if (logEnabled)
-                    Logger.info("database RELEASED (%s) (connections: %s)", status.get(), openCounter.intValue());
+                    Logger.info("database %s VIRTUALLY RELEASED (%s) (connections: %s)", name, status.get(), openCounter.intValue());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -569,16 +569,29 @@ public abstract class AbstractDataSource implements AutoCloseable {
             case READ_AND_WRITE_OPENED:
                 if (database == null)
                     status.set(TypeStatus.CLOSED);
-                lockReadWriteAccess.unlock();
+
+                unlockReadWriteAccess();
                 break;
             case READ_ONLY_OPENED:
                 if (database == null)
                     status.set(TypeStatus.CLOSED);
-                lockReadAccess.unlock();
+                unlockReadAccess();
                 break;
             case CLOSED:
                 // do nothing
                 break;
+        }
+    }
+
+    private void unlockReadAccess() {
+        if (!options.neverClose) {
+            lockReadAccess.unlock();
+        }
+    }
+
+    private void unlockReadWriteAccess() {
+        if (!options.neverClose) {
+            lockReadWriteAccess.unlock();
         }
     }
 
@@ -748,7 +761,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
             // blocking race
             // we lock lockReadWriteAccess after we release
             if (needToOpened) {
-                if (writeMode) {
+                if (writeMode || options.neverClose) {
                     result.value1 = openWritableDatabase(false);
                 } else {
                     result.value1 = openReadOnlyDatabase(false);
@@ -761,16 +774,30 @@ public abstract class AbstractDataSource implements AutoCloseable {
             // unlock entire operation set
             endLock();
 
-            if (writeMode) {
-                lockReadWriteAccess.lock();
-            } else {
-                lockReadAccess.lock();
+            if (!options.neverClose) {
+                if (writeMode) {
+                    lockWriteAccess();
+                } else {
+                    lockReadAccess();
+                }
             }
 
         }
 
         return result;
 
+    }
+
+    private void lockReadAccess() {
+        if (!options.neverClose) {
+            lockReadAccess.lock();
+        }
+    }
+
+    private void lockWriteAccess() {
+        if (!options.neverClose) {
+            lockReadWriteAccess.lock();
+        }
     }
 
     public SupportSQLiteDatabase openReadOnlyDatabase() {
@@ -791,7 +818,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
     protected SupportSQLiteDatabase openReadOnlyDatabase(boolean lock) {
         if (lock) {
             // if I lock this in dbLock. the last one remains locked too
-            lockReadAccess.lock();
+            lockReadAccess();
 
             beginLock();
         }
@@ -813,7 +840,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
                     Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
             } else {
                 if (logEnabled)
-                    Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
+                    Logger.info("database VIRTUALLY OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
             }
         } catch (Throwable e) {
             if (logEnabled) {
@@ -843,7 +870,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
     protected SupportSQLiteDatabase openWritableDatabase(boolean lock) {
         if (lock) {
-            lockReadWriteAccess.lock();
+            // if we open in this thread,
+            if (!options.neverClose) {
+                lockWriteAccess();
+            }
 
             // if I lock this in dbLock.. the last one remains locked too
             beginLock();
@@ -863,14 +893,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
                     database.setForeignKeyConstraintsEnabled(hasForeignKeys());
                 }
                 if (logEnabled)
-                    Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
+                    Logger.info("database %s OPENED %s (connections: %s)", name, status.get(), (openCounter.intValue() - 1));
             } else {
                 if (logEnabled)
-                    Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
+                    Logger.info("database %s VIRTUALLY OPENED %s (connections: %s)", name, status.get(), (openCounter.intValue() - 1));
             }
         } catch (Throwable e) {
             if (logEnabled) {
-                Logger.fatal("database error during open operation: %s", e.getMessage());
+                Logger.fatal("database %s error during open operation: %s", name, e.getMessage());
                 e.printStackTrace();
             }
             throw (e);
