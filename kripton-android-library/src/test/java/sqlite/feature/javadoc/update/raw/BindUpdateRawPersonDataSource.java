@@ -242,6 +242,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindUpdateRawPersonDataSource(options);
           try {

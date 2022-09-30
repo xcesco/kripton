@@ -241,6 +241,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindSimpleDataSource(options);
           try {

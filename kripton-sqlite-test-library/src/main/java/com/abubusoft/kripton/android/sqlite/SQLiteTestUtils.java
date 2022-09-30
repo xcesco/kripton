@@ -551,10 +551,7 @@ public abstract class SQLiteTestUtils {
 		dataSource.openWritableDatabase();
 		File file = new File(dataSource.database.getPath(), dataSource.name);
 
-		if (dataSource.isOpen()) {
-			dataSource.forceClose();
-			dataSource.close();
-		}
+		dataSource.forceClose();
 
 		Logger.info("Clear database file %s", file.getAbsolutePath());
 		if (!file.delete()) {

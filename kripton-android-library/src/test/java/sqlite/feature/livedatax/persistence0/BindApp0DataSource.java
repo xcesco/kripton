@@ -569,6 +569,7 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindApp0DataSource(options);
           try {

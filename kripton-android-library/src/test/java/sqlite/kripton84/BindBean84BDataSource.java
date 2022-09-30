@@ -241,6 +241,7 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindBean84BDataSource(options);
           try {

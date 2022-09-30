@@ -241,6 +241,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindLongDataSource(options);
           try {

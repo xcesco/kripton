@@ -277,6 +277,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindPersonCirtyDataSource(options);
           try {

@@ -242,6 +242,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindPersonUpdateDataSource(options);
           try {

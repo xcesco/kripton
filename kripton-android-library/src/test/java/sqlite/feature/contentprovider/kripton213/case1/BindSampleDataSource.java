@@ -242,6 +242,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
           	.populator(new SamplePopulator())
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.addUpdateTask(1, new SampleUpdate02())
           	.build();
           instance=result=new BindSampleDataSource(options);

@@ -241,6 +241,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindPKDataSource(options);
           try {

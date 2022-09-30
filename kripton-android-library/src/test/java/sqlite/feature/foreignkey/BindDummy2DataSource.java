@@ -259,6 +259,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindDummy2DataSource(options);
           try {

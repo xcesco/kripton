@@ -568,6 +568,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindKripton180RawInsertSelectDataSource(options);
           try {

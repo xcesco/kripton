@@ -241,6 +241,7 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindDocumentDataSource(options);
           try {

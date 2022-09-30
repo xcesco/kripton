@@ -299,6 +299,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindQuickStartDataSource(options);
           try {

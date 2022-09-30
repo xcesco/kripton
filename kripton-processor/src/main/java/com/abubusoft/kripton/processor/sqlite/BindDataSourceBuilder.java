@@ -234,8 +234,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
         ClassName dataSourceClassName = generateDataSourceName(schema);
 
         AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, dataSourceClassName);
-        classBuilder = TypeSpec.classBuilder(dataSourceClassName.simpleName()).addModifiers(Modifier.PUBLIC)
-                .superclass(AbstractDataSource.class).addSuperinterface(daoFactoryClazz)
+        classBuilder = TypeSpec.classBuilder(dataSourceClassName.simpleName())
+                .addModifiers(Modifier.PUBLIC)
+                .superclass(AbstractDataSource.class)
+                .addSuperinterface(daoFactoryClazz)
                 .addSuperinterface(TypeUtility.typeName(schema.getElement().asType()));
 
         classBuilder.addJavadoc("<p>\n");
@@ -601,6 +603,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
             //ASSERT: we are in build
             methodBuilder.beginControlFlow("if (options.forceBuild && instance!=null)");
             methodBuilder.addStatement("$T.info(\"Datasource $L is forced to be (re)builded\")", Logger.class, schemaName);
+            methodBuilder.addStatement("instance.forceClose()");
             methodBuilder.addStatement("instance=null");
             methodBuilder.endControlFlow();
         }
@@ -633,6 +636,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
             methodBuilder.addCode("\n\t.inMemory($L)", schema.configInMemory);
 
             methodBuilder.addCode("\n\t.log($L)", schema.configLogEnabled);
+
+            methodBuilder.addCode("\n\t.neverClose($L)", schema.configNeverClose);
 
             if (schema.configUpdateTasks != null && schema.configUpdateTasks.size() > 0) {
                 for (Pair<Integer, String> task : schema.configUpdateTasks) {

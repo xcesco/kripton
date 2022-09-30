@@ -241,6 +241,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindExampleDataSource(options);
           try {

@@ -241,6 +241,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
           DataSourceOptions options=DataSourceOptions.builder()
           	.inMemory(false)
           	.log(true)
+          	.neverClose(false)
           	.build();
           instance=result=new BindBean96DataSource(options);
           try {
