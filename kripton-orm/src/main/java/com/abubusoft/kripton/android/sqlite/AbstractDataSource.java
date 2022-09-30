@@ -280,6 +280,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
         return context;
     }
 
+
     /*
      * (non-Javadoc)
      *
@@ -457,10 +458,21 @@ public abstract class AbstractDataSource implements AutoCloseable {
     }
 
     /**
-     * Force close.
+     * Force close. It's a dangerous command. It closes the database.
      */
-    void forceClose() {
+    public void forceClose() {
         openCounter.set(0);
+
+        if (!this.options.inMemory) {
+            // Closing database
+            if (database != null) {
+                clearCompiledStatements();
+                sqliteHelper.close();
+            }
+            database = null;
+        }
+        if (logEnabled)
+            Logger.info("database %s IS FORCED TO BE CLOSED (%s) (connections: %s)", name, status.get(), openCounter.intValue());
     }
 
     /**

@@ -603,6 +603,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
             //ASSERT: we are in build
             methodBuilder.beginControlFlow("if (options.forceBuild && instance!=null)");
             methodBuilder.addStatement("$T.info(\"Datasource $L is forced to be (re)builded\")", Logger.class, schemaName);
+            methodBuilder.addStatement("instance.forceClose()");
             methodBuilder.addStatement("instance=null");
             methodBuilder.endControlFlow();
         }
