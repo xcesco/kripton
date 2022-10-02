@@ -368,6 +368,7 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
   public static BindInsertBeanPersonDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindInsertBeanPersonDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindInsertBeanPersonDataSource result=instance;

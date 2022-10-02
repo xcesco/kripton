@@ -367,6 +367,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   public static BindFloatDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindFloatDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindFloatDataSource result=instance;

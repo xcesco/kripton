@@ -367,6 +367,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   public static BindIntegerDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindIntegerDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindIntegerDataSource result=instance;

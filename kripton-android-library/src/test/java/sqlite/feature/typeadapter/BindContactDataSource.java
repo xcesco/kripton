@@ -367,6 +367,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
   public static BindContactDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindContactDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindContactDataSource result=instance;

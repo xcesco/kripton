@@ -369,6 +369,7 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   public static BindPerson1DataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindPerson1DataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindPerson1DataSource result=instance;

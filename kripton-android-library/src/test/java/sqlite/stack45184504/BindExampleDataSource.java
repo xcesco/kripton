@@ -367,6 +367,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
   public static BindExampleDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindExampleDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindExampleDataSource result=instance;

@@ -368,6 +368,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
   public static BindDeleteBeanPersonDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindDeleteBeanPersonDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindDeleteBeanPersonDataSource result=instance;

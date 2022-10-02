@@ -368,6 +368,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
   public static BindKripton180RawDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindKripton180RawDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindKripton180RawDataSource result=instance;

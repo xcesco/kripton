@@ -367,6 +367,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
   public static BindByteDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindByteDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindByteDataSource result=instance;

@@ -429,6 +429,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   public static BindApp1DataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindApp1DataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindApp1DataSource result=instance;

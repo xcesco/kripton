@@ -431,6 +431,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   public static BindPersonCirtyOk1DataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindPersonCirtyOk1DataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindPersonCirtyOk1DataSource result=instance;

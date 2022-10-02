@@ -367,6 +367,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   public static BindFirstAidDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindFirstAidDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindFirstAidDataSource result=instance;

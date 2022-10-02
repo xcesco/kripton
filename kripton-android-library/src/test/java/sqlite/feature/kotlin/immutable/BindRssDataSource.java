@@ -430,6 +430,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
   public static BindRssDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindRssDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindRssDataSource result=instance;

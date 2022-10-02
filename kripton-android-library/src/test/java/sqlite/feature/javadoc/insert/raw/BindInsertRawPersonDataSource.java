@@ -368,6 +368,7 @@ public class BindInsertRawPersonDataSource extends AbstractDataSource implements
   public static BindInsertRawPersonDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindInsertRawPersonDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindInsertRawPersonDataSource result=instance;

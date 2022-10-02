@@ -367,6 +367,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   public static BindPKDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindPKDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindPKDataSource result=instance;

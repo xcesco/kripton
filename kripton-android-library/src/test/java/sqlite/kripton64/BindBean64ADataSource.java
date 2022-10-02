@@ -367,6 +367,7 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
   public static BindBean64ADataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindBean64ADataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindBean64ADataSource result=instance;

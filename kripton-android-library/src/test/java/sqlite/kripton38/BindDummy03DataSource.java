@@ -367,6 +367,7 @@ public class BindDummy03DataSource extends AbstractDataSource implements BindDum
   public static BindDummy03DataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindDummy03DataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindDummy03DataSource result=instance;

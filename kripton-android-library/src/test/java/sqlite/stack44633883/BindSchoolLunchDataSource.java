@@ -367,6 +367,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   public static BindSchoolLunchDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindSchoolLunchDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindSchoolLunchDataSource result=instance;

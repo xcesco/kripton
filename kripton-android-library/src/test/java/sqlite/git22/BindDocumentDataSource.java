@@ -367,6 +367,7 @@ public class BindDocumentDataSource extends AbstractDataSource implements BindDo
   public static BindDocumentDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindDocumentDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindDocumentDataSource result=instance;

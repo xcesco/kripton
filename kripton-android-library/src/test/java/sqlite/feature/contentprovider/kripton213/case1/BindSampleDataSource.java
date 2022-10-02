@@ -376,6 +376,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   public static BindSampleDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindSampleDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindSampleDataSource result=instance;

@@ -368,6 +368,7 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
   public static BindKripton180BeanDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindKripton180BeanDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindKripton180BeanDataSource result=instance;

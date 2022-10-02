@@ -367,6 +367,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   public static BindBean2DataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindBean2DataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindBean2DataSource result=instance;

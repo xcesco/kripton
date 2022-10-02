@@ -400,6 +400,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   public static BindFamilyDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindFamilyDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindFamilyDataSource result=instance;

@@ -368,6 +368,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   public static BindDeleteRawPersonDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindDeleteRawPersonDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindDeleteRawPersonDataSource result=instance;

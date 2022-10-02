@@ -367,6 +367,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
   public static BindBean96DataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindBean96DataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindBean96DataSource result=instance;

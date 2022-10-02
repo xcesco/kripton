@@ -367,6 +367,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   public static BindCollegeStudentsDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindCollegeStudentsDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindCollegeStudentsDataSource result=instance;

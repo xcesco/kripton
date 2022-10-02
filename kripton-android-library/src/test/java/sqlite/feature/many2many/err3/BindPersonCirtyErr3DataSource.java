@@ -431,6 +431,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   public static BindPersonCirtyErr3DataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindPersonCirtyErr3DataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindPersonCirtyErr3DataSource result=instance;

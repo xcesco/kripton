@@ -367,6 +367,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   public static BindCharDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindCharDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindCharDataSource result=instance;
