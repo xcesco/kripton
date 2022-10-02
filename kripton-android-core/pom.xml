@@ -62,7 +62,6 @@
 					<includes>
 						<include>all/*TestSuite.java</include>
 					</includes>
-
 				</configuration>
 			</plugin>
 		</plugins>

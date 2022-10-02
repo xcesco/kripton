@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
 
 		<!-- test version -->
@@ -33,9 +33,10 @@
 		<antlr.version>4.7.1</antlr.version>
 
 		<!-- plugins version -->
-		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 	</properties>
@@ -190,6 +191,10 @@
 				<version>3.0.0-M5</version>
 				<configuration>
 					<argLine>-Xmx128m</argLine>
+					<argLine>
+						--add-opens java.base/java.lang=ALL-UNNAMED
+						--add-opens java.base/java.util=ALL-UNNAMED
+					</argLine>
 					<systemPropertyVariables>
 						<kripton.debug>${kripton.debug}</kripton.debug>
 					</systemPropertyVariables>
