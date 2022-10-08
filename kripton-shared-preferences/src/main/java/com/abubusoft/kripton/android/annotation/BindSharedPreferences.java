@@ -61,4 +61,10 @@ public @interface BindSharedPreferences {
 	 */
 	boolean liveData() default false;
 
+	/**
+	 * <p>Encrypt shared preference.</p>
+	 * @return
+	 */
+	boolean encrypt() default false;
+
 }

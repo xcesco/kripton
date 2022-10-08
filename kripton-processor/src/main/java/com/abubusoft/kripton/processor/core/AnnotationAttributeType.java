@@ -176,6 +176,9 @@ public enum AnnotationAttributeType {
 	/** The generate rx. */
 	GENERATE_RX("rx"),
 
+	/** encrypt the shared preferences **/
+	ENCRYPT("encrypt"),
+
 	/** The methods. */
 	METHODS("methods"),
 	/** The task. */

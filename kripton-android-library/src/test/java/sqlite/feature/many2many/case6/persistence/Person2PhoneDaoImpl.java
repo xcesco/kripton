@@ -521,7 +521,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person_phone (buy_date, person_id, phone_number_id) VALUES (:buyDate, :personId, :phoneNumberId)</pre>
+   * <pre>INSERT INTO person_phone (buy_date, person_id, phone_number_id) VALUES (:bean.buyDate, :bean.personId, :bean.phoneNumberId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *

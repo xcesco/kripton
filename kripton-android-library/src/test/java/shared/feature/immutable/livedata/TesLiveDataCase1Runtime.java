@@ -16,12 +16,12 @@
 package shared.feature.immutable.livedata;
 
 
+import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 
 import androidx.lifecycle.Observer;
 import base.BaseAndroidTest;

@@ -39,7 +39,7 @@ public class PrefsEntity extends ModelClass<PrefsProperty> {
 	 */
 	public PrefsEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
 		super(name, beanElement, annotationList);
-		
+		encryptSharedPreferences=AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.ENCRYPT);
 		generateGlobalRx = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.GENERATE_RX);
 		generateGlobalLiveData = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.GENERATE_LIVE_DATA);		
 	}
@@ -47,9 +47,15 @@ public class PrefsEntity extends ModelClass<PrefsProperty> {
 	boolean generateGlobalRx;
 	
 	boolean generateGlobalLiveData;
+
+	boolean encryptSharedPreferences;
+
+	public boolean isEncryptSharedPreferences() {
+		return encryptSharedPreferences;
+	}
 	
 	public boolean hasRxProperties() {
-		if (generateGlobalRx==true) return true;
+		if (generateGlobalRx) return true;
 		
 		for (PrefsProperty p: this.collection) {
 			if (p.generateRx) return true;
@@ -59,7 +65,7 @@ public class PrefsEntity extends ModelClass<PrefsProperty> {
 	}
 	
 	public boolean hasLiveDataProperties() {
-		if (generateGlobalLiveData==true) return true;
+		if (generateGlobalLiveData) return true;
 		
 		for (PrefsProperty p: this.collection) {
 			if (p.generateLiveData) return true;
