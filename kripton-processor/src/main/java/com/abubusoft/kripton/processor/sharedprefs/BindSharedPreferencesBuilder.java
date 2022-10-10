@@ -134,8 +134,7 @@ public abstract class BindSharedPreferencesBuilder {
         com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
         String beanClassName = entity.getElement().getSimpleName().toString();
         String className = getBuildPreferenceName(entity);
-        ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
-        String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.VALUE);
+        String sharedPreferenceName = entity.getFileName();
         boolean generateRx = entity.hasRxProperties();
         boolean generateLiveData = entity.hasLiveDataProperties();
         boolean encryptSharedPreference = entity.isEncryptSharedPreferences();
@@ -158,7 +157,7 @@ public abstract class BindSharedPreferencesBuilder {
 
         if (StringUtils.hasText(sharedPreferenceName)) {
             builder.addField(FieldSpec.builder(String.class, "SHARED_PREFERENCE_NAME", Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-                    .initializer("$S", converter.convert(entity.getSimpleName().toString())).addJavadoc("shared preferences typeName for $T\n", entity.getElement()).build());
+                    .initializer("$S", converter.convert(entity.getSimpleName())).addJavadoc("shared preferences typeName for $T\n", entity.getElement()).build());
         }
 
         builder.addField(FieldSpec.builder(className(beanClassName), "defaultBean", Modifier.PRIVATE, Modifier.FINAL).addJavadoc("working instance of bean\n").build());

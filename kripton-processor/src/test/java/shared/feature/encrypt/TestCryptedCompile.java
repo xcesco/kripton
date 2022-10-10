@@ -21,6 +21,8 @@ import org.junit.runners.JUnit4;
 import shared.AbstractBindSharedPreferenceProcessorTest;
 import shared.feature.encrypt.case1.AppPreferences;
 import shared.feature.encrypt.case1.NamedAppPreferences;
+import shared.feature.encrypt.case1.SimpleAppPreferences;
+import shared.feature.encrypt.case1.SimpleNamedAppPreferences;
 
 import java.io.IOException;
 
@@ -38,13 +40,23 @@ public class TestCryptedCompile extends AbstractBindSharedPreferenceProcessorTes
 	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+	public void testCryptedCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(AppPreferences.class);
 	}
 
 	@Test
-	public void testCompileName() throws IOException, InstantiationException, IllegalAccessException {
+	public void testCrypedCompileName() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(NamedAppPreferences.class);
+	}
+
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(SimpleAppPreferences.class);
+	}
+
+	@Test
+	public void testCompileName() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(SimpleNamedAppPreferences.class);
 	}
 
 }
