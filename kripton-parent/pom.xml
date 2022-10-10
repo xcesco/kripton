@@ -12,7 +12,7 @@
 
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-parent</artifactId>
-	<version>8.1.0-rc.1</version>
+	<version>8.1.0-rc.3</version>
 	<packaging>pom</packaging>
 
 	<name>Kripton (Parent)</name>
@@ -30,15 +30,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 
 		<!-- plugins version -->
-		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 
-		<kripton.version>8.1.0-rc.1</kripton.version>
+		<kripton.version>8.1.0-rc.3</kripton.version>
 
 		<!-- dependencies version -->
 		<jackson.version>2.11.2</jackson.version>

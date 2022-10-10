@@ -367,6 +367,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   public static BindDoubleDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindDoubleDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindDoubleDataSource result=instance;

@@ -368,6 +368,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
   public static BindPersonUpdateDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindPersonUpdateDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindPersonUpdateDataSource result=instance;

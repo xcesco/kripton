@@ -367,6 +367,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   public static BindLongDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindLongDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindLongDataSource result=instance;

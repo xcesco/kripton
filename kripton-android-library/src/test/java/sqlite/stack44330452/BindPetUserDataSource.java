@@ -398,6 +398,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   public static BindPetUserDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindPetUserDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindPetUserDataSource result=instance;

@@ -367,6 +367,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   public static BindStringDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindStringDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindStringDataSource result=instance;

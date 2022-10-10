@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>8.1.0-rc.1</version>
+		<version>8.1.0-rc.3</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 
@@ -26,7 +26,7 @@
 	<properties>
 		<skipTests>false</skipTests>
 
-		<kripton.version>8.1.0-rc.1</kripton.version>
+		<kripton.version>8.1.0-rc.3</kripton.version>
 
 		<!-- dependencies version -->
 		<jackson.version>2.11.4</jackson.version>
@@ -67,6 +67,13 @@
 			<artifactId>kripton-android-library</artifactId>
 			<version>${kripton.version}</version>
 			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-arch-test</artifactId>
+			<version>${kripton.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

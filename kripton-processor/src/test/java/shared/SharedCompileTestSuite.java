@@ -17,6 +17,7 @@ package shared;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import shared.feature.encrypt.TestCryptedCompileSuite;
 import shared.feature.enumeration.TestEnumerationCompileSuite;
 import shared.feature.immutable.TestSharedImmutableCompileSuite;
 import shared.feature.livedata.TestSharedLiveDataCompileSuite;
@@ -26,6 +27,7 @@ import shared.feature.stringset.TestStringSetSuite;
 import shared.feature.time.TimeSharedPrefsCompileTestSuite;
 import shared.feature.typeadapter.TestPreferenceTypeAdapterSuite;
 import shared.kripton198.Test198Suite;
+import shared.kripton202.Test202Suite;
 import shared.kripton45.Test45Suite;
 import shared.kripton46.Test46Compile;
 import shared.kripton47.Test47Suite;
@@ -42,6 +44,7 @@ import shared.kripton50.TestKripton50;
         Test47Suite.class,
         TestKripton50.class,
         Test198Suite.class,
+        Test202Suite.class,
         TestStringSetSuite.class,
         TestPreferenceTypeAdapterSuite.class,
         TestSharedRxCompileSuite.class,
@@ -49,7 +52,8 @@ import shared.kripton50.TestKripton50;
         TestSharedLiveDataXCompileSuite.class,
         TestEnumerationCompileSuite.class,
         TestSharedImmutableCompileSuite.class,
-        TimeSharedPrefsCompileTestSuite.class
+        TimeSharedPrefsCompileTestSuite.class,
+        TestCryptedCompileSuite.class
 })
 // @formatter:on
 public class SharedCompileTestSuite {

@@ -429,6 +429,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   public static BindPersonCirtyDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindPersonCirtyDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindPersonCirtyDataSource result=instance;

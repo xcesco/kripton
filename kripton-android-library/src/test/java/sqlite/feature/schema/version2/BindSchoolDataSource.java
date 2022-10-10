@@ -460,6 +460,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   public static BindSchoolDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindSchoolDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindSchoolDataSource result=instance;

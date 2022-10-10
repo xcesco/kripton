@@ -367,6 +367,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   public static BindShortDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindShortDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindShortDataSource result=instance;

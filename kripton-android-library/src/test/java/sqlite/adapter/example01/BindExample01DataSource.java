@@ -367,6 +367,7 @@ public class BindExample01DataSource extends AbstractDataSource implements BindE
   public static BindExample01DataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindExample01DataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindExample01DataSource result=instance;

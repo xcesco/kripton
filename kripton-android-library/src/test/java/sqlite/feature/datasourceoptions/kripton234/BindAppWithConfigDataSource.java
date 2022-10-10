@@ -377,6 +377,7 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
   public static BindAppWithConfigDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindAppWithConfigDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindAppWithConfigDataSource result=instance;

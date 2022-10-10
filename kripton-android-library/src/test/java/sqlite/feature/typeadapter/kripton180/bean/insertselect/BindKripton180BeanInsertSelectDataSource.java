@@ -694,6 +694,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   public static BindKripton180BeanInsertSelectDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindKripton180BeanInsertSelectDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindKripton180BeanInsertSelectDataSource result=instance;

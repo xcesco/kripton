@@ -343,6 +343,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   public static BindSimpleDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindSimpleDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindSimpleDataSource result=instance;

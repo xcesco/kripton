@@ -367,6 +367,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   public static BindIntDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindIntDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindIntDataSource result=instance;

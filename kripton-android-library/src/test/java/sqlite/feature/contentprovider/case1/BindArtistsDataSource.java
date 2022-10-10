@@ -399,6 +399,7 @@ public class BindArtistsDataSource extends AbstractDataSource implements BindArt
   public static BindArtistsDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindArtistsDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindArtistsDataSource result=instance;

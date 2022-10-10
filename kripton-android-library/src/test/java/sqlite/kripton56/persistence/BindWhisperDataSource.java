@@ -368,6 +368,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   public static BindWhisperDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindWhisperDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindWhisperDataSource result=instance;

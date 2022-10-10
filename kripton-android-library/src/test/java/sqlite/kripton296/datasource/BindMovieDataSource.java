@@ -433,6 +433,7 @@ public class BindMovieDataSource extends AbstractDataSource implements BindMovie
   public static BindMovieDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindMovieDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindMovieDataSource result=instance;

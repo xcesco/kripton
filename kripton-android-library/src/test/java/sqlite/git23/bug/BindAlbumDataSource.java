@@ -367,6 +367,7 @@ public class BindAlbumDataSource extends AbstractDataSource implements BindAlbum
   public static BindAlbumDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindAlbumDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindAlbumDataSource result=instance;

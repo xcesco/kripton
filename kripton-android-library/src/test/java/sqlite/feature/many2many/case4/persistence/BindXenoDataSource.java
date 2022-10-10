@@ -495,6 +495,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   public static BindXenoDataSource build(DataSourceOptions options) {
     if (options.forceBuild && instance!=null) {
       Logger.info("Datasource BindXenoDataSource is forced to be (re)builded");
+      instance.forceClose();
       instance=null;
     }
     BindXenoDataSource result=instance;

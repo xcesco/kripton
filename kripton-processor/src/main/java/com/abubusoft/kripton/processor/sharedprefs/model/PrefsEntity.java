@@ -30,43 +30,56 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
  */
 public class PrefsEntity extends ModelClass<PrefsProperty> {
 
-	/**
-	 * Instantiates a new prefs entity.
-	 *
-	 * @param name the name
-	 * @param beanElement the bean element
-	 * @param annotationList the annotation list
-	 */
-	public PrefsEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
-		super(name, beanElement, annotationList);
-		
-		generateGlobalRx = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.GENERATE_RX);
-		generateGlobalLiveData = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.GENERATE_LIVE_DATA);		
-	}
-	
-	boolean generateGlobalRx;
-	
-	boolean generateGlobalLiveData;
-	
-	public boolean hasRxProperties() {
-		if (generateGlobalRx==true) return true;
-		
-		for (PrefsProperty p: this.collection) {
-			if (p.generateRx) return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean hasLiveDataProperties() {
-		if (generateGlobalLiveData==true) return true;
-		
-		for (PrefsProperty p: this.collection) {
-			if (p.generateLiveData) return true;
-		}
-		
-		return false;
-	}
+    /**
+     * Instantiates a new prefs entity.
+     *
+     * @param name           the name
+     * @param beanElement    the bean element
+     * @param annotationList the annotation list
+     */
+    public PrefsEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
+        super(name, beanElement, annotationList);
+        fileName = AnnotationUtility.extractAsString(element, BindSharedPreferences.class, AnnotationAttributeType.VALUE);
+        encryptSharedPreferences = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.ENCRYPT);
+        generateGlobalRx = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.GENERATE_RX);
+        generateGlobalLiveData = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.GENERATE_LIVE_DATA);
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    String fileName;
+
+    boolean generateGlobalRx;
+
+    boolean generateGlobalLiveData;
+
+    boolean encryptSharedPreferences;
+
+    public boolean isEncryptSharedPreferences() {
+        return encryptSharedPreferences;
+    }
+
+    public boolean hasRxProperties() {
+        if (generateGlobalRx) return true;
+
+        for (PrefsProperty p : this.collection) {
+            if (p.generateRx) return true;
+        }
+
+        return false;
+    }
+
+    public boolean hasLiveDataProperties() {
+        if (generateGlobalLiveData) return true;
+
+        for (PrefsProperty p : this.collection) {
+            if (p.generateLiveData) return true;
+        }
+
+        return false;
+    }
 
 
 }
