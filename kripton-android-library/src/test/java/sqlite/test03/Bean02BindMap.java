@@ -229,7 +229,7 @@ public class Bean02BindMap extends AbstractMapper<Bean02> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -243,7 +243,7 @@ public class Bean02BindMap extends AbstractMapper<Bean02> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "content":
                   // property content (mapped on "content")
@@ -279,11 +279,16 @@ public class Bean02BindMap extends AbstractMapper<Bean02> {
             break;
         }
       }
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
+      @Override
+      public void init() {
+        // binding maps initialization 
+      }
     }
-  }

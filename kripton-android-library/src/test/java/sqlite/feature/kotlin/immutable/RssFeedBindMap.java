@@ -341,7 +341,7 @@ public class RssFeedBindMap extends AbstractMapper<RssFeed> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
 
     // attributes 
@@ -369,7 +369,7 @@ public class RssFeedBindMap extends AbstractMapper<RssFeed> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "id":
                   // property id (mapped on "id")
@@ -427,14 +427,19 @@ public class RssFeedBindMap extends AbstractMapper<RssFeed> {
             break;
         }
       }
-      // immutable object: inizialize object
-      RssFeed instance=new RssFeed(__id,__uid,__version,(__channels==null ? null : Collections.unmodifiableList(__channels)));
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          RssFeed instance=new RssFeed(__id,__uid,__version,(__channels==null ? null : Collections.unmodifiableList(__channels)));
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      channelBindMap=BinderUtils.mapperFor(Channel.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        channelBindMap=BinderUtils.mapperFor(Channel.class);
+      }
     }
-  }

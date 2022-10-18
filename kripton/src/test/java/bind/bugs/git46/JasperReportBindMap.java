@@ -238,7 +238,7 @@ public class JasperReportBindMap extends AbstractMapper<JasperReport> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -252,7 +252,7 @@ public class JasperReportBindMap extends AbstractMapper<JasperReport> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "property":
                   // property property (mapped on "property")
@@ -302,12 +302,17 @@ public class JasperReportBindMap extends AbstractMapper<JasperReport> {
             break;
         }
       }
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      propertyBindMap=BinderUtils.mapperFor(Property.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        propertyBindMap=BinderUtils.mapperFor(Property.class);
+      }
     }
-  }

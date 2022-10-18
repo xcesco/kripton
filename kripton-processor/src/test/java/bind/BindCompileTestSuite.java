@@ -18,6 +18,7 @@ package bind;
 import bind.bindenum.TestEnumSuite;
 import bind.bugs.TestBugsCompileSuite;
 import bind.directmap.TestDirectMapSuite;
+import bind.emptystream.TestEmptySuite;
 import bind.feature.generichierarchy.TestGenericHierarchySuite;
 import bind.feature.generichierarchy.kripton109.Test109CompileSuite;
 import bind.feature.git45.TestGit43Suite;
@@ -88,6 +89,8 @@ import org.junit.runners.Suite;
 
                 TestCompileGit18.class,
                 TestCompileGit80.class,
+
+                TestEmptySuite.class,
 
                 // features
                 CompileNamespaceTestSuite.class,

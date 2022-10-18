@@ -1068,7 +1068,7 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -1082,7 +1082,7 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "actors":
                   // property actors (mapped on "actors")
@@ -1228,14 +1228,19 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
             break;
         }
       }
-      // immutable object: inizialize object
-      FilmDetail instance=new FilmDetail(__title,__year,__rated,__released,__runtime,__genre,__director,__writer,__actors,__plot,__language,__country,__awards,__poster,(__ratings==null ? null : Collections.unmodifiableList(__ratings)),__metascore,__imdbRating,__imdbVotes,__imdbID,__type,__dVD,__boxOffice,__production,__website,__response);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          FilmDetail instance=new FilmDetail(__title,__year,__rated,__released,__runtime,__genre,__director,__writer,__actors,__plot,__language,__country,__awards,__poster,(__ratings==null ? null : Collections.unmodifiableList(__ratings)),__metascore,__imdbRating,__imdbVotes,__imdbID,__type,__dVD,__boxOffice,__production,__website,__response);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      ratingBindMap=BinderUtils.mapperFor(Rating.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        ratingBindMap=BinderUtils.mapperFor(Rating.class);
+      }
     }
-  }

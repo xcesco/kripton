@@ -26,6 +26,7 @@ import com.abubusoft.kripton.persistence.SerializerWrapper;
 import com.abubusoft.kripton.persistence.XmlWrapperParser;
 import com.abubusoft.kripton.persistence.XmlWrapperSerializer;
 import com.abubusoft.kripton.xml.EventType;
+import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -47,13 +48,27 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
     public E parse(BinderContext context, ParserWrapper parserWrapper) throws Exception {
         E instance;
 
+        //TODO blach
+        // if (!parserWrapper.hasMoreToken()) {
+        //     return null;
+        // }
+
         if (BinderType.XML == context.getSupportedFormat()) {
-            instance = parseOnXml(((XmlWrapperParser) parserWrapper).xmlParser, EventType.START_DOCUMENT);
+            XMLParser xmlParser = ((XmlWrapperParser) parserWrapper).xmlParser;
+            instance = parseOnXml(xmlParser, EventType.START_DOCUMENT);
         } else {
+            JsonParser jacksonParser = ((JacksonWrapperParser) parserWrapper).jacksonParser;
+            if (jacksonParser.getCurrentToken() == null) {
+                jacksonParser.nextToken();
+            }
+            if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+                return null;
+            }
+
             if (context.getSupportedFormat().onlyText)
-                instance = parseOnJacksonAsString(((JacksonWrapperParser) parserWrapper).jacksonParser);
+                instance = parseOnJacksonAsString(jacksonParser);
             else
-                instance = parseOnJackson(((JacksonWrapperParser) parserWrapper).jacksonParser);
+                instance = parseOnJackson(jacksonParser);
         }
 
         return instance;
@@ -75,7 +90,12 @@ public abstract class AbstractMapper<E> implements BinderMapper<E> {
                 try {
                     collection.clear();
 
-                    if (parser.nextToken() != JsonToken.START_ARRAY) {
+                    JsonToken currentToken = parser.nextToken();
+
+                    if (currentToken == null) {
+                        // empty stream
+                        return collection;
+                    } else if (currentToken != JsonToken.START_ARRAY) {
                         throw (new KriptonRuntimeException("Invalid input format"));
                     }
                     if (context.getSupportedFormat().onlyText) {

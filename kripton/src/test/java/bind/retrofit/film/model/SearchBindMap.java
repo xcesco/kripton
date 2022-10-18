@@ -319,7 +319,7 @@ public class SearchBindMap extends AbstractMapper<Search> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -333,7 +333,7 @@ public class SearchBindMap extends AbstractMapper<Search> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "response":
                   // property response (mapped on "response")
@@ -391,14 +391,19 @@ public class SearchBindMap extends AbstractMapper<Search> {
             break;
         }
       }
-      // immutable object: inizialize object
-      Search instance=new Search(__response,(__search==null ? null : Collections.unmodifiableList(__search)),__totalResults);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          Search instance=new Search(__response,(__search==null ? null : Collections.unmodifiableList(__search)),__totalResults);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      filmBindMap=BinderUtils.mapperFor(Film.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        filmBindMap=BinderUtils.mapperFor(Film.class);
+      }
     }
-  }

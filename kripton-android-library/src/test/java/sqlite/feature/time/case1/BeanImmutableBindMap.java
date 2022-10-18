@@ -663,7 +663,7 @@ public class BeanImmutableBindMap extends AbstractMapper<BeanImmutable> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -677,7 +677,7 @@ public class BeanImmutableBindMap extends AbstractMapper<BeanImmutable> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "duration":
                   // property duration (mapped on "duration")
@@ -757,13 +757,18 @@ public class BeanImmutableBindMap extends AbstractMapper<BeanImmutable> {
             break;
         }
       }
-      // immutable object: inizialize object
-      BeanImmutable instance=new BeanImmutable(__id,__duration,__istant,__localDate,__localDateTime,__localTime,__monthDay,__offsetDateTime,__offsetTime,__period,__year,__yearMonth,__zonedDateTime,__zoneId,__zoneOffset);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          BeanImmutable instance=new BeanImmutable(__id,__duration,__istant,__localDate,__localDateTime,__localTime,__monthDay,__offsetDateTime,__offsetTime,__period,__year,__yearMonth,__zonedDateTime,__zoneId,__zoneOffset);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
+      @Override
+      public void init() {
+        // binding maps initialization 
+      }
     }
-  }
