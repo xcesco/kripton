@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.abubusoft.kripton;
 
-import com.abubusoft.kripton.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
 

@@ -481,7 +481,7 @@ public class Bean81V3BindMap extends AbstractMapper<Bean81V3> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -495,7 +495,7 @@ public class Bean81V3BindMap extends AbstractMapper<Bean81V3> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "id":
                   // property id (mapped on "id")
@@ -575,11 +575,16 @@ public class Bean81V3BindMap extends AbstractMapper<Bean81V3> {
             break;
         }
       }
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
+      @Override
+      public void init() {
+        // binding maps initialization 
+      }
     }
-  }

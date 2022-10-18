@@ -59,6 +59,11 @@ public class XmlWrapperParser implements ParserWrapper {
 		this.xmlParser.setInput(reader);
 	}
 
+	@Override
+	public boolean hasMoreToken() {
+		return this.xmlParser.hasNext();
+	}
+
 	/* (non-Javadoc)
 	 * @see com.abubusoft.kripton.persistence.ParserWrapper#close()
 	 */

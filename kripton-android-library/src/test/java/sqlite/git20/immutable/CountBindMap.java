@@ -191,7 +191,7 @@ public class CountBindMap extends AbstractMapper<Count> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -205,7 +205,7 @@ public class CountBindMap extends AbstractMapper<Count> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "count":
                   // property count (mapped on "count")
@@ -233,13 +233,18 @@ public class CountBindMap extends AbstractMapper<Count> {
             break;
         }
       }
-      // immutable object: inizialize object
-      Count instance=new Count(__title,__count);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          Count instance=new Count(__title,__count);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
+      @Override
+      public void init() {
+        // binding maps initialization 
+      }
     }
-  }

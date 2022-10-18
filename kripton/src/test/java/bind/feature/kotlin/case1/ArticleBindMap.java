@@ -156,7 +156,7 @@ public class ArticleBindMap extends AbstractMapper<Article> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -170,7 +170,7 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "id":
                   // property id (mapped on "id")
@@ -194,13 +194,18 @@ public class ArticleBindMap extends AbstractMapper<Article> {
             break;
         }
       }
-      // immutable object: inizialize object
-      Article instance=new Article(__id);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          Article instance=new Article(__id);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
+      @Override
+      public void init() {
+        // binding maps initialization 
+      }
     }
-  }

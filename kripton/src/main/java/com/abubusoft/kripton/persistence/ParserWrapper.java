@@ -24,6 +24,8 @@ import java.io.Closeable;
  */
 public interface ParserWrapper extends Closeable {
 
+  boolean hasMoreToken();
+
   /* (non-Javadoc)
    * @see java.io.Closeable#close()
    */

@@ -988,7 +988,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -1002,7 +1002,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "age":
                   // property age (mapped on "age")
@@ -1232,13 +1232,18 @@ public class BeanBindMap extends AbstractMapper<Bean> {
             break;
         }
       }
-      // immutable object: inizialize object
-      Bean instance=new Bean((__sortableSet==null ? null : Collections.unmodifiableSortedSet(__sortableSet)),(__map==null ? null : Collections.unmodifiableMap(__map)),(__mapSorted==null ? null : Collections.unmodifiableSortedMap(__mapSorted)),__name,__birthDate,__age,__numberOfCars,(__items==null ? null : Collections.unmodifiableList(__items)),__itemsString,__buffer,__bufferString);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          Bean instance=new Bean((__sortableSet==null ? null : Collections.unmodifiableSortedSet(__sortableSet)),(__map==null ? null : Collections.unmodifiableMap(__map)),(__mapSorted==null ? null : Collections.unmodifiableSortedMap(__mapSorted)),__name,__birthDate,__age,__numberOfCars,(__items==null ? null : Collections.unmodifiableList(__items)),__itemsString,__buffer,__bufferString);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
+      @Override
+      public void init() {
+        // binding maps initialization 
+      }
     }
-  }

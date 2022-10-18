@@ -214,7 +214,7 @@ public class AlbumBindMap extends AbstractMapper<Album> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -228,7 +228,7 @@ public class AlbumBindMap extends AbstractMapper<Album> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "artistId":
                   // property artistId (mapped on "artistId")
@@ -260,13 +260,18 @@ public class AlbumBindMap extends AbstractMapper<Album> {
             break;
         }
       }
-      // immutable object: inizialize object
-      Album instance=new Album(__id,__name,__artistId);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          Album instance=new Album(__id,__name,__artistId);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
+      @Override
+      public void init() {
+        // binding maps initialization 
+      }
     }
-  }

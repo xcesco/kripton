@@ -210,7 +210,7 @@ public class ThumbnailBindMap extends AbstractMapper<Thumbnail> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
 
     // attributes 
@@ -246,7 +246,7 @@ public class ThumbnailBindMap extends AbstractMapper<Thumbnail> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             // No property to manage here
           break;
           case END_TAG:
@@ -262,13 +262,18 @@ public class ThumbnailBindMap extends AbstractMapper<Thumbnail> {
           break;
       }
     }
-    // immutable object: inizialize object
-    Thumbnail instance=new Thumbnail(__width,__height,__url);
-    return instance;
-  }
+    // if document is empty, the element is null
+    if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+        return null;
+      } else {
+        // immutable object: inizialize object
+        Thumbnail instance=new Thumbnail(__width,__height,__url);
+        return instance;
+      }
+    }
 
-  @Override
-  public void init() {
-    // binding maps initialization 
+    @Override
+    public void init() {
+      // binding maps initialization 
+    }
   }
-}

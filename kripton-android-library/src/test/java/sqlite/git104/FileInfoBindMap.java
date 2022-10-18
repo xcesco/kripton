@@ -245,7 +245,7 @@ public class FileInfoBindMap extends AbstractMapper<FileInfo> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -259,7 +259,7 @@ public class FileInfoBindMap extends AbstractMapper<FileInfo> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "fileName":
                   // property fileName (mapped on "fileName")
@@ -291,14 +291,19 @@ public class FileInfoBindMap extends AbstractMapper<FileInfo> {
             break;
         }
       }
-      // immutable object: inizialize object
-      FileInfo instance=new FileInfo(__fileName,__secret,__info);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          FileInfo instance=new FileInfo(__fileName,__secret,__info);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      documentInfoBindMap=BinderUtils.mapperFor(DocumentInfo.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        documentInfoBindMap=BinderUtils.mapperFor(DocumentInfo.class);
+      }
     }
-  }

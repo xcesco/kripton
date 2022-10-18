@@ -218,7 +218,7 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
 
     // attributes 
@@ -250,7 +250,7 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "textureRegion":
                   // property textureRegion (mapped on "textureRegion")
@@ -274,12 +274,17 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
             break;
         }
       }
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      textureRegionBindMap=BinderUtils.mapperFor(TextureRegion.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        textureRegionBindMap=BinderUtils.mapperFor(TextureRegion.class);
+      }
     }
-  }

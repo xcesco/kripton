@@ -18,6 +18,7 @@ package all;
 import bind.bindenum.TestRuntimeEnumSuite;
 import bind.bugs.TestRuntimeBugsSuite;
 import bind.directmap.TestRuntimeDirectMapSuite;
+import bind.emptystream.TestRuntimeRifornimentoSuite;
 import bind.feature.generichierarchy.TestRuntimeHierarchySuite;
 import bind.feature.namespace.TestRuntimeNamespaceSuite;
 import bind.feature.time.TestRuntimeTimeSuite;
@@ -60,6 +61,7 @@ import org.junit.runners.Suite;
                 TestRuntimeEnumSuite.class,
                 TestRuntimeHierarchySuite.class,
                 TestRuntimeDirectMapSuite.class,
+                TestRuntimeRifornimentoSuite.class,
 
                 TestRuntimeTimeSuite.class,
 

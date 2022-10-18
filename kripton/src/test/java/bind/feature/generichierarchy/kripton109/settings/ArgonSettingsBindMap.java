@@ -317,7 +317,7 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
 
     // attributes 
@@ -345,7 +345,7 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "application":
                   // property application (mapped on "application")
@@ -381,15 +381,20 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
             break;
         }
       }
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      loggerSettingsBindMap=BinderUtils.mapperFor(LoggerSettings.class);
-      applicationSettingsBindMap=BinderUtils.mapperFor(ApplicationSettings.class);
-      openGLSettingsBindMap=BinderUtils.mapperFor(OpenGLSettings.class);
-      viewFrustumSettingsBindMap=BinderUtils.mapperFor(ViewFrustumSettings.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        loggerSettingsBindMap=BinderUtils.mapperFor(LoggerSettings.class);
+        applicationSettingsBindMap=BinderUtils.mapperFor(ApplicationSettings.class);
+        openGLSettingsBindMap=BinderUtils.mapperFor(OpenGLSettings.class);
+        viewFrustumSettingsBindMap=BinderUtils.mapperFor(ViewFrustumSettings.class);
+      }
     }
-  }
