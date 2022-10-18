@@ -472,7 +472,7 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -486,7 +486,7 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "bean":
                   // property bean (mapped on "bean")
@@ -570,12 +570,17 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
             break;
         }
       }
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      channelBindMap=BinderUtils.mapperFor(Channel.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        channelBindMap=BinderUtils.mapperFor(Channel.class);
+      }
     }
-  }

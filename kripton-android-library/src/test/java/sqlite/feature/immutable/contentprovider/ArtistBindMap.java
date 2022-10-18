@@ -191,7 +191,7 @@ public class ArtistBindMap extends AbstractMapper<Artist> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
     // No attributes found
 
@@ -205,7 +205,7 @@ public class ArtistBindMap extends AbstractMapper<Artist> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "id":
                   // property id (mapped on "id")
@@ -233,13 +233,18 @@ public class ArtistBindMap extends AbstractMapper<Artist> {
             break;
         }
       }
-      // immutable object: inizialize object
-      Artist instance=new Artist(__id,__name);
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          // immutable object: inizialize object
+          Artist instance=new Artist(__id,__name);
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
+      @Override
+      public void init() {
+        // binding maps initialization 
+      }
     }
-  }

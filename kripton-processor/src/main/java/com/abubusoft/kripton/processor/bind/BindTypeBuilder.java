@@ -287,7 +287,7 @@ public abstract class BindTypeBuilder {
 		methodBuilder.nextControlFlow("else");
 		methodBuilder.addStatement("eventType = xmlParser.getEventType()");
 		methodBuilder.endControlFlow();
-		methodBuilder.addStatement("String currentTag = xmlParser.getName().toString()");
+		methodBuilder.addStatement("String currentTag = xmlParser.getName()");
 
 		methodBuilder.addStatement("String elementName = currentTag");
 
@@ -326,11 +326,15 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.endControlFlow();
 
+		methodBuilder.addComment("if document is empty, the element is null");
+		methodBuilder.beginControlFlow("if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT)$>");
+		methodBuilder.addStatement("return null");
+		methodBuilder.nextControlFlow("else");
 		if (!mutableObject) {
 			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance", true);
 		}
-
 		methodBuilder.addStatement("return instance");
+		methodBuilder.endControlFlow();
 
 		context.builder.addMethod(methodBuilder.build());
 	}
@@ -443,7 +447,7 @@ public abstract class BindTypeBuilder {
 			String instanceName, String parserName, BindEntity entity) {
 		BindTransform bindTransform;
 		// start and inner bean
-		methodBuilder.addStatement("currentTag = xmlParser.getName().toString()");
+		methodBuilder.addStatement("currentTag = xmlParser.getName()");
 
 		int count = 0;
 		// count property to manage

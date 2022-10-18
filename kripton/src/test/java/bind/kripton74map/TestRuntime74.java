@@ -71,8 +71,6 @@ public class TestRuntime74 extends AbstractBaseTest {
 	 */
 	@Test
 	public void testRun() throws Exception {
-		Assert.assertNotNull(new Bean74BindMap());
-
 		Bean74 bean = createBean();
 
 		check(bean);

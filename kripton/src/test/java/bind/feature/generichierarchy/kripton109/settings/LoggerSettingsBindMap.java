@@ -272,7 +272,7 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
     } else {
       eventType = xmlParser.getEventType();
     }
-    String currentTag = xmlParser.getName().toString();
+    String currentTag = xmlParser.getName();
     String elementName = currentTag;
 
     // attributes 
@@ -300,7 +300,7 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
       read=true;
       switch(eventType) {
           case START_TAG:
-            currentTag = xmlParser.getName().toString();
+            currentTag = xmlParser.getName();
             switch(currentTag) {
                 case "appenders":
                   // property appenders (mapped on "appenders")
@@ -350,12 +350,17 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
             break;
         }
       }
-      return instance;
-    }
+      // if document is empty, the element is null
+      if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT) {
+          return null;
+        } else {
+          return instance;
+        }
+      }
 
-    @Override
-    public void init() {
-      // binding maps initialization 
-      loggerAppenderSettingsBindMap=BinderUtils.mapperFor(LoggerAppenderSettings.class);
+      @Override
+      public void init() {
+        // binding maps initialization 
+        loggerAppenderSettingsBindMap=BinderUtils.mapperFor(LoggerAppenderSettings.class);
+      }
     }
-  }

@@ -48,7 +48,7 @@ public enum BinderType {
 	 * @param onlyTextValue            true if data format supports only text streams
 	 * @param onlyBinaryValue            true if data format supports only binary streams
 	 */
-	private BinderType(boolean onlyTextValue, boolean onlyBinaryValue) {
+	BinderType(boolean onlyTextValue, boolean onlyBinaryValue) {
 		onlyText = onlyTextValue;
 		onlyBinary = onlyBinaryValue;
 	}
