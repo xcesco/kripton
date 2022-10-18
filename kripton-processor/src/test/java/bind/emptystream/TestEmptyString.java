@@ -16,8 +16,6 @@
 package bind.emptystream;
 
 import bind.AbstractBindTypeProcessorTest;
-import bind.bindenum.*;
-import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import org.junit.Test;
 
 import java.io.IOException;
