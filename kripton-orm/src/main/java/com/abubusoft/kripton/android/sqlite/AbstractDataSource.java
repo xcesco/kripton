@@ -293,7 +293,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
       if (openCounter.decrementAndGet() <= 0) {
         if (options.neverClose) {
           if (logEnabled)
-            Logger.info("database %s VIRTUALLY CLOSED (%s) (connections: %s)", name, status.get(), openCounter.intValue());
+            Logger.info("database %s VIRTUALLY CLOSED (%s) (connections: %s)", getDataSourceSafeName(), status.get(), openCounter.intValue());
         } else {
           if (!this.options.inMemory) {
             // Closing database
@@ -304,11 +304,11 @@ public abstract class AbstractDataSource implements AutoCloseable {
             database = null;
           }
           if (logEnabled)
-            Logger.info("database %s CLOSED (%s) (connections: %s)", name, status.get(), openCounter.intValue());
+            Logger.info("database %s CLOSED (%s) (connections: %s)", getDataSourceSafeName(), status.get(), openCounter.intValue());
         }
       } else {
         if (logEnabled)
-          Logger.info("database %s VIRTUALLY RELEASED (%s) (connections: %s)", name, status.get(), openCounter.intValue());
+          Logger.info("database %s VIRTUALLY RELEASED (%s) (connections: %s)", getDataSourceSafeName(), status.get(), openCounter.intValue());
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -318,6 +318,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
       endLock();
     }
 
+  }
+
+  private String getDataSourceSafeName() {
+    return name != null ? name : "in memory";
   }
 
   protected void closeThreadSafeMode(Pair<Boolean, SupportSQLiteDatabase> status) {
@@ -848,14 +852,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
           database.setForeignKeyConstraintsEnabled(hasForeignKeys());
         }
         if (logEnabled)
-          Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
+          Logger.info("database %s OPENED %s (connections: %s)", getDataSourceSafeName(), status.get(), (openCounter.intValue() - 1));
       } else {
         if (logEnabled)
-          Logger.info("database VIRTUALLY OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
+          Logger.info("database %s VIRTUALLY OPEN %s (connections: %s)", getDataSourceSafeName(), status.get(), (openCounter.intValue() - 1));
       }
     } catch (Throwable e) {
       if (logEnabled) {
-        Logger.fatal("database error during open operation: %s", e.getMessage());
+        Logger.fatal("database %s error during open operation: %s", getDataSourceSafeName(), e.getMessage());
         e.printStackTrace();
       }
       throw (e);
@@ -886,7 +890,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
         lockWriteAccess();
       }
 
-      // if I lock this in dbLock.. the last one remains locked too
+      // if I lock this in dbLock the last one remains locked too
       beginLock();
     }
 
@@ -898,7 +902,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
       if (openCounter.incrementAndGet() == 1) {
         if (logEnabled)
-          Logger.info("database %s %sOPENED %s (connections: %s)", name, options.neverClose && database != null ? "VIRTUALLY " : "", status.get(), (openCounter.intValue() - 1));
+          Logger.info("database %s %sOPENED %s (connections: %s)", getDataSourceSafeName(), options.neverClose && database != null ? "VIRTUALLY " : "", status.get(), (openCounter.intValue() - 1));
 
         // open new write database
         if (database == null) {
@@ -908,11 +912,11 @@ public abstract class AbstractDataSource implements AutoCloseable {
         }
       } else {
         if (logEnabled)
-          Logger.info("database %s VIRTUALLY OPENED %s (connections: %s)", name, status.get(), (openCounter.intValue() - 1));
+          Logger.info("database %s VIRTUALLY OPENED %s (connections: %s)", getDataSourceSafeName(), status.get(), (openCounter.intValue() - 1));
       }
     } catch (Throwable e) {
       if (logEnabled) {
-        Logger.fatal("database %s error during open operation: %s", name, e.getMessage());
+        Logger.fatal("database %s error during open operation: %s", getDataSourceSafeName(), e.getMessage());
         e.printStackTrace();
       }
       throw (e);
