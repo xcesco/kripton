@@ -32,7 +32,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 
 		<!-- dependencies version -->
-		<jackson.version>2.11.4</jackson.version>
+		<jackson.version>2.13.4.2</jackson.version>
 		<retrofit.version>2.9.0</retrofit.version>
 		<rx.version>2.2.19</rx.version>
 

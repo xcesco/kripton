@@ -28,7 +28,7 @@
 		<kripton.version>8.2.0-rc.1</kripton.version>
 
 		<!-- dependencies version -->
-		<jackson.version>2.11.2</jackson.version>
+		<jackson.version>2.13.4.2</jackson.version>
 		<retrofit.version>2.9.0</retrofit.version>
 
 		<!-- reactive -->
