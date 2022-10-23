@@ -14,7 +14,7 @@
     <parent>
         <groupId>com.abubusoft</groupId>
         <artifactId>kripton-parent</artifactId>
-        <version>8.2.0-rc.2</version>
+        <version>8.2.0-rc.3</version>
         <relativePath>../kripton-parent/pom.xml</relativePath>
     </parent>
 
@@ -30,7 +30,7 @@
         <rx.version>2.2.19</rx.version>
         <reactive.version>1.0.3</reactive.version>
 
-        <kripton.version>8.2.0-rc.2</kripton.version>
+        <kripton.version>8.2.0-rc.3</kripton.version>
         <robolectric.version>3.1.4</robolectric.version>
         <junit.version>4.13.1</junit.version>
         <unitils.version>3.4.2</unitils.version>
