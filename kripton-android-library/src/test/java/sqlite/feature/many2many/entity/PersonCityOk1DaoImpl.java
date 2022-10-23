@@ -498,7 +498,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person_city_ok1 (city_id, person_id) VALUES (:bean.cityId, :bean.personId)</pre>
+   * <pre>INSERT INTO person_city_ok1 (city_id, person_id) VALUES (:cityId, :personId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
