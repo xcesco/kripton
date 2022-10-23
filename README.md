@@ -47,10 +47,10 @@ You can use Kritpon Annotation Processor and Kripton Persistence Library via gra
 
 ```
 // annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:7.0.0"
+annotationProcessor "com.abubusoft:kripton-processor:${kripton-version}"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-implements "com.abubusoft:kripton-android-library:7.0.0"
+implements "com.abubusoft:kripton-android-library:${kripton-version}"
 ```
 
 ## Code configuration
