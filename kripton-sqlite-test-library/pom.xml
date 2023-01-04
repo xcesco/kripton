@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-sqlite-test-library</artifactId>
-	<version>8.2.0-rc.1</version>
+	<version>8.2.0-rc.4</version>
 
 	<name>Kripton SQLite Test Library</name>
 	<description>Kripton SQLite Test Library</description>
@@ -12,7 +12,7 @@
 
 	<!-- Property version 1.6.2-SNAPSHOT -->
 	<properties>
-		<kripton.version>8.2.0-rc.1</kripton.version>
+        <kripton.version>8.2.0-rc.4</kripton.version>
 
 		<!-- environment version -->
 		<java.version>1.8</java.version>

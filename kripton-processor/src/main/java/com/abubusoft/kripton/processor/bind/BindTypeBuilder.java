@@ -327,7 +327,7 @@ public abstract class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addComment("if document is empty, the element is null");
-		methodBuilder.beginControlFlow("if (currentEventType == EventType.START_DOCUMENT && eventType == EventType.END_DOCUMENT)$>");
+		methodBuilder.beginControlFlow("if (currentEventType == $T.$L && eventType == $T.$L)$>",EventType.class, EventType.START_DOCUMENT,EventType.class, EventType.END_DOCUMENT);
 		methodBuilder.addStatement("return null");
 		methodBuilder.nextControlFlow("else");
 		if (!mutableObject) {

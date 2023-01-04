@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>8.2.0-rc.1</version>
+		<version>8.2.0-rc.4</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 
@@ -15,10 +15,10 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<kripton.version>8.2.0-rc.1</kripton.version>
+        <kripton.version>8.2.0-rc.4</kripton.version>
 
 		<!-- dependencies version -->
-		<jackson.version>2.11.4</jackson.version>
+		<jackson.version>2.13.4</jackson.version>
 		<retrofit.version>2.9.0</retrofit.version>
 		<rx.version>2.2.19</rx.version>
 
