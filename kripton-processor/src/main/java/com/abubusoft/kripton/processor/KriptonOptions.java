@@ -94,20 +94,30 @@ public abstract class KriptonOptions {
 				}			
 				KriptonProcessor.info("\tlog generation is " + (KriptonProcessor.LOG_GENERATION_ENABLED_MODE
 								? "enabled" : "disabled"));
-
 			}
 			
 			
 			{
 				String value = getOptionValue(processingEnv, KriptonOptions.SCHEMA_LOCATION_OPTION_NAME);
 				if (StringUtils.hasText(value)) {
-					KriptonProcessor.info("param " + KriptonOptions.SCHEMA_LOCATION_OPTION_NAME + " = " + value+ " "+getOptionOrigin(processingEnv, KriptonOptions.SCHEMA_LOCATION_OPTION_NAME));
+					KriptonProcessor.info("param " + KriptonOptions.SCHEMA_LOCATION_OPTION_NAME + " = " + value + " " + getOptionOrigin(processingEnv, KriptonOptions.SCHEMA_LOCATION_OPTION_NAME));
 				} else {
 					KriptonProcessor.info("param " + KriptonOptions.SCHEMA_LOCATION_OPTION_NAME + " = <unset>");
 				}
 				KriptonProcessor
-						.info("\tschemas location is '" + new File(schemaLocationDirectory).getAbsoluteFile() + "'");
+								.info("\tschemas location is '" + new File(schemaLocationDirectory).getAbsoluteFile() + "'");
 
+			}
+
+			{
+				String value = getOptionValue(processingEnv, KriptonOptions.SCHEMA_INCLUDE_DATE_NAME);
+				if (StringUtils.hasText(value)) {
+					KriptonProcessor.info("param " + KriptonOptions.SCHEMA_INCLUDE_DATE_NAME + " = " + value + " " + getOptionOrigin(processingEnv, KriptonOptions.SCHEMA_INCLUDE_DATE_NAME));
+				} else {
+					KriptonProcessor.info("param " + KriptonOptions.SCHEMA_INCLUDE_DATE_NAME + " = <unset>");
+				}
+				KriptonProcessor.info("\tschema with date is " + (KriptonProcessor.SCHEMA_INCLUDE_DATE_MODE
+								? "enabled" : "disabled"));
 			}
 		}
 
