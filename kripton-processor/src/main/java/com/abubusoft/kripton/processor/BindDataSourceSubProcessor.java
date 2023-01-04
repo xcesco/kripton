@@ -15,43 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
-
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindContentProvider;
-import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
-import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
-import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
-import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
-import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
-import com.abubusoft.kripton.android.annotation.BindSqlChildSelect;
-import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindSqlDelete;
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
-import com.abubusoft.kripton.android.annotation.BindSqlRelation;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.annotation.BindSqlType;
-import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.annotation.*;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.annotation.BindDisabled;
@@ -64,12 +30,7 @@ import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
-import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.ImmutableUtility;
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.core.Touple;
+import com.abubusoft.kripton.processor.core.*;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
@@ -79,43 +40,28 @@ import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility.PropertyCreatedListener;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
-import com.abubusoft.kripton.processor.exceptions.DaoDefinitionWithoutAnnotatedMethodException;
-import com.abubusoft.kripton.processor.exceptions.InvalidBeanTypeException;
-import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
-import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
-import com.abubusoft.kripton.processor.exceptions.InvalidNameException;
-import com.abubusoft.kripton.processor.exceptions.NoDaoElementFound;
-import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
-import com.abubusoft.kripton.processor.exceptions.SQLPrimaryKeyNotFoundException;
-import com.abubusoft.kripton.processor.exceptions.SQLPrimaryKeyNotValidTypeException;
-import com.abubusoft.kripton.processor.exceptions.TooManySQLPrimaryKeyFoundException;
-import com.abubusoft.kripton.processor.sqlite.BindAsyncTaskBuilder;
-import com.abubusoft.kripton.processor.sqlite.BindContentProviderBuilder;
-import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
-import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
-import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
-import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
-import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
+import com.abubusoft.kripton.processor.exceptions.*;
+import com.abubusoft.kripton.processor.sqlite.*;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
-import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
-import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
-import com.abubusoft.kripton.processor.sqlite.SqlKeywordsHelper;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLRelationType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelContentProvider;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.abubusoft.kripton.processor.sqlite.model.*;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import java.lang.annotation.Annotation;
+import java.util.*;
 
 /**
  * The Class BindDataSourceSubProcessor.
@@ -128,14 +74,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
         return instance;
     }
 
-    public Set<String> getSupportedOptions() {
-        HashSet<String> result = new HashSet<>();
-
-        result.add(KriptonOptions.SCHEMA_LOCATION_OPTION_NAME);
-        result.add(KriptonOptions.LOG_ENABLED_OPTION_NAME);
-
-        return result;
-    }
+    /**
+     * The global dao elements.
+     */
+    public final Map<String, TypeElement> globalDaoElements = new HashMap<>();
 
     /**
      * The property annotation filter.
@@ -143,10 +85,15 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
     private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class)
             .add(BindSqlColumn.class).add(BindSqlAdapter.class).add(BindSqlRelation.class).build();
 
-    /**
-     * The global dao elements.
-     */
-    public final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
+    public Set<String> getSupportedOptions() {
+        HashSet<String> result = new HashSet<>();
+
+        result.add(KriptonOptions.SCHEMA_INCLUDE_DATE_NAME);
+        result.add(KriptonOptions.SCHEMA_LOCATION_OPTION_NAME);
+        result.add(KriptonOptions.LOG_ENABLED_OPTION_NAME);
+
+        return result;
+    }
 
     /**
      * The data sets.

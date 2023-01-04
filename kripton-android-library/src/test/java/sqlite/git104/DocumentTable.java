@@ -130,11 +130,11 @@ public class DocumentTable implements SQLiteTable {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
       jacksonParser.nextToken();
-      DocumentInfo result=null;
+      DocumentInfo __info = null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=documentInfoBindMap.parseOnJackson(jacksonParser);
+        __info = documentInfoBindMap.parseOnJackson(jacksonParser);
       }
-      return result;
+      return __info;
     } catch(Exception e) {
       e.printStackTrace();
       throw(new KriptonRuntimeException(e.getMessage()));

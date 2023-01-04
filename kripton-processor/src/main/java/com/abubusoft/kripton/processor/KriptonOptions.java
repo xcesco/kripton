@@ -1,16 +1,16 @@
 package com.abubusoft.kripton.processor;
 
-import java.io.File;
+import com.abubusoft.kripton.common.StringUtils;
 
 import javax.annotation.processing.ProcessingEnvironment;
-
-import com.abubusoft.kripton.common.StringUtils;
+import java.io.File;
 
 public abstract class KriptonOptions {
 	public static String DEBUG_OPTION_NAME = "kripton.debug";
 	public static String SCHEMA_LOCATION_OPTION_NAME = "kripton.schemaLocation";
-	//public static String ANDROID_X_OPTION_NAME = "kripton.androidx";
-	//public static String ANDROID_X_DB_OPTION_NAME = "kripton.androidx.db";
+
+	public static String SCHEMA_INCLUDE_DATE_NAME = "kripton.schemaIncludeDate";
+
 	public static String LOG_ENABLED_OPTION_NAME = "kripton.log";
 
 	public static String schemaLocationDirectory;
@@ -26,23 +26,26 @@ public abstract class KriptonOptions {
 		// DEBUG MODE
 		// if it is already in debug mode, we keep it
 		KriptonProcessor.DEBUG_MODE = KriptonProcessor.DEBUG_MODE
-				|| "true".equals(getOptionValue(processingEnv, KriptonOptions.DEBUG_OPTION_NAME));				
-		
+				|| "true".equals(getOptionValue(processingEnv, KriptonOptions.DEBUG_OPTION_NAME));
+
 		// LOG MODE
 		// get kripton.log value
 		KriptonProcessor.LOG_GENERATION_ENABLED_MODE = KriptonProcessor.LOG_GENERATION_ENABLED_MODE && !"false".equals(getOptionValue(processingEnv, KriptonOptions.LOG_ENABLED_OPTION_NAME));
 
 		// SCHEMA MODE
-		schemaLocationDirectory = getOptionValue(processingEnv, KriptonOptions.SCHEMA_LOCATION_OPTION_NAME) ;
+		schemaLocationDirectory = getOptionValue(processingEnv, KriptonOptions.SCHEMA_LOCATION_OPTION_NAME);
 		if (!StringUtils.hasText(schemaLocationDirectory)) {
 			schemaLocationDirectory = "schemas";
 		}
+
+		KriptonProcessor.SCHEMA_INCLUDE_DATE_MODE = !"false".equals(getOptionValue(processingEnv, KriptonOptions.SCHEMA_INCLUDE_DATE_NAME));
+
 
 		// ANDROIDX MODE
 //		KriptonDynamicClassManager.init(getOptionValue(processingEnv, KriptonOptions.ANDROID_X_OPTION_NAME),
 //				getOptionValue(processingEnv, KriptonOptions.ANDROID_X_DB_OPTION_NAME));
 		KriptonDynamicClassManager.init();
-		
+
 		if (KriptonProcessor.DEBUG_MODE && !KriptonProcessor.JUNIT_TEST_MODE) {
 			KriptonProcessor.info("Kripton Persistence Library v. " + Version.getVersion());
 			

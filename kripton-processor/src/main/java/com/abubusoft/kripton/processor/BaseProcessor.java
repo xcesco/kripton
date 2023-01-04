@@ -15,18 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
-import java.lang.annotation.Annotation;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Logger;
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Filer;
-import javax.annotation.processing.Messager;
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -34,28 +26,46 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
-
-import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.processor.core.AssertKripton;
+import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * The Class BaseProcessor.
  */
 public abstract class BaseProcessor extends AbstractProcessor {
 
-	/** if we want to display debug info. */
+	/**
+	 * if we want to display debug info.
+	 */
 	public static boolean DEBUG_MODE = false;
-	
-	/** if we want to display debug info. */
+
+	/**
+	 * if we want to display debug info.
+	 */
 	public static boolean LOG_GENERATION_ENABLED_MODE = true;
 
-	/** The element utils. */
+	/**
+	 * if true, schema is generated with date
+	 */
+	public static boolean SCHEMA_INCLUDE_DATE_MODE = true;
+
+	/**
+	 * The element utils.
+	 */
 	public static Elements elementUtils;
-	
-	/** if true we are in a test. */
+
+	/**
+	 * if true we are in a test.
+	 */
 	public static boolean JUNIT_TEST_MODE = false;
-	
-	/** The logger. */
+
+	/**
+	 * The logger.
+	 */
 	protected static Logger logger = Logger.getGlobal();
 
 	/** The count. */
@@ -116,7 +126,6 @@ public abstract class BaseProcessor extends AbstractProcessor {
 
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -132,7 +141,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 */
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {		
-		Set<String> result=new HashSet<String>();		
+		Set<String> result=new HashSet<>();
 		for (Class<? extends Annotation> annotation: getSupportedAnnotationClasses()) {
 			result.add(annotation.getCanonicalName());	
 		}
@@ -158,11 +167,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 * @return true, if successful
 	 */
 	public boolean hasWorkInThisRound(RoundEnvironment roundEnv) {
-		if (this.filter(roundEnv).size()>0) {
-			return true;
-		}
-		
-		return false;
+		return !this.filter(roundEnv).isEmpty();
 	}
 	
 	/**
