@@ -1,6 +1,5 @@
 [![Android Weekly](http://img.shields.io/badge/Android%20Weekly-%23301-2CB3E5.svg?style=flat)](http://androidweekly.net/issues/issue-301)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Kripton%20Persistence%20Library-orange.svg?style=flat)](https://android-arsenal.com/details/1/5149)
-[![maven central](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.abubusoft/kripton)
 [![test coverage](https://img.shields.io/codecov/c/github/xcesco/kripton/master.svg?style=flat-square)](https://codecov.io/gh/xcesco/kripton?branch=master)
 [![Project Stats](https://www.openhub.net/p/kripton-persistence-library/widgets/project_thin_badge.gif)](https://www.openhub.net/p/kripton-persistence-library)
 [![Build Status](https://travis-ci.org/xcesco/kripton.svg?branch=master)](https://travis-ci.org/xcesco/kripton)
